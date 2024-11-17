@@ -1,0 +1,66 @@
+<header class="header">
+  <h1 #title>Skills and Experience</h1>
+</header>
+<section class="skills-section">
+  <dl class="list tech-skills">
+    <dt>Tech Skills</dt>
+    @for (techSkill of skills.techSkills; track techSkill.id) {
+    <dd>
+      <a>{{ techSkill.name }}</a>
+    </dd>
+    }
+  </dl>
+
+  <dl class="list mgmt-skills">
+    <dt>Management Skills</dt>
+    @for (mgmtSkill of skills.mgmtSkills; track mgmtSkill.id) {
+    <dd>
+      <a>{{ mgmtSkill.name }}</a>
+    </dd>
+    }
+  </dl>
+
+  <dl class="list soft-skills">
+    <dt>Soft Skills</dt>
+    @for (softSkill of skills.softSkills; track softSkill.id) {
+    <dd>
+      <a>{{ softSkill.name }}</a>
+    </dd>
+    }
+  </dl>
+
+  <div class="experience-section" #experience>
+    <p>
+      I have started my journey as a front end developer in 2014, and nearly
+      {{ yearsOfExperience }}
+      years later, I’ve the experience of doing some awesome work for banking
+      clients, retail and commerce clients, in-house products, apparel stores,
+      aviation agencies, etc. I have collaborated with talented people to create
+      web products for both business and consumer use.
+    </p>
+    <p>
+      I have created successful responsive websites that are fast, easy to use,
+      and built with best practices. The main area of my expertise is front-end
+      development (HTML, CSS, JS, Angular). I have developed large enterprise
+      banking apps, custom features and coded interactive layouts.
+    </p>
+    <p>
+      I am familiar with other popular libraries like React.js and backend
+      technologies like Node.js. I also have a fair bit of experience with ERP
+      tools like NetSuite. Additionally, I write a lot of awesome technical
+      content on
+      <a [routerLink]="['/blog-posts']">Medium. </a>
+    </p>
+    <p>
+      Visit my
+      <a href="https://www.linkedin.com/in/akashkriplani25" target="_blank"
+        >LinkedIn
+      </a>
+      profile for more details.
+    </p>
+  </div>
+
+  <a class="toggle" (click)="toggleExperience()">{{
+    isMakisuOpen ? "Experience" : "Skills"
+  }}</a>
+</section>

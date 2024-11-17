@@ -1,0 +1,123 @@
+p {
+  letter-spacing: 1px;
+  font-size: 14px;
+  color: #333333;
+  margin: 10px;
+}
+
+.waves {
+  position: relative;
+  width: 100%;
+  height: 15vh;
+  margin-bottom: -18px;
+  min-height: 100px;
+  max-height: 150px;
+}
+
+.content {
+  position: relative;
+  height: 9vh;
+  text-align: center;
+  background-color: white;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 0%;
+  align-items: center;
+  justify-content: center;
+}
+
+.zoom {
+  transition: transform 0.2s;
+}
+
+.zoom:hover {
+  -ms-transform: scale(1.5);
+  -webkit-transform: scale(1.5);
+  transform: scale(1.5);
+}
+
+ul {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  img {
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+  }
+}
+
+ul li:not(:first-child) {
+  padding-left: 10px;
+}
+
+@media only screen and (max-width: 992px) {
+  ul {
+    img {
+      width: 20px;
+      height: 20px;
+    }
+  }
+}
+
+/* Animation */
+
+.parallax > use {
+  animation: move-forever 25s cubic-bezier(0.55, 0.5, 0.45, 0.5) infinite;
+}
+
+.parallax > use:nth-child(1) {
+  animation-delay: -2s;
+  animation-duration: 7s;
+}
+
+.parallax > use:nth-child(2) {
+  animation-delay: -3s;
+  animation-duration: 10s;
+}
+
+.parallax > use:nth-child(3) {
+  animation-delay: -4s;
+  animation-duration: 13s;
+}
+
+.parallax > use:nth-child(4) {
+  animation-delay: -5s;
+  animation-duration: 20s;
+}
+
+@keyframes move-forever {
+  0% {
+    transform: translate3d(-90px, 0, 0);
+  }
+
+  100% {
+    transform: translate3d(85px, 0, 0);
+  }
+}
+
+@media screen and (max-width: 1023px) and (orientation: landscape) {
+  .content {
+    height: 13vh;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  p {
+    font-size: 10px;
+  }
+
+  .content {
+    height: 8vh;
+  }
+}

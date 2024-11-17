@@ -1,0 +1,35 @@
+<section class="about-me-page">
+  <div class="about-me-section">
+    <h1 #title>About Me</h1>
+    <div class="about-me">
+      <p>
+        I’m a Front-End Developer located in India. I have a serious passion for
+        UI development. I love creating intuitive and dynamic user experiences.
+        I like writing technical content on Medium.
+      </p>
+      <p>
+        I am a highly-organised person, a problem solver and a meticulous
+        individual contributor. I am a fan of cricket, outdoor activities and TV
+        series.
+      </p>
+      <p>
+        I'm interested in the entire frontend spectrum and love working on
+        ambitious projects with like-minded people.
+      </p>
+      <p>
+        <a target="_blank" [href]="linkedin.profileUrl">Let’s collaborate.</a>
+      </p>
+    </div>
+  </div>
+  @if (screenWidth > 768) {
+  <div class="tag-canvas">
+    <div class="canvas-container">
+      <ng-tag-canvas [options]="options">
+        @for (tag of tags; track tag.text) {
+        <a ngTag [weight]="tag.weight">{{ tag.text }}</a>
+        }
+      </ng-tag-canvas>
+    </div>
+  </div>
+  }
+</section>

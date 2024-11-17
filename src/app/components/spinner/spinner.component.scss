@@ -1,0 +1,120 @@
+.spinner {
+  margin: 0;
+  position: absolute;
+  top: calc(50% - 50px);
+  left: 50%;
+  width: 60px;
+  height: 60px;
+  animation: opposites 2.5s ease-out 0s infinite;
+}
+
+.tl,
+.tr,
+.br,
+.bl {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+}
+.tl,
+.tr {
+  top: 0;
+}
+.tr,
+.br {
+  left: 30px;
+}
+.tl,
+.br {
+  animation: tlbr 2.5s ease-out 0s infinite;
+}
+.br,
+.bl {
+  top: 30px;
+}
+.tl,
+.bl {
+  left: 0;
+}
+.tr,
+.bl {
+  animation: trbl 2.5s ease-out 0s infinite;
+}
+.tl {
+  background: white;
+  transform-origin: bottom right;
+}
+.tr {
+  background: rgba(255, 255, 255, 0.8);
+  transform-origin: bottom left;
+}
+.br {
+  background: rgba(255, 255, 255, 0.6);
+  transform-origin: top left;
+}
+.bl {
+  background: rgba(255, 255, 255, 0.4);
+  transform-origin: top right;
+}
+
+@keyframes tlbr {
+  0% {
+    transform: rotate(0);
+  }
+  20% {
+    transform: rotate(90deg);
+  }
+  40% {
+    transform: rotate(90deg);
+  }
+  60% {
+    transform: rotate(0);
+  }
+}
+@keyframes trbl {
+  20% {
+    transform: rotate(0);
+  }
+  40% {
+    transform: rotate(90deg);
+  }
+  60% {
+    transform: rotate(90deg);
+  }
+  80% {
+    transform: rotate(0);
+  }
+}
+@keyframes opposites {
+  80% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .spinner {
+    width: 30px;
+    height: 30px;
+  }
+
+  .tl,
+  .tr,
+  .br,
+  .bl {
+    width: 15px;
+    height: 15px;
+  }
+
+  .tr,
+  .br {
+    left: 15px;
+  }
+
+  .br,
+  .bl {
+    top: 15px;
+  }
+}

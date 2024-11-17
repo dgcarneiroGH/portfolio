@@ -1,0 +1,28 @@
+<div class="header">
+  <app-toggle-button
+    [isChecked]="chatModeOn"
+    (check)="toggleAIMode($event)"
+    label="AI"
+  />
+
+  @if (!chatModeOn) {
+  <app-navigation-menu />
+  }
+
+  <main>
+    <div
+      class="inner-header"
+      [style.min-height]="chatModeOn ? '100vh' : '85vh'"
+    >
+      @if (loading) {
+      <app-spinner />
+      } @else {
+      <router-outlet />
+      }
+    </div>
+  </main>
+
+  @if (!chatModeOn) {
+  <app-footer />
+  }
+</div>

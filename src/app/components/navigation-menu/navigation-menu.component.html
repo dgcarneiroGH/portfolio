@@ -1,0 +1,19 @@
+<div class="open" appToggleNavMenu customClassName="isOpen">
+  <span class="cls"></span>
+  <span>
+    <ul class="sub-menu">
+      @for (navItems of navMenuItems; track navItems.link) {
+      <li>
+        <a
+          [routerLink]="navItems.link"
+          [attr.title]="navItems.title"
+          [routerLinkActive]="'active'"
+          [routerLinkActiveOptions]="{ exact: true }"
+          >{{ navItems.title }}</a
+        >
+      </li>
+      }
+    </ul>
+  </span>
+  <span class="cls"></span>
+</div>
