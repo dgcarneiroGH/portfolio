@@ -22,10 +22,9 @@ export const ScriptStore: IDynamicScripts[] = [
 
 export const NavMenuItems: INavMenuItems[] = [
   { title: 'Home', link: '/' },
-  { title: 'About', link: '/about' },
-  { title: 'Skills', link: '/skills' },
-  { title: 'Experience', link: '/experience' },
-  { title: 'Blog', link: '/blog-posts' }
+  { title: 'Sobre mí', link: '/about' },
+  { title: 'Habilidades', link: '/skills' },
+  { title: 'Experiencia', link: '/experience' }
 ];
 
 export const SKILLS: ISkills = {
@@ -36,9 +35,9 @@ export const SKILLS: ISkills = {
     { id: 4, name: 'TypeScript' },
     { id: 5, name: 'Angular' },
     { id: 6, name: 'React' },
-    { id: 7, name: 'NgRx' },
-    { id: 8, name: 'GraphQL' },
-    { id: 9, name: 'Git / Bitbucket' }
+    { id: 7, name: '.NET' },
+    { id: 8, name: 'Salesforce' },
+    { id: 9, name: 'Laravel' }
   ],
   mgmtSkills: [
     { id: 1, name: 'Understanding UX' },
@@ -66,39 +65,14 @@ export const SKILLS: ISkills = {
 
 export const SocialMediaProfiles: ISocialMediaLinks[] = [
   {
-    title: 'Facebook',
-    profileUrl: 'https://www.facebook.com/akashkriplani25',
-    iconPath: 'assets/images/facebook.svg'
-  },
-  {
-    title: 'Twitter',
-    profileUrl: 'https://twitter.com/kriptweets',
-    iconPath: 'assets/images/twitter.svg'
-  },
-  {
-    title: 'Instagram',
-    profileUrl: 'https://www.instagram.com/kripstagram',
-    iconPath: 'assets/images/instagram.svg'
-  },
-  {
     title: 'LinkedIn',
-    profileUrl: 'https://www.linkedin.com/in/akashkriplani25',
+    profileUrl: 'https://www.linkedin.com/in/dgcarneiro/',
     iconPath: 'assets/images/linkedin.svg'
   },
   {
     title: 'GitHub',
-    profileUrl: 'https://github.com/akashkriplani',
+    profileUrl: 'https://github.com/dgcarneiroGH',
     iconPath: 'assets/images/github.svg'
-  },
-  {
-    title: 'Medium',
-    profileUrl: 'https://akashkriplani.medium.com',
-    iconPath: 'assets/images/medium.svg'
-  },
-  {
-    title: 'Stack Overflow',
-    profileUrl: 'https://stackoverflow.com/users/4152622/akash-kriplani',
-    iconPath: 'assets/images/stackoverflow.svg'
   }
 ];
 

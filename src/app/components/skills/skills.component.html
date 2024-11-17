@@ -1,9 +1,9 @@
 <header class="header">
-  <h1 #title>Skills and Experience</h1>
+  <h1 #title>Habilidades y experiencia</h1>
 </header>
 <section class="skills-section">
   <dl class="list tech-skills">
-    <dt>Tech Skills</dt>
+    <dt>Habilidades técnicas</dt>
     @for (techSkill of skills.techSkills; track techSkill.id) {
     <dd>
       <a>{{ techSkill.name }}</a>
@@ -30,6 +30,7 @@
   </dl>
 
   <div class="experience-section" #experience>
+    <!-- TODO:Habla de tu historia -->
     <p>
       I have started my journey as a front end developer in 2014, and nearly
       {{ yearsOfExperience }}
@@ -53,8 +54,7 @@
     </p>
     <p>
       Visit my
-      <a href="https://www.linkedin.com/in/akashkriplani25" target="_blank"
-        >LinkedIn
+      <a href="https://www.linkedin.com/in/akashkriplani25" target="_blank">LinkedIn
       </a>
       profile for more details.
     </p>
@@ -62,5 +62,5 @@
 
   <a class="toggle" (click)="toggleExperience()">{{
     isMakisuOpen ? "Experience" : "Skills"
-  }}</a>
+    }}</a>
 </section>
