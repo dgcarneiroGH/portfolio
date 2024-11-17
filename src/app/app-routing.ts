@@ -60,14 +60,6 @@ export const APP_ROUTES: Routes = [
       )
   },
   {
-    path: 'chatbot',
-    title: 'AI Powered Chatbot',
-    loadComponent: () =>
-      import('./components/chatbot/chatbot.component').then(
-        ({ ChatBotComponent }) => ChatBotComponent
-      )
-  },
-  {
     path: '**',
     redirectTo: ''
   }
