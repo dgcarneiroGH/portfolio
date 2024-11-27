@@ -39,7 +39,7 @@ export const APP_ROUTES: Routes = [
     path: 'skills',
     title: 'Skills',
     loadComponent: () =>
-      import('./components/skills/skills.component').then(
+      import('./components/pages/skills/skills.component').then(
         ({ SkillsComponent }) => SkillsComponent
       )
   },

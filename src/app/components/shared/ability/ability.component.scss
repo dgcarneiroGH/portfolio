@@ -1,0 +1,21 @@
+.progress-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+    
+  .background-path {
+    stroke: #e0e0e0;
+  }
+  
+  .progress-path {
+    stroke: #4caf50;
+    transition: stroke-dasharray 0.3s ease-in-out;
+  }
+  
+  .progress-text {
+    position: absolute;
+    font-weight: bold;
+    margin-top: 2rem;
+  }

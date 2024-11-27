@@ -1,36 +1,79 @@
 <header class="header">
-  <h1 #title>Habilidades y experiencia</h1>
+  <h1 #title>Habilidades</h1>
 </header>
 <section class="skills-section">
-  <dl class="list tech-skills">
-    <dt>Habilidades técnicas</dt>
+  <app-ability></app-ability>
+  <app-ability></app-ability>
+  <app-ability></app-ability>
+  <app-ability></app-ability>
+  <!-- #region Chart -->
+  <!-- <section class="flex vh-100 bg-lightwhite" id="skills">
+    <div class="position-relative flex-grow-1 bg-img"></div>
+
+    <div class="flex justify-content-center align-items-center flex-grow-1">
+
+      <div class="position-relative chart-wrapper">
+
+        <ul class="flex flex-column chart-skills">
+
+          <li class="position-relative">
+
+            <span>CSS</span>
+
+          </li>
+
+          ...
+
+        </ul>
+
+        <ul class="flex position-absolute chart-levels">
+
+          <li class="flex-grow-1 position-relative">
+
+            <span class="position-absolute">Novice</span>
+
+          </li>
+
+          ...
+
+        </ul>
+
+      </div>
+
+    </div>
+
+  </section> -->
+
+  <!-- #endregion -->
+
+  <!-- <dl class="list tech-skills">
+    <dt>Formación académica</dt>
     @for (techSkill of skills.techSkills; track techSkill.id) {
     <dd>
       <a>{{ techSkill.name }}</a>
     </dd>
     }
-  </dl>
+  </dl> -->
 
-  <dl class="list mgmt-skills">
+  <!-- <dl class="list mgmt-skills">
     <dt>Management Skills</dt>
     @for (mgmtSkill of skills.mgmtSkills; track mgmtSkill.id) {
     <dd>
       <a>{{ mgmtSkill.name }}</a>
     </dd>
     }
-  </dl>
+  </dl> -->
 
-  <dl class="list soft-skills">
-    <dt>Soft Skills</dt>
+  <!-- <dl class="list soft-skills">
+    <dt>Certificados profesionales</dt>
     @for (softSkill of skills.softSkills; track softSkill.id) {
     <dd>
       <a>{{ softSkill.name }}</a>
     </dd>
     }
-  </dl>
+  </dl> -->
 
-  <div class="experience-section" #experience>
-    <!-- TODO:Habla de tu historia -->
+  <!-- <div class="experience-section" #experience>
     <p>
       I have started my journey as a front end developer in 2014, and nearly
       {{ yearsOfExperience }}
@@ -58,9 +101,9 @@
       </a>
       profile for more details.
     </p>
-  </div>
+  </div> -->
 
-  <a class="toggle" (click)="toggleExperience()">{{
+  <!-- <a class="toggle" (click)="toggleExperience()">{{
     isMakisuOpen ? "Experience" : "Skills"
-    }}</a>
+    }}</a> -->
 </section>

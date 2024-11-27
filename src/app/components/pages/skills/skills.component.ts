@@ -1,13 +1,13 @@
 import { OnInit, Component, ElementRef, ViewChild } from '@angular/core';
-import { RouterLink } from '@angular/router';
-import { AnimateComponent } from '../animate/animate.component';
-import { ISkills } from '../../interfaces';
-import { SKILLS } from '../../constants';
+import { AnimateComponent } from '../../animate/animate.component';
+import { ISkills } from '../../../interfaces';
+import { SKILLS } from '../../../constants';
+import { AbilityComponent } from '../../shared/ability/ability.component';
 
 @Component({
   selector: 'app-skills',
   standalone: true,
-  imports: [RouterLink],
+  imports: [ AbilityComponent],
   templateUrl: './skills.component.html',
   styleUrls: ['./skills.component.scss']
 })
@@ -17,7 +17,7 @@ export class SkillsComponent extends AnimateComponent implements OnInit {
   isMakisuOpen: boolean = true;
   override showMakisus: boolean = true;
   skills: ISkills = SKILLS;
-  startingYear: number = 2014;
+  startingYear: number = 2021;
   yearsOfExperience!: number;
 
   ngOnInit(): void {
