@@ -106,8 +106,9 @@ h2 {
   font-family: "Montserrat", sans-serif;
 }
 
+h1 .blast,
 h2 .blast,
-h1 .blast {
+p .blast {
   opacity: 0;
   display: inline-block;
   -webkit-transition: all 0.3s ease-out;
@@ -116,7 +117,8 @@ h1 .blast {
 }
 
 h1 .blast:hover,
-h2 .blast:hover {
+h2 .blast:hover,
+p .blast:hover {
   color: #08fdd8;
 }
 

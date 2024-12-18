@@ -7,7 +7,7 @@ import { AbilityComponent } from '../../shared/ability/ability.component';
 @Component({
   selector: 'app-skills',
   standalone: true,
-  imports: [ AbilityComponent],
+  imports: [AbilityComponent],
   templateUrl: './skills.component.html',
   styleUrls: ['./skills.component.scss']
 })
@@ -15,23 +15,28 @@ export class SkillsComponent extends AnimateComponent implements OnInit {
   override animationDelay = 2000;
   @ViewChild('experience') experience!: ElementRef;
   isMakisuOpen: boolean = true;
-  override showMakisus: boolean = true;
+  // override showMakisus: boolean = true;
   skills: ISkills = SKILLS;
-  startingYear: number = 2021;
-  yearsOfExperience!: number;
+  startingYear = 2021;
+  totalYearsOfExperience!: number;
 
   ngOnInit(): void {
-    this.yearsOfExperience = new Date().getFullYear() - this.startingYear;
+    this.totalYearsOfExperience = new Date().getFullYear() - this.startingYear;
   }
 
-  toggleExperience() {
-    this.isMakisuOpen = !this.isMakisuOpen;
-    if (this.isMakisuOpen) {
-      this.renderer.removeClass(this.experience.nativeElement, 'fade-in');
-      this.renderer.addClass(this.experience.nativeElement, 'fade-out');
-    } else {
-      this.renderer.addClass(this.experience.nativeElement, 'fade-in');
-      this.renderer.removeClass(this.experience.nativeElement, 'fade-out');
-    }
+  public calcProgress(yearsOfExp: number) {
+    if(this.totalYearsOfExperience === 0) return 0;
+    return Math.round((yearsOfExp / this.totalYearsOfExperience) * 100);
   }
+
+  // toggleExperience() {
+  //   this.isMakisuOpen = !this.isMakisuOpen;
+  //   if (this.isMakisuOpen) {
+  //     this.renderer.removeClass(this.experience.nativeElement, 'fade-in');
+  //     this.renderer.addClass(this.experience.nativeElement, 'fade-out');
+  //   } else {
+  //     this.renderer.addClass(this.experience.nativeElement, 'fade-in');
+  //     this.renderer.removeClass(this.experience.nativeElement, 'fade-out');
+  //   }
+  // }
 }

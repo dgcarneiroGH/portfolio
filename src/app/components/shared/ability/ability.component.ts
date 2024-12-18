@@ -8,14 +8,29 @@ import { Component, Input } from '@angular/core';
   styleUrl: './ability.component.scss'
 })
 export class AbilityComponent {
-  @Input() progress: number = 80; // Porcentaje de progreso (0 a 100)
-  @Input() text: string = 'HTML'; // Texto debajo del semicírculo
+  @Input() progress!: number;
+  @Input() text!: string;
+  @Input() years!: number;
 
-  // Calcula el valor para el trazo del SVG basado en el porcentaje
+  currentStrokeDasharray = '0 200';
+  isProgressVisible = false;
+
   get strokeDasharray(): string {
-    const radius = 50; // Radio del semicírculo
-    const circumference = Math.PI * radius; // Longitud del arco
+    const radius = 50;
+    const circumference = Math.PI * radius;
     const progressLength = (this.progress / 100) * circumference;
     return `${progressLength} ${circumference - progressLength}`;
+  }
+
+  get experienceText(): string {    
+    return `${this.years} ${this.years === 1 ? 'año' : 'años'}`;
+  }
+
+  showProgress() {
+    this.isProgressVisible = !this.isProgressVisible;
+
+    setTimeout(() => {
+      this.currentStrokeDasharray = this.strokeDasharray;
+    }, 300);
   }
 }

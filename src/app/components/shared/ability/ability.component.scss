@@ -1,21 +1,43 @@
 .progress-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-    
-  .background-path {
-    stroke: #e0e0e0;
-  }
-  
-  .progress-path {
-    stroke: #4caf50;
-    transition: stroke-dasharray 0.3s ease-in-out;
-  }
-  
-  .progress-text {
-    position: absolute;
-    font-weight: bold;
-    margin-top: 2rem;
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  transition: transform 1s ease-in-out;
+}
+
+.progress-svg {
+  margin: 0 auto;
+  display: block;
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.progress-svg.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.hidden {
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+.progress-path {
+  stroke: #08fdd8;
+  stroke-width: 15;
+  stroke-linecap: round;
+  transition: stroke-dasharray 1s ease-in-out;
+}
+
+.progress-text {
+  font-size: 1rem;
+  font-weight: bold;
+
+  position: absolute;
+  margin-top: 2rem;
+  max-width: 5rem;
+}
