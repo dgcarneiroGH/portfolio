@@ -10,8 +10,8 @@ import {
 } from '@angular/router';
 import { DynamicScriptService } from './services/dynamic-script.service';
 import { FontService } from './services/font.service';
-import { FooterComponent } from './components/footer/footer.component';
-import { NavigationMenuComponent } from './components/navigation-menu/navigation-menu.component';
+import { FooterComponent } from './components/core/footer/footer.component';
+import { NavigationMenuComponent } from './components/core/navigation-menu/navigation-menu.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { ToggleButtonComponent } from './components/toggle-button/toggle-button.component';
 

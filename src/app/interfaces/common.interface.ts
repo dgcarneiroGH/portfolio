@@ -53,3 +53,9 @@ export interface ITag {
   weight: number;
   text: string;
 }
+
+export interface ICert {
+  name: string;
+  iconSrc: string;
+  pdfSrc: string;
+}

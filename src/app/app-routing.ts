@@ -60,6 +60,14 @@ export const APP_ROUTES: Routes = [
       )
   },
   {
+    path: 'certs',
+    title: 'Certificates',
+    loadComponent: () =>
+      import('./components/pages/certs/certs.component').then(
+        ({ CertsComponent }) => CertsComponent
+      )
+  },
+  {
     path: '**',
     redirectTo: ''
   }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { SocialMediaProfiles } from '../../constants';
-import { ISocialMediaLinks } from '../../interfaces';
+import { SocialMediaProfiles } from '../../../constants';
+import { ISocialMediaLinks } from '../../../interfaces';
 
 @Component({
   selector: 'app-footer',

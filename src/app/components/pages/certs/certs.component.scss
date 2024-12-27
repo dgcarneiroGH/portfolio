@@ -1,0 +1,21 @@
+.certs-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .certs-section {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      flex: 1 0 0%;
+      h1 {
+        padding-top: 5rem;
+        font-size: 4rem;
+      }
+    }
+}
+
+:host ::ng-deep ng-tag-canvas canvas {
+    padding-top: 20px;
+    min-height: 70vh;
+  }

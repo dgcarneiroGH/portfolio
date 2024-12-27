@@ -1,4 +1,4 @@
-import { OnInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { OnInit, Component } from '@angular/core';
 import { AnimateComponent } from '../../animate/animate.component';
 import { ISkills } from '../../../interfaces';
 import { SKILLS } from '../../../constants';
@@ -13,8 +13,8 @@ import { AbilityComponent } from '../../shared/ability/ability.component';
 })
 export class SkillsComponent extends AnimateComponent implements OnInit {
   override animationDelay = 2000;
-  @ViewChild('experience') experience!: ElementRef;
-  isMakisuOpen: boolean = true;
+  // @ViewChild('experience') experience!: ElementRef;
+  // isMakisuOpen: boolean = true;
   // override showMakisus: boolean = true;
   skills: ISkills = SKILLS;
   startingYear = 2021;

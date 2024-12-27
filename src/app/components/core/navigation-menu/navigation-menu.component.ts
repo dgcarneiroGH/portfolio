@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { NavMenuItems } from '../../constants';
-import { INavMenuItems } from '../../interfaces';
-import { ToggleNavMenuDirective } from '../../directives/toggle-nav-menu.directive';
+import { NavMenuItems } from '../../../constants';
+import { INavMenuItems } from '../../../interfaces';
+import { ToggleNavMenuDirective } from '../../../directives/toggle-nav-menu.directive';
 
 @Component({
   selector: 'app-navigation-menu',

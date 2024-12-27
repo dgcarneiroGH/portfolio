@@ -1,0 +1,18 @@
+<section class="certs-page">
+    <div class="certs-section">
+        <h1 #title>Certificados</h1>
+        @if (screenWidth > 768) {
+        <div class="tag-canvas">
+            <div class="canvas-container">
+                <ng-tag-canvas [options]="options">
+                    @for (cert of certs; track cert.name) {
+                    <a ngTag (click)="openCertPdf(cert.pdfSrc)">
+                        <img width="150" height="150" [src]="cert.iconSrc" [alt]="cert.name" />
+                    </a>
+                    }
+                </ng-tag-canvas>
+            </div>
+        </div>
+        }
+    </div>
+</section>

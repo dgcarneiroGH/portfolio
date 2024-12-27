@@ -4,7 +4,8 @@ import {
   ISocialMediaLinks,
   ISkills,
   IExperience,
-  ITag
+  ITag,
+  ICert
 } from '../interfaces';
 
 import { TagCanvasOptions } from 'ng-tagcanvas';
@@ -24,7 +25,8 @@ export const NavMenuItems: INavMenuItems[] = [
   { title: 'Home', link: '/' },
   { title: 'Sobre mí', link: '/about' },
   { title: 'Habilidades', link: '/skills' },
-  { title: 'Experiencia', link: '/experience' }
+  { title: 'Experiencia', link: '/experience' },
+  { title: 'Certificados', link: '/certs' }
 ];
 
 export const SKILLS: ISkills = {
@@ -71,6 +73,33 @@ export const TAGS: ITag[] = [
   { weight: 16, text: 'Angular.js' },
   { weight: 20, text: 'SQL' }
 ];
+
+export const CERTS:ICert[] = [
+  { name:'Scrum Developer I', iconSrc: 'assets/images/certs/icons/PSDI.png',pdfSrc: 'assets/certs/pdfs/PSDI.pdf' },
+];
+
+export const CERT_CANVAS_OPTIONS: TagCanvasOptions = {
+  clickToFront: 500,
+  textColour: '#FFF',
+  outlineThickness: 0.5,
+  outlineColour: 'transparent',
+  maxSpeed: 0.05,
+  freezeActive: true,
+  shuffleTags: true,
+  shape: 'sphere',
+  zoom: 1,
+  wheelZoom: false,
+  noSelect: false,
+  freezeDecel: true,
+  fadeIn: 800,
+  initial: [0.3, -0.1],
+  depth: 0.2,
+  weight: false,
+  reverse: true,
+  radiusX: 2,
+  radiusY: 2,
+  radiusZ: 2
+};
 
 export const TAG_CANVAS_OPTIONS: TagCanvasOptions = {
   clickToFront: 500,
