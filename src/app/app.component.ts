@@ -13,7 +13,6 @@ import { FontService } from './services/font.service';
 import { FooterComponent } from './components/core/footer/footer.component';
 import { NavigationMenuComponent } from './components/core/navigation-menu/navigation-menu.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
-import { ToggleButtonComponent } from './components/toggle-button/toggle-button.component';
 
 @Component({
   selector: 'app-root',
@@ -25,8 +24,7 @@ import { ToggleButtonComponent } from './components/toggle-button/toggle-button.
     NavigationMenuComponent,
     RouterOutlet,
     SpinnerComponent,
-    ToggleButtonComponent
-  ]
+      ]
 })
 export class AppComponent implements OnInit {
   chatModeOn = false;

@@ -10,7 +10,7 @@ import { ShortenPipe } from '../../pipes/shorten.pipe';
 @Component({
   selector: 'app-medium-blog',
   standalone: true,
-  imports: [DatePipe, NgFor, NgStyle, NodeToTextPipe, ShortenPipe],
+  imports: [DatePipe, NgStyle, NodeToTextPipe, ShortenPipe],
   templateUrl: './medium-blog.component.html',
   styleUrls: ['./medium-blog.component.scss']
 })

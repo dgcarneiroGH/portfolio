@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-toggle-button',
   standalone: true,
-  imports: [FormsModule, NgIf, UpperCasePipe],
+  imports: [FormsModule, UpperCasePipe],
   templateUrl: './toggle-button.component.html',
   styleUrls: ['./toggle-button.component.scss']
 })

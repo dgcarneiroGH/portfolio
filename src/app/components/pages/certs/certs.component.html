@@ -6,7 +6,7 @@
             <div class="canvas-container">
                 <ng-tag-canvas [options]="options">
                     @for (cert of certs; track cert.name) {
-                    <a ngTag>
+                    <a ngTag (dblclick)="onDoubleClick($event)">
                         <img width="150" height="150" [src]="cert.iconSrc" [alt]="cert.name"
                             (dblclick)="onDoubleClick($event)" />
                     </a>
