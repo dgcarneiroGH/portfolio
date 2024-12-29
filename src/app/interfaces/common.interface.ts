@@ -57,5 +57,5 @@ export interface ITag {
 export interface ICert {
   name: string;
   iconSrc: string;
-  pdfSrc: string;
+  pdf: string;
 }

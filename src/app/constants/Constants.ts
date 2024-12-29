@@ -75,7 +75,7 @@ export const TAGS: ITag[] = [
 ];
 
 export const CERTS:ICert[] = [
-  { name:'Scrum Developer I', iconSrc: 'assets/images/certs/icons/PSDI.png',pdfSrc: 'assets/certs/pdfs/PSDI.pdf' },
+  { name:'Scrum Developer I', iconSrc: 'assets/images/certs/icons/PSDI.png', pdf: 'PSDI.pdf' },
 ];
 
 export const CERT_CANVAS_OPTIONS: TagCanvasOptions = {

@@ -22,9 +22,14 @@ export class CertsComponent extends AnimateComponent implements OnInit{
     this.screenWidth = window.innerWidth;
   }
 
-  openCertPdf(pdfSrc: string): void {
-    // const baseUrl = window.location.origin;
-    // const fullUrl = `${baseUrl}/${pdfSrc}`;
-    window.open(pdfSrc, '_blank');
+  downloadPdf(pdf: string): void {
+    const link = document.createElement('a');
+    link.href = `'assets/certs/pdfs/${pdf}`;
+    link.download = pdf;
+    link.click();
+  }
+
+  onDoubleClick(event: MouseEvent): void {
+    console.log('Double click detected', event);
   }
 }
