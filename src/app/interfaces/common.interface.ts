@@ -54,8 +54,11 @@ export interface ITag {
   text: string;
 }
 
+type CertType = 'Udemy' | 'Scrum' | 'LinkedIn' | 'OpenWebinars';
+
 export interface ICert {
+  type: CertType;
   name: string;
   iconSrc: string;
-  pdf: string;
+  url: string;
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AnimateComponent } from '../../animate/animate.component';
-import { CERT_CANVAS_OPTIONS, CERTS, TAG_CANVAS_OPTIONS, TAGS } from 'src/app/constants';
+import { CERT_CANVAS_OPTIONS, CERTS } from 'src/app/constants';
 import { ICert, ITag } from 'src/app/interfaces';
 import { TagCanvasModule, TagCanvasOptions } from 'ng-tagcanvas';
 
@@ -11,8 +11,10 @@ import { TagCanvasModule, TagCanvasOptions } from 'ng-tagcanvas';
   templateUrl: './certs.component.html',
   styleUrl: './certs.component.scss'
 })
-export class CertsComponent extends AnimateComponent implements OnInit{
+export class CertsComponent extends AnimateComponent implements OnInit {
   override animationDelay = 2000;
+
+  private lastClickTime = 0;
 
   options: TagCanvasOptions = CERT_CANVAS_OPTIONS;
   screenWidth!: number;
@@ -29,7 +31,17 @@ export class CertsComponent extends AnimateComponent implements OnInit{
     link.click();
   }
 
-  onDoubleClick(event: MouseEvent): void {
-    console.log('Double click detected', event);
+  // To avoid errors detecting double click on canvas
+  detectDblClick(cert: ICert): void {
+    const currentTime = new Date().getTime();
+    const timeDifference = currentTime - this.lastClickTime;
+
+    if (timeDifference < 300) this.onDblClick(cert);
+
+    this.lastClickTime = currentTime;
+  }
+
+  onDblClick(cert: ICert): void {
+    window.open(cert.url, '_blank');
   }
 }
