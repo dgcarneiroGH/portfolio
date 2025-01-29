@@ -1,6 +1,6 @@
 import { OnInit, Component } from '@angular/core';
 import { AnimateComponent } from '../../animate/animate.component';
-import { ISkills } from '../../../interfaces';
+import { ISkill } from '../../../interfaces';
 import { SKILLS } from '../../../constants';
 import { AbilityComponent } from '../../shared/ability/ability.component';
 
@@ -16,7 +16,7 @@ export class SkillsComponent extends AnimateComponent implements OnInit {
   // @ViewChild('experience') experience!: ElementRef;
   // isMakisuOpen: boolean = true;
   // override showMakisus: boolean = true;
-  skills: ISkills = SKILLS;
+  skills: ISkill[] = SKILLS;
   startingYear = 2021;
   totalYearsOfExperience!: number;
 
@@ -25,7 +25,7 @@ export class SkillsComponent extends AnimateComponent implements OnInit {
   }
 
   public calcProgress(yearsOfExp: number) {
-    if(this.totalYearsOfExperience === 0) return 0;
+    if (this.totalYearsOfExperience === 0) return 0;
     return Math.round((yearsOfExp / this.totalYearsOfExperience) * 100);
   }
 

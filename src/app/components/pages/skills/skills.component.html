@@ -2,13 +2,16 @@
   <h1 #title>Habilidades</h1>
 </header>
 <section class="skills-section">
-  <app-ability [years]="3" [progress]="calcProgress(3)" text="Angular"></app-ability>
-  <app-ability [years]="1" [progress]="calcProgress(1)" text="React"></app-ability>
+  @for (skill of skills; track skill.name) {
+  <app-ability [years]="skill.yearsOfExperience" [progress]="calcProgress(skill.yearsOfExperience)" [text]="skill.name"
+    [logoSrc]="skill.logoSrc"></app-ability>
+  }
+  <!-- <app-ability [years]="1" [progress]="calcProgress(1)" text="React"></app-ability>
   <app-ability [years]="2" [progress]="calcProgress(2)" text=".NET"></app-ability>
   <app-ability [years]="1" [progress]="calcProgress(1)" text="Prestashop"></app-ability>
   <app-ability [years]="1" [progress]="calcProgress(1)" text="Moodle"></app-ability>
   <app-ability [years]="1" [progress]="calcProgress(1)" text="Salesforce"></app-ability>
-  <app-ability [years]="1" [progress]="calcProgress(1)" text="Laravel"></app-ability>
+  <app-ability [years]="1" [progress]="calcProgress(1)" text="Laravel"></app-ability> -->
   <!-- #region Chart -->
   <!-- <section class="flex vh-100 bg-lightwhite" id="skills">
     <div class="position-relative flex-grow-1 bg-img"></div>

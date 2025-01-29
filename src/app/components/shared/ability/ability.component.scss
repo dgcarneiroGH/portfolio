@@ -15,13 +15,11 @@
   transform: scale(0.9);
   transition: opacity 0.5s ease, transform 0.5s ease;
 }
-
 .progress-svg.visible {
   opacity: 1;
   transform: scale(1);
 }
-
-.hidden {
+.progress-svg.hidden {
   opacity: 0;
   transform: scale(0.9);
 }
@@ -33,11 +31,38 @@
   transition: stroke-dasharray 1s ease-in-out;
 }
 
-.progress-text {
-  font-size: 1rem;
-  font-weight: bold;
-
+.progress-info {
   position: absolute;
   margin-top: 2rem;
   max-width: 5rem;
+
+  .progress-text {
+    font-size: 1rem;
+    font-weight: bold;
+    transition: opacity 1s ease-in-out;
+  }
+  .progress-text.visible {
+    opacity: 1;
+  }
+  .progress-text.hidden {
+    opacity: 0;
+  }
+
+  .progress-logo {
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  .progress-logo.visible {
+    opacity: 1;
+    width: 100%;
+  }
+  .progress-logo.hidden {
+    opacity: 0;
+    width: 0;
+  }
 }

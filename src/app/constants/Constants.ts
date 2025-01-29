@@ -2,10 +2,10 @@ import {
   IDynamicScripts,
   INavMenuItems,
   ISocialMediaLinks,
-  ISkills,
   IExperience,
   ITag,
-  ICert
+  ICert,
+  ISkill
 } from '../interfaces';
 
 import { TagCanvasOptions } from 'ng-tagcanvas';
@@ -29,14 +29,43 @@ export const NavMenuItems: INavMenuItems[] = [
   { title: 'Certificados', link: '/certs' }
 ];
 
-export const SKILLS: ISkills = {
-  techSkills: [
-    { id: 1, name: 'C.S. DAM' },
-    { id: 2, name: 'C.S. Electrónica' }
-  ],
-  mgmtSkills: [{ id: 1, name: 'Understanding UX' }],
-  softSkills: [{ id: 1, name: 'Professional Scrum Developer' }]
-};
+export const SKILLS: ISkill[] = [
+  {
+    name: 'Angular',
+    yearsOfExperience: 4,
+    logoSrc: 'assets/images/skills/icons/angular.png'
+  },
+  {
+    name: 'React',
+    yearsOfExperience: 1,
+    logoSrc: 'assets/images/skills/icons/react.png'
+  },
+  {
+    name: '.NET',
+    yearsOfExperience: 2,
+    logoSrc: 'assets/images/skills/icons/dotnet.png'
+  },
+  {
+    name: 'Prestashop',
+    yearsOfExperience: 1,
+    logoSrc: 'assets/images/skills/icons/prestashop.png'
+  },
+  {
+    name: 'Moodle',
+    yearsOfExperience: 1,
+    logoSrc: 'assets/images/skills/icons/moodle.png'
+  },
+  {
+    name: 'Salesforce',
+    yearsOfExperience: 1,
+    logoSrc: 'assets/images/skills/icons/salesforce.png'
+  },
+  {
+    name: 'Laravel',
+    yearsOfExperience: 2,
+    logoSrc: 'assets/images/skills/icons/laravel.png'
+  }
+];
 
 export const SocialMediaProfiles: ISocialMediaLinks[] = [
   {
@@ -183,9 +212,9 @@ export const EXPERIENCES: IExperience[] = [
     company: '',
     designation: '',
     yearRange: '2013 - 2021',
-    role: 'Experiencia en otros puestos de trabajo no relacionados con el desarrollo web.'
+    role: 'Otros puestos de trabajo no relacionados con el desarrollo web.'
   }
 ];
 
-export const MEDIUM_INTEGRATION_URL: string =
-  'https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@akashkriplani';
+export const MEDIUM_INTEGRATION_URL: string = '';
+// 'https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@akashkriplani';

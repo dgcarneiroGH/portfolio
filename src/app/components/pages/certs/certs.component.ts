@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AnimateComponent } from '../../animate/animate.component';
 import { CERT_CANVAS_OPTIONS, CERTS } from 'src/app/constants';
-import { ICert, ITag } from 'src/app/interfaces';
+import { ICert } from 'src/app/interfaces';
 import { TagCanvasModule, TagCanvasOptions } from 'ng-tagcanvas';
 
 @Component({

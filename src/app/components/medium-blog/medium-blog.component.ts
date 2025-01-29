@@ -24,14 +24,14 @@ export class MediumBlogComponent extends AnimateComponent implements OnInit {
   }
 
   fetchPosts(): void {
-    this.postsService
-      .getPosts()
-      .pipe(take(1))
-      .subscribe({
-        next: (data: IMediumBlogPostsResponse) => {
-          this.posts = data;
-        },
-        error: ({ error }) => alert(error.message)
-      });
+    // this.postsService
+    //   .getPosts()
+    //   .pipe(take(1))
+    //   .subscribe({
+    //     next: (data: IMediumBlogPostsResponse) => {
+    //       this.posts = data;
+    //     },
+    //     error: ({ error }) => alert(error.message)
+    //   });
   }
 }

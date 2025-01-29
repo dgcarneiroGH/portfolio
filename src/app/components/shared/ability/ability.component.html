@@ -5,7 +5,15 @@
             [attr.stroke-dasharray]="currentStrokeDasharray" stroke-dashoffset="0" />
         <text x="60" y="35" text-anchor="middle" fill="white" font-size="10">{{experienceText}}</text>
     </svg>
-    <p id="animatedText" class="progress-text" (click)="showProgress()">
-        {{ text }}
-    </p>
+
+    <div class="progress-info">
+        <p id="animatedText" class="progress-logo"
+            [ngClass]="{'visible': !isProgressVisible, 'hidden': isProgressVisible}" (click)="showProgress()">
+            <img [src]="logoSrc" [alt]="text" />
+        </p>
+        <p id="animatedText" class="progress-text"
+            [ngClass]="{'visible': isProgressVisible, 'hidden': !isProgressVisible}" (click)="showProgress()">
+            {{ text }}
+        </p>
+    </div>
 </div>

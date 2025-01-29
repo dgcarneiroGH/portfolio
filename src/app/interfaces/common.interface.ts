@@ -3,15 +3,10 @@ export interface INavMenuItems {
   link: string;
 }
 
-export interface ISkills {
-  techSkills: ISkill[];
-  mgmtSkills: ISkill[];
-  softSkills: ISkill[];
-}
-
 export interface ISkill {
-  id: number;
   name: string;
+  yearsOfExperience: number;
+  logoSrc: string;
 }
 
 export interface ISocialMediaLinks {

@@ -26,12 +26,13 @@ export class AnimateComponent implements AfterViewInit {
     const elements = this.document.querySelectorAll('h1, p');
 
     elements.forEach((element) => {
-      const isParagraphWithWords =
-        !!(element.tagName.toLowerCase() === 'p' &&
+      const isParagraphWithWords = !!(
+        element.tagName.toLowerCase() === 'p' &&
         element.id &&
-        element.id === 'animatedText');
+        element.id === 'animatedText'
+      );
 
-        // Configurar Blast para caracteres o palabras
+      // Configurar Blast para caracteres o palabras
       new Blast(element, {
         returnGenerated: true,
         delimiter: isParagraphWithWords ? 'word' : 'character',

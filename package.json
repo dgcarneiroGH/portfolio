@@ -1,11 +1,11 @@
 {
   "name": "portfolio",
-  "homepage": "https://akashkriplani.github.io/portfolio",
+  "homepage": "",
   "version": "1.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --base-href https://akashkriplani.github.io/portfolio/",
+    "build": "ng build --base-href [url]",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist/portfolio",
     "compodoc": "npx compodoc -p tsconfig.doc.json -w -s --hideGenerator",
