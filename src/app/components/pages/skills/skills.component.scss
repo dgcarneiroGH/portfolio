@@ -93,7 +93,6 @@
 
 //#endregion
 
-
 .header {
   text-align: center;
   position: absolute;
@@ -105,18 +104,18 @@
 .header h1 {
   margin: 0;
   font-size: 4rem;
-  padding: 5px 0;
+  padding-top: 1rem;
 }
 
 .skills-section {
   position: relative;
   top: 8rem;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 4rem;
-  justify-items: center; 
-  align-items: center; 
-  padding: 1rem; 
+  justify-items: center;
+  align-items: center;
+  padding: 1rem;
 }
 
 .experience-section {

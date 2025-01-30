@@ -1,0 +1,14 @@
+import { Component } from '@angular/core';
+import { ProyectComponent } from '../../shared/proyect/proyect.component';
+import { IProyect } from 'src/app/interfaces';
+import { PROYECTS } from 'src/app/constants';
+
+@Component({
+  selector: 'app-proyects',
+  imports: [ProyectComponent],
+  templateUrl: './proyects.component.html',
+  styleUrl: './proyects.component.scss'
+})
+export class ProyectsComponent {
+  proyects: IProyect[] = PROYECTS.sort((a, b) => b.year - a.year);
+}

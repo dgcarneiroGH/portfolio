@@ -1,0 +1,27 @@
+.proyects-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  h1 {
+    padding-top: 1rem;
+    font-size: 4rem;
+  }
+
+  .proyects-section {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    justify-items: center;
+    align-items: center;
+    padding: 1rem 1rem 10rem 1rem;
+
+    .proyect-card {
+      display: flex;
+      justify-content: center;
+      align-content: center;
+      height: 25rem;
+    }
+  }
+}

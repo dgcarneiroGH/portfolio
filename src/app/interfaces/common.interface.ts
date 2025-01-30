@@ -44,6 +44,14 @@ export interface IExperience {
   role: string;
 }
 
+export interface IProyect {
+  coverImgSrc: string;
+  name: string;
+  description: string;
+  url?: string;
+  year: number;
+}
+
 export interface ITag {
   weight: number;
   text: string;

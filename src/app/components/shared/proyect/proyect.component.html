@@ -1,0 +1,19 @@
+<div class="proyect-container" [ngClass]="{'expanded': showMoreInfo, 'collapsed': !showMoreInfo}">
+    <div class="proyect-border">
+        <div class="cover-img" [ngStyle]="{'background-image': 'url(' + coverImgSrc + ')'}"></div>
+        <div class="proyect-info">
+            <h3 class="title">{{name}}</h3>
+            <div class="proyect-details">
+                <p class="description" [ngClass]="{'show': showMoreInfo}">{{description}}</p>
+                <p class="more-info" (click)="toggleMoreInfo()">
+                    + Info
+                    @if(showMoreInfo){
+                    <img src="assets/images/material-icons/arrow_up.svg" alt="Up">
+                    }@else{
+                    <img src="assets/images/material-icons/arrow_down.svg" alt="Down">
+                    }
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

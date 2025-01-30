@@ -16,7 +16,9 @@ export class SkillsComponent extends AnimateComponent implements OnInit {
   // @ViewChild('experience') experience!: ElementRef;
   // isMakisuOpen: boolean = true;
   // override showMakisus: boolean = true;
-  skills: ISkill[] = SKILLS;
+  skills: ISkill[] = SKILLS.sort(
+    (a, b) => b.yearsOfExperience - a.yearsOfExperience
+  );
   startingYear = 2021;
   totalYearsOfExperience!: number;
 
@@ -32,11 +34,11 @@ export class SkillsComponent extends AnimateComponent implements OnInit {
   // toggleExperience() {
   //   this.isMakisuOpen = !this.isMakisuOpen;
   //   if (this.isMakisuOpen) {
-  //     this.renderer.removeClass(this.experience.nativeElement, 'fade-in');
-  //     this.renderer.addClass(this.experience.nativeElement, 'fade-out');
+  //     // this.renderer.removeClass(this.experience.nativeElement, 'fade-in');
+  //     // this.renderer.addClass(this.experience.nativeElement, 'fade-out');
   //   } else {
-  //     this.renderer.addClass(this.experience.nativeElement, 'fade-in');
-  //     this.renderer.removeClass(this.experience.nativeElement, 'fade-out');
+  //     // this.renderer.addClass(this.experience.nativeElement, 'fade-in');
+  //     // this.renderer.removeClass(this.experience.nativeElement, 'fade-out');
   //   }
   // }
 }

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { AnimateComponent } from '../animate/animate.component';
-import { EXPERIENCES } from '../../constants';
-import { IExperience } from '../../interfaces';
-import { TimelineDirective } from '../../directives/timeline.directive';
+import { AnimateComponent } from '../../animate/animate.component';
+import { EXPERIENCES } from '../../../constants';
+import { IExperience } from '../../../interfaces';
+import { TimelineDirective } from '../../../directives/timeline.directive';
 
 @Component({
   selector: 'app-experience',

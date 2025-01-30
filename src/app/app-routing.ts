@@ -23,7 +23,7 @@ export const APP_ROUTES: Routes = [
     path: '',
     title: 'Home',
     loadComponent: () =>
-      import('./components/home/home.component').then(
+      import('./components/pages/home/home.component').then(
         ({ HomeComponent }) => HomeComponent
       )
   },
@@ -31,7 +31,7 @@ export const APP_ROUTES: Routes = [
     path: 'about',
     title: 'About Me',
     loadComponent: () =>
-      import('./components/about/about.component').then(
+      import('./components/pages/about/about.component').then(
         ({ AboutComponent }) => AboutComponent
       )
   },
@@ -47,16 +47,16 @@ export const APP_ROUTES: Routes = [
     path: 'experience',
     title: 'Experience',
     loadComponent: () =>
-      import('./components/experience/experience.component').then(
+      import('./components/pages/experience/experience.component').then(
         ({ ExperienceComponent }) => ExperienceComponent
       )
   },
   {
-    path: 'blog-posts',
-    title: 'Medium Posts',
+    path: 'proyects',
+    title: 'Proyects',
     loadComponent: () =>
-      import('./components/medium-blog/medium-blog.component').then(
-        ({ MediumBlogComponent }) => MediumBlogComponent
+      import('./components/pages/proyects/proyects.component').then(
+        ({ ProyectsComponent }) => ProyectsComponent
       )
   },
   {

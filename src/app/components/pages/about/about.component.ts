@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { TagCanvasModule, TagCanvasOptions } from 'ng-tagcanvas';
-import { AnimateComponent } from '../animate/animate.component';
-import { ITag } from '../../interfaces';
-import { SocialMediaProfiles, TAGS, TAG_CANVAS_OPTIONS } from '../../constants';
+import { AnimateComponent } from '../../animate/animate.component';
+import { ITag } from '../../../interfaces';
+import {
+  SocialMediaProfiles,
+  TAGS,
+  TAG_CANVAS_OPTIONS
+} from '../../../constants';
 
 @Component({
   selector: 'app-about',

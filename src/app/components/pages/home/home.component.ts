@@ -5,8 +5,8 @@ import {
   OnDestroy,
   OnInit
 } from '@angular/core';
-import { AnimateComponent } from '../animate/animate.component';
-import { DynamicScriptService } from '../../services/dynamic-script.service';
+import { AnimateComponent } from '../../animate/animate.component';
+import { DynamicScriptService } from '../../../services/dynamic-script.service';
 
 @Component({
   selector: 'app-home',
