@@ -18,4 +18,8 @@ export class ProyectComponent {
   toggleMoreInfo() {
     this.showMoreInfo = !this.showMoreInfo;
   }
+
+  goTo() {
+    if (this.url) window.open(this.url, '_blank');
+  }
 }
