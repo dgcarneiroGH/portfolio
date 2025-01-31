@@ -97,7 +97,7 @@ export class AnimateComponent implements AfterViewInit {
         this.renderer.addClass(element, 'bounceIn');
       }, timer);
 
-      timer += byWord ? 300 : 100; // Más tiempo para animar palabras
+      timer += byWord ? 300 : 100; //More time to animate words
 
       setTimeout(() => {
         this.renderer.removeClass(element, 'animated');

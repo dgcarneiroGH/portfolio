@@ -1,7 +1,7 @@
 .proyect-container {
   position: relative;
   border-radius: 3rem;
-  padding: 1rem;
+  padding: 1rem 1rem 0 1rem;
   transition: width 0.5s ease-in-out;
 
   &::before {
@@ -12,18 +12,34 @@
     right: 0;
     bottom: 0;
     border-radius: inherit;
-    padding: 1rem;
+    padding: 0.5rem;
+
     background: linear-gradient(
-      to right,
+      90deg,
       rgba(0, 172, 193, 1),
-      rgba(84, 58, 183, 1)
+      rgba(84, 58, 183, 1),
+      rgba(0, 172, 193, 1)
     );
+
+    background-size: 200% 100%;
+    animation: moveGradient 5s linear infinite;
+    animation-delay: var(--animation-delay);
+
     -webkit-mask: linear-gradient(#fff 0 0) content-box,
       linear-gradient(#fff 0 0);
     mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: destination-out;
     mask-composite: exclude;
     pointer-events: none;
+  }
+
+  @keyframes moveGradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    100% {
+      background-position: 200% 50%;
+    }
   }
 
   &.expanded {
@@ -37,7 +53,7 @@
   }
 
   .proyect-border {
-    padding: 1rem;
+    padding: 1rem 1rem 0 1rem;
     height: 100%;
   }
 
@@ -53,7 +69,7 @@
 
   .proyect-info {
     padding: 0.5rem;
-    height: 60%;
+    height: 55%;
 
     .title {
       height: 20%;
@@ -80,12 +96,15 @@
       }
 
       .more-info {
-        cursor: pointer;
+        display: flex;
+        justify-content: center;
         font-weight: bold;
+
+        cursor: pointer;
 
         img {
           width: 1.5rem;
-          position: absolute;
+          // position: absolute;
         }
       }
     }

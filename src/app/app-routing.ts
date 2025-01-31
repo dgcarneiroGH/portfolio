@@ -68,6 +68,14 @@ export const APP_ROUTES: Routes = [
       )
   },
   {
+    path: 'contact',
+    title: 'Contact',
+    loadComponent: () =>
+      import('./components/pages/contact/contact.component').then(
+        ({ ContactComponent }) => ContactComponent
+      )
+  },
+  {
     path: '**',
     redirectTo: ''
   }

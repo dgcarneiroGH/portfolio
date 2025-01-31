@@ -28,7 +28,8 @@ export const NavMenuItems: INavMenuItems[] = [
   { title: 'Habilidades', link: '/skills' },
   { title: 'Experiencia', link: '/experience' },
   { title: 'Proyectos', link: '/proyects' },
-  { title: 'Certificados', link: '/certs' }
+  { title: 'Certificados', link: '/certs' },
+  { title: 'Contacto', link: '/contact' }
 ];
 
 export const SKILLS: ISkill[] = [

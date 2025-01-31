@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-proyect',
@@ -7,13 +7,18 @@ import { Component, Input } from '@angular/core';
   templateUrl: './proyect.component.html',
   styleUrl: './proyect.component.scss'
 })
-export class ProyectComponent {
+export class ProyectComponent implements OnInit {
   @Input() coverImgSrc!: string;
   @Input() name!: string;
   @Input() description!: string;
   @Input() url?: string = '';
 
   showMoreInfo: boolean = false;
+  animationDelay: string = '0s';
+
+  ngOnInit(): void {
+    this.animationDelay = `${Math.random() * 5}s`;
+  }
 
   toggleMoreInfo() {
     this.showMoreInfo = !this.showMoreInfo;
