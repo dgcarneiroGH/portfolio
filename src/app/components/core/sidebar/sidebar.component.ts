@@ -3,12 +3,12 @@ import { SocialMediaProfiles } from '../../../constants';
 import { ISocialMediaLinks } from '../../../interfaces';
 
 @Component({
-  selector: 'app-footer',
+  selector: 'app-sidebar',
   standalone: true,
-  templateUrl: './footer.component.html',
-  styleUrls: ['./footer.component.scss']
+  templateUrl: './sidebar.component.html',
+  styleUrls: ['./sidebar.component.scss']
 })
-export class FooterComponent implements OnInit {
+export class SidebarComponent implements OnInit {
   public currentYear!: number;
   public links!: ISocialMediaLinks[];
 

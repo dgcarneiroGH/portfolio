@@ -1,6 +1,16 @@
-<footer>
-  <div>
-    <!-- Waves start -->
+<aside class="sidebar">
+  <div class="sidebar-content">
+    <ul>
+      @for (link of links; track link.profileUrl) {
+      <li>
+        <a [href]="link.profileUrl" target="_blank" [attr.title]="link.title">
+          <img class="zoom" [src]="link.iconPath" [alt]="link.title" />
+        </a>
+      </li>
+      }
+    </ul>
+  </div>
+  <div class="waves-container">
     <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
       viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
       <defs>
@@ -13,23 +23,5 @@
         <use xlink:href="#gentle-wave" x="48" y="7" fill="#fff" />
       </g>
     </svg>
-    <!-- Waves end -->
   </div>
-
-  <div class="content flex">
-    <!-- <p>
-      Copyright &copy; Diego Carneiro {{ currentYear }}. Todos los derechos reservados.
-    </p> -->
-    <div class="footer-content">
-      <ul>
-        @for (link of links; track link.profileUrl) {
-        <li>
-          <a [href]="link.profileUrl" target="_blank" [attr.title]="link.title">
-            <img class="zoom" [src]="link.iconPath" [alt]="link.title" />
-          </a>
-        </li>
-        }
-      </ul>
-    </div>
-  </div>
-</footer>
+</aside>

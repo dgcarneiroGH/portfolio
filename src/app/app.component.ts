@@ -10,9 +10,9 @@ import {
 } from '@angular/router';
 import { DynamicScriptService } from './services/dynamic-script.service';
 import { FontService } from './services/font.service';
-import { FooterComponent } from './components/core/footer/footer.component';
 import { NavigationMenuComponent } from './components/core/navigation-menu/navigation-menu.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
+import { SidebarComponent } from './components/core/sidebar/sidebar.component';
 
 @Component({
   selector: 'app-root',
@@ -20,11 +20,11 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
   styleUrls: ['./app.component.scss'],
   standalone: true,
   imports: [
-    FooterComponent,
+    SidebarComponent,
     NavigationMenuComponent,
     RouterOutlet,
-    SpinnerComponent,
-      ]
+    SpinnerComponent
+  ]
 })
 export class AppComponent implements OnInit {
   chatModeOn = false;
