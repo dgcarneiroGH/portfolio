@@ -81,6 +81,12 @@ export const SocialMediaProfiles: ISocialMediaLinks[] = [
     title: 'GitHub',
     profileUrl: 'https://github.com/dgcarneiroGH',
     iconPath: 'assets/images/github.svg'
+  },
+  {
+    title: 'Cv',
+    profileUrl:
+      'https://drive.google.com/file/d/1IKa2LmTmEZeLOGRhNE3HUyVs-qacPxRU/view?usp=sharing',
+    iconPath: 'assets/images/pdf.png'
   }
 ];
 
