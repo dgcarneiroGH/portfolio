@@ -1,0 +1,40 @@
+.picture-container {
+  height: 17rem;
+  aspect-ratio: 16/9;
+  border-radius: 50%;
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  overflow: hidden;
+}
+
+.picture-container::after {
+  content: "";
+  position: absolute;
+  top: -100%;
+  left: -100%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0.1) 30%,
+    rgba(255, 255, 255, 0.3) 50%,
+    rgba(255, 255, 255, 0.1) 70%
+  );
+
+  transform: rotate(30deg);
+  animation: shine 3s infinite linear;
+  animation-delay: var(--animation-delay);
+  pointer-events: none;
+}
+
+@keyframes shine {
+  0% {
+    transform: translate(-150%, -150%) rotate(30deg);
+  }
+  100% {
+    transform: translate(150%, 150%) rotate(30deg);
+  }
+}

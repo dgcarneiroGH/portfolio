@@ -1,35 +1,32 @@
 <section class="about-me-page">
+  <header>
+    <h1 #title>Habilidades</h1>
+  </header>
   <div class="about-me-section">
-    <h1 #title>About Me</h1>
-    <div class="about-me">
+    <div class="row">
+      <app-picture imgSrc="assets/images/me_1.jpg"></app-picture>
       <p>
-        I’m a Front-End Developer located in India. I have a serious passion for
-        UI development. I love creating intuitive and dynamic user experiences.
-        I like writing technical content on Medium.
+        Soy un desarrollador FullStack especializado en desarrollo Front-End.
+        Actualmente resido en España aunque amo viajar así que no aseguro que esto se mantenga.
+        Además de conocer el mundo siempre que la situación lo permite,
+        escucho y toco música, me gusta componer canciones cuando tengo cosas que decir.
       </p>
+    </div>
+
+    <div class="row">
+      <app-picture imgSrc="assets/images/me_2.jpg"></app-picture>
       <p>
-        I am a highly-organised person, a problem solver and a meticulous
-        individual contributor. I am a fan of cricket, outdoor activities and TV
-        series.
+        Me considero una persona muy organizada, llegando al punto de tener
+        varios tableros creados en Trello para diversas tareas de mi día a día o proyectos que tengo pendientes.
       </p>
+    </div>
+
+    <div class="row">
       <p>
-        I'm interested in the entire frontend spectrum and love working on
-        ambitious projects with like-minded people.
-      </p>
-      <p>
-        <a target="_blank" [href]="linkedin.profileUrl">Let’s collaborate.</a>
+        Respecto al trabajo, me gustan los proyectos que implican ayudar a la humanidad en cierto modo,
+        igual que muchos compañeros, me siento motivado cuando sé que lo que hago tiene un fin positivo
+        y ayuda a alguien.
       </p>
     </div>
   </div>
-  @if (screenWidth > 768) {
-  <div class="tag-canvas">
-    <div class="canvas-container">
-      <ng-tag-canvas [options]="options">
-        @for (tag of tags; track tag.text) {
-        <a ngTag [weight]="tag.weight">{{ tag.text }}</a>
-        }
-      </ng-tag-canvas>
-    </div>
-  </div>
-  }
 </section>
