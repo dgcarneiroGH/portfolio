@@ -11,7 +11,5 @@ import { AnimateComponent } from '../../animate/animate.component';
   styleUrl: './proyects.component.scss'
 })
 export class ProyectsComponent extends AnimateComponent {
-  override animationDelay = 2000;
-
   proyects: IProyect[] = PROYECTS.sort((a, b) => b.year - a.year);
 }

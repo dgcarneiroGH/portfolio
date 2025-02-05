@@ -6,7 +6,8 @@ import {
   ITag,
   ICert,
   ISkill,
-  IProyect
+  IProyect,
+  IContactMethod
 } from '../interfaces';
 
 import { TagCanvasOptions } from 'ng-tagcanvas';
@@ -266,6 +267,24 @@ export const EXPERIENCES: IExperience[] = [
     designation: '',
     yearRange: '2013 - 2021',
     role: 'Otros puestos de trabajo no relacionados con el desarrollo web.'
+  }
+];
+
+export const CONTACT_METHODS: IContactMethod[] = [
+  {
+    name: 'LinkedIn',
+    url: 'https://www.linkedin.com/in/dgcarneiro/',
+    iconSrc: 'assets/images/linkedin.svg'
+  },
+  {
+    name: 'Gmail',
+    url: 'mailto:dgcarneiro93@gmail.com',
+    iconSrc: 'assets/images/gmail.svg'
+  },
+  {
+    name: 'Phone',
+    url: 'tel:+34661206962',
+    iconSrc: 'assets/images/call.png'
   }
 ];
 

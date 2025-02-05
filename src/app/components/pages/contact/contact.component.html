@@ -1,1 +1,14 @@
-<p>contact works!</p>
+<section class="contact-page">
+    <div class="contact-section">
+        <h1 id="title">Ahora que ya conoces todo sobre mí . . .</h1>
+        <p id="animatedText" class="fadedText">¿Hablamos?</p>
+
+        <div class="contactMethods">
+            @for (contactMethod of contactMethods; track contactMethod.name){
+            <a [href]="contactMethod.url" target="_blank" [attr.title]="contactMethod.name">
+                <img [src]="contactMethod.iconSrc" [alt]="contactMethod.name" />
+            </a>
+            }
+        </div>
+    </div>
+</section>

@@ -57,6 +57,12 @@ export interface ITag {
   text: string;
 }
 
+export interface IContactMethod {
+  name: string;
+  url: string;
+  iconSrc: string;
+}
+
 type CertType = 'Udemy' | 'Scrum' | 'LinkedIn' | 'OpenWebinars';
 
 export interface ICert {

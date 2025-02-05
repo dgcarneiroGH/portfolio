@@ -30,7 +30,6 @@ export class AbilityComponent {
 
   showProgress() {
     this.isProgressVisible = !this.isProgressVisible;
-    console.log('this.isProgressVisible', this.isProgressVisible);
 
     setTimeout(() => {
       this.currentStrokeDasharray = this.strokeDasharray;
