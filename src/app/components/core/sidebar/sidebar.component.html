@@ -4,7 +4,7 @@
       @for (link of links; track link.profileUrl) {
       <li>
         <a [href]="link.profileUrl" target="_blank" [attr.title]="link.title">
-          <img class="zoom" [src]="link.iconPath" [alt]="link.title" />
+          <img [src]="link.iconPath" [alt]="link.title" />
         </a>
       </li>
       }
