@@ -1,7 +1,7 @@
 <div class="header">
   <app-navigation-menu />
   <main>
-    <div class="inner-header">
+    <div class="inner-header" (scroll)="onScroll($event)" (wheel)="onWheel($event)">
       @if (loading) {
       <app-spinner />
       } @else {

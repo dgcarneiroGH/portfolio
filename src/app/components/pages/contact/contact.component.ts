@@ -10,7 +10,7 @@ import { CONTACT_METHODS } from 'src/app/constants';
   styleUrl: './contact.component.scss'
 })
 export class ContactComponent extends AnimateComponent {
-  override animationDelay = 5000;
+  override animationDelay = 3000;
 
   contactMethods: IContactMethod[] = CONTACT_METHODS;
 }
