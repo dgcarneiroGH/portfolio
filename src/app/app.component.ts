@@ -31,59 +31,63 @@ import { NavMenuItems } from './constants';
 export class AppComponent implements OnInit {
   loading = true;
 
-  private dsService = inject(DynamicScriptService);
-  private fontService = inject(FontService);
-  private router = inject(Router);
+  // private dsService = inject(DynamicScriptService);
+  private _fontService = inject(FontService);
+  private _router = inject(Router);
 
-  private scrollSubject = new Subject<Event>();
-  private atBottom = false;
-  private currentIndex = 0;
-  private isNavigating = false;
+  private _scrollSubject = new Subject<Event>();
+  private _atTop = false;
+  private _atBottom = false;
+  private _currentSectionId = 0;
+  private _isNavigating = false;
 
   ngOnInit(): void {
-    this.router.events.subscribe((event) => {
+    this._router.events.subscribe((event) => {
       this.navigationInterceptor(event as RouterEvent);
     });
 
-    this.scrollSubject.pipe(debounceTime(100)).subscribe((event) => {
-      this.handleScroll(event);
+    this._scrollSubject.pipe(debounceTime(100)).subscribe((event) => {
+      this._handleScroll(event);
     });
 
-    this.fontService.loadFonts();
+    this._fontService.loadFonts();
     // this.loadScripts();
   }
 
   onScroll(event: Event) {
-    this.scrollSubject.next(event);
+    this._scrollSubject.next(event);
   }
 
   onWheel(event: WheelEvent): void {
-    if (this.atBottom && event.deltaY > 0) {
-      this.navigateToNextSection();
-    }
+    if (this._atBottom && event.deltaY > 0) this._navigateToSection(1);
+
+    if (this._atTop && event.deltaY < 0) this._navigateToSection(-1);
   }
 
-  private handleScroll(event: Event) {
-    const target = event.target as HTMLElement;
-    const scrollTop = target.scrollTop;
-    const scrollHeight = target.scrollHeight;
-    const clientHeight = target.clientHeight;
+  private _handleScroll(event: Event) {
+    const { scrollTop, scrollHeight, clientHeight } =
+      event.target as HTMLElement;
 
-    this.atBottom = scrollTop + clientHeight >= scrollHeight;
+    this._atBottom = scrollTop + clientHeight >= scrollHeight;
+    this._atTop = scrollTop === 0;
   }
 
-  private navigateToNextSection() {
-    if (this.isNavigating) return;
-    this.isNavigating = true;
+  private _navigateToSection(offset: number): void {
+    if (this._isNavigating) return;
 
-    if (this.currentIndex < NavMenuItems.length - 1) {
-      this.currentIndex++;
-      this.router.navigate([NavMenuItems[this.currentIndex].link]);
-    }
+    const nextSectionId = this._currentSectionId + offset;
 
-    setTimeout(() => {
-      this.isNavigating = false;
-    }, 1000);
+    if (
+      (offset > 0 && nextSectionId > NavMenuItems.length - 1) ||
+      (offset < 0 && nextSectionId < 0)
+    )
+      return;
+
+    this._isNavigating = true;
+    this._currentSectionId = nextSectionId;
+    this._router.navigate([NavMenuItems[this._currentSectionId].link]);
+
+    setTimeout(() => (this._isNavigating = false), 1000);
   }
 
   // loadScripts = async (): Promise<void> => {
@@ -98,23 +102,28 @@ export class AppComponent implements OnInit {
   navigationInterceptor(event: RouterEvent): void {
     if (event instanceof NavigationStart) {
       this.loading = true;
-    }
-    if (event instanceof NavigationEnd) {
-      setTimeout(() => {
-        this.loading = false;
-      }, 2000);
+      return;
     }
 
-    // Set loading state to false in both of the below events to hide the spinner in case a request fails
-    if (event instanceof NavigationCancel) {
-      setTimeout(() => {
-        this.loading = false;
-      }, 2000);
+    if (
+      event instanceof NavigationEnd ||
+      event instanceof NavigationCancel ||
+      event instanceof NavigationError
+    ) {
+      this._getCurrentSectionId(event.url);
+      this._stopLoading();
     }
-    if (event instanceof NavigationError) {
-      setTimeout(() => {
-        this.loading = false;
-      }, 2000);
-    }
+  }
+
+  private _getCurrentSectionId(url: string): void {
+    this._currentSectionId = NavMenuItems.findIndex(
+      (item) => item.link === url
+    );
+  }
+
+  private _stopLoading(): void {
+    setTimeout(() => {
+      this.loading = false;
+    }, 2000);
   }
 }
