@@ -34,7 +34,7 @@
 .progress-info {
   position: absolute;
   margin-top: 2rem;
-  max-width: 5rem;
+  max-width: 7rem;
 
   .progress-text {
     font-size: 1rem;
@@ -54,6 +54,17 @@
 
     img {
       width: 100%;
+      filter: drop-shadow(2px 2px 4px rgba(255, 255, 255, 0.6));
+
+      transition: transform 0.3s, filter 0.3s ease-in-out;
+    }
+
+    img:hover {
+      -ms-transform: scale(1.2);
+      -webkit-transform: scale(1.2);
+      transform: scale(1.2);
+
+      filter: none;
     }
   }
 

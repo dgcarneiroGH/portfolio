@@ -1,0 +1,48 @@
+section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  .section-container {
+    position: relative;
+    top: 0;
+    height: 105vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    h1 {
+      z-index: 1;
+      width: 80%;
+
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      white-space: normal;
+      hyphens: auto;
+      font-size: clamp(1.5rem, 5vw, 4rem);
+    }
+
+    canvas {
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 0;
+      height: 100%;
+    }
+  }
+}
+
+//#region Responsive
+// @media screen and (max-width: 1024px) {
+//   h1 {
+//     font-size: 3rem;
+//   }
+// }
+
+// @media screen and (max-width: 767px) {
+//   h1 {
+//     font-size: 1.5rem;
+//   }
+// }
+//#endregion

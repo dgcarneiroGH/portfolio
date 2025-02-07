@@ -1,9 +1,9 @@
-<section class="contact-page">
-    <div class="contact-section">
+<section>
+    <div class="section-container">
         <h1 id="title">Ahora que ya me conoces . . .</h1>
-        <p id="animatedText" class="fadedText">¿Hablamos?</p>
+        <p id="animatedText" class="faded-text">¿Hablamos?</p>
 
-        <div class="contactMethods">
+        <div class="contact-methods">
             @for (contactMethod of contactMethods; track contactMethod.name){
             <a [href]="contactMethod.url" target="_blank" [attr.title]="contactMethod.name">
                 <img [src]="contactMethod.iconSrc" [alt]="contactMethod.name" />

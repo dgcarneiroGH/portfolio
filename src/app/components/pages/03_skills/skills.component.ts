@@ -2,12 +2,12 @@ import { OnInit, Component } from '@angular/core';
 import { AnimateComponent } from '../../animate/animate.component';
 import { ISkill } from '../../../interfaces';
 import { SKILLS } from '../../../constants';
-import { AbilityComponent } from '../../shared/ability/ability.component';
+import { SkillComponent } from '../../shared/skill/skill.component';
 
 @Component({
   selector: 'app-skills',
   standalone: true,
-  imports: [AbilityComponent],
+  imports: [SkillComponent],
   templateUrl: './skills.component.html',
   styleUrls: ['./skills.component.scss']
 })

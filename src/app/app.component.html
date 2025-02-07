@@ -2,11 +2,13 @@
   <app-navigation-menu />
   <main>
     <div class="inner-header" (scroll)="onScroll($event)" (wheel)="onWheel($event)">
-      @if (loading) {
+      <!-- @if (loading) {
       <app-spinner />
-      } @else {
-      <router-outlet />
-      }
+      } @else { -->
+      <div [@routeAnimations]="getRouteAnimation(outlet)">
+        <router-outlet #outlet="outlet" />
+      </div>
+      <!-- } -->
     </div>
   </main>
   <app-sidebar />

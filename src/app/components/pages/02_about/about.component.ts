@@ -9,8 +9,6 @@ import { PictureComponent } from '../../shared/picture/picture.component';
   styleUrls: ['./about.component.scss']
 })
 export class AboutComponent implements OnInit {
-  @ViewChild('aboutSection', { static: false }) aboutSection!: ElementRef;
-
   screenWidth!: number;
 
   ngOnInit(): void {

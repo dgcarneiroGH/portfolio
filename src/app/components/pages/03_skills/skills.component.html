@@ -1,0 +1,12 @@
+<section>
+  <header class="section-header">
+    <h1 #title>Habilidades</h1>
+  </header>
+
+  <div class="section-container">
+    @for (skill of skills; track skill.name) {
+    <app-skill [years]="skill.yearsOfExperience" [progress]="calcProgress(skill.yearsOfExperience)" [text]="skill.name"
+      [logoSrc]="skill.logoSrc"></app-skill>
+    }
+  </div>
+</section>

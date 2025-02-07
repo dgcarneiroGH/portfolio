@@ -1,4 +1,10 @@
-import { Component, inject, OnInit } from '@angular/core';
+import {
+  AfterViewChecked,
+  ChangeDetectorRef,
+  Component,
+  inject,
+  OnInit
+} from '@angular/core';
 import {
   NavigationCancel,
   NavigationEnd,
@@ -15,6 +21,15 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
 import { SidebarComponent } from './components/core/sidebar/sidebar.component';
 import { debounceTime, Subject } from 'rxjs';
 import { NavMenuItems } from './constants';
+import {
+  animate,
+  group,
+  query,
+  style,
+  transition,
+  trigger
+} from '@angular/animations';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -26,9 +41,76 @@ import { NavMenuItems } from './constants';
     NavigationMenuComponent,
     RouterOutlet,
     SpinnerComponent
+  ],
+  animations: [
+    trigger('routeAnimations', [
+      // Transición de siguiente sección (de abajo hacia arriba)
+      transition(':increment', [
+        query(
+          ':enter, :leave',
+          style({ position: 'absolute', width: '100%' }),
+          { optional: true }
+        ),
+        group([
+          query(
+            ':leave',
+            [
+              animate(
+                '600ms ease-in-out',
+                style({ transform: 'translateY(-100%)', opacity: 0 })
+              )
+            ],
+            { optional: true }
+          ),
+          query(
+            ':enter',
+            [
+              style({ transform: 'translateY(100%)', opacity: 0 }),
+              animate(
+                '600ms ease-in-out',
+                style({ transform: 'translateY(0)', opacity: 1 })
+              )
+            ],
+            { optional: true }
+          )
+        ])
+      ]),
+
+      // Transición de sección anterior (de arriba hacia abajo)
+      transition(':decrement', [
+        query(
+          ':enter, :leave',
+          style({ position: 'absolute', width: '100%' }),
+          { optional: true }
+        ),
+        group([
+          query(
+            ':leave',
+            [
+              animate(
+                '600ms ease-in-out',
+                style({ transform: 'translateY(100%)', opacity: 0 })
+              )
+            ],
+            { optional: true }
+          ),
+          query(
+            ':enter',
+            [
+              style({ transform: 'translateY(-100%)', opacity: 0 }),
+              animate(
+                '600ms ease-in-out',
+                style({ transform: 'translateY(0)', opacity: 1 })
+              )
+            ],
+            { optional: true }
+          )
+        ])
+      ])
+    ])
   ]
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewChecked {
   loading = true;
 
   // private dsService = inject(DynamicScriptService);
@@ -38,8 +120,11 @@ export class AppComponent implements OnInit {
   private _scrollSubject = new Subject<Event>();
   private _atTop = false;
   private _atBottom = false;
-  private _currentSectionId = 0;
+  private _previousSectionId!: number;
+  private _currentSectionId!: number;
   private _isNavigating = false;
+
+  constructor(private _cdRef: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this._router.events.subscribe((event) => {
@@ -52,6 +137,19 @@ export class AppComponent implements OnInit {
 
     this._fontService.loadFonts();
     // this.loadScripts();
+  }
+
+  ngAfterViewChecked(): void {
+    this._cdRef.detectChanges();
+  }
+
+  getRouteAnimation(outlet: RouterOutlet) {
+    const currentId = this._currentSectionId;
+    const previousId = this._previousSectionId;
+    console.log({ currentId });
+    console.log({ previousId });
+
+    return currentId > previousId ? currentId : currentId - 1; // Define si es forward o backward
   }
 
   onScroll(event: Event) {
@@ -76,6 +174,7 @@ export class AppComponent implements OnInit {
     if (this._isNavigating) return;
 
     const nextSectionId = this._currentSectionId + offset;
+    this._previousSectionId = this._currentSectionId - offset;
 
     if (
       (offset > 0 && nextSectionId > NavMenuItems.length - 1) ||
@@ -119,6 +218,7 @@ export class AppComponent implements OnInit {
     this._currentSectionId = NavMenuItems.findIndex(
       (item) => item.link === url
     );
+    this._previousSectionId = this._currentSectionId - 1;
   }
 
   private _stopLoading(): void {

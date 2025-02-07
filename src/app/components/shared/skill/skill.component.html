@@ -7,10 +7,10 @@
     </svg>
 
     <div class="progress-info">
-        <p id="animatedText" class="progress-logo"
-            [ngClass]="{'visible': !isProgressVisible, 'hidden': isProgressVisible}" (click)="showProgress()">
+        <div class="progress-logo" [ngClass]="{'visible': !isProgressVisible, 'hidden': isProgressVisible}"
+            (click)="showProgress()">
             <img [src]="logoSrc" [alt]="text" />
-        </p>
+        </div>
         <p id="animatedText" class="progress-text"
             [ngClass]="{'visible': isProgressVisible, 'hidden': !isProgressVisible}" (click)="showProgress()">
             {{ text }}

@@ -1,6 +1,8 @@
-<section class="proyects-page">
-    <h1 #title>Proyectos</h1>
-    <div class="proyects-section">
+<section>
+    <header class="section-header">
+        <h1 #title>Proyectos</h1>
+    </header>
+    <div class="section-container">
         @for (proyect of proyects; track proyect.name) {
         <app-proyect class="proyect-card" [coverImgSrc]="proyect.coverImgSrc" [name]="proyect.name"
             [description]="proyect.description" [url]="proyect.url"></app-proyect>

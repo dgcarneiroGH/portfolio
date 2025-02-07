@@ -1,0 +1,21 @@
+<section>
+  <header class="section-header">
+    <h1 #title>Experiencia laboral</h1>
+  </header>
+  <div class="section-container">
+    <ul>
+      @for (e of experience; track e.id) {
+      <li appTimeline customClassName="in-view">
+        <div>
+          <time>{{ e.yearRange }}</time>
+          <div class="discovery">
+            <h2>{{ e.company }}</h2>
+            <p class="designation">{{ e.designation }}</p>
+            <span>{{ e.role }}</span>
+          </div>
+        </div>
+      </li>
+      }
+    </ul>
+  </div>
+</section>

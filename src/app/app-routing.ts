@@ -23,7 +23,7 @@ export const APP_ROUTES: Routes = [
     path: '',
     title: 'Home',
     loadComponent: () =>
-      import('./components/pages/home/home.component').then(
+      import('./components/pages/01_home/home.component').then(
         ({ HomeComponent }) => HomeComponent
       )
   },
@@ -31,7 +31,7 @@ export const APP_ROUTES: Routes = [
     path: 'about',
     title: 'About Me',
     loadComponent: () =>
-      import('./components/pages/about/about.component').then(
+      import('./components/pages/02_about/about.component').then(
         ({ AboutComponent }) => AboutComponent
       )
   },
@@ -39,7 +39,7 @@ export const APP_ROUTES: Routes = [
     path: 'skills',
     title: 'Skills',
     loadComponent: () =>
-      import('./components/pages/skills/skills.component').then(
+      import('./components/pages/03_skills/skills.component').then(
         ({ SkillsComponent }) => SkillsComponent
       )
   },
@@ -47,7 +47,7 @@ export const APP_ROUTES: Routes = [
     path: 'experience',
     title: 'Experience',
     loadComponent: () =>
-      import('./components/pages/experience/experience.component').then(
+      import('./components/pages/04_experience/experience.component').then(
         ({ ExperienceComponent }) => ExperienceComponent
       )
   },
@@ -55,7 +55,7 @@ export const APP_ROUTES: Routes = [
     path: 'proyects',
     title: 'Proyects',
     loadComponent: () =>
-      import('./components/pages/proyects/proyects.component').then(
+      import('./components/pages/05_proyects/proyects.component').then(
         ({ ProyectsComponent }) => ProyectsComponent
       )
   },
@@ -63,7 +63,7 @@ export const APP_ROUTES: Routes = [
     path: 'certs',
     title: 'Certificates',
     loadComponent: () =>
-      import('./components/pages/certs/certs.component').then(
+      import('./components/pages/06_certs/certs.component').then(
         ({ CertsComponent }) => CertsComponent
       )
   },
@@ -71,7 +71,7 @@ export const APP_ROUTES: Routes = [
     path: 'contact',
     title: 'Contact',
     loadComponent: () =>
-      import('./components/pages/contact/contact.component').then(
+      import('./components/pages/07_contact/contact.component').then(
         ({ ContactComponent }) => ContactComponent
       )
   },

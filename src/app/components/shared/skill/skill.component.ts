@@ -2,13 +2,13 @@ import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-ability',
+  selector: 'app-skill',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './ability.component.html',
-  styleUrl: './ability.component.scss'
+  templateUrl: './skill.component.html',
+  styleUrl: './skill.component.scss'
 })
-export class AbilityComponent {
+export class SkillComponent {
   @Input() progress!: number;
   @Input() text!: string;
   @Input() years!: number;
