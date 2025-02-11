@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
+  standalone: true,
   selector: 'app-proyect',
   imports: [CommonModule],
   templateUrl: './proyect.component.html',

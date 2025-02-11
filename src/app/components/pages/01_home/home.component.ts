@@ -19,15 +19,7 @@ export class HomeComponent
   implements OnInit, OnDestroy
 {
   override animationDelay: number = 3300;
-  screenHeight!: number;
-  screenWidth!: number;
-
   private dsService = inject(DynamicScriptService);
-
-  constructor() {
-    super();
-    this.getScreenSize();
-  }
 
   @HostListener('window:resize', ['$event'])
   getScreenSize() {
@@ -35,8 +27,12 @@ export class HomeComponent
     this.screenWidth = window.innerWidth;
   }
 
+  screenHeight!: number;
+  screenWidth!: number;
+
   ngOnInit(): void {
-    this.screenWidth = window.innerWidth;
+    this.getScreenSize();
+
     if (this.screenWidth > 768) {
       this.dsService
         .load('oscillator')

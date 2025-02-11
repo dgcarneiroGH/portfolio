@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
+  standalone: true,
   selector: 'app-picture',
   imports: [CommonModule],
   templateUrl: './picture.component.html',

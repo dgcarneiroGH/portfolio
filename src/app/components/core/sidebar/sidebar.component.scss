@@ -13,17 +13,21 @@
 }
 
 .waves-container {
-  width: 100%;
+  position: fixed;
+  top: 0;
+  height: 100vh;
+  width: 19rem;
   overflow: hidden;
   z-index: -1;
 }
 
 .waves {
-  position: absolute;
-  bottom: 40%;
-  width: 105vh;
-  // height: 10%;
-  left: -20rem;
+  position: relative;
+  top: 40%;
+  right: 18rem;
+
+  width: 56rem;
+  height: 6rem;
 
   transform: rotate(90deg);
 }

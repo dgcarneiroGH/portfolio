@@ -1,5 +1,5 @@
 <section>
-  <header class="section-header">
+  <header class="section-header" [ngClass]="{'visible': hasReachedTop, 'hidden': !hasReachedTop}">
     <h1 #title>Sobre mí</h1>
   </header>
   <div class="section-container">
@@ -26,6 +26,13 @@
         Respecto al trabajo, me gustan los proyectos que implican ayudar a la humanidad en cierto modo,
         igual que muchos compañeros, me siento motivado cuando sé que lo que hago tiene un fin positivo
         y ayuda a alguien.
+      </p>
+    </div>
+    <div class="row">
+      <p>
+        Labore pariatur laboris culpa voluptate reprehenderit. Ut amet ad mollit esse magna. Consectetur dolor aliqua
+        sunt do exercitation laboris amet id anim est nostrud culpa minim cillum. Nisi proident adipisicing ipsum aute
+        tempor velit esse sint. Dolore ex velit sit labore velit velit qui laborum.
       </p>
     </div>
   </div>

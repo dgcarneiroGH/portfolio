@@ -4,6 +4,7 @@ import { IContactMethod } from 'src/app/interfaces';
 import { CONTACT_METHODS } from 'src/app/constants';
 
 @Component({
+  standalone: true,
   selector: 'app-contact',
   imports: [],
   templateUrl: './contact.component.html',

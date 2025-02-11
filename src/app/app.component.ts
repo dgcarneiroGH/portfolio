@@ -3,6 +3,7 @@ import {
   ChangeDetectorRef,
   Component,
   inject,
+  Injector,
   OnInit
 } from '@angular/core';
 import {
@@ -29,7 +30,8 @@ import {
   transition,
   trigger
 } from '@angular/animations';
-import { CurrencyPipe } from '@angular/common';
+import { CommonModule, CurrencyPipe } from '@angular/common';
+import { ScrollService } from './services/scroll.service';
 
 @Component({
   selector: 'app-root',
@@ -40,7 +42,8 @@ import { CurrencyPipe } from '@angular/common';
     SidebarComponent,
     NavigationMenuComponent,
     RouterOutlet,
-    SpinnerComponent
+    SpinnerComponent,
+    CommonModule
   ],
   animations: [
     trigger('routeAnimations', [
@@ -48,7 +51,12 @@ import { CurrencyPipe } from '@angular/common';
       transition(':increment', [
         query(
           ':enter, :leave',
-          style({ position: 'absolute', width: '100%' }),
+          style({
+            position: 'absolute',
+            width: '100vw',
+            left: '3vw',
+            'overflow-x': 'hidden'
+          }),
           { optional: true }
         ),
         group([
@@ -80,7 +88,12 @@ import { CurrencyPipe } from '@angular/common';
       transition(':decrement', [
         query(
           ':enter, :leave',
-          style({ position: 'absolute', width: '100%' }),
+          style({
+            position: 'absolute',
+            width: '100vw',
+            left: '3vw',
+            'overflow-x': 'hidden'
+          }),
           { optional: true }
         ),
         group([
@@ -110,67 +123,60 @@ import { CurrencyPipe } from '@angular/common';
     ])
   ]
 })
-export class AppComponent implements OnInit, AfterViewChecked {
+export class AppComponent implements OnInit {
   loading = true;
 
   // private dsService = inject(DynamicScriptService);
   private _fontService = inject(FontService);
   private _router = inject(Router);
+  private _scrollService = inject(ScrollService);
 
-  private _scrollSubject = new Subject<Event>();
-  private _atTop = false;
-  private _atBottom = false;
+  public hasReachedTop = true;
+  public hasReachedBottom = false;
+
   private _previousSectionId!: number;
   private _currentSectionId!: number;
-  private _isNavigating = false;
+  public isNavigatingFirstSection = false;
+  public isNavigatingLastSection = false;
 
-  constructor(private _cdRef: ChangeDetectorRef) {}
+  private _isNavigating = false;
 
   ngOnInit(): void {
     this._router.events.subscribe((event) => {
       this.navigationInterceptor(event as RouterEvent);
     });
 
-    this._scrollSubject.pipe(debounceTime(100)).subscribe((event) => {
-      this._handleScroll(event);
-    });
+    // Verificar si hay scroll en la ventana
+    const { scrollHeight, clientHeight } = document.documentElement;
+    this.hasReachedBottom = scrollHeight <= clientHeight;
+
+    // Obtener la sección actual desde la URL
+    this._getCurrentSectionId(this._router.url);
 
     this._fontService.loadFonts();
     // this.loadScripts();
   }
 
-  ngAfterViewChecked(): void {
-    this._cdRef.detectChanges();
-  }
-
   getRouteAnimation(outlet: RouterOutlet) {
     const currentId = this._currentSectionId;
     const previousId = this._previousSectionId;
-    console.log({ currentId });
-    console.log({ previousId });
 
     return currentId > previousId ? currentId : currentId - 1; // Define si es forward o backward
   }
 
   onScroll(event: Event) {
-    this._scrollSubject.next(event);
-  }
-
-  onWheel(event: WheelEvent): void {
-    if (this._atBottom && event.deltaY > 0) this._navigateToSection(1);
-
-    if (this._atTop && event.deltaY < 0) this._navigateToSection(-1);
-  }
-
-  private _handleScroll(event: Event) {
     const { scrollTop, scrollHeight, clientHeight } =
       event.target as HTMLElement;
 
-    this._atBottom = scrollTop + clientHeight >= scrollHeight;
-    this._atTop = scrollTop === 0;
+    this.hasReachedTop = scrollTop === 0;
+    this.hasReachedBottom =
+      Math.round(scrollTop) + clientHeight >= scrollHeight;
+
+    this._scrollService.setHasReachedTop(this.hasReachedTop);
+    this._scrollService.setHasReachedBottom(this.hasReachedBottom);
   }
 
-  private _navigateToSection(offset: number): void {
+  public navigateToSection(offset: number): void {
     if (this._isNavigating) return;
 
     const nextSectionId = this._currentSectionId + offset;
@@ -198,6 +204,7 @@ export class AppComponent implements OnInit, AfterViewChecked {
   //   }
   // };
 
+  // TODO:Eliminar cuando se elimine definitivamente el loading
   navigationInterceptor(event: RouterEvent): void {
     if (event instanceof NavigationStart) {
       this.loading = true;
@@ -219,6 +226,13 @@ export class AppComponent implements OnInit, AfterViewChecked {
       (item) => item.link === url
     );
     this._previousSectionId = this._currentSectionId - 1;
+
+    this._currentSectionId === 0
+      ? (this.isNavigatingFirstSection = true)
+      : (this.isNavigatingFirstSection = false);
+    this._currentSectionId === NavMenuItems.length - 1
+      ? (this.isNavigatingLastSection = true)
+      : (this.isNavigatingLastSection = false);
   }
 
   private _stopLoading(): void {

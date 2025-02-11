@@ -1,12 +1,19 @@
 <div class="header">
-  <app-navigation-menu />
+  <!-- <app-navigation-menu /> -->
   <main>
-    <div class="inner-header" (scroll)="onScroll($event)" (wheel)="onWheel($event)">
+    <div class="inner-header" (scroll)="onScroll($event)">
       <!-- @if (loading) {
       <app-spinner />
       } @else { -->
       <div [@routeAnimations]="getRouteAnimation(outlet)">
+        <!-- TODO:Estas arrow se van para un componente shared -->
+        <img class="arrow up"
+          [ngClass]="{'visible': hasReachedTop && !isNavigatingFirstSection, 'hidden': !hasReachedTop || isNavigatingFirstSection}"
+          src="assets/images/material-icons/arrow_up.svg" alt="Arrow Up" (click)="navigateToSection(-1)">
         <router-outlet #outlet="outlet" />
+        <img class="arrow down"
+          [ngClass]="{'visible': hasReachedBottom && !isNavigatingLastSection, 'hidden': !hasReachedBottom || isNavigatingLastSection}"
+          src="assets/images/material-icons/arrow_down.svg" alt="Arrow Down" (click)="navigateToSection(1)">
       </div>
       <!-- } -->
     </div>

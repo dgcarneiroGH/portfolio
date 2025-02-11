@@ -5,6 +5,7 @@ import { PROYECTS } from 'src/app/constants';
 import { AnimateComponent } from '../../animate/animate.component';
 
 @Component({
+  standalone: true,
   selector: 'app-proyects',
   imports: [ProyectComponent],
   templateUrl: './proyects.component.html',
