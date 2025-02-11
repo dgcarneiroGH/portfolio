@@ -2,12 +2,25 @@
   position: relative;
   top: 15vh;
   width: 90%;
-  height: 90vh; /*Five more to use infinite scroll*/
+  height: 85vh;
 
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 5rem;
-
+  display: flex;
   justify-items: center;
   align-items: center;
+  flex-direction: column;
+
+  .toggle-container {
+    height: 5rem;
+    width: 100%;
+    display: flex;
+    justify-content: start;
+  }
+
+  .skills-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5rem;
+
+    width: 100%;
+  }
 }

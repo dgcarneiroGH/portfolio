@@ -3,19 +3,20 @@ import { AnimateComponent } from '../../animate/animate.component';
 import { ISkill } from '../../../interfaces';
 import { SKILLS } from '../../../constants';
 import { SkillComponent } from '../../shared/skill/skill.component';
+import { ToggleButtonComponent } from '../../shared/toggle-button/toggle-button.component';
 
 @Component({
   selector: 'app-skills',
   standalone: true,
-  imports: [SkillComponent],
+  imports: [SkillComponent, ToggleButtonComponent],
   templateUrl: './skills.component.html',
   styleUrls: ['./skills.component.scss']
 })
 export class SkillsComponent extends AnimateComponent implements OnInit {
   override animationDelay = 2000;
-  // @ViewChild('experience') experience!: ElementRef;
-  // isMakisuOpen: boolean = true;
-  // override showMakisus: boolean = true;
+
+  showAllProgressBars = false;
+
   skills: ISkill[] = SKILLS.sort(
     (a, b) => b.yearsOfExperience - a.yearsOfExperience
   );
@@ -31,14 +32,7 @@ export class SkillsComponent extends AnimateComponent implements OnInit {
     return Math.round((yearsOfExp / this.totalYearsOfExperience) * 100);
   }
 
-  // toggleExperience() {
-  //   this.isMakisuOpen = !this.isMakisuOpen;
-  //   if (this.isMakisuOpen) {
-  //     // this.renderer.removeClass(this.experience.nativeElement, 'fade-in');
-  //     // this.renderer.addClass(this.experience.nativeElement, 'fade-out');
-  //   } else {
-  //     // this.renderer.addClass(this.experience.nativeElement, 'fade-in');
-  //     // this.renderer.removeClass(this.experience.nativeElement, 'fade-out');
-  //   }
-  // }
+  public showAll(show: boolean) {
+    this.showAllProgressBars = show;
+  }
 }

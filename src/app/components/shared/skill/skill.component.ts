@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-skill',
@@ -14,8 +14,21 @@ export class SkillComponent {
   @Input() years!: number;
   @Input() logoSrc!: string;
 
+  private _showProgressBar = false;
+  @Input()
+  get showProgressBar(): boolean {
+    return this._showProgressBar;
+  }
+  set showProgressBar(value: boolean) {
+    this._showProgressBar = value;
+
+    if (value)
+      setTimeout(() => {
+        this.currentStrokeDasharray = this.strokeDasharray;
+      }, 300);
+  }
+
   currentStrokeDasharray = '0 200';
-  isProgressVisible = false;
 
   get strokeDasharray(): string {
     const radius = 50;
@@ -28,11 +41,7 @@ export class SkillComponent {
     return `${this.years} ${this.years === 1 ? 'año' : 'años'}`;
   }
 
-  showProgress() {
-    this.isProgressVisible = !this.isProgressVisible;
-
-    setTimeout(() => {
-      this.currentStrokeDasharray = this.strokeDasharray;
-    }, 300);
+  toggleProgress(): void {
+    this.showProgressBar = !this.showProgressBar;
   }
 }

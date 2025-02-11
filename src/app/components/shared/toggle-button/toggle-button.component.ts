@@ -10,8 +10,8 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./toggle-button.component.scss']
 })
 export class ToggleButtonComponent {
-  @Input() isChecked: boolean = false;
-  @Input() label: string = '';
+  @Input() isChecked = false;
+  @Input() label = '';
   @Output() check: EventEmitter<any> = new EventEmitter<any>();
 
   toggle(event: Event) {

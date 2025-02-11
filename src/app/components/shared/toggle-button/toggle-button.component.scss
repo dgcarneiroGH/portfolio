@@ -1,13 +1,14 @@
 /* The container */
-.toggle {
+.toggle-container {
   display: flex;
   align-items: center;
   gap: 20px;
-  left: 40px;
-  position: absolute;
   text-align: left;
-  top: 50px;
   z-index: 2;
+
+  .toggle {
+    filter: drop-shadow(2px 2px 4px rgba(255, 255, 255, 0.6));
+  }
 }
 
 .toggle-btn {
@@ -52,7 +53,27 @@
 
 /* On state */
 .toggle-btn input:checked + .slider {
-  background: #34ee06;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 172, 193, 1),
+    rgba(84, 58, 183, 1),
+    rgba(0, 172, 193, 1)
+  );
+
+  background-size: 200% 100%;
+  animation: moveGradient 5s linear infinite;
+
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+}
+
+@keyframes moveGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
 }
 
 /* On state when slider is moved */

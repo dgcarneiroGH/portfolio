@@ -1,11 +1,7 @@
-<div class="toggle">
-  <div>
+<div class="toggle-container">
+  <div class="toggle">
     <label class="toggle-btn">
-      <input
-        type="checkbox"
-        [(ngModel)]="isChecked"
-        (ngModelChange)="toggle($event)"
-      />
+      <input type="checkbox" [(ngModel)]="isChecked" (ngModelChange)="toggle($event)" />
       <div class="slider"></div>
     </label>
   </div>

@@ -4,9 +4,16 @@
   </header>
 
   <div class="section-container">
-    @for (skill of skills; track skill.name) {
-    <app-skill [years]="skill.yearsOfExperience" [progress]="calcProgress(skill.yearsOfExperience)" [text]="skill.name"
-      [logoSrc]="skill.logoSrc"></app-skill>
-    }
+
+    <div class="toggle-container">
+      <app-toggle-button label="Mostrar experiencia" (check)="showAll($event)"></app-toggle-button>
+    </div>
+
+    <div class="skills-container">
+      @for (skill of skills; track skill.name) {
+      <app-skill [years]="skill.yearsOfExperience" [progress]="calcProgress(skill.yearsOfExperience)"
+        [text]="skill.name" [logoSrc]="skill.logoSrc" [showProgressBar]="showAllProgressBars"></app-skill>
+      }
+    </div>
   </div>
 </section>
