@@ -14,8 +14,13 @@
 .toggle-btn {
   position: relative;
   display: inline-block;
-  width: 60px;
-  height: 34px;
+  // width: 60px;
+  height: var(--toggle-height);
+  aspect-ratio: 16/9;
+}
+
+.row-reverse {
+  flex-direction: row-reverse;
 }
 
 /* Hide default HTML checkbox */
@@ -42,8 +47,9 @@
 .slider:before {
   position: absolute;
   content: "";
-  height: 26px;
-  width: 26px;
+  height: var(--slider-height);
+  // width: 26px;
+  aspect-ratio: 1;
   left: 4px;
   bottom: 4px;
   background-color: white;
@@ -84,6 +90,8 @@
 /* On state indicator */
 .toggle-btn input:checked + .slider:before {
   transform: translateX(26px);
+  //Este si pertenece a un filtro
+  // transform: translateX(17px);
 }
 
 /* Off state background color */

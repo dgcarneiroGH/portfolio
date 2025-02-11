@@ -3,11 +3,12 @@ import { AnimateComponent } from '../../animate/animate.component';
 import { CERT_CANVAS_OPTIONS, CERTS } from 'src/app/constants';
 import { ICert } from 'src/app/interfaces';
 import { TagCanvasModule, TagCanvasOptions } from 'ng-tagcanvas';
+import { ToggleButtonComponent } from '../../shared/toggle-button/toggle-button.component';
 
 @Component({
   selector: 'app-certs',
   standalone: true,
-  imports: [TagCanvasModule],
+  imports: [TagCanvasModule, ToggleButtonComponent],
   templateUrl: './certs.component.html',
   styleUrl: './certs.component.scss'
 })
@@ -43,5 +44,9 @@ export class CertsComponent extends AnimateComponent implements OnInit {
 
   onDblClick(cert: ICert): void {
     window.open(cert.url, '_blank');
+  }
+
+  check(event: Event) {
+    console.log(event);
   }
 }

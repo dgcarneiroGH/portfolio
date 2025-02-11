@@ -1,8 +1,8 @@
-<div class="toggle-container">
+<div class="toggle-container" [ngClass]="{'row-reverse': textLeft}">
   <div class="toggle">
-    <label class="toggle-btn">
+    <label class="toggle-btn" [style.--toggle-height]="toggleHeight">
       <input type="checkbox" [(ngModel)]="isChecked" (ngModelChange)="toggle($event)" />
-      <div class="slider"></div>
+      <div class="slider" [style.--slider-height]="sliderHeight"></div>
     </label>
   </div>
   @if (label) {
