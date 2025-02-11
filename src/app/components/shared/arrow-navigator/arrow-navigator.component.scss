@@ -1,0 +1,28 @@
+.arrow {
+  position: absolute;
+  right: 1rem;
+  width: 5rem;
+  z-index: 2;
+
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  cursor: pointer;
+
+  &.up {
+    top: 1rem;
+    &:hover {
+      transform: translateY(-10px);
+    }
+  }
+  &.down {
+    bottom: 1rem;
+    &:hover {
+      transform: translateY(10px);
+    }
+  }
+  &.visible {
+    opacity: 1;
+  }
+  &.hidden {
+    opacity: 0;
+  }
+}

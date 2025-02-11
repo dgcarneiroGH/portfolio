@@ -32,6 +32,7 @@ import {
 } from '@angular/animations';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { ScrollService } from './services/scroll.service';
+import { ArrowNavigatorComponent } from './components/shared/arrow-navigator/arrow-navigator.component';
 
 @Component({
   selector: 'app-root',
@@ -43,7 +44,8 @@ import { ScrollService } from './services/scroll.service';
     NavigationMenuComponent,
     RouterOutlet,
     SpinnerComponent,
-    CommonModule
+    CommonModule,
+    ArrowNavigatorComponent
   ],
   animations: [
     trigger('routeAnimations', [
@@ -126,18 +128,17 @@ import { ScrollService } from './services/scroll.service';
 export class AppComponent implements OnInit {
   loading = true;
 
-  // private dsService = inject(DynamicScriptService);
   private _fontService = inject(FontService);
   private _router = inject(Router);
   private _scrollService = inject(ScrollService);
 
   public hasReachedTop = true;
   public hasReachedBottom = false;
+  public isNavigatingFirstSection = false;
+  public isNavigatingLastSection = false;
 
   private _previousSectionId!: number;
   private _currentSectionId!: number;
-  public isNavigatingFirstSection = false;
-  public isNavigatingLastSection = false;
 
   private _isNavigating = false;
 
@@ -204,20 +205,13 @@ export class AppComponent implements OnInit {
   //   }
   // };
 
-  // TODO:Eliminar cuando se elimine definitivamente el loading
   navigationInterceptor(event: RouterEvent): void {
-    if (event instanceof NavigationStart) {
-      this.loading = true;
-      return;
-    }
-
     if (
       event instanceof NavigationEnd ||
       event instanceof NavigationCancel ||
       event instanceof NavigationError
     ) {
       this._getCurrentSectionId(event.url);
-      this._stopLoading();
     }
   }
 
@@ -233,11 +227,5 @@ export class AppComponent implements OnInit {
     this._currentSectionId === NavMenuItems.length - 1
       ? (this.isNavigatingLastSection = true)
       : (this.isNavigatingLastSection = false);
-  }
-
-  private _stopLoading(): void {
-    setTimeout(() => {
-      this.loading = false;
-    }, 2000);
   }
 }
