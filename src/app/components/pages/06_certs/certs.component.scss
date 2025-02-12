@@ -14,8 +14,11 @@
   flex-direction: column;
   flex: 1 0 0%;
 
-  .filter-container {
+  .filter-component {
     align-self: end;
-    padding: 1rem;
+    margin: 1rem;
+
+    position: absolute;
+    top: 0;
   }
 }

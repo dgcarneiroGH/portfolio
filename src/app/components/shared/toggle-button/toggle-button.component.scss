@@ -8,69 +8,107 @@
 
   .toggle {
     filter: drop-shadow(2px 2px 4px rgba(255, 255, 255, 0.6));
+
+    .toggle-btn {
+      position: relative;
+      display: inline-block;
+      height: 34px;
+      aspect-ratio: 16/9;
+
+      /* Hide default HTML checkbox */
+      input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+
+      /*On state*/
+      input:checked + .slider {
+        background: linear-gradient(
+          90deg,
+          rgba(0, 172, 193, 1),
+          rgba(84, 58, 183, 1),
+          rgba(0, 172, 193, 1)
+        );
+
+        background-size: 200% 100%;
+        animation: moveGradient 5s linear infinite;
+
+        -webkit-mask: linear-gradient(#fff 0 0) content-box,
+          linear-gradient(#fff 0 0);
+        mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      }
+
+      /* On state when slider is moved */
+      input:focus + .slider {
+        box-shadow: 0 0 1px white;
+      }
+
+      /* On state indicator */
+      input:checked + .slider:before {
+        transform: translateX(26px);
+      }
+
+      /* Off state background color */
+      input:not(:checked) + .slider {
+        background-color: rgba(255, 255, 255, 0.2);
+      }
+
+      /* Off state indicator color */
+      input:not(:checked) + .slider:before {
+        background-color: white;
+      }
+
+      .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        transition: 0.4s;
+        border-radius: 34px;
+      }
+
+      /* Rounded sliders */
+      .slider:before {
+        position: absolute;
+        content: "";
+        height: 26px;
+        aspect-ratio: 1;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        transition: 0.4s;
+        border-radius: 50%;
+      }
+    }
+  }
+
+  .label {
+    font-family: "Montserrat", sans-serif;
   }
 }
 
-.toggle-btn {
-  position: relative;
-  display: inline-block;
-  // width: 60px;
-  height: var(--toggle-height);
-  aspect-ratio: 16/9;
-}
-
-.row-reverse {
+.toggle-container.filter-mode {
   flex-direction: row-reverse;
-}
+  .toggle {
+    .toggle-btn {
+      height: 20px;
 
-/* Hide default HTML checkbox */
-.toggle-btn input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
+      input:checked + .slider:before {
+        transform: translateX(17px);
+      }
 
-/* The slider */
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  transition: 0.4s;
-  border-radius: 34px;
-}
-
-/* Rounded sliders */
-.slider:before {
-  position: absolute;
-  content: "";
-  height: var(--slider-height);
-  // width: 26px;
-  aspect-ratio: 1;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  transition: 0.4s;
-  border-radius: 50%;
-}
-
-/* On state */
-.toggle-btn input:checked + .slider {
-  background: linear-gradient(
-    90deg,
-    rgba(0, 172, 193, 1),
-    rgba(84, 58, 183, 1),
-    rgba(0, 172, 193, 1)
-  );
-
-  background-size: 200% 100%;
-  animation: moveGradient 5s linear infinite;
-
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      .slider:before {
+        height: 12px;
+      }
+    }
+  }
+  .label {
+    font-size: 0.9rem;
+  }
 }
 
 @keyframes moveGradient {
@@ -80,30 +118,4 @@
   100% {
     background-position: 200% 50%;
   }
-}
-
-/* On state when slider is moved */
-.toggle-btn input:focus + .slider {
-  box-shadow: 0 0 1px white;
-}
-
-/* On state indicator */
-.toggle-btn input:checked + .slider:before {
-  transform: translateX(26px);
-  //Este si pertenece a un filtro
-  // transform: translateX(17px);
-}
-
-/* Off state background color */
-.toggle-btn input:not(:checked) + .slider {
-  background-color: rgba(255, 255, 255, 0.2);
-}
-
-/* Off state indicator color */
-.toggle-btn input:not(:checked) + .slider:before {
-  background-color: white;
-}
-
-.label {
-  font-family: "Montserrat", sans-serif;
 }

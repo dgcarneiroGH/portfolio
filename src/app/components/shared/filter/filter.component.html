@@ -1,0 +1,22 @@
+<div class="filter-container">
+    <header>
+        <!-- <h2>Filtros</h2> -->
+        <img src="assets/images/icons/material-icons/filter.svg" alt="Filter">
+        <img src="assets/images/icons/material-icons/arrow_down.svg" alt="Arrow down">
+    </header>
+    <div class="filter-options">
+        @for (param of filterParams; track param.id) {
+        <header>
+            <h3>{{param.label}}</h3>
+            <img src="assets/images/icons/material-icons/arrow_down.svg" alt="Arrow down">
+        </header>
+        <div class="filter-params">
+            @for (item of param.items; track item.id) {
+            <app-toggle-button [label]="item.label" [filterMode]="true" [isChecked]="true"
+                (check)="check($event,param.id,item.id)" />
+            }
+            <hr>
+        </div>
+        }
+    </div>
+</div>

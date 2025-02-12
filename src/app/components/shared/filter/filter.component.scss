@@ -1,0 +1,25 @@
+.filter-container {
+  text-align: start;
+  font-family: "Montserrat", sans-serif;
+
+  header {
+    display: flex;
+    align-items: center;
+    // justify-content: space-between;
+  }
+
+  .filter-options {
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+    }
+
+    .filter-params {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+  }
+}

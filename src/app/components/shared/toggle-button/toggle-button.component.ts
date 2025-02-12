@@ -12,12 +12,8 @@ import { FormsModule } from '@angular/forms';
 export class ToggleButtonComponent {
   @Input() isChecked = false;
   @Input() label = '';
-  //#region styles
-  //TODO: En lugar de esto, el input indicará si pertenece a un filtro y hará todos los cambios de estilo necesarios
-  @Input() toggleHeight = '34px';
-  @Input() sliderHeight = '26px';
-  @Input() textLeft = false;
-  //#endregion
+  @Input() filterMode = false;
+
   @Output() check: EventEmitter<any> = new EventEmitter<any>();
 
   toggle(event: Event) {

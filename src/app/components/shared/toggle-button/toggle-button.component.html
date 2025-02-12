@@ -1,11 +1,11 @@
-<div class="toggle-container" [ngClass]="{'row-reverse': textLeft}">
+<div class="toggle-container" [ngClass]="{'filter-mode': filterMode}">
   <div class="toggle">
-    <label class="toggle-btn" [style.--toggle-height]="toggleHeight">
+    <label class="toggle-btn">
       <input type="checkbox" [(ngModel)]="isChecked" (ngModelChange)="toggle($event)" />
-      <div class="slider" [style.--slider-height]="sliderHeight"></div>
+      <div class="slider"></div>
     </label>
   </div>
   @if (label) {
-  <div class="label">{{ label | uppercase }}</div>
+  <div class="label">{{ label }}</div>
   }
 </div>

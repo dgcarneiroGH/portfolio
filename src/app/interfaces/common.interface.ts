@@ -62,11 +62,19 @@ export interface IContactMethod {
   url: string;
   iconSrc: string;
 }
-
-type CertType = 'Udemy' | 'Scrum' | 'LinkedIn' | 'OpenWebinars';
+//TODO: Revisar estos naming
+type CertPlatformType = 'udemy' | 'scrum' | 'linkedIn' | 'openWebinars';
+type CertTechType =
+  | 'angular'
+  | 'react'
+  | 'scrum'
+  | 'solid'
+  | 'flutter'
+  | 'unreal';
 
 export interface ICert {
-  type: CertType;
+  platform: CertPlatformType;
+  technology: CertTechType;
   name: string;
   iconSrc: string;
   url: string;
