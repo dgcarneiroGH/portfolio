@@ -3,13 +3,12 @@ import { AnimateComponent } from '../../animate/animate.component';
 import { CERT_CANVAS_OPTIONS, CERTS } from 'src/app/constants';
 import { ICert } from 'src/app/interfaces';
 import { TagCanvasModule, TagCanvasOptions } from 'ng-tagcanvas';
-import { ToggleButtonComponent } from '../../shared/toggle-button/toggle-button.component';
 import { FilterComponent } from '../../shared/filter/filter.component';
 
 @Component({
   selector: 'app-certs',
   standalone: true,
-  imports: [TagCanvasModule, ToggleButtonComponent, FilterComponent],
+  imports: [TagCanvasModule, FilterComponent],
   templateUrl: './certs.component.html',
   styleUrl: './certs.component.scss'
 })
@@ -24,6 +23,8 @@ export class CertsComponent extends AnimateComponent implements OnInit {
 
   ngOnInit(): void {
     this.screenWidth = window.innerWidth;
+
+    //TODO:Create function to get filter params from certs
   }
 
   downloadPdf(pdf: string): void {

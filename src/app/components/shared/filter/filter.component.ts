@@ -1,18 +1,22 @@
 import { Component } from '@angular/core';
 import { ToggleButtonComponent } from '../toggle-button/toggle-button.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-filter',
   standalone: true,
-  imports: [ToggleButtonComponent],
+  imports: [ToggleButtonComponent, CommonModule],
   templateUrl: './filter.component.html',
   styleUrl: './filter.component.scss'
 })
 export class FilterComponent {
+  showOptions = false;
+
   filterParams = [
     {
       id: 'platform',
       label: 'Plataforma',
+      showItems: false,
       items: [
         { label: 'Udemy', id: 'udemy' },
         { label: 'Scrum.org', id: 'scrum' }
@@ -21,6 +25,7 @@ export class FilterComponent {
     {
       id: 'tech',
       label: 'Lenguaje',
+      showItems: false,
       items: [
         { label: 'Angular', id: 'angular' },
         { label: 'React', id: 'react' },
