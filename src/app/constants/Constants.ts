@@ -7,7 +7,8 @@ import {
   ICert,
   ISkill,
   IProyect,
-  IContactMethod
+  IContactMethod,
+  ICertFilter
 } from '../interfaces';
 
 import { TagCanvasOptions } from 'ng-tagcanvas';
@@ -90,25 +91,6 @@ export const SocialMediaProfiles: ISocialMediaLinks[] = [
   }
 ];
 
-export const TAGS: ITag[] = [
-  { weight: 22, text: 'Git' },
-  { weight: 24, text: 'JavaScript' },
-  { weight: 24, text: 'NgRx' },
-  { weight: 20, text: 'Bootstrap' },
-  { weight: 32, text: 'Angular' },
-  { weight: 30, text: 'TypeScript' },
-  { weight: 25, text: 'TailwindCSS' },
-  { weight: 20, text: 'CSS3' },
-  { weight: 16, text: 'GraphQL' },
-  { weight: 30, text: 'HTML5' },
-  { weight: 28, text: 'Bitbucket' },
-  { weight: 24, text: 'SCSS' },
-  { weight: 20, text: 'React' },
-  { weight: 20, text: 'Redux' },
-  { weight: 16, text: 'Angular.js' },
-  { weight: 20, text: 'SQL' }
-];
-
 export const CERTS: ICert[] = [
   {
     platform: 'scrum',
@@ -161,6 +143,25 @@ export const CERTS: ICert[] = [
   }
 ];
 
+export const CERTS_FILTER: ICertFilter[] = [
+  {
+    id: 'platform',
+    items: [
+      { id: 'udemy', label: 'Udemy', selected: true },
+      { id: 'scrum', label: 'Scrum.org', selected: true }
+    ]
+  },
+  {
+    id: 'technology',
+    items: [
+      { id: 'angular', label: 'Angular', selected: true },
+      { id: 'react', label: 'React', selected: true },
+      { id: 'unreal', label: 'Unreal Engine', selected: true },
+      { id: 'scrum', label: 'Flutter', selected: true }
+    ]
+  }
+];
+
 export const CERT_CANVAS_OPTIONS: TagCanvasOptions = {
   frontSelect: true,
   dragControl: true,
@@ -180,29 +181,6 @@ export const CERT_CANVAS_OPTIONS: TagCanvasOptions = {
   initial: [0.3, -0.1],
   depth: 0.2,
   weight: false,
-  reverse: true,
-  radiusX: 2,
-  radiusY: 2,
-  radiusZ: 2
-};
-
-export const TAG_CANVAS_OPTIONS: TagCanvasOptions = {
-  clickToFront: 500,
-  textColour: '#FFF',
-  outlineThickness: 0.5,
-  outlineColour: 'transparent',
-  maxSpeed: 0.05,
-  freezeActive: true,
-  shuffleTags: true,
-  shape: 'sphere',
-  zoom: 1,
-  wheelZoom: false,
-  noSelect: false,
-  freezeDecel: true,
-  fadeIn: 3000,
-  initial: [0.3, -0.1],
-  depth: 1.1,
-  weight: true,
   reverse: true,
   radiusX: 2,
   radiusY: 2,

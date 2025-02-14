@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ToggleButtonComponent } from '../toggle-button/toggle-button.component';
 import { CommonModule } from '@angular/common';
+import { ICertFilter, ICertFilterItem } from 'src/app/interfaces';
 
 @Component({
   selector: 'app-filter',
@@ -12,32 +13,11 @@ import { CommonModule } from '@angular/common';
 export class FilterComponent {
   showOptions = false;
 
-  filterParams = [
-    {
-      id: 'platform',
-      label: 'Plataforma',
-      showItems: false,
-      items: [
-        { label: 'Udemy', id: 'udemy' },
-        { label: 'Scrum.org', id: 'scrum' }
-      ]
-    },
-    {
-      id: 'tech',
-      label: 'Lenguaje',
-      showItems: false,
-      items: [
-        { label: 'Angular', id: 'angular' },
-        { label: 'React', id: 'react' },
-        { label: 'Unreal Engine', id: 'unreal' },
-        { label: 'Flutter', id: 'scrum' }
-      ]
-    }
-  ];
+  @Input() filterParams!: ICertFilter[];
+  @Output() filter: EventEmitter<void> = new EventEmitter<void>();
 
-  check(event: Event, paramId: string, itemId: string) {
-    console.log({ event });
-    console.log({ paramId });
-    console.log({ itemId });
+  check(selected: boolean, item: ICertFilterItem) {
+    item.selected = selected;
+    this.filter.emit();
   }
 }

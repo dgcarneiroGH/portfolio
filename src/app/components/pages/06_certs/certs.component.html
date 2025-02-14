@@ -3,11 +3,11 @@
         <h1 #title>Certificados</h1>
     </header>
     <div class="section-container">
-        <app-filter class="filter-component" />
+        <app-filter class="filter-component" [filterParams]="certsFilter" (filter)="filter()" />
         <div class="tag-canvas">
-            <div class="canvas-container">
+            <div class="canvas-container" *ngIf="showCanvas">
                 <ng-tag-canvas [options]="options">
-                    @for (cert of certs; track cert.name) {
+                    @for (cert of filteredCerts; track cert.name) {
                     <a ngTag class="cert-tag" (click)="detectDblClick(cert)" [title]="cert.name">
                         <img width="150" height="150" [src]="cert.iconSrc" [alt]="cert.name" />
                     </a>

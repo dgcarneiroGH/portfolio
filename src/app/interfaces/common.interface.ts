@@ -79,3 +79,14 @@ export interface ICert {
   iconSrc: string;
   url: string;
 }
+
+export interface ICertFilter {
+  id: string;
+  items: ICertFilterItem[];
+}
+
+export interface ICertFilterItem {
+  id: CertPlatformType | CertTechType;
+  label: string;
+  selected: boolean;
+}

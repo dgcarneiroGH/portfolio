@@ -1,11 +1,11 @@
-import { CommonModule, NgIf, UpperCasePipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-toggle-button',
   standalone: true,
-  imports: [FormsModule, UpperCasePipe, CommonModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './toggle-button.component.html',
   styleUrls: ['./toggle-button.component.scss']
 })
@@ -14,9 +14,9 @@ export class ToggleButtonComponent {
   @Input() label = '';
   @Input() filterMode = false;
 
-  @Output() check: EventEmitter<any> = new EventEmitter<any>();
+  @Output() check: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  toggle(event: Event) {
-    this.check.emit(event);
+  toggle(selected: boolean) {
+    this.check.emit(selected);
   }
 }
