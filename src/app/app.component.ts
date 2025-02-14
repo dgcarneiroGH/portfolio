@@ -1,26 +1,15 @@
-import {
-  AfterViewChecked,
-  ChangeDetectorRef,
-  Component,
-  inject,
-  Injector,
-  OnInit
-} from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import {
   NavigationCancel,
   NavigationEnd,
   NavigationError,
-  NavigationStart,
   Router,
   RouterEvent,
   RouterOutlet
 } from '@angular/router';
 import { DynamicScriptService } from './services/dynamic-script.service';
 import { FontService } from './services/font.service';
-import { NavigationMenuComponent } from './components/core/navigation-menu/navigation-menu.component';
-import { SpinnerComponent } from './components/spinner/spinner.component';
 import { SidebarComponent } from './components/core/sidebar/sidebar.component';
-import { debounceTime, Subject } from 'rxjs';
 import { NavMenuItems } from './constants';
 import {
   animate,
@@ -30,7 +19,7 @@ import {
   transition,
   trigger
 } from '@angular/animations';
-import { CommonModule, CurrencyPipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { ScrollService } from './services/scroll.service';
 import { ArrowNavigatorComponent } from './components/shared/arrow-navigator/arrow-navigator.component';
 
@@ -41,9 +30,7 @@ import { ArrowNavigatorComponent } from './components/shared/arrow-navigator/arr
   standalone: true,
   imports: [
     SidebarComponent,
-    NavigationMenuComponent,
     RouterOutlet,
-    SpinnerComponent,
     CommonModule,
     ArrowNavigatorComponent
   ],
@@ -131,6 +118,7 @@ export class AppComponent implements OnInit {
   private _fontService = inject(FontService);
   private _router = inject(Router);
   private _scrollService = inject(ScrollService);
+  private _dsService = inject(DynamicScriptService);
 
   public hasReachedTop = true;
   public hasReachedBottom = false;
@@ -155,7 +143,7 @@ export class AppComponent implements OnInit {
     this._getCurrentSectionId(this._router.url);
 
     this._fontService.loadFonts();
-    // this.loadScripts();
+    this.loadScripts();
   }
 
   getRouteAnimation(outlet: RouterOutlet) {
@@ -196,14 +184,14 @@ export class AppComponent implements OnInit {
     setTimeout(() => (this._isNavigating = false), 1000);
   }
 
-  // loadScripts = async (): Promise<void> => {
-  //   try {
-  //     await this.dsService.load('jquery');
-  //     await this.dsService.load('skills');
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
+  loadScripts = async (): Promise<void> => {
+    try {
+      await this._dsService.load('jquery');
+      await this._dsService.load('skills');
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   navigationInterceptor(event: RouterEvent): void {
     if (
