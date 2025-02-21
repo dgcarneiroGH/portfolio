@@ -1,8 +1,7 @@
 .section-container {
-  position: relative;
-  top: 15vh;
   width: 80%;
-  height: 42rem;
+  min-height: 100vh;
+  padding: 15vh 0 5vh 0;
 
   display: grid;
   grid-template-columns: repeat(2, 1fr);

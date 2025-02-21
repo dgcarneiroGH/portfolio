@@ -17,9 +17,30 @@ export const EXPERIENCES: IExperience[] = [
   },
   {
     id: 3,
-    company: '',
-    designation: '',
-    yearRange: '2013 - 2021',
-    role: 'Otros puestos de trabajo no relacionados con el desarrollo web.'
+    company: 'Grupo Solitium',
+    designation: 'Técnico de TI',
+    yearRange: '2021',
+    role: 'Técnico informático para empresa multinacional de la industria de las impresoras.'
+  },
+  {
+    id: 4,
+    company: 'Lionbridge Technologies',
+    designation: 'Internet Ads Asessor',
+    yearRange: '2020 - 2021',
+    role: 'Alimentador de la IA de Google en lo referente a empresas anunciantes.'
+  },
+  {
+    id: 5,
+    company: 'Bosch España',
+    designation: 'Teleoperador',
+    yearRange: '2019 - 2020',
+    role: 'Agente de ventas para la empresa de telefonía móvil Orange, a través de la subcontrata Bosch.'
+  },
+  {
+    id: 5,
+    company: 'Marine Instruments S.A.',
+    designation: 'Peón',
+    yearRange: '2013 - 2019',
+    role: 'Peón en los diferentes puestos de la cadena de producción y almacén para la empresa puntera en tecnología marina.'
   }
 ];

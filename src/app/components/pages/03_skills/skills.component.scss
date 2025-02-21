@@ -1,8 +1,7 @@
 .section-container {
-  position: relative;
-  top: 15vh;
   width: 90%;
-  height: 85vh;
+  min-height: 100vh;
+  padding: 15vh 0 5vh 0;
 
   display: flex;
   justify-items: center;

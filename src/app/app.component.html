@@ -1,14 +1,24 @@
 <div class="header">
   <!-- <app-navigation-menu /> -->
   <main>
-    <div class="inner-body" (scroll)="onScroll($event)" [@routeAnimations]="getRouteAnimation(outlet)">
-      <app-arrow-navigator direction="up" [visible]="hasReachedTop && !isNavigatingFirstSection"
-        (click)="navigateToSection(-1)"></app-arrow-navigator>
+    <div
+      class="inner-body"
+      (scroll)="onScroll($event)"
+      [@routeAnimations]="getRouteAnimation(outlet)"
+    >
+      <app-arrow-navigator
+        direction="up"
+        [visible]="hasReachedTop && !isNavigatingFirstSection"
+        (click)="navigateToSection(-1)"
+      ></app-arrow-navigator>
 
       <router-outlet #outlet="outlet" />
 
-      <app-arrow-navigator direction="down" [visible]="hasReachedBottom && !isNavigatingLastSection"
-        (click)="navigateToSection(1)"></app-arrow-navigator>
+      <app-arrow-navigator
+        direction="down"
+        [visible]="hasReachedBottom && !isNavigatingLastSection"
+        (click)="navigateToSection(1)"
+      ></app-arrow-navigator>
     </div>
   </main>
   <app-sidebar />
