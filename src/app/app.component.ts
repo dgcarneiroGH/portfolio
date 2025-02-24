@@ -1,16 +1,3 @@
-import { Component, inject, OnInit } from '@angular/core';
-import {
-  NavigationCancel,
-  NavigationEnd,
-  NavigationError,
-  Router,
-  RouterEvent,
-  RouterOutlet
-} from '@angular/router';
-import { DynamicScriptService } from './services/dynamic-script.service';
-import { FontService } from './services/font.service';
-import { SidebarComponent } from './components/core/sidebar/sidebar.component';
-import { NavMenuItems } from './constants';
 import {
   animate,
   group,
@@ -20,8 +7,21 @@ import {
   trigger
 } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { ScrollService } from './services/scroll.service';
+import { Component, inject, OnInit } from '@angular/core';
+import {
+  NavigationCancel,
+  NavigationEnd,
+  NavigationError,
+  Router,
+  RouterEvent,
+  RouterOutlet
+} from '@angular/router';
+import { SidebarComponent } from './components/core/sidebar/sidebar.component';
 import { ArrowNavigatorComponent } from './components/shared/arrow-navigator/arrow-navigator.component';
+import { NavMenuItems } from './constants';
+import { DynamicScriptService } from './services/dynamic-script.service';
+import { FontService } from './services/font.service';
+import { ScrollService } from './services/scroll.service';
 
 @Component({
   selector: 'app-root',
@@ -120,8 +120,6 @@ export class AppComponent implements OnInit {
   private _scrollService = inject(ScrollService);
   private _dsService = inject(DynamicScriptService);
 
-  public hasReachedTop = true;
-  public hasReachedBottom = false;
   public isNavigatingFirstSection = false;
   public isNavigatingLastSection = false;
 
@@ -135,10 +133,6 @@ export class AppComponent implements OnInit {
       this.navigationInterceptor(event as RouterEvent);
     });
 
-    // Verificar si hay scroll en la ventana
-    const { scrollHeight, clientHeight } = document.documentElement;
-    this.hasReachedBottom = scrollHeight <= clientHeight;
-
     // Obtener la sección actual desde la URL
     this._getCurrentSectionId(this._router.url);
 
@@ -151,18 +145,6 @@ export class AppComponent implements OnInit {
     const previousId = this._previousSectionId;
 
     return currentId > previousId ? currentId : currentId - 1; // Define si es forward o backward
-  }
-
-  onScroll(event: Event) {
-    const { scrollTop, scrollHeight, clientHeight } =
-      event.target as HTMLElement;
-
-    this.hasReachedTop = scrollTop === 0;
-    this.hasReachedBottom =
-      Math.round(scrollTop) + clientHeight >= scrollHeight;
-
-    this._scrollService.setHasReachedTop(this.hasReachedTop);
-    this._scrollService.setHasReachedBottom(this.hasReachedBottom);
   }
 
   public navigateToSection(offset: number): void {
