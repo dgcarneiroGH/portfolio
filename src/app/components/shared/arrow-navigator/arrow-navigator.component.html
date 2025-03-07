@@ -2,10 +2,12 @@
     'hidden': !visible}" [src]="'assets/images/icons/material-icons/arrow_' + direction + '.svg'"
     [alt]="'Arrow ' + direction"> -->
 
-<div class="arrow" appToggleNavMenu>
+<div
+  [class]="'arrow ' + direction"
+  [ngClass]="{ visible: visible, hidden: !visible }"
+  appToggleNavMenu
+>
   <img
-    [class]="'arrow ' + direction"
-    [ngClass]="{ visible: visible, hidden: !visible }"
     [src]="'assets/images/icons/material-icons/arrow_' + direction + '.svg'"
     [alt]="'Arrow ' + direction"
   />

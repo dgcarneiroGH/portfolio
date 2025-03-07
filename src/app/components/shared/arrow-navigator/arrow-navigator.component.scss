@@ -183,6 +183,7 @@
   z-index: 2;
   cursor: pointer;
   transition: opacity 0.2s linear;
+  overflow: hidden;
 
   width: 100%;
   height: 15vh;
@@ -191,25 +192,99 @@
   right: 0;
   margin: auto;
 
+  img {
+    width: 6rem;
+    aspect-ratio: 1;
+    position: relative;
+    // bottom: 3rem;
+    transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.3s;
+    // transform: translateY(-100%);
+  }
+
+  &.visible {
+    opacity: 1;
+  }
+
+  &.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  &:before {
+    content: "";
+    position: absolute;
+    width: 101%;
+    height: 10rem;
+    background-color: rgba(38, 84, 133, 0.54);
+    border-radius: 50%;
+    // bottom: 4vh;
+    left: 50%;
+    // transform: translateX(-50%) translateY(-100%);
+    z-index: -1;
+    transition: transform 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.2s;
+  }
+
+  &:after {
+    content: "";
+    position: absolute;
+    width: 110%;
+    height: 12rem;
+    background-color: rgba(38, 84, 133, 0.3);
+    border-radius: 50%;
+    // bottom: 1vh;
+    left: 50%;
+    // transform: translateX(-50%) translateY(-100%);
+    z-index: -2;
+    transition: transform 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.1s;
+  }
+
   &.up {
     top: 0;
+    img {
+      transform: translateY(-100%);
+      bottom: 1rem;
+    }
+
+    &:before {
+      bottom: 4vh;
+      transform: translateX(-50%) translateY(-100%);
+    }
+
+    &:after {
+      bottom: 1vh;
+      transform: translateX(-50%) translateY(-100%);
+    }
   }
   &.down {
     bottom: 0;
-  }
 
-  img {
-    width: 10rem;
-    aspect-ratio: 1;
-    background-color: rgba(38, 84, 133, 0.54);
-    border-radius: 50%;
-    transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    transform: translateY(-100%);
+    img {
+      transform: translateY(100%);
+      top: 2rem;
+    }
+
+    &:before {
+      top: 4vh;
+      transform: translateX(-50%) translateY(100%);
+    }
+
+    &:after {
+      top: 1vh;
+      transform: translateX(-50%) translateY(100%);
+    }
   }
 }
 
 .arrow:hover {
   img {
     transform: translateY(0);
+  }
+
+  &:before {
+    transform: translateX(-50%) translateY(0);
+  }
+
+  &:after {
+    transform: translateX(-50%) translateY(0);
   }
 }
