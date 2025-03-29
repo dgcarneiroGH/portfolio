@@ -36,79 +36,95 @@ import { ScrollService } from './services/scroll.service';
   ],
   animations: [
     trigger('routeAnimations', [
-      // Transición de siguiente sección (de abajo hacia arriba)
-      transition(':increment', [
-        query(
-          ':enter, :leave',
-          style({
-            position: 'absolute',
-            width: '100vw',
-            left: '3vw',
-            'overflow-x': 'hidden'
-          }),
-          { optional: true }
-        ),
-        group([
+      transition(
+        (fromState, toState) => toState > fromState,
+        [
+          // 🔥 Transición hacia adelante
+          style({ position: 'relative' }),
           query(
-            ':leave',
+            ':enter, :leave',
             [
-              animate(
-                '600ms ease-in-out',
-                style({ transform: 'translateY(-100%)', opacity: 0 })
-              )
+              style({
+                position: 'absolute',
+                width: '100vw',
+                left: '3vw',
+                overflow: 'hidden'
+              })
             ],
             { optional: true }
           ),
-          query(
-            ':enter',
-            [
-              style({ transform: 'translateY(100%)', opacity: 0 }),
-              animate(
-                '600ms ease-in-out',
-                style({ transform: 'translateY(0)', opacity: 1 })
-              )
-            ],
-            { optional: true }
-          )
-        ])
-      ]),
 
-      // Transición de sección anterior (de arriba hacia abajo)
-      transition(':decrement', [
-        query(
-          ':enter, :leave',
-          style({
-            position: 'absolute',
-            width: '100vw',
-            left: '3vw',
-            'overflow-x': 'hidden'
-          }),
-          { optional: true }
-        ),
-        group([
+          group([
+            query(
+              ':leave',
+              [
+                animate(
+                  '600ms ease-in-out',
+                  style({ transform: 'translateY(-100%)', opacity: 0 })
+                )
+              ],
+              { optional: true }
+            ),
+
+            query(
+              ':enter',
+              [
+                style({ transform: 'translateY(100%)', opacity: 0 }),
+                animate(
+                  '600ms ease-in-out',
+                  style({ transform: 'translateY(0)', opacity: 1 })
+                )
+              ],
+              { optional: true }
+            )
+          ])
+        ]
+      ),
+
+      transition(
+        (fromState, toState) => toState < fromState,
+        [
+          // 🔥 Transición hacia atrás
+          style({ position: 'relative' }),
           query(
-            ':leave',
+            ':enter, :leave',
             [
-              animate(
-                '600ms ease-in-out',
-                style({ transform: 'translateY(100%)', opacity: 0 })
-              )
+              style({
+                position: 'absolute',
+                width: '100vw',
+                left: '3vw',
+                overflow: 'hidden'
+              })
             ],
             { optional: true }
           ),
-          query(
-            ':enter',
-            [
-              style({ transform: 'translateY(-100%)', opacity: 0 }),
-              animate(
-                '600ms ease-in-out',
-                style({ transform: 'translateY(0)', opacity: 1 })
-              )
-            ],
-            { optional: true }
-          )
-        ])
-      ])
+
+          group([
+            query(
+              ':leave',
+              [
+                animate(
+                  '600ms ease-in-out',
+                  style({ transform: 'translateY(100%)', opacity: 0 })
+                )
+              ],
+              { optional: true }
+            ),
+
+            query(
+              ':enter',
+              [
+                style({ transform: 'translateY(-100%)', opacity: 0 }),
+                animate(
+                  '600ms ease-in-out',
+                  style({ transform: 'translateY(0)', opacity: 1 })
+                )
+              ],
+              { optional: true }
+            )
+          ])
+        ]
+      )
     ])
   ]
 })
@@ -141,29 +157,50 @@ export class AppComponent implements OnInit {
   }
 
   getRouteAnimation(outlet: RouterOutlet) {
-    const currentId = this._currentSectionId;
-    const previousId = this._previousSectionId;
+    // const currentId = this._currentSectionId;
+    // const previousId = this._previousSectionId;
 
-    return currentId > previousId ? currentId : currentId - 1; // Define si es forward o backward
+    // return currentId > previousId ? currentId : currentId - 1; // Define si es forward o backward
+
+    if (!outlet.isActivated) return 0; // Evita problemas en la primera carga
+
+    const currentId = this._currentSectionId ?? 0;
+    const previousId = this._previousSectionId ?? 0;
+
+    return currentId >= previousId ? currentId : currentId - 1;
   }
 
   public navigateToSection(offset: number): void {
+    // if (this._isNavigating) return;
+
+    // const nextSectionId = this._currentSectionId + offset;
+    // this._previousSectionId = this._currentSectionId - offset;
+
+    // if (
+    //   (offset > 0 && nextSectionId > NavMenuItems.length - 1) ||
+    //   (offset < 0 && nextSectionId < 0)
+    // )
+    //   return;
+
+    // this._isNavigating = true;
+    // this._currentSectionId = nextSectionId;
+    // this._router.navigate([NavMenuItems[this._currentSectionId].link]);
+
+    // setTimeout(() => (this._isNavigating = false), 1000);
     if (this._isNavigating) return;
 
     const nextSectionId = this._currentSectionId + offset;
-    this._previousSectionId = this._currentSectionId - offset;
+    if (nextSectionId < 0 || nextSectionId >= NavMenuItems.length) return;
 
-    if (
-      (offset > 0 && nextSectionId > NavMenuItems.length - 1) ||
-      (offset < 0 && nextSectionId < 0)
-    )
-      return;
-
-    this._isNavigating = true;
+    this._previousSectionId = this._currentSectionId; // 🔥 Corregido: primero asignamos el anterior correctamente
     this._currentSectionId = nextSectionId;
-    this._router.navigate([NavMenuItems[this._currentSectionId].link]);
+    this._isNavigating = true;
 
-    setTimeout(() => (this._isNavigating = false), 1000);
+    this._router
+      .navigate([NavMenuItems[this._currentSectionId].link])
+      .then(() => {
+        setTimeout(() => (this._isNavigating = false), 1000);
+      });
   }
 
   loadScripts = async (): Promise<void> => {
