@@ -16,6 +16,7 @@ import {
   RouterEvent,
   RouterOutlet
 } from '@angular/router';
+import { LangSelectorComponent } from './components/core/lang-selector/lang-selector.component';
 import { SidebarComponent } from './components/core/sidebar/sidebar.component';
 import { ArrowNavigatorComponent } from './components/shared/arrow-navigator/arrow-navigator.component';
 import { NavMenuItems } from './constants';
@@ -32,7 +33,8 @@ import { ScrollService } from './services/scroll.service';
     SidebarComponent,
     RouterOutlet,
     CommonModule,
-    ArrowNavigatorComponent
+    ArrowNavigatorComponent,
+    LangSelectorComponent
   ],
   animations: [
     trigger('routeAnimations', [

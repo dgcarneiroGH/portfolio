@@ -1,0 +1,24 @@
+<div class="filter-container">
+    <div class="container-header" [ngClass]="{'active':showOptions}">
+        <!-- TODO:Quizás un texto explicativo para que se entienda bien que es un filtro -->
+        <!-- <h2>Filtros</h2> -->
+        <img src="assets/images/icons/material-icons/filter.svg" alt="Filter">
+
+        @if(showOptions){
+        <img src="assets/images/icons/material-icons/arrow_up.svg" alt="Up" (click)="showOptions = !showOptions">
+        }@else{
+        <img src="assets/images/icons/material-icons/arrow_down.svg" alt="Down" (click)="showOptions = !showOptions">
+        }
+    </div>
+    <div class="filter-options" [ngClass]="{'visible': showOptions,'hidden': !showOptions}">
+        @for (param of filterParams; let last = $last ; track param.id;) {
+        <div class="filter-params">
+            @for (item of param.items; track item.id) {
+            <app-toggle-button class="toggle" [label]="item.label" [filterMode]="true" [isChecked]="true"
+                (check)="check($event,item)" />
+            }
+            <hr *ngIf="!last">
+        </div>
+        }
+    </div>
+</div>
