@@ -13,7 +13,7 @@
   margin: auto;
 
   img {
-    width: 6rem;
+    height: 4rem;
     aspect-ratio: 1;
     position: relative;
     // bottom: 3rem;
@@ -67,7 +67,7 @@
     top: 0;
     img {
       transform: translateY(-100%);
-      bottom: 1rem;
+      bottom: 0;
     }
 
     &:before {
@@ -85,7 +85,7 @@
 
     img {
       transform: translateY(100%);
-      top: 2rem;
+      top: 2.5rem;
     }
 
     &:before {
