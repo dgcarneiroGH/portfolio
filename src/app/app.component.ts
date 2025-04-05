@@ -16,13 +16,13 @@ import {
   RouterEvent,
   RouterOutlet
 } from '@angular/router';
-import { LangSelectorComponent } from './components/core/lang-selector/lang-selector.component';
-import { SidebarComponent } from './components/core/sidebar/sidebar.component';
-import { ArrowNavigatorComponent } from './components/shared/arrow-navigator/arrow-navigator.component';
-import { NavMenuItems } from './constants';
-import { DynamicScriptService } from './services/dynamic-script.service';
-import { FontService } from './services/font.service';
-import { ScrollService } from './services/scroll.service';
+import { TranslateModule } from '@ngx-translate/core';
+import { ArrowNavigatorComponent } from './core/components/arrow-navigator/arrow-navigator.component';
+import { LangSelectorComponent } from './core/components/lang-selector/lang-selector.component';
+import { SidebarComponent } from './core/components/sidebar/sidebar.component';
+import { NAV_MENU_ITEMS } from './core/constants/nav-menu.constants';
+import { DynamicScriptService } from './core/services/dynamic-script.service';
+import { FontService } from './core/services/font.service';
 
 @Component({
   selector: 'app-root',
@@ -34,7 +34,8 @@ import { ScrollService } from './services/scroll.service';
     RouterOutlet,
     CommonModule,
     ArrowNavigatorComponent,
-    LangSelectorComponent
+    LangSelectorComponent,
+    TranslateModule
   ],
   animations: [
     trigger('routeAnimations', [
@@ -135,7 +136,6 @@ export class AppComponent implements OnInit {
 
   private _fontService = inject(FontService);
   private _router = inject(Router);
-  private _scrollService = inject(ScrollService);
   private _dsService = inject(DynamicScriptService);
 
   public isNavigatingFirstSection = false;
@@ -159,11 +159,6 @@ export class AppComponent implements OnInit {
   }
 
   getRouteAnimation(outlet: RouterOutlet) {
-    // const currentId = this._currentSectionId;
-    // const previousId = this._previousSectionId;
-
-    // return currentId > previousId ? currentId : currentId - 1; // Define si es forward o backward
-
     if (!outlet.isActivated) return 0; // Evita problemas en la primera carga
 
     const currentId = this._currentSectionId ?? 0;
@@ -173,33 +168,17 @@ export class AppComponent implements OnInit {
   }
 
   public navigateToSection(offset: number): void {
-    // if (this._isNavigating) return;
-
-    // const nextSectionId = this._currentSectionId + offset;
-    // this._previousSectionId = this._currentSectionId - offset;
-
-    // if (
-    //   (offset > 0 && nextSectionId > NavMenuItems.length - 1) ||
-    //   (offset < 0 && nextSectionId < 0)
-    // )
-    //   return;
-
-    // this._isNavigating = true;
-    // this._currentSectionId = nextSectionId;
-    // this._router.navigate([NavMenuItems[this._currentSectionId].link]);
-
-    // setTimeout(() => (this._isNavigating = false), 1000);
     if (this._isNavigating) return;
 
     const nextSectionId = this._currentSectionId + offset;
-    if (nextSectionId < 0 || nextSectionId >= NavMenuItems.length) return;
+    if (nextSectionId < 0 || nextSectionId >= NAV_MENU_ITEMS.length) return;
 
     this._previousSectionId = this._currentSectionId; // 🔥 Corregido: primero asignamos el anterior correctamente
     this._currentSectionId = nextSectionId;
     this._isNavigating = true;
 
     this._router
-      .navigate([NavMenuItems[this._currentSectionId].link])
+      .navigate([NAV_MENU_ITEMS[this._currentSectionId].link])
       .then(() => {
         setTimeout(() => (this._isNavigating = false), 1000);
       });
@@ -225,7 +204,7 @@ export class AppComponent implements OnInit {
   }
 
   private _getCurrentSectionId(url: string): void {
-    this._currentSectionId = NavMenuItems.findIndex(
+    this._currentSectionId = NAV_MENU_ITEMS.findIndex(
       (item) => item.link === url
     );
     this._previousSectionId = this._currentSectionId - 1;
@@ -233,7 +212,7 @@ export class AppComponent implements OnInit {
     this._currentSectionId === 0
       ? (this.isNavigatingFirstSection = true)
       : (this.isNavigatingFirstSection = false);
-    this._currentSectionId === NavMenuItems.length - 1
+    this._currentSectionId === NAV_MENU_ITEMS.length - 1
       ? (this.isNavigatingLastSection = true)
       : (this.isNavigatingLastSection = false);
   }

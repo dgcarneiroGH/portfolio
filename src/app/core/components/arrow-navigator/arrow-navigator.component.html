@@ -1,0 +1,10 @@
+<div
+  [class]="'arrow ' + direction"
+  [ngClass]="{ visible: visible, hidden: !visible }"
+  appToggleNavMenu
+>
+  <img
+    [src]="'assets/images/icons/material-icons/arrow_' + direction + '.png'"
+    [alt]="'Arrow ' + direction"
+  />
+</div>

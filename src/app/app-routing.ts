@@ -24,7 +24,7 @@ export const APP_ROUTES: Routes = [
     title: 'Home',
     data: { routeIndex: 1 },
     loadComponent: () =>
-      import('./components/pages/01_home/home.component').then(
+      import('./features/01_home/components/home.component').then(
         ({ HomeComponent }) => HomeComponent
       )
   },
@@ -33,7 +33,7 @@ export const APP_ROUTES: Routes = [
     title: 'About Me',
     data: { routeIndex: 2 },
     loadComponent: () =>
-      import('./components/pages/02_about/about.component').then(
+      import('./features/02_about/components/about.component').then(
         ({ AboutComponent }) => AboutComponent
       )
   },
@@ -42,7 +42,7 @@ export const APP_ROUTES: Routes = [
     title: 'Skills',
     data: { routeIndex: 3 },
     loadComponent: () =>
-      import('./components/pages/03_skills/skills.component').then(
+      import('./features/03_skills/components/skills.component').then(
         ({ SkillsComponent }) => SkillsComponent
       )
   },
@@ -51,7 +51,7 @@ export const APP_ROUTES: Routes = [
     title: 'Experience',
     data: { routeIndex: 4 },
     loadComponent: () =>
-      import('./components/pages/04_experience/experience.component').then(
+      import('./features/04_experience/components/experience.component').then(
         ({ ExperienceComponent }) => ExperienceComponent
       )
   },
@@ -60,7 +60,7 @@ export const APP_ROUTES: Routes = [
     title: 'Proyects',
     data: { routeIndex: 5 },
     loadComponent: () =>
-      import('./components/pages/05_proyects/proyects.component').then(
+      import('./features/05_proyects/components/proyects.component').then(
         ({ ProyectsComponent }) => ProyectsComponent
       )
   },
@@ -69,7 +69,7 @@ export const APP_ROUTES: Routes = [
     title: 'Certificates',
     data: { routeIndex: 6 },
     loadComponent: () =>
-      import('./components/pages/06_certs/certs.component').then(
+      import('./features/06_certs/components/certs.component').then(
         ({ CertsComponent }) => CertsComponent
       )
   },
@@ -78,7 +78,7 @@ export const APP_ROUTES: Routes = [
     title: 'Contact',
     data: { routeIndex: 7 },
     loadComponent: () =>
-      import('./components/pages/07_contact/contact.component').then(
+      import('./features/07_contact/components/contact.component').then(
         ({ ContactComponent }) => ContactComponent
       )
   },
