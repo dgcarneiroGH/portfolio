@@ -1,11 +1,15 @@
-<div class="toggle-container" [ngClass]="{'filter-mode': filterMode}">
+<div class="toggle-container" [ngClass]="{ 'filter-mode': filterMode }">
   <div class="toggle">
     <label class="toggle-btn">
-      <input type="checkbox" [(ngModel)]="isChecked" (ngModelChange)="toggle($event)" />
+      <input
+        type="checkbox"
+        [(ngModel)]="isChecked"
+        (ngModelChange)="toggle($event)"
+      />
       <div class="slider"></div>
     </label>
   </div>
   @if (label) {
-  <div class="label">{{ label }}</div>
+  <div class="label">{{ label | translate }}</div>
   }
 </div>

@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
+import { LANGUAGES } from '../../constants/lang.constants';
 import { LangService } from '../../services/lang.service';
 
 @Component({
@@ -15,17 +16,15 @@ export class LangSelectorComponent {
 
   public showOptions = false;
 
-  languages = [
-    { code: 'es', label: '🇪🇸 Español' },
-    { code: 'en', label: '🇺🇸 English' }
-  ];
-
-  changeLanguage(lang: string) {
-    this._langService.setLanguage(lang);
+  get currentLanguage() {
+    return LANGUAGES.find(({ id }) => id === this._langService.getLanguage());
   }
 
-  get currentLanguage() {
-    console.log(this._langService.getLanguage());
-    return this._langService.getLanguage();
+  get filteredLanguages() {
+    return LANGUAGES.filter(({ id }) => id !== this.currentLanguage?.id);
+  }
+
+  selectLanguage(lang: string) {
+    this._langService.setLanguage(lang);
   }
 }

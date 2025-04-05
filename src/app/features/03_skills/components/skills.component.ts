@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { AnimateComponent } from 'src/app/core/components/animate/animate.component';
 import { SkillComponent } from 'src/app/features/03_skills/components/skill/skill.component';
 import { ToggleButtonComponent } from 'src/app/shared/components/toggle-button/toggle-button.component';
@@ -8,7 +9,7 @@ import { Skill } from '../interfaces/skills.interface';
 @Component({
   selector: 'app-skills',
   standalone: true,
-  imports: [SkillComponent, ToggleButtonComponent],
+  imports: [SkillComponent, ToggleButtonComponent, TranslateModule],
   templateUrl: './skills.component.html',
   styleUrls: ['./skills.component.scss']
 })

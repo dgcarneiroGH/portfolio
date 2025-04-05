@@ -2,45 +2,39 @@ import { Experience } from '../interfaces/experience.interface';
 
 export const EXPERIENCES: Experience[] = [
   {
-    id: 1,
     company: 'Clarcat Cantábrico',
-    designation: 'Desarrollador fullstack',
-    yearRange: '2023 - Actualidad',
-    role: 'Proyectos para empresas externas como Arcelor Mittal y La Liga.'
+    designation: '04_EXPERIENCE.FULLSTACK_DEVELOPER',
+    yearRange: '04_EXPERIENCE.ACTUAL_JOB',
+    role: '04_EXPERIENCE.DESCRIPTION_CLARCAT'
   },
   {
-    id: 2,
     company: 'Possible INC.',
-    designation: 'Desarrollador fullstack',
+    designation: '04_EXPERIENCE.FULLSTACK_DEVELOPER',
     yearRange: '2021 - 2023',
-    role: 'Multitud de proyectos internos y externos para empresas externas como LetsHealth, Esmerarte y NTTData.'
+    role: '04_EXPERIENCE.DESCRIPTION_POSSIBLE'
   },
   {
-    id: 3,
     company: 'Grupo Solitium',
-    designation: 'Técnico de TI',
+    designation: '04_EXPERIENCE.TI_TECHNICIAN',
     yearRange: '2021',
-    role: 'Técnico informático para empresa multinacional de la industria de las impresoras.'
+    role: '04_EXPERIENCE.DESCRIPTION_SOLITIUM'
   },
   {
-    id: 4,
     company: 'Lionbridge Technologies',
-    designation: 'Internet Ads Asessor',
+    designation: '04_EXPERIENCE.INTERNET_ADS_ASESSOR',
     yearRange: '2020 - 2021',
-    role: 'Alimentador de la IA de Google en lo referente a empresas anunciantes.'
+    role: '04_EXPERIENCE.DESCRIPTION_LIONBRIDGE'
   },
   {
-    id: 5,
-    company: 'Bosch España',
-    designation: 'Teleoperador',
+    company: 'Bosch ESP',
+    designation: '04_EXPERIENCE.CALL_CENTER_AGENT',
     yearRange: '2019 - 2020',
-    role: 'Agente de ventas para la empresa de telefonía móvil Orange, a través de la subcontrata Bosch.'
+    role: '04_EXPERIENCE.DESCRIPTION_BOSCH'
   },
   {
-    id: 5,
     company: 'Marine Instruments S.A.',
-    designation: 'Peón',
+    designation: '04_EXPERIENCE.FACTORY_WORKER',
     yearRange: '2013 - 2019',
-    role: 'Peón en los diferentes puestos de la cadena de producción y almacén para la empresa puntera en tecnología marina.'
+    role: '04_EXPERIENCE.DESCRIPTION_MARINE'
   }
 ];

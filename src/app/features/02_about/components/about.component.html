@@ -3,41 +3,31 @@
     class="section-header"
     [ngClass]="{ visible: hasReachedTop, hidden: !hasReachedTop }"
   >
-    <h1 #title>Sobre mí</h1>
+    <h1 #title>{{ "02_ABOUT.ABOUT_ME" | translate }}</h1>
   </header>
   <div class="section-container">
     <div class="row">
       <app-picture imgSrc="assets/images/pictures/me_1.jpg"></app-picture>
       <p>
-        Soy un desarrollador FullStack especializado en Front-End. Vivo en
-        España, pero siempre estoy listo para una escapada a cualquier lugar del
-        mundo. Además de viajar, me encanta descubrir nueva música, componer
-        cuando la inspiración me visita y, por supuesto, disfrutar de la
-        escalada en los hermosos montes de Galicia o donde surja.
+        {{ "02_ABOUT.PARAGRAPH_1" | translate }}
       </p>
     </div>
 
     <div class="row">
       <app-picture imgSrc="assets/images/pictures/me_2.jpg"></app-picture>
       <p>
-        Me considero una persona súper organizada, tanto en el trabajo como en
-        mi día a día. Llevo mi economía con tablas en Excel, mis citas en el
-        calendario y gestiono mis proyectos y tareas con Trello.
+        {{ "02_ABOUT.PARAGRAPH_2" | translate }}
       </p>
     </div>
 
     <div class="row">
       <p>
-        En el ámbito laboral, lo que realmente me motiva no es el dinero o los
-        días libres, sino saber que mi trabajo tiene un impacto positivo en la
-        sociedad y ayuda a quienes más lo necesitan.
+        {{ "02_ABOUT.PARAGRAPH_3" | translate }}
       </p>
     </div>
     <div class="row">
       <p>
-        Además, tengo don de gentes, lo que me permite conectar fácilmente con
-        mis compañeros y contribuir a formar equipos verdaderamente
-        cohesionados.
+        {{ "02_ABOUT.PARAGRAPH_4" | translate }}
       </p>
     </div>
   </div>

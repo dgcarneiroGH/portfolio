@@ -2,18 +2,18 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { TagCanvasModule, TagCanvasOptions } from 'ng-tagcanvas';
 import { AnimateComponent } from 'src/app/core/components/animate/animate.component';
-import { FilterComponent } from 'src/app/features/06_certs/components/certs-filter/filter.component';
 import {
   CERT_CANVAS_OPTIONS,
   CERTS,
   CERTS_FILTER
 } from '../constants/certs.constants';
 import { Cert, CertFilter } from '../interfaces/certs.interface';
+import { CertsFilterComponent } from './certs-filter/certs-filter.component';
 
 @Component({
   selector: 'app-certs',
   standalone: true,
-  imports: [TagCanvasModule, FilterComponent, CommonModule],
+  imports: [TagCanvasModule, CommonModule, CertsFilterComponent],
   templateUrl: './certs.component.html',
   styleUrl: './certs.component.scss'
 })

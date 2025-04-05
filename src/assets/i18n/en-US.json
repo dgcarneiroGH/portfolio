@@ -1,5 +1,32 @@
 {
-  "COMMON": {
-    "LANGUAGE": "Language"
+  "COMMON": {},
+  "01_HOME": {
+    "HELLO": "Hi, I'm Diego, a FullStack developer"
+  },
+  "02_ABOUT": {
+    "ABOUT_ME": "About me",
+    "PARAGRAPH_1": "I'm a Full Stack developer with a strong focus on Front-End. I live in Spain, but I'm always up for a getaway to anywhere in the world. Besides traveling, I love discovering new music, composing when inspiration hits, and of course, climbing in the beautiful mountains of Galicia—or wherever the opportunity arises.",
+    "PARAGRAPH_2": "I'm a super organized person, both at work and in my daily life. I manage my finances in Excel, schedule everything on my calendar, and keep track of tasks and projects with Trello.",
+    "PARAGRAPH_3": "When it comes to work, what truly motivates me isn't money or time off—it's knowing that what I do makes a positive impact on society and supports those who need it most.",
+    "PARAGRAPH_4": "I also have great people skills, which help me connect easily with my teammates and contribute to building strong, collaborative teams."
+  },
+  "03_SKILLS": {
+    "SHOW_EXPERIENCE": "Show experience",
+    "SKILLS": "Skills"
+  },
+  "04_EXPERIENCE": {
+    "ACTUAL_JOB": "2023 - Present",
+    "CALL_CENTER_AGENT": "Telemarketer",
+    "DESCRIPTION_BOSCH": "Sales agent for the mobile phone company Orange, through its subcontractor Bosch.",
+    "DESCRIPTION_CLARCAT": "Projects for external companies such as ArcelorMittal and La Liga as a fullstack programmer.",
+    "DESCRIPTION_LIONBRIDGE": "AI model training for Google, focused on improving the understanding of advertising content from advertising companies.",
+    "DESCRIPTION_MARINE": "Worker in various positions along the production and warehouse lines for the leading marine technology company.",
+    "DESCRIPTION_POSSIBLE": "Fullstack programmer on a multitude of internal and external projects for companies such as LetsHealth, Esmerarte, and NTTData.",
+    "DESCRIPTION_SOLITIUM": "IT technician for a multinational company working in both IT support for companies and printer sales and maintenance.",
+    "EXPERIENCE": "Work Experience",
+    "FACTORY_WORKER": "Laborer",
+    "FULLSTACK_DEVELOPER": "Fullstack Developer",
+    "INTERNET_ADS_ASESSOR": "Internet Ads Advisor",
+    "TI_TECHNICIAN": "IT Technician"
   }
 }

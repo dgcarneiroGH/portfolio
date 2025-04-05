@@ -7,13 +7,13 @@ import {
 import { ToggleButtonComponent } from '../../../../shared/components/toggle-button/toggle-button.component';
 
 @Component({
-  selector: 'app-filter',
+  selector: 'app-certs-filter',
   standalone: true,
   imports: [ToggleButtonComponent, CommonModule],
-  templateUrl: './filter.component.html',
-  styleUrl: './filter.component.scss'
+  templateUrl: './certs-filter.component.html',
+  styleUrl: './certs-filter.component.scss'
 })
-export class FilterComponent {
+export class CertsFilterComponent {
   showOptions = false;
 
   @Input() filterParams!: CertFilter[];

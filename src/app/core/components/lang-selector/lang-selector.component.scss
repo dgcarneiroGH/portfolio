@@ -1,50 +1,32 @@
-.filter-container {
-  text-align: start;
-  //TODO:Esta font-family se puede poner para toda la app
+.lang-selector-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 2;
+
   font-family: "Montserrat", sans-serif;
 
   .container-header {
     display: flex;
-    align-items: center;
-    justify-content: end;
-
+    margin: 2rem 2rem 0;
     cursor: pointer;
-
-    img {
-      height: 3rem;
-    }
   }
 
-  .filter-options {
-    overflow: hidden;
+  .container-header:hover,
+  .container-header.active {
+    opacity: 0.5;
+  }
+
+  .lang-selector-options {
+    list-style: none;
+    padding: 0;
     transition: max-height 0.4s ease-in-out, opacity 0.3s ease-in-out;
 
-    .options-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 0.5rem;
-
+    .lang {
       cursor: pointer;
     }
-
-    .filter-params {
-      display: flex;
-      flex-direction: column;
-
-      overflow: hidden;
-      transition: max-height 0.4s ease-in-out, opacity 0.3s ease-in-out;
-
-      .toggle {
-        margin: 0.5rem;
-      }
-
-      hr {
-        margin: 0.2rem;
-
-        opacity: 1;
-        transition: opacity 0.3s ease-in-out;
-      }
+    .lang:hover {
+      opacity: 0.5;
     }
   }
 }
@@ -58,8 +40,4 @@
   opacity: 0;
   max-height: 0;
   pointer-events: none;
-}
-
-.justify-end {
-  justify-content: end;
 }

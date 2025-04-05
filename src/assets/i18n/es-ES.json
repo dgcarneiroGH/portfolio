@@ -1,5 +1,32 @@
 {
-  "COMMON": {
-    "LANGUAGE": "Idioma"
+  "COMMON": {},
+  "01_HOME": {
+    "HELLO": "Hola, soy Diego, desarrollador FullStack"
+  },
+  "02_ABOUT": {
+    "ABOUT_ME": "Sobre mí",
+    "PARAGRAPH_1": "Soy un desarrollador FullStack especializado en Front-End. Vivo en España, pero siempre estoy listo para una escapada a cualquier lugar del mundo. Además de viajar, me encanta descubrir nueva música, componer cuando la inspiración me visita y, por supuesto, disfrutar de la escalada en los hermosos montes de Galicia o donde surja.",
+    "PARAGRAPH_2": "Me considero una persona súper organizada, tanto en el trabajo como en mi día a día. Llevo mi economía con tablas en Excel, mis citas en el calendario y gestiono mis proyectos y tareas con Trello.",
+    "PARAGRAPH_3": "En el ámbito laboral, lo que realmente me motiva no es el dinero o los días libres, sino saber que mi trabajo tiene un impacto positivo en la sociedad y ayuda a quienes más lo necesitan.",
+    "PARAGRAPH_4": "Además, tengo don de gentes, lo que me permite conectar fácilmente con mis compañeros y contribuir a formar equipos verdaderamente cohesionados."
+  },
+  "03_SKILLS": {
+    "SHOW_EXPERIENCE": "Mostrar experiencia",
+    "SKILLS": "Habilidades"
+  },
+  "04_EXPERIENCE": {
+    "ACTUAL_JOB": "2023 - Actualidad",
+    "CALL_CENTER_AGENT": "Teleoperador",
+    "DESCRIPTION_BOSCH": "Agente de ventas para la empresa de telefonía móvil Orange, a través de la subcontrata Bosch.",
+    "DESCRIPTION_CLARCAT": "Proyectos para empresas externas como Arcelor Mittal y La Liga como programador fullstack.",
+    "DESCRIPTION_LIONBRIDGE": "Entrenamiento de modelos de IA para Google, centrado en mejorar la comprensión de contenidos publicitarios de empresas anunciantes.",
+    "DESCRIPTION_MARINE": "Trabajador en los diferentes puestos de la cadena de producción y almacén para la empresa puntera en tecnología marina.",
+    "DESCRIPTION_POSSIBLE": "Programador fullstack en multitud de proyectos internos y externos para empresas como LetsHealth, Esmerarte y NTTData.",
+    "DESCRIPTION_SOLITIUM": "Técnico informático para empresa multinacional que trabaja tanto en soporte informático para empresas como venta y mantenimiento de impresoras.",
+    "EXPERIENCE": "Experiencia laboral",
+    "FACTORY_WORKER": "Peón",
+    "FULLSTACK_DEVELOPER": "Desarrollador fullstack",
+    "INTERNET_ADS_ASESSOR": "Internet Ads Asessor",
+    "TI_TECHNICIAN": "Técnico de TI"
   }
 }

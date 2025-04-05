@@ -1,12 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { ScrollService } from 'src/app/core/services/scroll.service';
 import { PictureComponent } from 'src/app/shared/components/picture/picture.component';
 
 @Component({
   selector: 'app-about',
   standalone: true,
-  imports: [PictureComponent, CommonModule],
+  imports: [PictureComponent, CommonModule, TranslateModule],
   templateUrl: './about.component.html',
   styleUrls: ['./about.component.scss']
 })

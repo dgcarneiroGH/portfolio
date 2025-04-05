@@ -5,6 +5,7 @@ import {
   OnDestroy,
   OnInit
 } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { AnimateComponent } from 'src/app/core/components/animate/animate.component';
 import { DynamicScriptService } from 'src/app/core/services/dynamic-script.service';
 
@@ -12,7 +13,8 @@ import { DynamicScriptService } from 'src/app/core/services/dynamic-script.servi
   selector: 'app-home',
   standalone: true,
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
+  imports: [TranslateModule]
 })
 export class HomeComponent
   extends AnimateComponent
