@@ -6,21 +6,17 @@ import {
   OnInit
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { AnimateComponent } from 'src/app/core/components/animate/animate.component';
 import { DynamicScriptService } from 'src/app/core/services/dynamic-script.service';
+import { AnimateDirective } from 'src/app/shared/directives/animate.directive';
 
 @Component({
   selector: 'app-home',
   standalone: true,
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
-  imports: [TranslateModule]
+  imports: [TranslateModule, AnimateDirective]
 })
-export class HomeComponent
-  extends AnimateComponent
-  implements OnInit, OnDestroy
-{
-  override animationDelay: number = 3300;
+export class HomeComponent implements OnInit, OnDestroy {
   private dsService = inject(DynamicScriptService);
 
   @HostListener('window:resize', ['$event'])
@@ -31,6 +27,8 @@ export class HomeComponent
 
   screenHeight!: number;
   screenWidth!: number;
+
+  public animationDelay = 3300;
 
   ngOnInit(): void {
     this.getScreenSize();

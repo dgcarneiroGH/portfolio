@@ -1,4 +1,8 @@
-<div class="lang-selector-container">
+<div
+  class="lang-selector-container"
+  appClickOutside
+  (appClickOutside)="showOptions = false"
+>
   <div
     class="container-header"
     [ngClass]="{ active: showOptions }"

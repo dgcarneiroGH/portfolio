@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { ToggleNavMenuDirective } from 'src/app/directives/toggle-nav-menu.directive';
+import { ToggleNavMenuDirective } from 'src/app/shared/directives/toggle-nav-menu.directive';
 
 @Component({
   selector: 'app-arrow-navigator',
@@ -12,6 +12,7 @@ import { ToggleNavMenuDirective } from 'src/app/directives/toggle-nav-menu.direc
 export class ArrowNavigatorComponent {
   @Input() direction!: 'up' | 'down';
   @Input() visible = true;
+  @Input() action!: () => void;
 
   navMenuItems = [{ title: '', link: '' }];
 }

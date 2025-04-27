@@ -28,5 +28,24 @@
     "FULLSTACK_DEVELOPER": "Desarrollador fullstack",
     "INTERNET_ADS_ASESSOR": "Internet Ads Asessor",
     "TI_TECHNICIAN": "Técnico de TI"
+  },
+  "05_PROJECTS": {
+    "DESCRIPTION_INTERACT": "Descripción de PBC Interact",
+    "DESCRIPTION_LALIGA": "Descripción de LaLiga Bares",
+    "DESCRIPTION_DISCAMINO": "Descripción de Discamino",
+    "DESCRIPTION_PHARMA": "Descripción de Pharma Challenge",
+    "DESCRIPTION_DFG": "Descripción de DFG",
+    "DESCRIPTION_HERMES": "Descripción de Hermes"
+  },
+  "PROJECTS": "Proyectos",
+  "06_CERTS": {
+    "CERTS": "Certificados"
+  },
+  "07_CONTACT": {
+    "NOW_WE_KNOW": "Ahora que ya me conoces . . .",
+    "TALK": "¿Hablamos?"
+  },
+  "SIDEBAR": {
+    "CV_URL": "https://drive.google.com/file/d/1jCnZZCBM_hnL0HnYwbedXbPFunkrtADB/view?usp=drive_link"
   }
 }

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { AnimateComponent } from 'src/app/core/components/animate/animate.component';
-import { TimelineDirective } from '../../../directives/timeline.directive';
 import { EXPERIENCES } from '../constants/experience.constants';
+import { TimelineDirective } from '../directives/timeline.directive';
 import { Experience } from '../interfaces/experience.interface';
 
 @Component({

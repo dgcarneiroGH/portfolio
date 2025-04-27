@@ -28,5 +28,24 @@
     "FULLSTACK_DEVELOPER": "Fullstack Developer",
     "INTERNET_ADS_ASESSOR": "Internet Ads Advisor",
     "TI_TECHNICIAN": "IT Technician"
+  },
+  "05_PROJECTS": {
+    "DESCRIPTION_DFG": "Website dedicated to the company DFG Natural Stone through From there you can access the purchasing website, also developed by the team I worked on that year.",
+    "DESCRIPTION_DISCAMINO": "Internal website that manages dates and connections between drivers, vehicles, and companions for a company dedicated to training and accompanying people with disabilities on the Camino de Santiago.",
+    "DESCRIPTION_HERMES": "Internal website that manages Arcelor Mittal's rail transportation of materials.",
+    "DESCRIPTION_INTERACT": "Multi-level medical quiz game that SHOWS different kidney disease problems, simulating a doctor's office visit.",
+    "DESCRIPTION_LALIGA": "CRM and web portal for 'La Liga' that displays (among other things) data on bars and casinos that have subscribed to a football package that doesn't correspond to their business.",
+    "DESCRIPTION_PHARMA": "Pharmaceutical competition consisting of several phases. In the final phase, participants must submit a video explaining their project. The winner of this competition receives a grant to make the project a reality.",
+    "PROJECTS": "Projects"
+  },
+  "06_CERTS": {
+    "CERTS": "Certificates"
+  },
+  "07_CONTACT": {
+    "NOW_WE_KNOW": "Now that you know me . . .",
+    "TALK": "Shall we talk?"
+  },
+  "SIDEBAR": {
+    "CV_URL": "https://drive.google.com/file/d/11vC86vxNIHvVlLPH_TYj17IBG6b_csm6/view?usp=sharing"
   }
 }

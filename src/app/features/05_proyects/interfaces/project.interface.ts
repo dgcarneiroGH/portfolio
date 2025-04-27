@@ -1,4 +1,4 @@
-export interface Proyect {
+export interface Project {
   coverImgSrc: string;
   name: string;
   description: string;

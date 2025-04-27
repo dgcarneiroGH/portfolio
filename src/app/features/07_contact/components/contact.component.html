@@ -1,14 +1,26 @@
 <section>
-    <div class="section-container">
-        <h1 id="title">Ahora que ya me conoces . . .</h1>
-        <p id="animatedText" class="faded-text">¿Hablamos?</p>
+  <div class="section-container">
+    <h1
+      id="title"
+      [appAnimate]="animationDelay"
+      [translationKey]="'07_CONTACT.NOW_WE_KNOW'"
+    ></h1>
+    <p
+      [appAnimate]="animationDelay"
+      [translationKey]="'07_CONTACT.TALK'"
+      class="faded-text"
+    ></p>
 
-        <div class="contact-methods">
-            @for (contactMethod of contactMethods; track contactMethod.name){
-            <a [href]="contactMethod.url" target="_blank" [attr.title]="contactMethod.name">
-                <img [src]="contactMethod.iconSrc" [alt]="contactMethod.name" />
-            </a>
-            }
-        </div>
+    <div class="contact-methods">
+      @for (contactMethod of contactMethods; track contactMethod.name){
+      <a
+        [href]="contactMethod.url"
+        target="_blank"
+        [attr.title]="contactMethod.name"
+      >
+        <img [src]="contactMethod.iconSrc" [alt]="contactMethod.name" />
+      </a>
+      }
     </div>
+  </div>
 </section>

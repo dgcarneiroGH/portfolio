@@ -13,8 +13,7 @@ export const SOCIAL_MEDIA_PROFILES: SocialMediaLinks[] = [
   },
   {
     title: 'Cv',
-    profileUrl:
-      'https://drive.google.com/file/d/1IKa2LmTmEZeLOGRhNE3HUyVs-qacPxRU/view?usp=sharing',
+    profileUrl: 'SIDEBAR.CV_URL',
     iconPath: 'assets/images/icons/pdf.png'
   }
 ];

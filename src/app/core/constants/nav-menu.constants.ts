@@ -5,7 +5,7 @@ export const NAV_MENU_ITEMS: NavMenuItems[] = [
   { title: 'Sobre mí', link: '/about' },
   { title: 'Habilidades', link: '/skills' },
   { title: 'Experiencia', link: '/experience' },
-  { title: 'Proyectos', link: '/proyects' },
+  { title: 'Proyectos', link: '/projects' },
   { title: 'Certificados', link: '/certs' },
   { title: 'Contacto', link: '/contact' }
 ];

@@ -5,7 +5,7 @@
       <app-arrow-navigator
         direction="up"
         [visible]="!isNavigatingFirstSection"
-        (click)="navigateToSection(-1)"
+        [action]="navigateToSection.bind(this, -1)"
       ></app-arrow-navigator>
 
       <app-lang-selector></app-lang-selector>
@@ -15,7 +15,7 @@
       <app-arrow-navigator
         direction="down"
         [visible]="!isNavigatingLastSection"
-        (click)="navigateToSection(1)"
+        [action]="navigateToSection.bind(this, 1)"
       ></app-arrow-navigator>
     </div>
   </main>

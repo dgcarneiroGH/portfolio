@@ -56,12 +56,12 @@ export const APP_ROUTES: Routes = [
       )
   },
   {
-    path: 'proyects',
-    title: 'Proyects',
+    path: 'projects',
+    title: 'Projects',
     data: { routeIndex: 5 },
     loadComponent: () =>
-      import('./features/05_proyects/components/proyects.component').then(
-        ({ ProyectsComponent }) => ProyectsComponent
+      import('./features/05_proyects/components/projects.component').then(
+        ({ ProjectsComponent }) => ProjectsComponent
       )
   },
   {

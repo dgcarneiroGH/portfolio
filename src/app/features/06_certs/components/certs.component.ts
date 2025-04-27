@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { TagCanvasModule, TagCanvasOptions } from 'ng-tagcanvas';
 import { AnimateComponent } from 'src/app/core/components/animate/animate.component';
 import {
@@ -13,7 +14,12 @@ import { CertsFilterComponent } from './certs-filter/certs-filter.component';
 @Component({
   selector: 'app-certs',
   standalone: true,
-  imports: [TagCanvasModule, CommonModule, CertsFilterComponent],
+  imports: [
+    TagCanvasModule,
+    CommonModule,
+    CertsFilterComponent,
+    TranslateModule
+  ],
   templateUrl: './certs.component.html',
   styleUrl: './certs.component.scss'
 })

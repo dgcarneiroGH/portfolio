@@ -1,6 +1,6 @@
-import { Proyect } from '../interfaces/proyects.interface';
+import { Project } from '../interfaces/project.interface';
 
-export const PROYECTS: Proyect[] = [
+export const PROJECTS: Project[] = [
   {
     year: 2021,
     coverImgSrc: 'assets/images/proyects/pbcinteract.png',

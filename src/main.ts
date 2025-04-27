@@ -16,6 +16,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TagCanvasModule } from 'ng-tagcanvas';
 import { APP_ROUTES, CustomTitleStrategy } from './app/app-routing';
 import { AppComponent } from './app/app.component';
+import { AnimateDirective } from './app/shared/directives/animate.directive';
 import { environment } from './environments/environment';
 
 if (environment.production) {
@@ -30,6 +31,7 @@ bootstrapApplication(AppComponent, {
   providers: [
     provideRouter(APP_ROUTES, withComponentInputBinding()),
     provideHttpClient(withInterceptorsFromDi()),
+    importProvidersFrom(AnimateDirective),
     importProvidersFrom(
       BrowserAnimationsModule,
       TagCanvasModule.forRoot(),

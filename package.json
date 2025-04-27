@@ -3,7 +3,6 @@
   "homepage": "",
   "version": "1.0.0",
   "scripts": {
-    "ng": "ng",
     "start": "ng serve",
     "build": "ng build --base-href [url]",
     "predeploy": "npm run build",

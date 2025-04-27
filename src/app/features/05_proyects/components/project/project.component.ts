@@ -1,14 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   standalone: true,
-  selector: 'app-proyect',
-  imports: [CommonModule],
-  templateUrl: './proyect.component.html',
-  styleUrl: './proyect.component.scss'
+  selector: 'app-project',
+  imports: [CommonModule, TranslateModule],
+  templateUrl: './project.component.html',
+  styleUrl: './project.component.scss'
 })
-export class ProyectComponent implements OnInit {
+export class ProjectComponent implements OnInit {
   @Input() coverImgSrc!: string;
   @Input() name!: string;
   @Input() description!: string;

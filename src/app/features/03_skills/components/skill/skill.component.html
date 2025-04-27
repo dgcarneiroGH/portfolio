@@ -1,33 +1,63 @@
 <div class="progress-container" (click)="toggleProgress()">
-    <svg class="progress-svg" [class.visible]="showProgressBar" [class.hidden]="!showProgressBar" width="140"
-        height="90" viewBox="0 0 120 60" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-            <linearGradient id="animatedGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stop-color="rgba(84, 58, 183, 1)">
-                    <animate attributeName="stop-color"
-                        values="rgba(84, 58, 183, 1); rgba(0, 172, 193, 1); rgba(84, 58, 183, 1)" dur="5s"
-                        repeatCount="indefinite" />
-                </stop>
-                <stop offset="100%" stop-color="rgba(0, 172, 193, 1)">
-                    <animate attributeName="stop-color"
-                        values="rgba(0, 172, 193, 1); rgba(84, 58, 183, 1); rgba(0, 172, 193, 1)" dur="5s"
-                        repeatCount="indefinite" />
-                </stop>
-            </linearGradient>
-        </defs>
+  <svg
+    class="progress-svg"
+    [class.visible]="showProgressBar"
+    [class.hidden]="!showProgressBar"
+    width="140"
+    height="90"
+    viewBox="0 0 120 60"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <defs>
+      <linearGradient id="animatedGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="rgba(84, 58, 183, 1)">
+          <animate
+            attributeName="stop-color"
+            values="rgba(84, 58, 183, 1); rgba(0, 172, 193, 1); rgba(84, 58, 183, 1)"
+            dur="5s"
+            repeatCount="indefinite"
+          />
+        </stop>
+        <stop offset="100%" stop-color="rgba(0, 172, 193, 1)">
+          <animate
+            attributeName="stop-color"
+            values="rgba(0, 172, 193, 1); rgba(84, 58, 183, 1); rgba(0, 172, 193, 1)"
+            dur="5s"
+            repeatCount="indefinite"
+          />
+        </stop>
+      </linearGradient>
+    </defs>
 
-        <path class="progress-path" d="M10 50 A40 40 0 0 1 110 50" fill="none"
-            [attr.stroke-dasharray]="currentStrokeDasharray" stroke-dashoffset="0" stroke="url(#animatedGradient)" />
+    <path
+      class="progress-path"
+      d="M10 50 A40 40 0 0 1 110 50"
+      fill="none"
+      [attr.stroke-dasharray]="currentStrokeDasharray"
+      stroke-dashoffset="0"
+      stroke="url(#animatedGradient)"
+    />
 
-        <text x="60" y="35" text-anchor="middle" fill="white" font-size="10">{{experienceText}}</text>
-    </svg>
+    <text x="60" y="35" text-anchor="middle" fill="white" font-size="10">
+      {{ experienceText }}
+    </text>
+  </svg>
 
-    <div class="progress-info">
-        <div class="progress-logo" [class.visible]="!showProgressBar" [class.hidden]="showProgressBar">
-            <img [src]="logoSrc" [alt]="text" />
-        </div>
-        <p id="animatedText" class="progress-text" [class.visible]="showProgressBar" [class.hidden]="!showProgressBar">
-            {{ text }}
-        </p>
+  <div class="progress-info">
+    <div
+      class="progress-logo"
+      [class.visible]="!showProgressBar"
+      [class.hidden]="showProgressBar"
+    >
+      <img [src]="logoSrc" [alt]="text" />
     </div>
+    <p
+      id="animatedText"
+      class="progress-text"
+      [class.visible]="showProgressBar"
+      [class.hidden]="!showProgressBar"
+    >
+      {{ text }}
+    </p>
+  </div>
 </div>

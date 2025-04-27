@@ -1,13 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
+import { ClickOutsideDirective } from 'src/app/shared/directives/click-outside.directive';
 import { LANGUAGES } from '../../constants/lang.constants';
 import { LangService } from '../../services/lang.service';
 
 @Component({
   selector: 'app-lang-selector',
   standalone: true,
-  imports: [CommonModule, TranslateModule],
+  imports: [CommonModule, TranslateModule, ClickOutsideDirective],
   templateUrl: './lang-selector.component.html',
   styleUrl: './lang-selector.component.scss'
 })

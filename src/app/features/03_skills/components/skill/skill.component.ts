@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { AnimateDirective } from 'src/app/shared/directives/animate.directive';
 
 @Component({
   selector: 'app-skill',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, AnimateDirective],
   templateUrl: './skill.component.html',
   styleUrl: './skill.component.scss'
 })
