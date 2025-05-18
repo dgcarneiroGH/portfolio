@@ -30,14 +30,14 @@
     "TI_TECHNICIAN": "Técnico de TI"
   },
   "05_PROJECTS": {
-    "DESCRIPTION_INTERACT": "Descripción de PBC Interact",
-    "DESCRIPTION_LALIGA": "Descripción de LaLiga Bares",
-    "DESCRIPTION_DISCAMINO": "Descripción de Discamino",
-    "DESCRIPTION_PHARMA": "Descripción de Pharma Challenge",
-    "DESCRIPTION_DFG": "Descripción de DFG",
-    "DESCRIPTION_HERMES": "Descripción de Hermes"
+    "DESCRIPTION_INTERACT": "Juego de preguntas médicas con varios niveles que mostraban distintas problemáticas de enfermedades renales simulando la consulta de un médico. Actualmente desactivada.",
+    "DESCRIPTION_LALIGA": "CRM y portal web en el que se muestran (entre otros) datos sobre bares o casinos que tienen contratado un paquete de fútbol que no corresponde a su negocio. Este portal tiene un login así que la información que se puede mostrar es muy limitada.",
+    "DESCRIPTION_DISCAMINO": "Web interna que gestiona fechas y conexiones entre conductores, vehículos y acompañantes de una empresa dedicada a entrenar y acompañar a personas con diversidad funcional a hacer el camino de Santiago. Esta web necesita de logueo así que la información que se puede mostrar es limitada.",
+    "DESCRIPTION_PHARMA": "Concurso farmacéutico que consta de varias fases. En la fase final, los participantes deben enviar un video explicando su proyecto. El ganador de este concurso, recibe una subvención para hacer realidad el proyecto en si. Esta web tiene un login ya que se accede a este concurso con invitación.",
+    "DESCRIPTION_DFG": "Web dedicada a la empresa DFG Natural Stone a través de la que se puede acceder a la web de compras, también desarrollada por el equipo en el que trabajaba ese año.",
+    "DESCRIPTION_HERMES": "Web interna que gestiona los transportes de materiales vía tren de la empresa Arcelor Mittal. Al ser una web interna, no es accesible para el público común.",
+    "PROJECTS": "Proyectos"
   },
-  "PROJECTS": "Proyectos",
   "06_CERTS": {
     "CERTS": "Certificados"
   },

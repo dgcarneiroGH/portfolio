@@ -60,7 +60,7 @@ export const APP_ROUTES: Routes = [
     title: 'Projects',
     data: { routeIndex: 5 },
     loadComponent: () =>
-      import('./features/05_proyects/components/projects.component').then(
+      import('./features/05_projects/components/projects.component').then(
         ({ ProjectsComponent }) => ProjectsComponent
       )
   },

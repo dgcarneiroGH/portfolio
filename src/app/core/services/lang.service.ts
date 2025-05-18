@@ -16,9 +16,6 @@ export class LangService {
     const savedLang = localStorage.getItem('language');
     const browserLang = this._translate.getBrowserLang();
 
-    console.log('Idioma guardado:', savedLang);
-    console.log('Idioma del navegador:', browserLang);
-
     let langToUse = this.defaultLang;
 
     if (savedLang) {
