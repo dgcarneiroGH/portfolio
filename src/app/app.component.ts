@@ -1,11 +1,3 @@
-import {
-  animate,
-  group,
-  query,
-  style,
-  transition,
-  trigger
-} from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import {
@@ -37,99 +29,7 @@ import { FontService } from './core/services/font.service';
     LangSelectorComponent,
     TranslateModule
   ],
-  animations: [
-    trigger('routeAnimations', [
-      transition(
-        (fromState, toState) => toState > fromState,
-        [
-          // 🔥 Transición hacia adelante
-          style({ position: 'relative' }),
-          query(
-            ':enter, :leave',
-            [
-              style({
-                position: 'absolute',
-                width: '100vw',
-                left: '3vw',
-                overflow: 'hidden'
-              })
-            ],
-            { optional: true }
-          ),
-
-          group([
-            query(
-              ':leave',
-              [
-                animate(
-                  '600ms ease-in-out',
-                  style({ transform: 'translateY(-100%)', opacity: 0 })
-                )
-              ],
-              { optional: true }
-            ),
-
-            query(
-              ':enter',
-              [
-                style({ transform: 'translateY(100%)', opacity: 0 }),
-                animate(
-                  '600ms ease-in-out',
-                  style({ transform: 'translateY(0)', opacity: 1 })
-                )
-              ],
-              { optional: true }
-            )
-          ])
-        ]
-      ),
-
-      transition(
-        (fromState, toState) => toState < fromState,
-        [
-          // 🔥 Transición hacia atrás
-          style({ position: 'relative' }),
-          query(
-            ':enter, :leave',
-            [
-              style({
-                position: 'absolute',
-                width: '100vw',
-                left: '3vw',
-                overflow: 'hidden'
-              })
-            ],
-            { optional: true }
-          ),
-
-          group([
-            query(
-              ':leave',
-              [
-                animate(
-                  '600ms ease-in-out',
-                  style({ transform: 'translateY(100%)', opacity: 0 })
-                )
-              ],
-              { optional: true }
-            ),
-
-            query(
-              ':enter',
-              [
-                style({ transform: 'translateY(-100%)', opacity: 0 }),
-                animate(
-                  '600ms ease-in-out',
-                  style({ transform: 'translateY(0)', opacity: 1 })
-                )
-              ],
-              { optional: true }
-            )
-          ])
-        ]
-      )
-    ])
-  ]
+  animations: []
 })
 export class AppComponent implements OnInit {
   loading = true;
