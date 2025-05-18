@@ -52,12 +52,11 @@
       <img [src]="logoSrc" [alt]="text" />
     </div>
     <p
-      id="animatedText"
+      [appAnimate]="2000"
+      [translationKey]="text"
       class="progress-text"
       [class.visible]="showProgressBar"
       [class.hidden]="!showProgressBar"
-    >
-      {{ text }}
-    </p>
+    ></p>
   </div>
 </div>

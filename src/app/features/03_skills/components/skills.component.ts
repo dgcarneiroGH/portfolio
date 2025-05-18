@@ -1,21 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { AnimateComponent } from 'src/app/core/components/animate/animate.component';
 import { SkillComponent } from 'src/app/features/03_skills/components/skill/skill.component';
 import { ToggleButtonComponent } from 'src/app/shared/components/toggle-button/toggle-button.component';
+import { AnimateDirective } from 'src/app/shared/directives/animate.directive';
 import { SKILLS } from '../constants/skills.constants';
 import { Skill } from '../interfaces/skills.interface';
 
 @Component({
   selector: 'app-skills',
   standalone: true,
-  imports: [SkillComponent, ToggleButtonComponent, TranslateModule],
+  imports: [
+    SkillComponent,
+    ToggleButtonComponent,
+    TranslateModule,
+    AnimateDirective
+  ],
   templateUrl: './skills.component.html',
   styleUrls: ['./skills.component.scss']
 })
-export class SkillsComponent extends AnimateComponent implements OnInit {
-  override animationDelay = 2000;
-
+export class SkillsComponent implements OnInit {
   showAllProgressBars = false;
 
   skills: Skill[] = SKILLS.sort(

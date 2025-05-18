@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { TagCanvasModule, TagCanvasOptions } from 'ng-tagcanvas';
-import { AnimateComponent } from 'src/app/core/components/animate/animate.component';
+import { AnimateDirective } from 'src/app/shared/directives/animate.directive';
 import {
   CERT_CANVAS_OPTIONS,
   CERTS,
@@ -18,12 +18,13 @@ import { CertsFilterComponent } from './certs-filter/certs-filter.component';
     TagCanvasModule,
     CommonModule,
     CertsFilterComponent,
-    TranslateModule
+    TranslateModule,
+    AnimateDirective
   ],
   templateUrl: './certs.component.html',
   styleUrl: './certs.component.scss'
 })
-export class CertsComponent extends AnimateComponent implements OnInit {
+export class CertsComponent implements OnInit {
   private lastClickTime = 0;
 
   options: TagCanvasOptions = CERT_CANVAS_OPTIONS;

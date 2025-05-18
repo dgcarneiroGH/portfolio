@@ -7,8 +7,7 @@ import { TranslateService } from '@ngx-translate/core';
 export class LangService {
   private _translate = inject(TranslateService);
 
-  // private defaultLang = 'es-ES';
-  private defaultLang = 'en-US';
+  private defaultLang = 'es-ES';
 
   constructor() {
     this._translate.addLangs(['en-US', 'es-ES']);
@@ -23,30 +22,21 @@ export class LangService {
     let langToUse = this.defaultLang;
 
     if (savedLang) {
-      console.log('Usando idioma guardado:', savedLang);
       langToUse = savedLang;
     } else if (browserLang) {
       const normalizedBrowserLang = browserLang.toLowerCase();
       langToUse = normalizedBrowserLang.startsWith('es') ? 'es-ES' : 'en-US';
-      console.log('Idioma del navegador normalizado:', normalizedBrowserLang);
-      console.log('Idioma soportado seleccionado:', langToUse);
     }
 
-    console.log('Idioma final a usar:', langToUse);
-
-    // Forzar el idioma inicial
-    this._translate.use(langToUse).subscribe(() => {
-      console.log('Idioma establecido:', this._translate.currentLang);
-      localStorage.setItem('language', langToUse);
-    });
+    this._translate
+      .use(langToUse)
+      .subscribe(() => localStorage.setItem('language', langToUse));
   }
 
   setLanguage(lang: string) {
-    console.log('Estableciendo idioma:', lang);
-    this._translate.use(lang).subscribe(() => {
-      console.log('Idioma establecido:', this._translate.currentLang);
-      localStorage.setItem('language', lang);
-    });
+    this._translate
+      .use(lang)
+      .subscribe(() => localStorage.setItem('language', lang));
   }
 
   getLanguage(): string {

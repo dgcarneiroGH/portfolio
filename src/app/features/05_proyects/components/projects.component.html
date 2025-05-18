@@ -1,6 +1,6 @@
 <section>
   <header class="section-header">
-    <h1 #title>{{ "05_PROJECTS.PROJECTS" | translate }}</h1>
+    <h1 [appAnimate]="2000" translationKey="05_PROJECTS.PROJECTS"></h1>
   </header>
   <div class="section-container">
     @for (project of projects; track project.name) {

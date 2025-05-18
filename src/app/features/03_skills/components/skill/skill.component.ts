@@ -5,7 +5,7 @@ import { AnimateDirective } from 'src/app/shared/directives/animate.directive';
 @Component({
   selector: 'app-skill',
   standalone: true,
-  imports: [CommonModule, AnimateDirective],
+  imports: [CommonModule, AnimateDirective, AnimateDirective],
   templateUrl: './skill.component.html',
   styleUrl: './skill.component.scss'
 })

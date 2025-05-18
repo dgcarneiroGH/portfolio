@@ -14,52 +14,49 @@ import Blast from 'blast-vanilla';
   standalone: true
 })
 export class AnimateDirective implements AfterViewInit {
-  private el = inject(ElementRef<HTMLElement>);
-  private renderer = inject(Renderer2);
-  private _translate = inject(TranslateService);
+  private readonly el = inject(ElementRef<HTMLElement>);
+  private readonly renderer = inject(Renderer2);
+  private readonly translate = inject(TranslateService);
 
-  @Input('appAnimate') animationDelay: number = 1500;
-  @Input() translationKey?: string;
+  @Input('appAnimate') animationDelay!: number;
+  @Input() translationKey!: string;
 
   ngAfterViewInit(): void {
     const element = this.el.nativeElement;
-
     if (!element) return;
 
-    if (this.translationKey) {
-      // Si tenemos una clave de traducción, usamos el servicio de traducción
-      this._translate.get(this.translationKey).subscribe((translatedText) => {
-        if (translatedText) {
-          element.innerHTML = translatedText;
-          this._runBlastLogic(element);
-        }
-      });
-
-      this._translate.onLangChange.subscribe(() => {
-        this._translate
-          .get(this.translationKey!)
-          .subscribe((translatedText) => {
-            if (translatedText) {
-              element.innerHTML = translatedText;
-              this._runBlastLogic(element);
-            }
-          });
-      });
-    } else {
-      // Si no hay clave de traducción, usamos el texto original
-      const originalText = element.textContent;
-      if (originalText) {
-        element.innerHTML = originalText;
-        this._runBlastLogic(element);
-      }
-    }
+    this._initializeText(element);
   }
 
-  private _runBlastLogic(element: HTMLElement) {
-    const isParagraphWithWords =
-      element.tagName.toLowerCase() === 'p' && element.id === 'animatedText';
+  private _initializeText(element: HTMLElement): void {
+    this.translate.get(this.translationKey!).subscribe((text) => {
+      if (text) {
+        element.innerHTML = text;
+        this._animateText(element);
+      }
+    });
 
-    // Aplica Blast
+    this.translate.onLangChange.subscribe(() => {
+      this.translate.get(this.translationKey!).subscribe((text) => {
+        if (text) {
+          element.innerHTML = text;
+          this._animateText(element);
+        }
+      });
+    });
+  }
+
+  private _animateText(element: HTMLElement): void {
+    const isParagraphWithWords = element.tagName.toLowerCase() === 'p';
+
+    this._applyBlastAnimation(element, isParagraphWithWords);
+    this._animateElements(element.children, isParagraphWithWords);
+  }
+
+  private _applyBlastAnimation(
+    element: HTMLElement,
+    isParagraphWithWords: boolean
+  ): void {
     new Blast(element, {
       returnGenerated: true,
       delimiter: isParagraphWithWords ? 'word' : 'character',
@@ -67,36 +64,48 @@ export class AnimateDirective implements AfterViewInit {
       customClass: '',
       aria: true
     });
-
-    this.animateElements(element.children, isParagraphWithWords);
   }
 
-  private animateElements(elements: HTMLCollection, byWord: boolean): void {
+  private _animateElements(elements: HTMLCollection, byWord: boolean): void {
     let timer = 0;
 
     Array.from(elements).forEach((element) => {
-      setTimeout(() => {
-        this.renderer.addClass(element, 'animated');
-        this.renderer.addClass(element, 'bounceIn');
-      }, timer);
-
+      this._addInitialAnimation(element, timer);
       timer += byWord ? 300 : 100;
 
-      setTimeout(() => {
-        this.renderer.removeClass(element, 'animated');
-        this.renderer.removeClass(element, 'bounceIn');
-        this.renderer.setStyle(element, 'opacity', 1);
+      this._addFinalAnimation(element);
+    });
+  }
 
-        // Hover animaciones
-        element.addEventListener('mouseenter', () => {
-          this.renderer.addClass(element, 'animated');
-          this.renderer.addClass(element, 'rubberBand');
-        });
-        element.addEventListener('mouseleave', () => {
-          this.renderer.removeClass(element, 'animated');
-          this.renderer.removeClass(element, 'rubberBand');
-        });
-      }, this.animationDelay);
+  private _addInitialAnimation(element: Element, timer: number): void {
+    setTimeout(() => {
+      this.renderer.addClass(element, 'animated');
+      this.renderer.addClass(element, 'bounceIn');
+    }, timer);
+  }
+
+  private _addFinalAnimation(element: Element): void {
+    setTimeout(() => {
+      this._removeInitialAnimation(element);
+      this._addHoverAnimation(element);
+    }, this.animationDelay);
+  }
+
+  private _removeInitialAnimation(element: Element): void {
+    this.renderer.removeClass(element, 'animated');
+    this.renderer.removeClass(element, 'bounceIn');
+    this.renderer.setStyle(element, 'opacity', 1);
+  }
+
+  private _addHoverAnimation(element: Element): void {
+    element.addEventListener('mouseenter', () => {
+      this.renderer.addClass(element, 'animated');
+      this.renderer.addClass(element, 'rubberBand');
+    });
+
+    element.addEventListener('mouseleave', () => {
+      this.renderer.removeClass(element, 'animated');
+      this.renderer.removeClass(element, 'rubberBand');
     });
   }
 }

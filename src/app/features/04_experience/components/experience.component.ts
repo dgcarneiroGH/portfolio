@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { AnimateComponent } from 'src/app/core/components/animate/animate.component';
+import { AnimateDirective } from 'src/app/shared/directives/animate.directive';
 import { EXPERIENCES } from '../constants/experience.constants';
 import { TimelineDirective } from '../directives/timeline.directive';
 import { Experience } from '../interfaces/experience.interface';
@@ -8,11 +8,11 @@ import { Experience } from '../interfaces/experience.interface';
 @Component({
   selector: 'app-experience',
   standalone: true,
-  imports: [TimelineDirective, TranslateModule],
+  imports: [TimelineDirective, TranslateModule, AnimateDirective],
   templateUrl: './experience.component.html',
   styleUrls: ['./experience.component.scss']
 })
-export class ExperienceComponent extends AnimateComponent implements OnInit {
+export class ExperienceComponent implements OnInit {
   experience: Experience[] = EXPERIENCES;
 
   ngOnInit(): void {
