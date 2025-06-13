@@ -1,23 +1,7 @@
-<div class="header">
-  <!-- <app-navigation-menu /> -->
-  <main>
-    <div class="inner-body" [@routeAnimations]="getRouteAnimation(outlet)">
-      <app-arrow-navigator
-        direction="up"
-        [visible]="!isNavigatingFirstSection"
-        [action]="navigateToSection.bind(this, -1)"
-      ></app-arrow-navigator>
-
-      <app-lang-selector></app-lang-selector>
-
-      <router-outlet #outlet="outlet" />
-
-      <app-arrow-navigator
-        direction="down"
-        [visible]="!isNavigatingLastSection"
-        [action]="navigateToSection.bind(this, 1)"
-      ></app-arrow-navigator>
-    </div>
-  </main>
-  <app-sidebar />
-</div>
+<header class="header">
+  <app-lang-selector></app-lang-selector>
+</header>
+<main class="inner-body">
+  <app-sections-wrapper></app-sections-wrapper>
+</main>
+<app-sidebar />

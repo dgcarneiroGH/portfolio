@@ -1,24 +1,21 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { ScrollService } from 'src/app/core/services/scroll.service';
 import { PictureComponent } from 'src/app/shared/components/picture/picture.component';
+import { AnimateDirective } from 'src/app/shared/directives/animate.directive';
+import { ParallaxHeaderDirective } from 'src/app/shared/directives/parallax-header.directive';
 
 @Component({
   selector: 'app-about',
   standalone: true,
-  imports: [PictureComponent, CommonModule, TranslateModule],
+  imports: [
+    PictureComponent,
+    CommonModule,
+    TranslateModule,
+    AnimateDirective,
+    ParallaxHeaderDirective
+  ],
   templateUrl: './about.component.html',
   styleUrls: ['./about.component.scss']
 })
-export class AboutComponent implements OnInit {
-  private _scrollService = inject(ScrollService);
-
-  hasReachedTop = true;
-
-  ngOnInit(): void {
-    this._scrollService.hasReachedTop$.subscribe(
-      (value) => (this.hasReachedTop = value)
-    );
-  }
-}
+export class AboutComponent {}

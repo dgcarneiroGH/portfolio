@@ -3,6 +3,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { SkillComponent } from 'src/app/features/03_skills/components/skill/skill.component';
 import { ToggleButtonComponent } from 'src/app/shared/components/toggle-button/toggle-button.component';
 import { AnimateDirective } from 'src/app/shared/directives/animate.directive';
+import { ParallaxHeaderDirective } from 'src/app/shared/directives/parallax-header.directive';
 import { SKILLS } from '../constants/skills.constants';
 import { Skill } from '../interfaces/skills.interface';
 
@@ -13,7 +14,8 @@ import { Skill } from '../interfaces/skills.interface';
     SkillComponent,
     ToggleButtonComponent,
     TranslateModule,
-    AnimateDirective
+    AnimateDirective,
+    ParallaxHeaderDirective
   ],
   templateUrl: './skills.component.html',
   styleUrls: ['./skills.component.scss']

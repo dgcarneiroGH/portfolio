@@ -1,10 +1,12 @@
 $primary-color: rgba(255, 255, 255, 0.1);
 
 .section-container {
+  // TODO:En estos section container hay estilos comunes, muevelos
   position: relative;
   min-height: 100vh;
-  padding: 15vh 0 5vh 0;
+  padding: 100vh 0 10vh 0;
   overflow-x: hidden;
+  z-index: 1;
 
   ul {
     width: 100vw;

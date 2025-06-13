@@ -1,11 +1,13 @@
 <section>
   <header
     class="section-header"
-    [ngClass]="{ visible: hasReachedTop, hidden: !hasReachedTop }"
+    appParallaxHeader
+    [parallaxContent]="contentRef"
+    #headerRef
   >
-    <h1 #title>{{ "02_ABOUT.ABOUT_ME" | translate }}</h1>
+    <h1 [appAnimate]="2000" translationKey="02_ABOUT.ABOUT_ME"></h1>
   </header>
-  <div class="section-container">
+  <div class="section-container" #contentRef>
     <div class="row">
       <app-picture imgSrc="assets/images/pictures/me_1.jpg"></app-picture>
       <p>

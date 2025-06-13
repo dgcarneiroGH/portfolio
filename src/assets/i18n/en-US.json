@@ -1,11 +1,11 @@
 {
   "COMMON": {},
   "01_HOME": {
-    "HELLO": "Hi, I'm Diego, a FullStack developer"
+    "HELLO": "Hi, I'm Diego, a Front-End developer"
   },
   "02_ABOUT": {
     "ABOUT_ME": "About me",
-    "PARAGRAPH_1": "I'm a Full Stack developer with a strong focus on Front-End. I live in Spain, but I'm always up for a getaway to anywhere in the world. Besides traveling, I love discovering new music, composing when inspiration hits, and of course, climbing in the beautiful mountains of Galicia—or wherever the opportunity arises.",
+    "PARAGRAPH_1": "I'm a Full-Stack developer with a strong focus on Front-End. I live in Spain, but I'm always up for a getaway to anywhere in the world. Besides traveling, I love discovering new music, composing when inspiration hits, and of course, climbing in the beautiful mountains of Galicia—or wherever the opportunity arises.",
     "PARAGRAPH_2": "I'm a super organized person, both at work and in my daily life. I manage my finances in Excel, schedule everything on my calendar, and keep track of tasks and projects with Trello.",
     "PARAGRAPH_3": "When it comes to work, what truly motivates me isn't money or time off—it's knowing that what I do makes a positive impact on society and supports those who need it most.",
     "PARAGRAPH_4": "I also have great people skills, which help me connect easily with my teammates and contribute to building strong, collaborative teams."

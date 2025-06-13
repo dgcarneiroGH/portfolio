@@ -1,15 +1,11 @@
 .header {
-  background: linear-gradient(
-    90deg,
-    rgba(84, 58, 183, 1) 0%,
-    rgba(0, 172, 193, 1) 100%
-  );
-  color: white;
-  position: relative;
-  text-align: center;
+  position: fixed;
+  width: 100%;
+  z-index: 3;
 }
 
 .inner-body {
+  position: relative;
   margin: 0 0 0 5%;
   padding: 0;
   height: 100%;

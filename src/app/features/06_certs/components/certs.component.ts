@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { TagCanvasModule, TagCanvasOptions } from 'ng-tagcanvas';
 import { AnimateDirective } from 'src/app/shared/directives/animate.directive';
+import { ParallaxHeaderDirective } from 'src/app/shared/directives/parallax-header.directive';
 import {
   CERT_CANVAS_OPTIONS,
   CERTS,
@@ -19,7 +20,8 @@ import { CertsFilterComponent } from './certs-filter/certs-filter.component';
     CommonModule,
     CertsFilterComponent,
     TranslateModule,
-    AnimateDirective
+    AnimateDirective,
+    ParallaxHeaderDirective
   ],
   templateUrl: './certs.component.html',
   styleUrl: './certs.component.scss'

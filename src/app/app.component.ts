@@ -9,8 +9,8 @@ import {
   RouterOutlet
 } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { ArrowNavigatorComponent } from './core/components/arrow-navigator/arrow-navigator.component';
 import { LangSelectorComponent } from './core/components/lang-selector/lang-selector.component';
+import { SectionsWrapperComponent } from './core/components/sections-wrapper/sections-wrapper.component';
 import { SidebarComponent } from './core/components/sidebar/sidebar.component';
 import { NAV_MENU_ITEMS } from './core/constants/nav-menu.constants';
 import { DynamicScriptService } from './core/services/dynamic-script.service';
@@ -23,9 +23,8 @@ import { FontService } from './core/services/font.service';
   standalone: true,
   imports: [
     SidebarComponent,
-    RouterOutlet,
+    SectionsWrapperComponent,
     CommonModule,
-    ArrowNavigatorComponent,
     LangSelectorComponent,
     TranslateModule
   ],
