@@ -30,12 +30,16 @@
     "TI_TECHNICIAN": "Técnico de TI"
   },
   "05_PROJECTS": {
-    "DESCRIPTION_INTERACT": "Juego de preguntas médicas con varios niveles que mostraban distintas problemáticas de enfermedades renales simulando la consulta de un médico. Actualmente desactivada.",
-    "DESCRIPTION_LALIGA": "CRM y portal web en el que se muestran (entre otros) datos sobre bares o casinos que tienen contratado un paquete de fútbol que no corresponde a su negocio. Este portal tiene un login así que la información que se puede mostrar es muy limitada.",
-    "DESCRIPTION_DISCAMINO": "Web interna que gestiona fechas y conexiones entre conductores, vehículos y acompañantes de una empresa dedicada a entrenar y acompañar a personas con diversidad funcional a hacer el camino de Santiago. Esta web necesita de logueo así que la información que se puede mostrar es limitada.",
-    "DESCRIPTION_PHARMA": "Concurso farmacéutico que consta de varias fases. En la fase final, los participantes deben enviar un video explicando su proyecto. El ganador de este concurso, recibe una subvención para hacer realidad el proyecto en si. Esta web tiene un login ya que se accede a este concurso con invitación.",
-    "DESCRIPTION_DFG": "Web dedicada a la empresa DFG Natural Stone a través de la que se puede acceder a la web de compras, también desarrollada por el equipo en el que trabajaba ese año.",
-    "DESCRIPTION_HERMES": "Web interna que gestiona los transportes de materiales vía tren de la empresa Arcelor Mittal. Al ser una web interna, no es accesible para el público común.",
+    "DESCRIPTION_BABE": "Sistema de gestión de rutas por carretera integrado con la API de HERE. Permite calcular trayectos optimizados teniendo en cuenta parámetros como peso y dimensiones del vehículo. Desarrollado con Angular y Django.",
+    "DESCRIPTION_DATALAIA": "Plataforma de análisis de datos desarrollada para NTT Data. Combinando Angular y Django, permite visualizar grandes volúmenes de información mediante gráficas interactivas y dashboards personalizables.",
+    "DESCRIPTION_DFG": "Portal corporativo para la empresa DFG Natural Stone, con acceso directo al área de compras y catálogo digital de productos.",
+    "DESCRIPTION_DISCAMINO": "Plataforma desarrollada para una asociación que entrena a personas con diversidad funcional para completar el camino de Santiago. Gestiona calendarios, rutas y asignación de conductores y vehículos.",
+    "DESCRIPTION_EAC": "Tienda online desarrollada para EAC Software, especializada en venta de licencias. Implementada con Angular y .NET, soporta distintos métodos de pago y roles de usuario para una experiencia flexible y segura.",
+    "DESCRIPTION_HERMES": "Aplicaciones internas de gestión logística ferroviaria desarrolladas para ArcelorMittal. Permite supervisar y planificar el transporte de materiales con funcionalidades avanzadas de control de flotas y comunicación entre ellas y otra web creada por una empresa externa a través de colas de RabbitMq.",
+    "DESCRIPTION_INTERACT": "Aplicación interactiva de preguntas médicas, diseñada con múltiples niveles de dificultad. Simula situaciones reales en consulta médica con el objetivo de instruir sobre enfermedades renales a médicos y farmacéuticos.",
+    "DESCRIPTION_LALIGA": "CRM y portal web para la gestión de datos comerciales y análisis del estado actual del paquete de fútbol contratado de negocios subscritos. Incluye visualización dinámica de métricas clave y segmentación de clientes.",
+    "DESCRIPTION_MARISKITO": "E-commerce desarrollado con PrestaShop para una reconocida empresa gallega del sector marisquero. Incluye gestión de productos frescos, pedidos y logística integrada.",
+    "DESCRIPTION_PHARMA": "Sitio web creado para un concurso donde los participantes optan a una beca en el ámbito médico. Incluye una primera fase gamificada con puzles y retos, y una segunda fase en la que los aspirantes suben vídeos presentando sus proyectos.",
     "PROJECTS": "Proyectos"
   },
   "06_CERTS": {

@@ -30,12 +30,16 @@
     "TI_TECHNICIAN": "IT Technician"
   },
   "05_PROJECTS": {
-    "DESCRIPTION_DFG": "Website dedicated to the company DFG Natural Stone through From there you can access the purchasing website, also developed by the team I worked on that year.",
-    "DESCRIPTION_DISCAMINO": "Internal website that manages dates and connections between drivers, vehicles, and companions for a company dedicated to training and accompanying people with disabilities on the Camino de Santiago.",
-    "DESCRIPTION_HERMES": "Internal website that manages Arcelor Mittal's rail transportation of materials.",
-    "DESCRIPTION_INTERACT": "Multi-level medical quiz game that SHOWS different kidney disease problems, simulating a doctor's office visit.",
-    "DESCRIPTION_LALIGA": "CRM and web portal for 'La Liga' that displays (among other things) data on bars and casinos that have subscribed to a football package that doesn't correspond to their business.",
-    "DESCRIPTION_PHARMA": "Pharmaceutical competition consisting of several phases. In the final phase, participants must submit a video explaining their project. The winner of this competition receives a grant to make the project a reality.",
+    "DESCRIPTION_BABE": "Road transport route management system integrated with the HERE API. Calculates optimized routes based on parameters such as vehicle weight and size. Built with Angular and Django.",
+    "DESCRIPTION_DATALAIA": "Data analysis platform developed for NTT Data using Angular and Django. It enables large-scale data visualization through interactive charts and customizable dashboards.",
+    "DESCRIPTION_DFG": "Corporate website for DFG Natural Stone, providing direct access to a digital product catalog and the purchasing portal.",
+    "DESCRIPTION_DISCAMINO": "Platform developed for an association that trains people with functional diversity to complete the Camino de Santiago. It manages schedules, routes, and assigns drivers and vehicles efficiently.",
+    "DESCRIPTION_EAC": "Online store created for EAC Software, specialized in license sales. Built with Angular and .NET, it supports multiple payment methods and user roles, ensuring a flexible and secure user experience.",
+    "DESCRIPTION_HERMES": "Internal railway logistics management applications developed for ArcelorMittal. These tools enable planning and monitoring of material transport, featuring advanced fleet control and inter-app communication using RabbitMQ queues, integrating with external systems.",
+    "DESCRIPTION_INTERACT": "Interactive medical quiz app designed with multiple levels of difficulty. It simulates real-life clinical situations to train doctors and pharmacists in the diagnosis and understanding of kidney diseases.",
+    "DESCRIPTION_LALIGA": "CRM and web portal for managing business-related data and analyzing the current status of subscribed football packages. Features dynamic visualization of key metrics and advanced client segmentation tools.",
+    "DESCRIPTION_MARISKITO": "E-commerce platform built with PrestaShop for a prominent Galician seafood company. Supports the management of fresh products, orders, and integrated logistics operations.",
+    "DESCRIPTION_PHARMA": "Web application created for a medical competition where participants compete for a scholarship. The first phase includes gamified challenges such as puzzles and games, followed by a second phase where candidates upload video presentations of their projects.",
     "PROJECTS": "Projects"
   },
   "06_CERTS": {
