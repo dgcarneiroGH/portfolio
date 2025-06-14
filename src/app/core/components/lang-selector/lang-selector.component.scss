@@ -21,6 +21,8 @@
     list-style: none;
     padding: 0;
     transition: max-height 0.4s ease-in-out, opacity 0.3s ease-in-out;
+    position: absolute;
+    right: 3rem;
 
     .lang {
       cursor: pointer;

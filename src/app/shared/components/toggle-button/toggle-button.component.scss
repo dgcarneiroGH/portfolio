@@ -1,3 +1,5 @@
+@use "/src/styles/palette" as palette;
+
 /* The container */
 .toggle-container {
   display: flex;
@@ -34,14 +36,15 @@
         background-size: 200% 100%;
         animation: moveGradient 5s linear infinite;
 
-        -webkit-mask: linear-gradient(#fff 0 0) content-box,
-          linear-gradient(#fff 0 0);
-        mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        -webkit-mask: linear-gradient($white 0 0) content-box,
+          linear-gradient($white 0 0);
+        mask: linear-gradient($white 0 0) content-box,
+          linear-gradient($white 0 0);
       }
 
       /* On state when slider is moved */
       input:focus + .slider {
-        box-shadow: 0 0 1px white;
+        box-shadow: 0 0 1px palette.$white;
       }
 
       /* On state indicator */
@@ -51,12 +54,12 @@
 
       /* Off state background color */
       input:not(:checked) + .slider {
-        background-color: rgba(255, 255, 255, 0.2);
+        background-color: palette.$text-subtle;
       }
 
       /* Off state indicator color */
       input:not(:checked) + .slider:before {
-        background-color: white;
+        background-color: #fff;
       }
 
       .slider {
@@ -66,7 +69,7 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background-color: #ccc;
+        background-color: palette.$text-subtle;
         transition: 0.4s;
         border-radius: 34px;
       }
@@ -79,7 +82,7 @@
         aspect-ratio: 1;
         left: 4px;
         bottom: 4px;
-        background-color: white;
+        background-color: $text-subtle;
         transition: 0.4s;
         border-radius: 50%;
       }

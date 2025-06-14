@@ -1,10 +1,13 @@
+@use "_palette" as palette;
+
 * {
   margin: 0;
   box-sizing: border-box;
 }
 
 html {
-  background-color: rgba(42, 115, 188, 1);
+  // background-color: rgba(42, 115, 188, 1);
+  background-color: palette.$primary-blue-light;
 }
 
 body {
@@ -16,7 +19,7 @@ body {
     rgba(84, 58, 183, 1) 0%,
     rgba(0, 172, 193, 1) 100%
   );
-  color: white;
+  color: palette.$white;
 }
 
 section {
@@ -168,7 +171,7 @@ p .blast {
 h1 .blast:hover,
 h2 .blast:hover,
 p .blast:hover {
-  color: #08fdd8;
+  color: palette.$highlight-aqua;
 }
 
 @-webkit-keyframes bounceIn {

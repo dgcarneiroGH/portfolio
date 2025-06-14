@@ -52,11 +52,11 @@
   text-align: center;
   min-height: 280px;
   height: auto;
-  color: #fff;
+  color: $text-invert;
 }
 
 .back {
-  background: #cedce7;
+  background: $bg-soft-alt;
   background: -webkit-linear-gradient(
     45deg,
     rgba(84, 58, 183, 1) 0%,
@@ -84,7 +84,7 @@
   content: "";
   display: block;
   opacity: 0.6;
-  background-color: #000;
+  background-color: $bg-dark;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   border-radius: 10px;
@@ -163,7 +163,7 @@
   width: 4rem;
   height: 2px;
   position: absolute;
-  background: #c6d4df;
+  background: palette.$bg-soft;
   display: block;
   left: 0;
   right: 0;

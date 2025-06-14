@@ -1,7 +1,9 @@
+@use "src/styles/_palette" as palette;
+
 .proyect-container {
   position: relative;
   border-radius: 3rem;
-  padding: 1rem 1rem 0 1rem;
+  padding: 0.5rem 0.5rem 0 0.5rem;
   transition: width 0.5s ease-in-out;
 
   &::before {
@@ -25,9 +27,10 @@
     animation: moveGradient 5s linear infinite;
     animation-delay: var(--animation-delay);
 
-    -webkit-mask: linear-gradient(#fff 0 0) content-box,
-      linear-gradient(#fff 0 0);
-    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask: linear-gradient(palette.$white 0 0) content-box,
+      linear-gradient(palette.$white 0 0);
+    mask: linear-gradient(palette.$white 0 0) content-box,
+      linear-gradient(palette.$white 0 0);
     -webkit-mask-composite: destination-out;
     mask-composite: exclude;
     pointer-events: none;
@@ -43,13 +46,13 @@
   }
 
   &.expanded {
-    width: 80%;
+    width: 100%;
     height: 100%;
   }
 
   &.collapsed {
-    width: 35%;
-    height: 45%;
+    width: 100%;
+    height: 65%;
   }
 
   .proyect-border {

@@ -1,0 +1,36 @@
+// Base colors
+$primary-indigo: #543ab7; // rgba(84, 58, 183, 1)
+$primary-cyan: #00acc1; // rgba(0, 172, 193, 1)
+$highlight-aqua: #08fdd8;
+$primary-blue: #2a73bc;
+$white: #ffffff;
+
+// Accent colors
+$highlight-aqua-dark: adjust($highlight-aqua, -15%);
+$highlight-aqua-light: adjust($highlight-aqua, 10%);
+$primary-blue-light: adjust($primary-blue, 12%);
+$primary-blue-dark: adjust($primary-blue, -10%);
+$primary-indigo-light: adjust($primary-indigo, 10%);
+
+$gradient-main: linear-gradient(135deg, $primary-indigo, $primary-cyan);
+$gradient-blue: linear-gradient(135deg, $primary-blue, $highlight-aqua);
+
+// Neutrals
+$bg-white: #ffffff;
+$bg-soft: #f4f7fa;
+$bg-soft-alt: #ecf3f9;
+$bg-dark: #181c27;
+
+// Text
+$text-main: #1e1e2f;
+$text-subtle: #6b7280;
+$text-invert: #ffffff;
+
+// Border
+$border-default: #dfe3ec;
+$border-strong: $primary-blue-dark;
+$border-highlight: $highlight-aqua;
+
+// Shadows
+$shadow-light: 0 2px 6px rgba(0, 0, 0, 0.05);
+$shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.15);
