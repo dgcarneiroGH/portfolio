@@ -7,15 +7,20 @@
   >
     <h1 [appAnimate]="2000" translationKey="05_PROJECTS.PROJECTS"></h1>
   </header>
-  <div class="section-container" #contentRef>
-    @for (project of projects; track project.name) {
-    <app-project
-      class="project-card"
-      [coverImgSrc]="project.coverImgSrc"
-      [name]="project.name"
-      [description]="project.description"
-      [url]="project.url"
-    ></app-project>
+  <div class="section-container" #contentRef style="position: relative">
+    @for (project of projects; track project.name; let i = $index) {
+    <div class="project-wrapper">
+      <app-project
+        class="project-card"
+        [coverImgSrc]="project.coverImgSrc"
+        [name]="project.name"
+        [description]="project.description"
+        [url]="project.url"
+        [expandedIndex]="expandedIndex"
+        [index]="i"
+        (expandRequest)="onExpandRequest(i)"
+      ></app-project>
+    </div>
     }
   </div>
 </section>

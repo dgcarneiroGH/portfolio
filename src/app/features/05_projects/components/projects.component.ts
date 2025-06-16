@@ -20,4 +20,9 @@ import { ProjectComponent } from './project/project.component';
 })
 export class ProjectsComponent {
   projects: Project[] = PROJECTS.sort((a, b) => b.year - a.year);
+  expandedIndex: number | null = null;
+
+  onExpandRequest(index: number) {
+    this.expandedIndex = this.expandedIndex === index ? null : index;
+  }
 }

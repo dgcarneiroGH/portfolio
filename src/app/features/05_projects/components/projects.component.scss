@@ -1,7 +1,7 @@
 .section-container {
   width: 80%;
   min-height: 100vh;
-  padding: 100vh 0 10vh 0;
+  padding: 110vh 0 10vh 0;
   z-index: 1;
 
   display: grid;
@@ -14,7 +14,7 @@
     display: flex;
     justify-content: center;
     align-content: center;
-    // height: 17rem;
     aspect-ratio: 1;
+    position: relative;
   }
 }

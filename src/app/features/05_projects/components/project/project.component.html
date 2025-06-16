@@ -13,12 +13,6 @@
   [style.--animation-delay]="animationDelay"
 >
   <div class="proyect-border">
-    <!-- <color-thief
-      [src]="coverImgSrc"
-      (colorChange)="dominantColor = $event"
-      crossorigin="anonymous"
-      style="display: none"
-    ></color-thief> -->
     <img
       #sourceImage
       [src]="coverImgSrc"
@@ -45,7 +39,15 @@
         <p class="description" [ngClass]="{ show: showMoreInfo }">
           {{ description | translate }}
         </p>
-        <div class="more-info" (click)="toggleMoreInfo()">
+        <div
+          class="more-info"
+          (click)="
+            expandedIndex === null || expandedIndex === index
+              ? toggleMoreInfo()
+              : null
+          "
+          [class.disabled]="expandedIndex !== null && expandedIndex !== index"
+        >
           <span>+ Info</span>
           @if(showMoreInfo){
           <img src="assets/images/icons/material-icons/arrow_up.svg" alt="Up" />

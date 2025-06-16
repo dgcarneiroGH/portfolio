@@ -1,5 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  OnInit,
+  Output
+} from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { ColorThiefService } from '@soarlin/angular-color-thief';
 
@@ -20,9 +27,15 @@ export class ProjectComponent implements OnInit {
   @Input() name!: string;
   @Input() description!: string;
   @Input() url?: string = '';
+  @Input() index!: number;
+  @Input() expandedIndex!: number | null;
+  @Output() expandRequest = new EventEmitter<number>();
 
-  showMoreInfo: boolean = false;
   animationDelay: string = '0s';
+
+  get showMoreInfo(): boolean {
+    return this.expandedIndex === this.index;
+  }
 
   ngOnInit(): void {
     this.animationDelay = `${Math.random() * 5}s`;
@@ -40,7 +53,11 @@ export class ProjectComponent implements OnInit {
   }
 
   toggleMoreInfo() {
-    this.showMoreInfo = !this.showMoreInfo;
+    if (this.expandedIndex === this.index) {
+      this.expandRequest.emit(-1); // Cierra
+    } else {
+      this.expandRequest.emit(this.index); // Abre
+    }
   }
 
   goTo() {
