@@ -19,7 +19,7 @@
       width: 6px;
       margin: 0 auto;
       padding-top: 50px;
-      background: palette.$bg-white;
+      background: #fff;
       &::after {
         content: "";
         position: absolute;
@@ -36,6 +36,7 @@
         width: 500px;
         padding: 20px;
         background: palette.$primary-indigo;
+        // background: palette.$bg-soft;
         box-shadow: 4px 13px 30px 1px palette.$shadow-light;
         border-radius: 5px;
         display: flex;

@@ -59,7 +59,7 @@ section {
   }
 }
 
-// region Bounce animation
+//#region Bounce animation
 .animated {
   -webkit-animation-duration: 1s;
   animation-duration: 1s;
@@ -152,6 +152,7 @@ section {
   -webkit-animation-name: rubberBand;
   animation-name: rubberBand;
 }
+//#endregion
 
 h1,
 h2 {

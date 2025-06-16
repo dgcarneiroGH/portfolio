@@ -1,9 +1,30 @@
 <div
   class="proyect-container"
+  [style.--dynamic-gradient]="
+    palette && palette.length > 1
+      ? 'linear-gradient(135deg, rgb(' +
+        palette[0].join(',') +
+        '), rgb(' +
+        palette[1].join(',') +
+        '))'
+      : ''
+  "
   [ngClass]="{ expanded: showMoreInfo, collapsed: !showMoreInfo }"
   [style.--animation-delay]="animationDelay"
 >
   <div class="proyect-border">
+    <!-- <color-thief
+      [src]="coverImgSrc"
+      (colorChange)="dominantColor = $event"
+      crossorigin="anonymous"
+      style="display: none"
+    ></color-thief> -->
+    <img
+      #sourceImage
+      [src]="coverImgSrc"
+      (load)="onImageLoad(sourceImage)"
+      style="display: none"
+    />
     <div
       class="cover-img"
       [ngStyle]="{
@@ -12,8 +33,14 @@
       }"
       (click)="goTo()"
     ></div>
-    <div class="proyect-info">
-      <h3 class="title">{{ name }}</h3>
+    <div
+      class="proyect-info"
+      [ngStyle]="{
+        color:
+          palette && palette[1] ? 'rgb(' + palette[1].join(',') + ')' : '#fff'
+      }"
+    >
+      <h3 class="title" [ngClass]="{ show: showMoreInfo }">{{ name }}</h3>
       <div class="proyect-details">
         <p class="description" [ngClass]="{ show: showMoreInfo }">
           {{ description | translate }}

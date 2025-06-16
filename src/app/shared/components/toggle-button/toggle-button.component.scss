@@ -36,15 +36,14 @@
         background-size: 200% 100%;
         animation: moveGradient 5s linear infinite;
 
-        -webkit-mask: linear-gradient($white 0 0) content-box,
-          linear-gradient($white 0 0);
-        mask: linear-gradient($white 0 0) content-box,
-          linear-gradient($white 0 0);
+        -webkit-mask: linear-gradient(#fff 0 0) content-box,
+          linear-gradient(#fff 0 0);
+        mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
       }
 
       /* On state when slider is moved */
       input:focus + .slider {
-        box-shadow: 0 0 1px palette.$white;
+        box-shadow: 0 0 1px #fff;
       }
 
       /* On state indicator */
@@ -54,7 +53,7 @@
 
       /* Off state background color */
       input:not(:checked) + .slider {
-        background-color: palette.$text-subtle;
+        background-color: palette.$bg-gray;
       }
 
       /* Off state indicator color */
@@ -69,7 +68,7 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background-color: palette.$text-subtle;
+        background-color: palette.$bg-gray;
         transition: 0.4s;
         border-radius: 34px;
       }
@@ -82,7 +81,7 @@
         aspect-ratio: 1;
         left: 4px;
         bottom: 4px;
-        background-color: $text-subtle;
+        background-color: #fff;
         transition: 0.4s;
         border-radius: 50%;
       }

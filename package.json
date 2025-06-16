@@ -23,6 +23,7 @@
     "@angular/router": "^19.0.5",
     "@ngx-translate/core": "^16.0.4",
     "@ngx-translate/http-loader": "^16.0.1",
+    "@soarlin/angular-color-thief": "^2.0.4",
     "blast-vanilla": "^2.1.6",
     "gh-pages": "^6.2.0",
     "ng-tagcanvas": "^1.0.2",
