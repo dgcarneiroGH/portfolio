@@ -14,7 +14,10 @@
       (filter)="filter()"
     />
     <div class="tag-canvas">
-      <div class="canvas-container" *ngIf="showCanvas">
+      <div
+        class="canvas-container"
+        *ngIf="showCanvas && filteredCerts.length > 0"
+      >
         <ng-tag-canvas [options]="options">
           @for (cert of filteredCerts; track cert.name) {
           <a

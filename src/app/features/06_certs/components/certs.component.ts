@@ -79,6 +79,7 @@ export class CertsComponent implements OnInit {
     this.showCanvas = false;
     setTimeout(() => {
       this.showCanvas = true;
+      console.log('ahora');
     }, 300);
   }
 }

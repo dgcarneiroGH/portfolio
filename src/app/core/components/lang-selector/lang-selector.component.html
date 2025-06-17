@@ -9,6 +9,7 @@
     (click)="showOptions = !showOptions"
   >
     <div class="selected-language">
+      <span class="fi" [ngClass]="currentLanguage?.icon"></span>
       {{ currentLanguage?.label }}
     </div>
     @if(showOptions){
@@ -23,6 +24,7 @@
   >
     @for (lang of filteredLanguages; track lang.id;) {
     <li class="lang" (click)="selectLanguage(lang.id)">
+      <span class="fi" [ngClass]="lang.icon"></span>
       {{ lang.label }}
     </li>
     }
