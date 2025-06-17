@@ -1,35 +1,73 @@
-// Base colors
-$primary-indigo: #543ab7; // rgba(84, 58, 183, 1)
-$primary-cyan: #00acc1; // rgba(0, 172, 193, 1)
-$highlight-aqua: #08fdd8;
-$primary-blue: #2a73bc;
-$white: #ffffff;
+// ==========================================================================
+// Main color palette
+// ==========================================================================
+
+// Primary colors
+$primary-indigo: #543ab7; // Main indigo
+$primary-cyan: #00acc1; // Main cyan
+$primary-blue: #2a73bc; // Main blue
+
+// Blue variants
+$primary-blue-light: #0fd3ff; // Light blue
+$primary-blue-bright: #1e90ff; // Bright blue
+$primary-blue-dark: adjust($primary-blue, -10%); // Dark blue
+
+// Transparent blues
+$primary-blue-transparent: rgba(31, 38, 135, 0.37); // Transparent blue
+$primary-blue-transparent-light: rgba(
+  31,
+  38,
+  135,
+  0.17
+); // Light transparent blue
+$primary-blue-transparent-dark: rgba(
+  31,
+  38,
+  135,
+  0.45
+); // Dark transparent blue
 
 // Accent colors
-$highlight-aqua-dark: adjust($highlight-aqua, -15%);
-$highlight-aqua-light: adjust($highlight-aqua, 10%);
-$primary-blue-light: adjust($primary-blue, 12%);
-$primary-blue-dark: adjust($primary-blue, -10%);
-$primary-indigo-light: adjust($primary-indigo, 10%);
+$highlight-aqua: #08fdd8; // Highlight aqua
+$highlight-aqua-dark: adjust($highlight-aqua, -15%); // Dark aqua
+$highlight-aqua-light: adjust($highlight-aqua, 10%); // Light aqua
 
+// Info colors
+$info-blue: #00eaff; // Info blue
+$info-blue-transparent: rgba(0, 212, 255, 0.15); // Transparent info blue
+$info-blue-transparent-hover: rgba(
+  0,
+  212,
+  255,
+  0.25
+); // Hover transparent info blue
+$info-blue-shadow: rgba(0, 212, 255, 0.25); // Info blue shadow
+$info-blue-shadow-hover: rgba(0, 212, 255, 0.35); // Hover info blue shadow
+
+// Gradients
 $gradient-main: linear-gradient(135deg, $primary-indigo, $primary-cyan);
 $gradient-blue: linear-gradient(135deg, $primary-blue, $highlight-aqua);
 
-// Neutrals
-$bg-gray: #b4bcc7;
-$bg-soft: #ecf3f9;
-$bg-dark: #181c27;
+// ==========================================================================
+// Background and text colors
+// ==========================================================================
+
+// Backgrounds
+$bg-gray: #b4bcc7; // Gray
+$bg-soft: #ecf3f9; // Soft gray
+$bg-dark: #181c27; // Dark
 
 // Text
-$text-main: #1e1e2f;
-// $text-subtle: #b4bcc7;
-$text-invert: #ffffff;
+$text-main: #1e1e2f; // Main text
 
-// Border
-$border-default: #dfe3ec;
-$border-strong: $primary-blue-dark;
-$border-highlight: $highlight-aqua;
+// ==========================================================================
+// Borders and shadows
+// ==========================================================================
+
+// Borders
+$border-default: #dfe3ec; // Default border
+$border-strong: $primary-blue-dark; // Strong border
+$border-highlight: $highlight-aqua; // Highlight border
 
 // Shadows
-$shadow-light: 0 2px 6px rgba(0, 0, 0, 0.05);
-$shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.15);
+$shadow: 0 2px 6px rgba(0, 0, 0, 0.05); // Base shadow

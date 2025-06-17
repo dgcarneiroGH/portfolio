@@ -67,7 +67,9 @@ export const CERTS_FILTER: CertFilter[] = [
       { id: 'angular', label: 'Angular', selected: true },
       { id: 'react', label: 'React', selected: true },
       { id: 'unreal', label: 'Unreal Engine', selected: true },
-      { id: 'scrum', label: 'Flutter', selected: true }
+      { id: 'flutter', label: 'Flutter', selected: true },
+      { id: 'solid', label: 'SOLID', selected: true },
+      { id: 'scrum', label: 'Scrum', selected: true }
     ]
   }
 ];
@@ -92,7 +94,7 @@ export const CERT_CANVAS_OPTIONS: TagCanvasOptions = {
   depth: 0.2,
   weight: false,
   reverse: true,
-  radiusX: 2,
-  radiusY: 2,
-  radiusZ: 2
+  radiusX: 3,
+  radiusY: 3,
+  radiusZ: 3
 };

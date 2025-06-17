@@ -1,6 +1,6 @@
 :host ::ng-deep ng-tag-canvas canvas {
   padding-top: 20px;
-  min-height: 70vh;
+  min-height: 80vh;
 }
 .section-container {
   width: 90%;
@@ -20,5 +20,9 @@
 
     position: absolute;
     top: 100vh;
+  }
+
+  .tag-canvas {
+    height: 100vh;
   }
 }

@@ -6,7 +6,6 @@
 }
 
 html {
-  // background-color: rgba(42, 115, 188, 1);
   background-color: palette.$primary-blue-light;
 }
 
@@ -19,7 +18,7 @@ body {
     rgba(84, 58, 183, 1) 0%,
     rgba(0, 172, 193, 1) 100%
   );
-  color: palette.$white;
+  color: #fff;
 }
 
 section {

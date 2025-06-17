@@ -1,9 +1,9 @@
 @use "src/styles/_palette" as palette;
-
+//TODO: Usar colores de palette
 .proyect-container {
   position: relative;
   border-radius: 2.5rem;
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  box-shadow: 0 8px 32px 0 palette.$primary-blue-transparent;
   overflow: hidden;
   padding: 1.5rem;
   display: flex;
@@ -22,7 +22,11 @@
 
   background: var(
     --dynamic-gradient,
-    linear-gradient(135deg, #0fd3ff 0%, #1e90ff 100%)
+    linear-gradient(
+      135deg,
+      palette.$primary-blue-light 0%,
+      palette.$primary-blue-bright 100%
+    )
   );
   background-size: 300% 300%;
   animation: moveGradient 5s linear infinite alternate;
@@ -50,14 +54,19 @@
   }
 
   .cover-img {
-    width: 16rem;
+    width: 100%;
     height: 9rem;
     border-radius: 2rem;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     margin-bottom: 2rem;
-    box-shadow: 0 4px 24px 0 rgba(31, 38, 135, 0.17);
+    box-shadow: 0 4px 24px 0 palette.$primary-blue-transparent-light;
+
+    &.has-url:hover {
+      box-shadow: 0 4px 24px 0 palette.$info-blue-shadow-hover;
+      cursor: pointer;
+    }
   }
 
   .proyect-info {
@@ -115,22 +124,22 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        background: rgba(0, 212, 255, 0.15);
-        border: 2px solid #00eaff;
+        background: palette.$info-blue-transparent;
+        border: 2px solid palette.$info-blue;
         border-radius: 2rem;
         padding: 0.7rem 2.5rem;
         font-size: 1.3rem;
         font-weight: bold;
         color: #fff;
-        box-shadow: 0 2px 12px 0 rgba(0, 212, 255, 0.25);
+        box-shadow: 0 2px 12px 0 palette.$info-blue-shadow;
         cursor: pointer;
         transition: background 0.3s, box-shadow 0.3s;
         margin-top: 1rem;
         z-index: 2;
         gap: 0.7rem;
         &:hover {
-          background: rgba(0, 212, 255, 0.25);
-          box-shadow: 0 4px 24px 0 rgba(0, 212, 255, 0.35);
+          background: palette.$info-blue-transparent-hover;
+          box-shadow: 0 4px 24px 0 palette.$info-blue-shadow-hover;
         }
         img {
           width: 1.5rem;
@@ -140,18 +149,15 @@
   }
 
   &.expanded {
-    position: absolute;
-    left: 50%;
-    top: 0;
-    transform: translate(-50%, 0) scale(1.12);
+    transform: scale(1.12);
     z-index: 20;
-    box-shadow: 0 16px 48px 0 rgba(31, 38, 135, 0.45);
+    box-shadow: 0 16px 48px 0 palette.$primary-blue-transparent-dark;
     min-width: 28rem;
     max-width: 30rem;
     width: 110%;
     transition: box-shadow 0.5s, background 0.5s,
       transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), z-index 0.5s, min-width 0.5s,
-      max-width 0.5s, width 0.5s, left 0.5s, top 0.5s;
+      max-width 0.5s, width 0.5s;
   }
 
   &.collapsed {

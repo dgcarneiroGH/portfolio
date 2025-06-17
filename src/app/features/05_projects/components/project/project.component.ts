@@ -63,4 +63,27 @@ export class ProjectComponent implements OnInit {
   goTo() {
     if (this.url) window.open(this.url, '_blank');
   }
+
+  getDynamicGradient(): string {
+    if (!this.palette || this.palette.length <= 1) return '';
+    return `linear-gradient(135deg, rgb(${this.palette[0].join(
+      ','
+    )}), rgb(${this.palette[1].join(',')}))`;
+  }
+
+  getTextColor(): string {
+    return this.palette && this.palette[1]
+      ? `rgb(${this.palette[1].join(',')})`
+      : '#fff';
+  }
+
+  canToggleInfo(): boolean {
+    return this.expandedIndex === null || this.expandedIndex === this.index;
+  }
+
+  handleMoreInfoClick(): void {
+    if (this.canToggleInfo()) {
+      this.toggleMoreInfo();
+    }
+  }
 }

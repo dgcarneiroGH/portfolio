@@ -1,62 +1,49 @@
 <div
   class="proyect-container"
-  [style.--dynamic-gradient]="
-    palette && palette.length > 1
-      ? 'linear-gradient(135deg, rgb(' +
-        palette[0].join(',') +
-        '), rgb(' +
-        palette[1].join(',') +
-        '))'
-      : ''
-  "
   [ngClass]="{ expanded: showMoreInfo, collapsed: !showMoreInfo }"
+  [style.--dynamic-gradient]="getDynamicGradient()"
   [style.--animation-delay]="animationDelay"
 >
   <div class="proyect-border">
+    <!-- Imagen oculta para precarga -->
     <img
       #sourceImage
       [src]="coverImgSrc"
       (load)="onImageLoad(sourceImage)"
       style="display: none"
     />
+
+    <!-- Imagen de portada -->
     <div
       class="cover-img"
-      [ngStyle]="{
-        'background-image': 'url(' + coverImgSrc + ')',
-        cursor: url ? 'pointer' : 'default'
-      }"
+      [ngClass]="{ 'has-url': url }"
+      [style.background-image]="'url(' + coverImgSrc + ')'"
       (click)="goTo()"
     ></div>
-    <div
-      class="proyect-info"
-      [ngStyle]="{
-        color:
-          palette && palette[1] ? 'rgb(' + palette[1].join(',') + ')' : '#fff'
-      }"
-    >
+
+    <!-- Información del proyecto -->
+    <div class="proyect-info" [style.color]="getTextColor()">
       <h3 class="title" [ngClass]="{ show: showMoreInfo }">{{ name }}</h3>
+
       <div class="proyect-details">
         <p class="description" [ngClass]="{ show: showMoreInfo }">
           {{ description | translate }}
         </p>
+
         <div
           class="more-info"
-          (click)="
-            expandedIndex === null || expandedIndex === index
-              ? toggleMoreInfo()
-              : null
-          "
-          [class.disabled]="expandedIndex !== null && expandedIndex !== index"
+          [class.disabled]="!canToggleInfo()"
+          (click)="handleMoreInfoClick()"
         >
           <span>+ Info</span>
-          @if(showMoreInfo){
-          <img src="assets/images/icons/material-icons/arrow_up.svg" alt="Up" />
-          }@else{
           <img
-            src="assets/images/icons/material-icons/arrow_down.svg"
-            alt="Down"
+            [src]="
+              'assets/images/icons/material-icons/arrow_' +
+              (showMoreInfo ? 'up' : 'down') +
+              '.svg'
+            "
+            [alt]="showMoreInfo ? 'Up' : 'Down'"
           />
-          }
         </div>
       </div>
     </div>
