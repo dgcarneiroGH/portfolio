@@ -5,10 +5,10 @@
   },
   "02_ABOUT": {
     "ABOUT_ME": "About me",
-    "PARAGRAPH_1": "I'm a Full-Stack developer with a strong focus on Front-End. I live in Spain, but I'm always up for a getaway to anywhere in the world. Besides traveling, I love discovering new music, composing when inspiration hits, and of course, climbing in the beautiful mountains of Galicia—or wherever the opportunity arises.",
-    "PARAGRAPH_2": "I'm a super organized person, both at work and in my daily life. I manage my finances in Excel, schedule everything on my calendar, and keep track of tasks and projects with Trello.",
-    "PARAGRAPH_3": "When it comes to work, what truly motivates me isn't money or time off—it's knowing that what I do makes a positive impact on society and supports those who need it most.",
-    "PARAGRAPH_4": "I also have great people skills, which help me connect easily with my teammates and contribute to building strong, collaborative teams."
+    "PARAGRAPH_1": "My name is Diego. As a developer specializing in Front-End, I'm dedicated to creating digital experiences that don't just look great, but are also intuitive and perform flawlessly.",
+    "PARAGRAPH_2": "My passion for rock climbing has taught me to approach each project with patience and strategy, breaking down big challenges into manageable steps to reach the final goal. Music teaches me to focus on rhythm and detail, two keys I consider essential for creating a great user experience.",
+    "PARAGRAPH_3": "Beyond technology, I am driven by projects that create a positive social impact. My greatest motivation is knowing that my code is contributing to a good cause and bringing real value to society.",
+    "PARAGRAPH_4": "For me, every client is a partner. I believe in transparent communication, impeccable organization (using tools like Trello and Notion so you always know where the project stands), and in building a trusting relationship."
   },
   "03_SKILLS": {
     "SHOW_EXPERIENCE": "Show experience",
@@ -50,6 +50,6 @@
     "TALK": "Shall we talk?"
   },
   "SIDEBAR": {
-    "CV_URL": "https://drive.google.com/file/d/11vC86vxNIHvVlLPH_TYj17IBG6b_csm6/view?usp=sharing"
+    "CV_URL": "https://drive.google.com/file/d/1wspBFP4GTFGxOmRdx6bBwmb6YfKjST8i/view?usp=sharing"
   }
 }

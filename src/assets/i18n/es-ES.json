@@ -5,10 +5,10 @@
   },
   "02_ABOUT": {
     "ABOUT_ME": "Sobre mí",
-    "PARAGRAPH_1": "Soy un desarrollador Full-Stack especializado en Front-End. Vivo en España, pero siempre estoy listo para una escapada a cualquier lugar del mundo. Además de viajar, me encanta descubrir nueva música, componer cuando la inspiración me visita y, por supuesto, disfrutar de la escalada en los hermosos montes de Galicia o donde surja.",
-    "PARAGRAPH_2": "Me considero una persona súper organizada, tanto en el trabajo como en mi día a día. Llevo mi economía con tablas en Excel, mis citas en el calendario y gestiono mis proyectos y tareas con Trello.",
-    "PARAGRAPH_3": "En el ámbito laboral, lo que realmente me motiva no es el dinero o los días libres, sino saber que mi trabajo tiene un impacto positivo en la sociedad y ayuda a quienes más lo necesitan.",
-    "PARAGRAPH_4": "Además, tengo don de gentes, lo que me permite conectar fácilmente con mis compañeros y contribuir a formar equipos verdaderamente cohesionados."
+    "PARAGRAPH_1": "Mi nombre es Diego. Como desarrollador especializado en Front-End, me dedico a crear experiencias digitales que no solo se vean bien, sino que sean fáciles de usar y funcionen a la perfección.",
+    "PARAGRAPH_2": "Mi pasión por la escalada me ha enseñado a afrontar cada proyecto con paciencia y estrategia, dividiendo los grandes desafíos en pasos manejables hasta llegar a la meta marcada. La música me enseña a cuidar el ritmo y los detalles, dos claves que considero esenciales para una gran experiencia de usuario.",
+    "PARAGRAPH_3": "Más allá de la tecnología, me impulsa colaborar en proyectos que generen un impacto social positivo. Mi mayor motivación es saber que mi código está contribuyendo a una buena causa y aportando valor real a la sociedad.",
+    "PARAGRAPH_4": "Para mí, cada cliente es un socio. Creo en la comunicación transparente, la organización impecable (usando herramientas como Trello y Notion para que siempre sepas en qué punto está el proyecto) y en construir una relación de confianza."
   },
   "03_SKILLS": {
     "SHOW_EXPERIENCE": "Mostrar experiencia",
@@ -50,6 +50,6 @@
     "TALK": "¿Hablamos?"
   },
   "SIDEBAR": {
-    "CV_URL": "https://drive.google.com/file/d/1jCnZZCBM_hnL0HnYwbedXbPFunkrtADB/view?usp=drive_link"
+    "CV_URL": "https://drive.google.com/file/d/1NbGJprNjqratmT-EqNy7Nss-qhZDAHt0/view?usp=sharing"
   }
 }
