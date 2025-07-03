@@ -1,3 +1,5 @@
+@use "/src/styles/palette" as palette;
+
 .section-container {
   position: relative;
   top: 0;
@@ -9,15 +11,77 @@
   align-items: center;
   justify-content: center;
 
-  h1 {
+  .img-container {
     z-index: 2;
-    width: 80%;
+    width: 50vw;
+    position: relative;
 
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    white-space: normal;
-    hyphens: auto;
-    font-size: clamp(1.5rem, 5vw, 4rem);
+    img {
+      height: 110vh;
+    }
+
+    .background-img {
+      position: absolute;
+      left: 0;
+      z-index: -1;
+      transform: scale(0);
+      animation: grow-background 2s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+      animation-delay: 1s;
+    }
+
+    .nomacoda-img {
+      opacity: 0;
+      animation: fade-in-nomacoda 2s ease forwards;
+      animation-delay: 0s;
+    }
+  }
+
+  .text-container {
+    z-index: 3;
+    width: 50vw;
+
+    p {
+      font-size: 1.2rem;
+      font-style: italic;
+    }
+
+    h1 {
+      width: 80%;
+
+      white-space: normal;
+      overflow-wrap: normal;
+      word-break: normal;
+      hyphens: manual;
+      font-size: clamp(1.5rem, 5vw, 4rem);
+    }
+  }
+}
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+@keyframes grow-background {
+  0% {
+    transform: scale(0);
+  }
+  60% {
+    transform: scale(1.5);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes fade-in-nomacoda {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
 

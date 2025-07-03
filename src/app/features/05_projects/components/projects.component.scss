@@ -27,7 +27,8 @@
   top: 50%;
   transform: translate(-50%, -50%) scale(1.12);
   z-index: 20;
-  box-shadow: 0 16px 48px 0 palette.$primary-blue-transparent-dark;
+  box-shadow: 0 16px 48px 0
+    rgba($color: palette.$background-gradient-start, $alpha: 0.37);
   min-width: 28rem;
   max-width: 30rem;
   width: 110%;

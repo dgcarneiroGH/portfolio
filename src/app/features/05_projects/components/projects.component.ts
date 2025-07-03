@@ -22,6 +22,10 @@ export class ProjectsComponent {
   projects: Project[] = PROJECTS.sort((a, b) => b.year - a.year);
   expandedIndex: number | null = null;
 
+  constructor() {
+    console.log(this.projects);
+  }
+
   onExpandRequest(index: number) {
     this.expandedIndex = this.expandedIndex === index ? null : index;
   }

@@ -3,7 +3,8 @@
 .proyect-container {
   position: relative;
   border-radius: 2.5rem;
-  box-shadow: 0 8px 32px 0 palette.$primary-blue-transparent;
+  box-shadow: 0 8px 32px 0
+    rgba($color: palette.$background-gradient-start, $alpha: 0.37);
   overflow: hidden;
   padding: 1.5rem;
   display: flex;
@@ -24,8 +25,8 @@
     --dynamic-gradient,
     linear-gradient(
       135deg,
-      palette.$primary-blue-light 0%,
-      palette.$primary-blue-bright 100%
+      palette.$background-gradient-start 0%,
+      palette.$background-gradient-end 100%
     )
   );
   background-size: 300% 300%;
@@ -61,10 +62,13 @@
     background-position: center;
     background-repeat: no-repeat;
     margin-bottom: 2rem;
-    box-shadow: 0 4px 24px 0 palette.$primary-blue-transparent-light;
+
+    box-shadow: 0 4px 24px 0
+      rgba($color: palette.$background-gradient-start, $alpha: 0.17);
 
     &.has-url:hover {
-      box-shadow: 0 4px 24px 0 palette.$info-blue-shadow-hover;
+      box-shadow: 0 4px 24px 0
+        rgba($color: palette.$accent-yellow, $alpha: 0.35);
       cursor: pointer;
     }
   }
@@ -76,7 +80,7 @@
     align-items: center;
     justify-content: center;
     z-index: 1;
-    color: #fff;
+    color: palette.$text-primary;
     text-align: center;
     padding: 0;
 
@@ -105,6 +109,7 @@
 
       .description {
         font-size: 1.1rem;
+        color: palette.$text-primary;
         height: auto;
         opacity: 1;
         transition: none;
@@ -124,22 +129,24 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        background: palette.$info-blue-transparent;
-        border: 2px solid palette.$info-blue;
+        background: rgba($color: palette.$accent-blue, $alpha: 0.37);
+        border: 2px solid palette.$accent-blue;
         border-radius: 2rem;
         padding: 0.7rem 2.5rem;
         font-size: 1.3rem;
         font-weight: bold;
-        color: #fff;
-        box-shadow: 0 2px 12px 0 palette.$info-blue-shadow;
+        color: palette.$text-primary;
+        box-shadow: 0 2px 12px 0
+          rgba($color: palette.$accent-blue, $alpha: 0.25);
         cursor: pointer;
         transition: background 0.3s, box-shadow 0.3s;
         margin-top: 1rem;
         z-index: 2;
         gap: 0.7rem;
         &:hover {
-          background: palette.$info-blue-transparent-hover;
-          box-shadow: 0 4px 24px 0 palette.$info-blue-shadow-hover;
+          background: rgba(palette.$accent-blue, 0.25);
+          box-shadow: 0 4px 24px 0
+            rgba($color: palette.$accent-blue, $alpha: 0.35);
         }
         img {
           width: 1.5rem;
@@ -151,7 +158,8 @@
   &.expanded {
     transform: scale(1.12);
     z-index: 20;
-    box-shadow: 0 16px 48px 0 palette.$primary-blue-transparent-dark;
+    box-shadow: 0 16px 48px 0
+      rgba($color: palette.$background-gradient-start, $alpha: 0.45);
     min-width: 28rem;
     max-width: 30rem;
     width: 110%;

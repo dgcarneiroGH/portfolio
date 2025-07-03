@@ -74,7 +74,7 @@ export class ProjectComponent implements OnInit {
   getTextColor(): string {
     return this.palette && this.palette[1]
       ? `rgb(${this.palette[1].join(',')})`
-      : '#fff';
+      : '#f6f8fa';
   }
 
   canToggleInfo(): boolean {

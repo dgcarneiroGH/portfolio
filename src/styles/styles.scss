@@ -1,24 +1,48 @@
 @use "_palette" as palette;
 
+// #region Text
+:root {
+  --font-headings: "Space Grotesk", sans-serif;
+  --font-body: "Inter", sans-serif;
+}
+
+body,
+p,
+li,
+a,
+button {
+  font-family: var(--font-body);
+  color: palette.$text-primary;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-headings);
+  font-weight: 700;
+}
+// #endregion
+
 * {
   margin: 0;
   box-sizing: border-box;
 }
 
 html {
-  background-color: palette.$primary-blue-light;
+  background-color: palette.$background-gradient-start;
 }
 
 body {
   margin: 0;
-  font-family: "Lato", sans-serif;
-
+  overflow-x: hidden;
   background: linear-gradient(
     90deg,
-    rgba(84, 58, 183, 1) 0%,
-    rgba(0, 172, 193, 1) 100%
+    palette.$background-gradient-start 0%,
+    palette.$background-gradient-end 100%
   );
-  color: #fff;
 }
 
 section {
@@ -153,11 +177,6 @@ section {
 }
 //#endregion
 
-h1,
-h2 {
-  font-family: "Montserrat", sans-serif;
-}
-
 h1 .blast,
 h2 .blast,
 p .blast {
@@ -171,7 +190,7 @@ p .blast {
 h1 .blast:hover,
 h2 .blast:hover,
 p .blast:hover {
-  color: palette.$highlight-aqua;
+  color: palette.$accent-yellow;
 }
 
 @-webkit-keyframes bounceIn {

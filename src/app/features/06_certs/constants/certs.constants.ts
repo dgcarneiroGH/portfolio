@@ -79,7 +79,7 @@ export const CERT_CANVAS_OPTIONS: TagCanvasOptions = {
   dragControl: true,
   clickToFront: 500,
   freezeActive: true,
-  textColour: '#FFF',
+  textColour: '#f6f8fa',
   outlineThickness: 0.5,
   outlineColour: 'transparent',
   maxSpeed: 0.02,

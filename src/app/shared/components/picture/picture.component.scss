@@ -1,8 +1,10 @@
+@use "/src/styles/palette" as palette;
+
 .picture-container {
-  height: 17rem;
+  height: 19rem;
   aspect-ratio: 16/9;
-  border-radius: 50%;
-  border: solid 2px rgba(255, 215, 0, 0.8);
+  border-radius: 23%;
+  border: solid 2px rgba($color: palette.$accent-yellow, $alpha: 0.8);
 
   background-size: cover;
   background-position: center;
@@ -20,9 +22,9 @@
   height: 200%;
   background: linear-gradient(
     120deg,
-    rgba(255, 255, 255, 0.1) 30%,
-    rgba(255, 255, 255, 0.3) 50%,
-    rgba(255, 255, 255, 0.1) 70%
+    rgba($color: palette.$text-secondary, $alpha: 0.1) 30%,
+    rgba($color: palette.$text-secondary, $alpha: 0.3) 50%,
+    rgba($color: palette.$text-secondary, $alpha: 0.1) 70%
   );
 
   transform: rotate(30deg);

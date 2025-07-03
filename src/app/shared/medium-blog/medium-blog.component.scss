@@ -1,3 +1,5 @@
+@use "_palette" as palette;
+
 .medium-blog {
   h1 {
     font-size: 4rem;
@@ -59,18 +61,18 @@
   background: $bg-soft-alt;
   background: -webkit-linear-gradient(
     45deg,
-    rgba(84, 58, 183, 1) 0%,
-    rgba(0, 172, 193, 1) 100%
+    palette.$background-gradient-start 0%,
+    palette.$primary-green 100%
   );
   background: -o-linear-gradient(
     45deg,
-    rgba(84, 58, 183, 1) 0%,
-    rgba(0, 172, 193, 1) 100%
+    palette.$background-gradient-start 0%,
+    palette.$primary-green 100%
   );
   background: linear-gradient(
     45deg,
-    rgba(84, 58, 183, 1) 0%,
-    rgba(0, 172, 193, 1) 100%
+    palette.$background-gradient-start 0%,
+    palette.$primary-green 100%
   );
 }
 

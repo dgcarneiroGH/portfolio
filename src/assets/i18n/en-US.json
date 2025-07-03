@@ -1,7 +1,8 @@
 {
   "COMMON": {},
   "01_HOME": {
-    "HELLO": "Hi, I'm Diego, a Front-End developer"
+    "HELLO": "Hello, I'm Nomacoda",
+    "DESCRIPTION": "I'm passionate about front-end development and web design."
   },
   "02_ABOUT": {
     "ABOUT_ME": "About me",

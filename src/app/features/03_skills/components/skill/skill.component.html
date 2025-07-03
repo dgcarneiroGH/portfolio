@@ -8,20 +8,21 @@
     viewBox="0 0 120 60"
     xmlns="http://www.w3.org/2000/svg"
   >
+    <!-- TODO:Cambiar colores por los del palette -->
     <defs>
       <linearGradient id="animatedGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-        <stop offset="0%" stop-color="rgba(84, 58, 183, 1)">
+        <stop offset="0%" stop-color="#29b6f6">
           <animate
             attributeName="stop-color"
-            values="rgba(84, 58, 183, 1); rgba(0, 172, 193, 1); rgba(84, 58, 183, 1)"
+            values="#29b6f6; #ffa726; #29b6f6"
             dur="5s"
             repeatCount="indefinite"
           />
         </stop>
-        <stop offset="100%" stop-color="rgba(0, 172, 193, 1)">
+        <stop offset="100%" stop-color="#ffa726">
           <animate
             attributeName="stop-color"
-            values="rgba(0, 172, 193, 1); rgba(84, 58, 183, 1); rgba(0, 172, 193, 1)"
+            values="#ffa726; #29b6f6; #ffa726"
             dur="5s"
             repeatCount="indefinite"
           />
@@ -37,8 +38,8 @@
       stroke-dashoffset="0"
       stroke="url(#animatedGradient)"
     />
-
-    <text x="60" y="35" text-anchor="middle" fill="white" font-size="10">
+    <!-- TODO:Usa el palette -->
+    <text x="60" y="35" text-anchor="middle" fill="#f6f8fa" font-size="10">
       {{ experienceText }}
     </text>
   </svg>

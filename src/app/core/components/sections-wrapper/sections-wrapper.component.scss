@@ -1,9 +1,8 @@
-canvas {
-  position: fixed;
-  top: 0;
-  left: 0;
+.mountains {
+  position: absolute;
+  z-index: 2;
+  top: 69vh;
+  height: 47vh;
   width: 100vw;
-  height: 100vh;
-  z-index: 0;
-  pointer-events: none;
+  right: 0;
 }

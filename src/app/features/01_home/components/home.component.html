@@ -1,6 +1,23 @@
 <section>
   <div class="section-container">
-    <h1 [appAnimate]="3300" translationKey="01_HOME.HELLO"></h1>
-    <!-- <canvas id="canvas" [width]="screenWidth" [height]="screenHeight"></canvas> -->
+    <div class="img-container">
+      <img
+        class="nomacoda-img"
+        src="assets/images/nomacoda/nomacoda_full_transparent.png"
+        alt="Nomacoda"
+      />
+      <img
+        class="background-img"
+        src="assets/images/nomacoda/nomacoda_background.png"
+        alt="Nomacoda background"
+      />
+    </div>
+    <div class="text-container">
+      <p [appAnimate]="3300" translationKey="01_HOME.HELLO">
+        {{ "01_HOME.HELLO" | translate }}
+      </p>
+      <h1 [appAnimate]="3300" translationKey="01_HOME.DESCRIPTION"></h1>
+    </div>
   </div>
 </section>
+<canvas id="canvas" [height]="screenHeight" [width]="screenWidth"></canvas>

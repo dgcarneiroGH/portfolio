@@ -28,22 +28,23 @@
       input:checked + .slider {
         background: linear-gradient(
           90deg,
-          rgba(0, 172, 193, 1),
-          rgba(84, 58, 183, 1),
-          rgba(0, 172, 193, 1)
+          palette.$accent-yellow,
+          palette.$accent-blue,
+          palette.$accent-yellow
         );
 
         background-size: 200% 100%;
         animation: moveGradient 5s linear infinite;
 
-        -webkit-mask: linear-gradient(#fff 0 0) content-box,
-          linear-gradient(#fff 0 0);
-        mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        -webkit-mask: linear-gradient(palette.$text-primary 0 0) content-box,
+          linear-gradient(palette.$text-primary 0 0);
+        mask: linear-gradient(palette.$text-primary 0 0) content-box,
+          linear-gradient(palette.$text-primary 0 0);
       }
 
       /* On state when slider is moved */
       input:focus + .slider {
-        box-shadow: 0 0 1px #fff;
+        box-shadow: 0 0 1px palette.$text-primary;
       }
 
       /* On state indicator */
@@ -53,12 +54,12 @@
 
       /* Off state background color */
       input:not(:checked) + .slider {
-        background-color: palette.$bg-gray;
+        background-color: palette.$text-secondary;
       }
 
       /* Off state indicator color */
       input:not(:checked) + .slider:before {
-        background-color: #fff;
+        background-color: palette.$text-primary;
       }
 
       .slider {
@@ -68,7 +69,7 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background-color: palette.$bg-gray;
+        background-color: palette.$text-secondary;
         transition: 0.4s;
         border-radius: 34px;
       }
@@ -81,16 +82,16 @@
         aspect-ratio: 1;
         left: 4px;
         bottom: 4px;
-        background-color: #fff;
+        background-color: palette.$text-primary;
         transition: 0.4s;
         border-radius: 50%;
       }
     }
   }
 
-  .label {
-    font-family: "Montserrat", sans-serif;
-  }
+  // .label {
+  //   font-family: "Montserrat", sans-serif;
+  // }
 }
 
 .toggle-container.filter-mode {

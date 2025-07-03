@@ -7,8 +7,8 @@ function initOscillator(remove) {
 
     settings.debug = false;
     settings.friction = 0.5;
-    settings.trails = 30;
-    settings.size = 50;
+    settings.trails = 10;
+    settings.size = 20;
     settings.dampening = 0.25;
     settings.tension = 0.98;
 
@@ -132,16 +132,25 @@ function initOscillator(remove) {
       };
     })();
 
-    // ----------------------------------------------------------------------------------------
+    function getHomeImgCenter() {
+      var img = document.querySelector(".nomacoda-img");
+      if (!img)
+        return {
+          x: window.innerWidth / 2,
+          y: window.innerHeight / 2,
+          rx: 100,
+          ry: 150
+        };
+      var rect = img.getBoundingClientRect();
+      return {
+        x: rect.left + rect.width / 2,
+        y: rect.top + rect.height / 2,
+        rx: rect.width / 3,
+        ry: rect.height / 3
+      };
+    }
 
     function init(event) {
-      document.removeEventListener("mousemove", init);
-      document.removeEventListener("touchstart", init);
-
-      document.addEventListener("mousemove", mousemove);
-      document.addEventListener("touchmove", mousemove);
-      document.addEventListener("touchstart", touchstart);
-
       mousemove(event);
       reset();
       loop();
@@ -168,25 +177,35 @@ function initOscillator(remove) {
 
     function loop() {
       if (!ctx.running) return;
-
+      //TODO:Usa el palette
       ctx.globalCompositeOperation = "source-over";
       // ctx.fillStyle = "#1D1D1D";
       var angle = (60 * Math.PI) / 180,
         x2 = 2700 * Math.cos(angle),
         y2 = 50 * Math.sin(angle);
       var gradient = ctx.createLinearGradient(0, 0, x2, y2);
-      gradient.addColorStop(0, "rgb(84, 58, 183)");
-      gradient.addColorStop(1, "rgb(0, 172, 193)");
+      gradient.addColorStop(0, "#0f3254");
+      gradient.addColorStop(1, "#115f51");
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
       ctx.globalCompositeOperation = "lighter";
-      ctx.strokeStyle = "hsla(364,100%,50%,0.5)";
-      ctx.lineWidth = 1;
+
+      ctx.lineWidth = 2;
+      // ctx.shadowBlur = 0;
 
       if (color == 1) {
-        ctx.strokeStyle = "hsla(364,100%,50%,0.5)";
+        ctx.strokeStyle = "hsla(32, 100%, 57%, 0.5)";
       } else {
-        ctx.strokeStyle = "hsla(171,98%,56%,0.25)";
+        ctx.strokeStyle = "hsla(199, 92%, 56%, 0.5)";
+      }
+
+      //Animate target until user move the mouse
+      var elapsed = Date.now() - oscillatorStartTime;
+      if (!firstMouseMove) {
+        var dynamicPos = getHomeImgCenter();
+        var theta = Math.PI + (elapsed / 5000) * 2 * Math.PI;
+        target.x = dynamicPos.x + dynamicPos.rx * Math.cos(theta);
+        target.y = dynamicPos.y + dynamicPos.ry * Math.sin(theta);
       }
 
       for (var i = 0, tendril; i < settings.trails; i++) {
@@ -196,7 +215,7 @@ function initOscillator(remove) {
       }
 
       ctx.frame++;
-      requestAnimFrame(loop);
+      setTimeout(loop, 1000 / 30);
     }
 
     function resize() {
@@ -233,6 +252,12 @@ function initOscillator(remove) {
       }
     }
 
+    function enableMouseListeners() {
+      document.addEventListener("mousemove", mousemove);
+      document.addEventListener("touchmove", mousemove);
+      document.addEventListener("touchstart", touchstart);
+    }
+
     window.requestAnimFrame = (function () {
       return (
         window.requestAnimationFrame ||
@@ -256,8 +281,28 @@ function initOscillator(remove) {
       offset: 285
     });
 
-    document.addEventListener("mousemove", init);
-    document.addEventListener("touchstart", init);
+    // Init targen on image center
+    var initialPos = getHomeImgCenter();
+    target.x = initialPos.x;
+    target.y = initialPos.y;
+
+    // Sa
+    var oscillatorStartTime = Date.now();
+    var firstMouseMove = false;
+
+    function onFirstMouseMove(e) {
+      firstMouseMove = true;
+      firstMoveElapsed = Date.now() - oscillatorStartTime;
+      enableMouseListeners();
+      document.removeEventListener("mousemove", onFirstMouseMove);
+      document.removeEventListener("touchstart", onFirstMouseMove);
+    }
+    document.addEventListener("mousemove", onFirstMouseMove);
+    document.addEventListener("touchstart", onFirstMouseMove);
+
+    reset();
+    loop();
+
     document.body.addEventListener("orientationchange", resize);
     window.addEventListener("resize", resize);
     window.addEventListener("focus", start);

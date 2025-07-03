@@ -21,6 +21,27 @@ section {
     font-weight: bold;
   }
 
+  .nomacoda-img-wrapper {
+    position: absolute;
+    width: 21rem;
+    top: 0;
+    right: 1rem;
+    transform-origin: 50% 0%;
+    animation: none;
+    transition: none;
+
+    &.swing-active {
+      animation: swing-rope-hover 8s cubic-bezier(0.4, 0, 0.2, 1) 1;
+    }
+
+    img {
+      width: 100%;
+      display: block;
+      filter: drop-shadow(2px 2px 4px rgba(255, 255, 255, 0.6));
+      transition: transform 0.3s, filter 0.3s ease-in-out;
+    }
+  }
+
   .contact-methods {
     display: flex;
     align-items: center;
@@ -61,5 +82,113 @@ section {
     to {
       opacity: 1;
     }
+  }
+}
+
+@keyframes swing-rope-soft {
+  0% {
+    transform: rotateZ(0deg);
+  }
+  10% {
+    transform: rotateZ(-5deg);
+  }
+  20% {
+    transform: rotateZ(5deg);
+  }
+  30% {
+    transform: rotateZ(-4deg);
+  }
+  40% {
+    transform: rotateZ(4deg);
+  }
+  50% {
+    transform: rotateZ(-3deg);
+  }
+  60% {
+    transform: rotateZ(3deg);
+  }
+  70% {
+    transform: rotateZ(-2deg);
+  }
+  80% {
+    transform: rotateZ(2deg);
+  }
+  90% {
+    transform: rotateZ(-1deg);
+  }
+  100% {
+    transform: rotateZ(0deg);
+  }
+}
+
+@keyframes swing-rope-strong {
+  0% {
+    transform: rotateZ(0deg);
+  }
+  10% {
+    transform: rotateZ(-18deg);
+  }
+  20% {
+    transform: rotateZ(16deg);
+  }
+  30% {
+    transform: rotateZ(-14deg);
+  }
+  40% {
+    transform: rotateZ(12deg);
+  }
+  50% {
+    transform: rotateZ(-10deg);
+  }
+  60% {
+    transform: rotateZ(8deg);
+  }
+  70% {
+    transform: rotateZ(-6deg);
+  }
+  80% {
+    transform: rotateZ(4deg);
+  }
+  90% {
+    transform: rotateZ(-2deg);
+  }
+  100% {
+    transform: rotateZ(0deg);
+  }
+}
+
+@keyframes swing-rope-hover {
+  0% {
+    transform: rotateZ(0deg);
+  }
+  10% {
+    transform: rotateZ(-18deg);
+  }
+  20% {
+    transform: rotateZ(16deg);
+  }
+  30% {
+    transform: rotateZ(-14deg);
+  }
+  40% {
+    transform: rotateZ(12deg);
+  }
+  50% {
+    transform: rotateZ(-10deg);
+  }
+  60% {
+    transform: rotateZ(8deg);
+  }
+  70% {
+    transform: rotateZ(-6deg);
+  }
+  80% {
+    transform: rotateZ(4deg);
+  }
+  90% {
+    transform: rotateZ(-2deg);
+  }
+  100% {
+    transform: rotateZ(0deg);
   }
 }
