@@ -25,7 +25,7 @@ section {
     position: absolute;
     width: 21rem;
     top: 0;
-    right: 1rem;
+    right: 5rem;
     transform-origin: 50% 0%;
     animation: none;
     transition: none;
@@ -37,7 +37,7 @@ section {
     img {
       width: 100%;
       display: block;
-      filter: drop-shadow(2px 2px 4px rgba(255, 255, 255, 0.6));
+      // filter: drop-shadow(2px 2px 4px rgba(255, 255, 255, 0.6));
       transition: transform 0.3s, filter 0.3s ease-in-out;
     }
   }
