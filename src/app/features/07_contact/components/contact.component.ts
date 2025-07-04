@@ -19,15 +19,16 @@ import { ContactMethod } from '../interfaces/contact.interface';
   styleUrl: './contact.component.scss'
 })
 export class ContactComponent {
-  //TODO: Clean
-  public animationDelay = 3000;
-  contactMethods: ContactMethod[] = CONTACT_METHODS;
-
   @ViewChild('nomacodaImgWrapper') nomacodaImgWrapper!: ElementRef;
 
   private _renderer = inject(Renderer2);
 
-  triggerSwing() {
+  //TODO: Clean
+  public animationDelay = 3000;
+  contactMethods: ContactMethod[] = CONTACT_METHODS;
+  actualYear: number = new Date().getFullYear();
+
+  public triggerSwing() {
     if (!this.nomacodaImgWrapper) return;
     this._renderer.removeClass(
       this.nomacodaImgWrapper.nativeElement,
@@ -44,6 +45,6 @@ export class ContactComponent {
         this.nomacodaImgWrapper.nativeElement,
         'swing-active'
       );
-    }, 4000); // Duración de la animación
+    }, 10000); // Duración de la animación
   }
 }
