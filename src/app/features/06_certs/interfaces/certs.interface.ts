@@ -1,4 +1,3 @@
-//TODO: Revisar estos naming
 type CertPlatformType = 'udemy' | 'scrum' | 'linkedIn' | 'openWebinars';
 type CertTechType =
   | 'angular'

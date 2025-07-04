@@ -5,7 +5,7 @@
     [parallaxContent]="contentRef"
     #headerRef
   >
-    <h1 [appAnimate]="2000" translationKey="06_CERTS.CERTS"></h1>
+    <h1 class="bordered-text">{{ "06_CERTS.CERTS" | translate }}</h1>
   </header>
   <div class="section-container" #contentRef>
     <app-certs-filter

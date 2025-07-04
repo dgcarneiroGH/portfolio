@@ -5,7 +5,9 @@
     [parallaxContent]="contentRef"
     #headerRef
   >
-    <h1 [appAnimate]="2000" translationKey="04_EXPERIENCE.EXPERIENCE"></h1>
+    <h1 class="bordered-text">
+      {{ "04_EXPERIENCE.EXPERIENCE" | translate }}
+    </h1>
   </header>
   <div class="section-container" #contentRef>
     <ul>

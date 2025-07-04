@@ -24,6 +24,11 @@ h6 {
   font-family: var(--font-headings);
   font-weight: 700;
 }
+
+.bordered-text {
+  color: palette.$text-on-accent;
+  -webkit-text-stroke: 2px palette.$text-primary;
+}
 // #endregion
 
 * {

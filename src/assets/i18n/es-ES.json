@@ -2,7 +2,7 @@
   "COMMON": {},
   "01_HOME": {
     "HELLO": "Hola, soy Nomacoda",
-    "DESCRIPTION": "Apasionado del desarrollo Front-end y el diseño web."
+    "DESCRIPTION": "Apasionado del <br>desarrollo Front-end <br>y el diseño web."
   },
   "02_ABOUT": {
     "ABOUT_ME": "Sobre mí",

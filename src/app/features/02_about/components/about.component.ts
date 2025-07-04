@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { PictureComponent } from 'src/app/shared/components/picture/picture.component';
-import { AnimateDirective } from 'src/app/shared/directives/animate.directive';
 import { ParallaxHeaderDirective } from 'src/app/shared/directives/parallax-header.directive';
 
 @Component({
@@ -12,7 +11,6 @@ import { ParallaxHeaderDirective } from 'src/app/shared/directives/parallax-head
     PictureComponent,
     CommonModule,
     TranslateModule,
-    AnimateDirective,
     ParallaxHeaderDirective
   ],
   templateUrl: './about.component.html',

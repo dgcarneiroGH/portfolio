@@ -1,7 +1,5 @@
 .filter-container {
   text-align: start;
-  //TODO:Esta font-family se puede poner para toda la app
-  // font-family: "Montserrat", sans-serif;
 
   .container-header {
     display: flex;
@@ -49,7 +47,6 @@
   }
 }
 
-// TODO: Estas 2 clases podrían meterse en un css común
 .visible {
   opacity: 1;
   max-height: 500px;

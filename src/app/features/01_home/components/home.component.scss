@@ -13,11 +13,11 @@
 
   .img-container {
     z-index: 2;
-    width: 50vw;
+    width: 40vw;
     position: relative;
 
     img {
-      height: 110vh;
+      width: 100%;
     }
 
     .background-img {
@@ -38,7 +38,7 @@
 
   .text-container {
     z-index: 3;
-    width: 50vw;
+    width: 60vw;
 
     p {
       font-size: 1.2rem;
