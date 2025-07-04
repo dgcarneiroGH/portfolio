@@ -20,9 +20,6 @@ import { ColorThiefService } from '@soarlin/angular-color-thief';
 export class ProjectComponent implements OnInit {
   private _colorThief: ColorThiefService = inject(ColorThiefService);
 
-  dominantColor: [number, number, number] | null = null;
-  palette: [number, number, number][] | null = null;
-
   @Input() coverImgSrc!: string;
   @Input() name!: string;
   @Input() description!: string;
@@ -30,6 +27,9 @@ export class ProjectComponent implements OnInit {
   @Input() index!: number;
   @Input() expandedIndex!: number | null;
   @Output() expandRequest = new EventEmitter<number>();
+
+  dominantColor: [number, number, number] | null = null;
+  palette: [number, number, number][] | null = null;
 
   animationDelay: string = '0s';
 
@@ -42,14 +42,8 @@ export class ProjectComponent implements OnInit {
   }
 
   onImageLoad(imageElement: HTMLImageElement) {
-    // Get dominant color
     this.dominantColor = this._colorThief.getColor(imageElement);
-
-    // Get color palette (default 10 colors)
     this.palette = this._colorThief.getPalette(imageElement);
-
-    console.log(this.dominantColor);
-    console.log(this.palette);
   }
 
   toggleMoreInfo() {

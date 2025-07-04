@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { AnimateDirective } from 'src/app/shared/directives/animate.directive';
 import { ParallaxHeaderDirective } from 'src/app/shared/directives/parallax-header.directive';
 import { PROJECTS } from '../constants/projects.constants';
 import { Project } from '../interfaces/project.interface';
@@ -9,12 +8,7 @@ import { ProjectComponent } from './project/project.component';
 @Component({
   standalone: true,
   selector: 'app-projects',
-  imports: [
-    ProjectComponent,
-    TranslateModule,
-    AnimateDirective,
-    ParallaxHeaderDirective
-  ],
+  imports: [ProjectComponent, TranslateModule, ParallaxHeaderDirective],
   templateUrl: './projects.component.html',
   styleUrl: './projects.component.scss'
 })

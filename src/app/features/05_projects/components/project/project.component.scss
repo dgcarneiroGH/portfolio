@@ -1,6 +1,6 @@
 @use "src/styles/_palette" as palette;
-//TODO: Usar colores de palette
-.proyect-container {
+
+.project-container {
   position: relative;
   border-radius: 2.5rem;
   box-shadow: 0 8px 32px 0
@@ -41,7 +41,7 @@
     }
   }
 
-  .proyect-border {
+  .project-border {
     position: relative;
     z-index: 1;
     width: 100%;
@@ -73,7 +73,7 @@
     }
   }
 
-  .proyect-info {
+  .project-info {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -99,7 +99,7 @@
       margin-bottom: 1.5rem;
     }
 
-    .proyect-details {
+    .project-details {
       width: 100%;
       display: flex;
       flex-direction: column;

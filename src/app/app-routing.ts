@@ -1,21 +1,4 @@
-import { Injectable } from '@angular/core';
 import { Routes } from '@angular/router';
-
-@Injectable()
-export class CustomTitleStrategy {
-  // constructor(private readonly title: Title) {
-  //   super();
-  // }
-  // override updateTitle(routerState: RouterStateSnapshot): void {
-  // this.title.setTitle('No')
-  // const title = this.buildTitle(routerState);
-  // if (title !== undefined) {
-  //   this.title.setTitle(`Portfolio - ${title}`);
-  // } else {
-  //   this.title.setTitle(`Portfolio - Home`);
-  // }
-  // }
-}
 
 export const APP_ROUTES: Routes = [
   {

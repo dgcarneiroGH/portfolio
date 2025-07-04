@@ -20,35 +20,35 @@ export const CERTS: Cert[] = [
     platform: 'udemy',
     technology: 'angular',
     name: 'REDUX en Angular con NGRX: Desde las bases hasta la práctica',
-    iconSrc: 'assets/images/icons/certs/udemy.png',
+    iconSrc: 'assets/images/icons/certs/udemy_angular.png',
     url: 'https://www.udemy.com/certificate/UC-d2ceb6dc-f5ab-49aa-b3db-f1c8d16338f8/'
   },
   {
     platform: 'udemy',
     technology: 'angular',
     name: 'Angular Avanzado: Lleva tus bases al siguiente nivel - MEAN',
-    iconSrc: 'assets/images/icons/certs/udemy.png',
+    iconSrc: 'assets/images/icons/certs/udemy_angular.png',
     url: 'https://www.udemy.com/certificate/UC-063523e7-fb90-4dfc-a8a8-d0e22d414384/'
   },
   {
     platform: 'udemy',
     technology: 'flutter',
     name: 'Flutter: Tu guía completa de desarrollo para IOS y Android',
-    iconSrc: 'assets/images/icons/certs/udemy.png',
+    iconSrc: 'assets/images/icons/certs/udemy_flutter.png',
     url: 'https://www.udemy.com/certificate/UC-9202264e-14c0-4636-97cc-a7424cd58433/'
   },
   {
     platform: 'udemy',
     technology: 'unreal',
     name: 'Programar Blueprints en Unreal Engine de 0 a profesional',
-    iconSrc: 'assets/images/icons/certs/udemy.png',
+    iconSrc: 'assets/images/icons/certs/udemy_unreal.png',
     url: 'https://www.udemy.com/certificate/UC-d4cfc152-cd74-413c-b30f-b842f442ab9e/'
   },
   {
     platform: 'udemy',
     technology: 'react',
     name: 'React y Firebase: El Curso Completo, Práctico y Desde 0',
-    iconSrc: 'assets/images/icons/certs/udemy.png',
+    iconSrc: 'assets/images/icons/certs/udemy_react.png',
     url: 'https://www.udemy.com/certificate/UC-deae80fd-4fdc-42b3-aa37-6c232c2245cd/'
   }
 ];

@@ -23,18 +23,18 @@ export class ContactComponent {
 
   private _renderer = inject(Renderer2);
 
-  //TODO: Clean
-  public animationDelay = 3000;
+  animationDelay = 3000;
   contactMethods: ContactMethod[] = CONTACT_METHODS;
   actualYear: number = new Date().getFullYear();
 
   public triggerSwing() {
     if (!this.nomacodaImgWrapper) return;
+
     this._renderer.removeClass(
       this.nomacodaImgWrapper.nativeElement,
       'swing-active'
     );
-    // Fuerza el reflow para reiniciar la animación si se hace muy rápido
+
     void this.nomacodaImgWrapper.nativeElement.offsetWidth;
     this._renderer.addClass(
       this.nomacodaImgWrapper.nativeElement,
@@ -45,6 +45,6 @@ export class ContactComponent {
         this.nomacodaImgWrapper.nativeElement,
         'swing-active'
       );
-    }, 10000); // Duración de la animación
+    }, 10000);
   }
 }

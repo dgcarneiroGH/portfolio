@@ -21,7 +21,7 @@
   }
 }
 
-.proyect-container.expanded {
+.project-container.expanded {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -37,7 +37,7 @@
     max-width 0.5s, width 0.5s, left 0.5s, top 0.5s;
 }
 
-.proyect-container.collapsed {
+.project-container.collapsed {
   position: static;
   min-width: 19rem;
   max-width: 400px;

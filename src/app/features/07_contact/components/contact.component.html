@@ -12,11 +12,7 @@
       <img src="assets/images/nomacoda/nomacoda_climber.png" alt="Nomacoda" />
     </div>
 
-    <p
-      [appAnimate]="animationDelay"
-      [translationKey]="'07_CONTACT.TALK'"
-      class="faded-text"
-    ></p>
+    <p [appAnimate]="animationDelay" [translationKey]="'07_CONTACT.TALK'"></p>
 
     <div class="contact-methods">
       @for (contactMethod of contactMethods; track contactMethod.name){
