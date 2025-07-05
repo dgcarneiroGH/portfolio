@@ -1,12 +1,12 @@
 .header {
   position: fixed;
-  width: 100%;
+  width: 100vw;
   z-index: 3;
 }
 
 .inner-body {
   position: relative;
-  margin: 0 0 0 5%;
+  margin: 0;
   padding: 0;
   height: 100%;
 }

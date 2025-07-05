@@ -29,10 +29,16 @@
 }
 
 //#region Responsive
-// @media screen and (max-width: 767px) {
-//   .about-me-section .row {
-//     flex-direction: column !important;
-//     text-align: center;
-//   }
-// }
+@media screen and (max-width: 980px) {
+  .section-container .row {
+    flex-direction: column !important;
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .section-container p {
+    font-size: 1.2rem;
+  }
+}
 //#endregion

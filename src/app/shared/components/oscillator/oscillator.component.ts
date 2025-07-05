@@ -14,7 +14,7 @@ import {
   template: `
     <canvas
       #oscillatorCanvas
-      style="display:block; width:100vw; height:100vh;"
+      style="display:block; width:100%; height:100%;"
     ></canvas>
   `,
   styles: `:host { display: block; position: absolute; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 0; }`

@@ -45,3 +45,17 @@
   transform: scale(1);
   z-index: 1;
 }
+
+//#region Responsive
+@media screen and (max-width: 1110px) {
+  .section-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 760px) {
+  .section-container {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+//#endregion
