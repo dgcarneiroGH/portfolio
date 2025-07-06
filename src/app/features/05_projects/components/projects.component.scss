@@ -47,13 +47,13 @@
 }
 
 //#region Responsive
-@media screen and (max-width: 1110px) {
+@media screen and (max-width: 1300px) {
   .section-container {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media screen and (max-width: 760px) {
+@media screen and (max-width: 930px) {
   .section-container {
     grid-template-columns: repeat(1, 1fr);
   }

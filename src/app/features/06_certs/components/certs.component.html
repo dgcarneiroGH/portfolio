@@ -18,7 +18,7 @@
         class="canvas-container"
         *ngIf="showCanvas && filteredCerts.length > 0"
       >
-        <ng-tag-canvas [options]="options">
+        <ng-tag-canvas [options]="tagCanvasOptions">
           @for (cert of filteredCerts; track cert.name) {
           <a
             ngTag
@@ -27,8 +27,9 @@
             [title]="cert.name"
           >
             <img
-              width="170"
-              height="170"
+              class="canvas-img"
+              height="120"
+              width="120"
               [src]="cert.iconSrc"
               [alt]="cert.name"
             />

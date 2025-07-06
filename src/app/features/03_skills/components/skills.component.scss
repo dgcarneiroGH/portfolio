@@ -24,3 +24,21 @@
     width: 100%;
   }
 }
+
+//#region Responsive
+@media screen and (max-width: 760px) {
+  .section-container {
+    .skills-container {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+}
+
+@media screen and (max-width: 530px) {
+  .section-container {
+    .skills-container {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+}
+//#endregion

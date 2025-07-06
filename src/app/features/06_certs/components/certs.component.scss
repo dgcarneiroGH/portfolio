@@ -24,5 +24,30 @@
 
   .tag-canvas {
     height: 100vh;
+
+    .canvas-img {
+      height: 12rem;
+      aspect-ratio: 1;
+    }
   }
 }
+
+//#region Responsive
+@media screen and (max-width: 760px) {
+  .section-container {
+    .filter-component {
+      display: none;
+    }
+  }
+}
+
+@media screen and (max-width: 660px) {
+  .section-container {
+    .tag-canvas {
+      .canvas-img {
+        height: 8rem;
+      }
+    }
+  }
+}
+//#endregion

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { TagCanvasModule, TagCanvasOptions } from 'ng-tagcanvas';
 import { ParallaxHeaderDirective } from 'src/app/shared/directives/parallax-header.directive';
@@ -27,7 +27,7 @@ import { CertsFilterComponent } from './certs-filter/certs-filter.component';
 export class CertsComponent implements OnInit {
   private lastClickTime = 0;
 
-  options: TagCanvasOptions = CERT_CANVAS_OPTIONS;
+  tagCanvasOptions!: TagCanvasOptions;
 
   certs: Cert[] = CERTS;
   filteredCerts!: Cert[];
@@ -35,8 +35,29 @@ export class CertsComponent implements OnInit {
 
   showCanvas = true;
 
+  @HostListener('window:resize')
+  onResize() {
+    this.setResponsiveOptions();
+    this._resetCanvas();
+  }
+
   ngOnInit(): void {
     this.filteredCerts = this.certs;
+    this.setResponsiveOptions();
+  }
+
+  setResponsiveOptions() {
+    if (window.innerWidth < 660) {
+      this.tagCanvasOptions = {
+        ...CERT_CANVAS_OPTIONS,
+        radiusX: 2,
+        radiusY: 2,
+        radiusZ: 2
+        // zoom: 0.7
+      };
+    } else {
+      this.tagCanvasOptions = { ...CERT_CANVAS_OPTIONS };
+    }
   }
 
   downloadPdf(pdf: string): void {
@@ -77,7 +98,6 @@ export class CertsComponent implements OnInit {
     this.showCanvas = false;
     setTimeout(() => {
       this.showCanvas = true;
-      console.log('ahora');
     }, 300);
   }
 }
