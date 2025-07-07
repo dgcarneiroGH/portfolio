@@ -26,13 +26,7 @@
             (click)="detectDblClick(cert)"
             [title]="cert.name"
           >
-            <img
-              class="canvas-img"
-              height="120"
-              width="120"
-              [src]="cert.iconSrc"
-              [alt]="cert.name"
-            />
+            <img class="canvas-img" [src]="cert.iconSrc" [alt]="cert.name" />
           </a>
           }
         </ng-tag-canvas>

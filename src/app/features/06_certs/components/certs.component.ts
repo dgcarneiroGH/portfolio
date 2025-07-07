@@ -47,7 +47,7 @@ export class CertsComponent implements OnInit {
   }
 
   setResponsiveOptions() {
-    if (window.innerWidth < 660) {
+    if (window.innerWidth < 660 || window.innerHeight < 620) {
       this.tagCanvasOptions = {
         ...CERT_CANVAS_OPTIONS,
         radiusX: 2,

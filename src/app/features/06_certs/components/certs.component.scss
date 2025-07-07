@@ -27,7 +27,7 @@
 
     .canvas-img {
       height: 12rem;
-      aspect-ratio: 1;
+      width: 12rem;
     }
   }
 }
@@ -46,6 +46,27 @@
     .tag-canvas {
       .canvas-img {
         height: 8rem;
+        width: 8rem;
+      }
+    }
+  }
+}
+
+//Height responsive options
+@media screen and (max-height: 420px) {
+  .section-container {
+    .filter-component {
+      display: none;
+    }
+  }
+}
+
+@media screen and (max-height: 620px) {
+  .section-container {
+    .tag-canvas {
+      .canvas-img {
+        height: 8rem;
+        width: 8rem;
       }
     }
   }

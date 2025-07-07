@@ -1,5 +1,6 @@
 section {
   min-height: 100vh;
+  overflow: hidden;
 }
 
 .section-container {
@@ -192,3 +193,14 @@ section {
     transform: rotateZ(0deg);
   }
 }
+
+//#region Responsive
+@media (pointer: coarse) and (hover: none) {
+  .section-container {
+    .nomacoda-img-wrapper {
+      display: none;
+    }
+  }
+}
+
+//#endregion
