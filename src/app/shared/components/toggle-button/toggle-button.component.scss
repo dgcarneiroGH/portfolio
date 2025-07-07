@@ -1,0 +1,124 @@
+@use "/src/styles/palette" as palette;
+
+/* The container */
+.toggle-container {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  text-align: left;
+  z-index: 2;
+
+  .toggle {
+    filter: drop-shadow(2px 2px 4px rgba(255, 255, 255, 0.6));
+
+    .toggle-btn {
+      position: relative;
+      display: inline-block;
+      height: 34px;
+      aspect-ratio: 16/9;
+
+      /* Hide default HTML checkbox */
+      input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+
+      /*On state*/
+      input:checked + .slider {
+        background: linear-gradient(
+          90deg,
+          palette.$accent-yellow,
+          palette.$accent-blue,
+          palette.$accent-yellow
+        );
+
+        background-size: 200% 100%;
+        animation: moveGradient 5s linear infinite;
+
+        -webkit-mask: linear-gradient(palette.$text-primary 0 0) content-box,
+          linear-gradient(palette.$text-primary 0 0);
+        mask: linear-gradient(palette.$text-primary 0 0) content-box,
+          linear-gradient(palette.$text-primary 0 0);
+      }
+
+      /* On state when slider is moved */
+      input:focus + .slider {
+        box-shadow: 0 0 1px palette.$text-primary;
+      }
+
+      /* On state indicator */
+      input:checked + .slider:before {
+        transform: translateX(26px);
+      }
+
+      /* Off state background color */
+      input:not(:checked) + .slider {
+        background-color: palette.$text-secondary;
+      }
+
+      /* Off state indicator color */
+      input:not(:checked) + .slider:before {
+        background-color: palette.$text-primary;
+      }
+
+      .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: palette.$text-secondary;
+        transition: 0.4s;
+        border-radius: 34px;
+      }
+
+      /* Rounded sliders */
+      .slider:before {
+        position: absolute;
+        content: "";
+        height: 26px;
+        aspect-ratio: 1;
+        left: 4px;
+        bottom: 4px;
+        background-color: palette.$text-primary;
+        transition: 0.4s;
+        border-radius: 50%;
+      }
+    }
+  }
+
+  // .label {
+  //   font-family: "Montserrat", sans-serif;
+  // }
+}
+
+.toggle-container.filter-mode {
+  flex-direction: row-reverse;
+  .toggle {
+    .toggle-btn {
+      height: 20px;
+
+      input:checked + .slider:before {
+        transform: translateX(17px);
+      }
+
+      .slider:before {
+        height: 12px;
+      }
+    }
+  }
+  .label {
+    font-size: 0.9rem;
+  }
+}
+
+@keyframes moveGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}

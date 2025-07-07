@@ -1,0 +1,56 @@
+{
+  "COMMON": {},
+  "01_HOME": {
+    "HELLO": "Hola, soy Nomacoda",
+    "DESCRIPTION": "Apasionado del <br>desarrollo Front-end <br>y el diseño web."
+  },
+  "02_ABOUT": {
+    "ABOUT_ME": "Sobre mí",
+    "PARAGRAPH_1": "Mi nombre es Diego. Como desarrollador especializado en Front-End, me dedico a crear experiencias digitales que no solo se vean bien, sino que sean fáciles de usar y funcionen a la perfección.",
+    "PARAGRAPH_2": "Mi pasión por la escalada me ha enseñado a afrontar cada proyecto con paciencia y estrategia, dividiendo los grandes desafíos en pasos manejables hasta llegar a la meta marcada. La música me enseña a cuidar el ritmo y los detalles, dos claves que considero esenciales para una gran experiencia de usuario.",
+    "PARAGRAPH_3": "Más allá de la tecnología, me impulsa colaborar en proyectos que generen un impacto social positivo. Mi mayor motivación es saber que mi código está contribuyendo a una buena causa y aportando valor real a la sociedad.",
+    "PARAGRAPH_4": "Para mí, cada cliente es un socio. Creo en la comunicación transparente, la organización impecable (usando herramientas como Trello y Notion para que siempre sepas en qué punto está el proyecto) y en construir una relación de confianza."
+  },
+  "03_SKILLS": {
+    "SHOW_EXPERIENCE": "Mostrar experiencia",
+    "SKILLS": "Habilidades"
+  },
+  "04_EXPERIENCE": {
+    "ACTUAL_JOB": "2023 - Actualidad",
+    "CALL_CENTER_AGENT": "Teleoperador",
+    "DESCRIPTION_BOSCH": "Agente de ventas para la empresa de telefonía móvil Orange, a través de la subcontrata Bosch.",
+    "DESCRIPTION_CLARCAT": "Proyectos para empresas externas como Arcelor Mittal y La Liga como programador fullstack.",
+    "DESCRIPTION_LIONBRIDGE": "Entrenamiento de modelos de IA para Google, centrado en mejorar la comprensión de contenidos publicitarios de empresas anunciantes.",
+    "DESCRIPTION_MARINE": "Trabajador en los diferentes puestos de la cadena de producción y almacén para la empresa puntera en tecnología marina.",
+    "DESCRIPTION_POSSIBLE": "Programador fullstack en multitud de proyectos internos y externos para empresas como LetsHealth, Esmerarte y NTTData.",
+    "DESCRIPTION_SOLITIUM": "Técnico informático para empresa multinacional que trabaja tanto en soporte informático para empresas como venta y mantenimiento de impresoras.",
+    "EXPERIENCE": "Experiencia laboral",
+    "FACTORY_WORKER": "Peón",
+    "FULLSTACK_DEVELOPER": "Desarrollador fullstack",
+    "INTERNET_ADS_ASESSOR": "Internet Ads Asessor",
+    "TI_TECHNICIAN": "Técnico de TI"
+  },
+  "05_PROJECTS": {
+    "DESCRIPTION_BABE": "Sistema de gestión de rutas por carretera integrado con la API de HERE. Permite calcular trayectos optimizados teniendo en cuenta parámetros como peso y dimensiones del vehículo. Desarrollado con Angular y Django.",
+    "DESCRIPTION_DATALAIA": "Plataforma de análisis de datos desarrollada para NTT Data. Combinando Angular y Django, permite visualizar grandes volúmenes de información mediante gráficas interactivas y dashboards personalizables.",
+    "DESCRIPTION_DFG": "Portal corporativo para la empresa DFG Natural Stone, con acceso directo al área de compras y catálogo digital de productos.",
+    "DESCRIPTION_DISCAMINO": "Plataforma desarrollada para una asociación que entrena a personas con diversidad funcional para completar el camino de Santiago. Gestiona calendarios, rutas y asignación de conductores y vehículos.",
+    "DESCRIPTION_EAC": "Tienda online desarrollada para EAC Software, especializada en venta de licencias. Implementada con Angular y .NET, soporta distintos métodos de pago y roles de usuario para una experiencia flexible y segura.",
+    "DESCRIPTION_HERMES": "Aplicaciones internas de gestión logística ferroviaria desarrolladas para ArcelorMittal. Permite supervisar y planificar el transporte de materiales con funcionalidades avanzadas de control de flotas y comunicación entre ellas y otra web creada por una empresa externa a través de colas de RabbitMq.",
+    "DESCRIPTION_INTERACT": "Aplicación interactiva de preguntas médicas, diseñada con múltiples niveles de dificultad. Simula situaciones reales en consulta médica con el objetivo de instruir sobre enfermedades renales a médicos y farmacéuticos.",
+    "DESCRIPTION_LALIGA": "CRM y portal web para la gestión de datos comerciales y análisis del estado actual del paquete de fútbol contratado de negocios subscritos. Incluye visualización dinámica de métricas clave y segmentación de clientes.",
+    "DESCRIPTION_MARISKITO": "E-commerce desarrollado con PrestaShop para una reconocida empresa gallega del sector marisquero. Incluye gestión de productos frescos, pedidos y logística integrada.",
+    "DESCRIPTION_PHARMA": "Sitio web creado para un concurso donde los participantes optan a una beca en el ámbito médico. Incluye una primera fase gamificada con puzles y retos, y una segunda fase en la que los aspirantes suben vídeos presentando sus proyectos.",
+    "PROJECTS": "Proyectos"
+  },
+  "06_CERTS": {
+    "CERTS": "Certificados"
+  },
+  "07_CONTACT": {
+    "NOW_WE_KNOW": "Ahora que ya me conoces . . .",
+    "TALK": "¿Hablamos?"
+  },
+  "SIDEBAR": {
+    "CV_URL": "https://drive.google.com/file/d/1NbGJprNjqratmT-EqNy7Nss-qhZDAHt0/view?usp=sharing"
+  }
+}

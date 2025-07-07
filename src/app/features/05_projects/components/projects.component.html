@@ -1,0 +1,26 @@
+<section>
+  <header
+    class="section-header"
+    appParallaxHeader
+    [parallaxContent]="contentRef"
+    #headerRef
+  >
+    <h1 class="bordered-text">{{ "05_PROJECTS.PROJECTS" | translate }}</h1>
+  </header>
+  <div class="section-container" #contentRef style="position: relative">
+    @for (project of projects; track project.name; let i = $index) {
+    <div class="project-wrapper">
+      <app-project
+        class="project-card"
+        [coverImgSrc]="project.coverImgSrc"
+        [name]="project.name"
+        [description]="project.description"
+        [url]="project.url"
+        [expandedIndex]="expandedIndex"
+        [index]="i"
+        (expandRequest)="onExpandRequest(i)"
+      ></app-project>
+    </div>
+    }
+  </div>
+</section>

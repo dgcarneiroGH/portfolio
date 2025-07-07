@@ -1,0 +1,61 @@
+@use "src/styles/_palette" as palette;
+
+.section-container {
+  width: 80%;
+  min-height: 100vh;
+  padding: 110vh 0 10vh 0;
+  z-index: 1;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  justify-items: center;
+  align-items: center;
+
+  .project-card {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    aspect-ratio: 1;
+    position: relative;
+  }
+}
+
+.project-container.expanded {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(1.12);
+  z-index: 20;
+  box-shadow: 0 16px 48px 0
+    rgba($color: palette.$background-gradient-start, $alpha: 0.37);
+  min-width: 28rem;
+  max-width: 30rem;
+  width: 110%;
+  transition: box-shadow 0.5s, background 0.5s,
+    transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), z-index 0.5s, min-width 0.5s,
+    max-width 0.5s, width 0.5s, left 0.5s, top 0.5s;
+}
+
+.project-container.collapsed {
+  position: static;
+  min-width: 19rem;
+  max-width: 400px;
+  width: 100%;
+  transform: scale(1);
+  z-index: 1;
+}
+
+//#region Responsive
+@media screen and (max-width: 1300px) {
+  .section-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 930px) {
+  .section-container {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+//#endregion

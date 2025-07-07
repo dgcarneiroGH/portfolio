@@ -1,70 +1,67 @@
-import { Injectable } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { RouterStateSnapshot, Routes, TitleStrategy } from '@angular/router';
-
-@Injectable()
-export class CustomTitleStrategy extends TitleStrategy {
-  constructor(private readonly title: Title) {
-    super();
-  }
-
-  override updateTitle(routerState: RouterStateSnapshot): void {
-    const title = this.buildTitle(routerState);
-    if (title !== undefined) {
-      this.title.setTitle(`Portfolio - ${title}`);
-    } else {
-      this.title.setTitle(`Portfolio - Home`);
-    }
-  }
-}
+import { Routes } from '@angular/router';
 
 export const APP_ROUTES: Routes = [
   {
     path: '',
     title: 'Home',
+    data: { routeIndex: 1 },
     loadComponent: () =>
-      import('./components/home/home.component').then(
+      import('./features/01_home/components/home.component').then(
         ({ HomeComponent }) => HomeComponent
       )
   },
   {
     path: 'about',
     title: 'About Me',
+    data: { routeIndex: 2 },
     loadComponent: () =>
-      import('./components/about/about.component').then(
+      import('./features/02_about/components/about.component').then(
         ({ AboutComponent }) => AboutComponent
       )
   },
   {
     path: 'skills',
     title: 'Skills',
+    data: { routeIndex: 3 },
     loadComponent: () =>
-      import('./components/skills/skills.component').then(
+      import('./features/03_skills/components/skills.component').then(
         ({ SkillsComponent }) => SkillsComponent
       )
   },
   {
     path: 'experience',
     title: 'Experience',
+    data: { routeIndex: 4 },
     loadComponent: () =>
-      import('./components/experience/experience.component').then(
+      import('./features/04_experience/components/experience.component').then(
         ({ ExperienceComponent }) => ExperienceComponent
       )
   },
   {
-    path: 'blog-posts',
-    title: 'Medium Posts',
+    path: 'projects',
+    title: 'Projects',
+    data: { routeIndex: 5 },
     loadComponent: () =>
-      import('./components/medium-blog/medium-blog.component').then(
-        ({ MediumBlogComponent }) => MediumBlogComponent
+      import('./features/05_projects/components/projects.component').then(
+        ({ ProjectsComponent }) => ProjectsComponent
       )
   },
   {
-    path: 'chatbot',
-    title: 'AI Powered Chatbot',
+    path: 'certs',
+    title: 'Certificates',
+    data: { routeIndex: 6 },
     loadComponent: () =>
-      import('./components/chatbot/chatbot.component').then(
-        ({ ChatBotComponent }) => ChatBotComponent
+      import('./features/06_certs/components/certs.component').then(
+        ({ CertsComponent }) => CertsComponent
+      )
+  },
+  {
+    path: 'contact',
+    title: 'Contact',
+    data: { routeIndex: 7 },
+    loadComponent: () =>
+      import('./features/07_contact/components/contact.component').then(
+        ({ ContactComponent }) => ContactComponent
       )
   },
   {

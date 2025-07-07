@@ -1,0 +1,18 @@
+<div class="filter-container">
+  <div class="filter-options">
+    @for (param of filterParams; let last = $last ; track param.id;) {
+    <div class="filter-params">
+      @for (item of param.items; track item.id) {
+      <app-toggle-button
+        class="toggle"
+        [label]="item.label"
+        [filterMode]="true"
+        [isChecked]="true"
+        (check)="check($event, item)"
+      />
+      }
+      <hr *ngIf="!last" />
+    </div>
+    }
+  </div>
+</div>

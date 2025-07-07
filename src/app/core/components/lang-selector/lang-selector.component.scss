@@ -1,0 +1,54 @@
+// @use "node_modules/flag-icons/sass/flag-icons";
+
+// or with custom configuration
+@use "flag-icons/sass/flag-icons" with (
+  // Override path to flags directory
+  $flag-icons-path: "../../../node_modules/flag-icons/flags",
+  // Include only specific country flags
+  $flag-icons-included-countries: ("es", "us")
+);
+
+.lang-selector-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 2;
+
+  // font-family: "Montserrat", sans-serif;
+
+  .container-header {
+    display: flex;
+    margin: 2rem 2rem 0;
+    cursor: pointer;
+  }
+
+  .container-header:hover,
+  .container-header.active {
+    opacity: 0.5;
+  }
+
+  .lang-selector-options {
+    list-style: none;
+    padding: 0;
+    transition: max-height 0.4s ease-in-out, opacity 0.3s ease-in-out;
+    position: absolute;
+    right: 3rem;
+
+    .lang {
+      cursor: pointer;
+    }
+    .lang:hover {
+      opacity: 0.5;
+    }
+  }
+}
+
+.visible {
+  opacity: 1;
+  max-height: 500px;
+}
+.hidden {
+  opacity: 0;
+  max-height: 0;
+  pointer-events: none;
+}

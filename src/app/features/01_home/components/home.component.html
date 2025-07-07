@@ -1,0 +1,24 @@
+<section>
+  <div class="section-container">
+    <div class="img-container">
+      <img
+        id="nomacoda"
+        class="nomacoda-img"
+        src="assets/images/nomacoda/nomacoda_full_transparent.png"
+        alt="Nomacoda"
+      />
+      <img
+        class="background-img"
+        src="assets/images/nomacoda/nomacoda_background.png"
+        alt="Nomacoda background"
+      />
+    </div>
+    <div class="text-container">
+      <p [appAnimate]="3300" translationKey="01_HOME.HELLO">
+        {{ "01_HOME.HELLO" | translate }}
+      </p>
+      <h1 [appAnimate]="3300" translationKey="01_HOME.DESCRIPTION"></h1>
+    </div>
+  </div>
+</section>
+<app-oscillator initialTargetId="nomacoda" style="top: 0"></app-oscillator>

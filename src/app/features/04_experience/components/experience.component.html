@@ -1,0 +1,28 @@
+<section>
+  <header
+    class="section-header"
+    appParallaxHeader
+    [parallaxContent]="contentRef"
+    #headerRef
+  >
+    <h1 class="bordered-text">
+      {{ "04_EXPERIENCE.EXPERIENCE" | translate }}
+    </h1>
+  </header>
+  <div class="section-container" #contentRef>
+    <ul>
+      @for (e of experience; track e.company) {
+      <li appTimeline customClassName="in-view">
+        <div>
+          <time>{{ e.yearRange | translate }}</time>
+          <div class="discovery">
+            <h2>{{ e.company }}</h2>
+            <p class="designation">{{ e.designation | translate }}</p>
+            <span>{{ e.role | translate }}</span>
+          </div>
+        </div>
+      </li>
+      }
+    </ul>
+  </div>
+</section>

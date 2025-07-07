@@ -1,0 +1,56 @@
+{
+  "COMMON": {},
+  "01_HOME": {
+    "HELLO": "Hello, I'm Nomacoda",
+    "DESCRIPTION": "Passionate about <br>Front-end development <br>and web design."
+  },
+  "02_ABOUT": {
+    "ABOUT_ME": "About me",
+    "PARAGRAPH_1": "My name is Diego. As a developer specializing in Front-End, I'm dedicated to creating digital experiences that don't just look great, but are also intuitive and perform flawlessly.",
+    "PARAGRAPH_2": "My passion for rock climbing has taught me to approach each project with patience and strategy, breaking down big challenges into manageable steps to reach the final goal. Music teaches me to focus on rhythm and detail, two keys I consider essential for creating a great user experience.",
+    "PARAGRAPH_3": "Beyond technology, I am driven by projects that create a positive social impact. My greatest motivation is knowing that my code is contributing to a good cause and bringing real value to society.",
+    "PARAGRAPH_4": "For me, every client is a partner. I believe in transparent communication, impeccable organization (using tools like Trello and Notion so you always know where the project stands), and in building a trusting relationship."
+  },
+  "03_SKILLS": {
+    "SHOW_EXPERIENCE": "Show experience",
+    "SKILLS": "Skills"
+  },
+  "04_EXPERIENCE": {
+    "ACTUAL_JOB": "2023 - Present",
+    "CALL_CENTER_AGENT": "Telemarketer",
+    "DESCRIPTION_BOSCH": "Sales agent for the mobile phone company Orange, through its subcontractor Bosch.",
+    "DESCRIPTION_CLARCAT": "Projects for external companies such as ArcelorMittal and La Liga as a fullstack programmer.",
+    "DESCRIPTION_LIONBRIDGE": "AI model training for Google, focused on improving the understanding of advertising content from advertising companies.",
+    "DESCRIPTION_MARINE": "Worker in various positions along the production and warehouse lines for the leading marine technology company.",
+    "DESCRIPTION_POSSIBLE": "Fullstack programmer on a multitude of internal and external projects for companies such as LetsHealth, Esmerarte, and NTTData.",
+    "DESCRIPTION_SOLITIUM": "IT technician for a multinational company working in both IT support for companies and printer sales and maintenance.",
+    "EXPERIENCE": "Work Experience",
+    "FACTORY_WORKER": "Laborer",
+    "FULLSTACK_DEVELOPER": "Fullstack Developer",
+    "INTERNET_ADS_ASESSOR": "Internet Ads Advisor",
+    "TI_TECHNICIAN": "IT Technician"
+  },
+  "05_PROJECTS": {
+    "DESCRIPTION_BABE": "Road transport route management system integrated with the HERE API. Calculates optimized routes based on parameters such as vehicle weight and size. Built with Angular and Django.",
+    "DESCRIPTION_DATALAIA": "Data analysis platform developed for NTT Data using Angular and Django. It enables large-scale data visualization through interactive charts and customizable dashboards.",
+    "DESCRIPTION_DFG": "Corporate website for DFG Natural Stone, providing direct access to a digital product catalog and the purchasing portal.",
+    "DESCRIPTION_DISCAMINO": "Platform developed for an association that trains people with functional diversity to complete the Camino de Santiago. It manages schedules, routes, and assigns drivers and vehicles efficiently.",
+    "DESCRIPTION_EAC": "Online store created for EAC Software, specialized in license sales. Built with Angular and .NET, it supports multiple payment methods and user roles, ensuring a flexible and secure user experience.",
+    "DESCRIPTION_HERMES": "Internal railway logistics management applications developed for ArcelorMittal. These tools enable planning and monitoring of material transport, featuring advanced fleet control and inter-app communication using RabbitMQ queues, integrating with external systems.",
+    "DESCRIPTION_INTERACT": "Interactive medical quiz app designed with multiple levels of difficulty. It simulates real-life clinical situations to train doctors and pharmacists in the diagnosis and understanding of kidney diseases.",
+    "DESCRIPTION_LALIGA": "CRM and web portal for managing business-related data and analyzing the current status of subscribed football packages. Features dynamic visualization of key metrics and advanced client segmentation tools.",
+    "DESCRIPTION_MARISKITO": "E-commerce platform built with PrestaShop for a prominent Galician seafood company. Supports the management of fresh products, orders, and integrated logistics operations.",
+    "DESCRIPTION_PHARMA": "Web application created for a medical competition where participants compete for a scholarship. The first phase includes gamified challenges such as puzzles and games, followed by a second phase where candidates upload video presentations of their projects.",
+    "PROJECTS": "Projects"
+  },
+  "06_CERTS": {
+    "CERTS": "Certificates"
+  },
+  "07_CONTACT": {
+    "NOW_WE_KNOW": "Now that you know me . . .",
+    "TALK": "Shall we talk?"
+  },
+  "SIDEBAR": {
+    "CV_URL": "https://drive.google.com/file/d/1wspBFP4GTFGxOmRdx6bBwmb6YfKjST8i/view?usp=sharing"
+  }
+}

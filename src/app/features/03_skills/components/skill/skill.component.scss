@@ -1,0 +1,81 @@
+.progress-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  transition: transform 1s ease-in-out;
+}
+
+.progress-svg {
+  margin: 0 auto;
+  display: block;
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+
+  filter: drop-shadow(2px 2px 4px rgba(255, 255, 255, 0.6));
+}
+.progress-svg.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+.progress-svg.hidden {
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+.progress-path {
+  stroke-width: 15;
+  stroke-linecap: round;
+
+  transition: stroke-dasharray 1s ease-in-out;
+}
+
+.progress-info {
+  position: absolute;
+  margin-top: 2rem;
+  max-width: 10rem;
+
+  .progress-text {
+    font-size: 1rem;
+    font-weight: bold;
+    transition: opacity 1s ease-in-out;
+  }
+  .progress-text.visible {
+    opacity: 1;
+  }
+  .progress-text.hidden {
+    opacity: 0;
+  }
+
+  .progress-logo {
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+
+    img {
+      width: 100%;
+      filter: drop-shadow(2px 2px 4px rgba(255, 255, 255, 0.6));
+
+      transition: transform 0.3s, filter 0.3s ease-in-out;
+    }
+
+    img:hover {
+      -ms-transform: scale(1.2);
+      -webkit-transform: scale(1.2);
+      transform: scale(1.2);
+
+      filter: none;
+    }
+  }
+
+  .progress-logo.visible {
+    opacity: 1;
+    width: 100%;
+  }
+  .progress-logo.hidden {
+    opacity: 0;
+    width: 0;
+  }
+}
