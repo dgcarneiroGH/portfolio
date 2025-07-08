@@ -6,7 +6,7 @@
 
 .mountains {
   position: absolute;
-  z-index: 2;
+  z-index: 1;
   top: 69vh;
   height: 47vh;
   width: 100vw;
@@ -29,3 +29,17 @@ footer {
   width: 100%;
   margin-bottom: 1rem;
 }
+
+//#region Responsive
+@media screen and (max-width: 720px) {
+  .stalactites {
+    width: 200vw;
+  }  
+}
+
+@media screen and (max-width: 450px) {  
+  footer{
+    font-size: .7rem;
+  }
+}
+//#endregion

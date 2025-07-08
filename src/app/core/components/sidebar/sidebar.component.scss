@@ -16,7 +16,7 @@
   position: fixed;
   top: 0;
   height: 100vh;
-  width: 10rem;
+  width: 7rem;
   overflow: hidden;
   z-index: -1;
 }
@@ -90,3 +90,16 @@
     transform: translate3d(85px, 0, 0);
   }
 }
+
+
+//#region Responsive
+@media screen and (max-width: 720px) {
+  .waves {
+    height: 10%;
+  }
+
+  .sidebar-content ul{
+    left: 1rem;
+  }
+}
+//#endregion

@@ -203,4 +203,20 @@ section {
   }
 }
 
+@media screen and (max-width: 720px) {
+  .section-container {
+    h1 {
+      display: none;
+    }
+
+p{
+  font-size: 2rem;
+}
+
+    .contact-methods {
+      flex-direction: column;
+    }
+  }
+}
+
 //#endregion
