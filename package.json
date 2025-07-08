@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "scripts": {
     "start": "ng serve",
-    "build": "ng build --base-href [url]",
+    "build": "ng build --base-href",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist/portfolio",
     "compodoc": "npx compodoc -p tsconfig.doc.json -w -s --hideGenerator",
