@@ -24,11 +24,6 @@ h6 {
   font-family: var(--font-headings);
   font-weight: 700;
 }
-
-.bordered-text {
-  color: palette.$text-on-accent;
-  -webkit-text-stroke: 2px palette.$text-primary;
-}
 // #endregion
 
 * {
@@ -322,10 +317,6 @@ p .blast:hover {
       }
     }
   }
-
-  .bordered-text {
-    -webkit-text-stroke-width: 1px;
-  }
 }
 
 @media screen and (max-width: 530px) {
@@ -335,11 +326,6 @@ p .blast:hover {
         font-size: 1.3rem;
       }
     }
-  }
-
-  .bordered-text {
-    color: palette.$text-primary;
-    -webkit-text-stroke-width: 0;
   }
 }
 //#endregion

@@ -1,11 +1,13 @@
 import { CommonModule } from '@angular/common';
 import {
   Component,
+  computed,
   EventEmitter,
   inject,
   Input,
   OnInit,
-  Output
+  Output,
+  signal
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { ColorThiefService } from '@soarlin/angular-color-thief';
@@ -29,9 +31,27 @@ export class ProjectComponent implements OnInit {
   @Output() expandRequest = new EventEmitter<number>();
 
   dominantColor: [number, number, number] | null = null;
-  palette: [number, number, number][] | null = null;
+  palette = signal<[number, number, number][] | null>(null);
 
   animationDelay: string = '0s';
+
+  dynamicGradient = computed(() => {
+    const palette = this.palette();
+    if (!palette || palette.length <= 1) return '';
+    return `linear-gradient(135deg, rgb(${palette[0].join(
+      ','
+    )}), rgb(${palette[1].join(',')}))`;
+  });
+
+  textColor = computed(() => {
+    const palette = this.palette();
+    return palette && palette[1] ? `rgb(${palette[1].join(',')})` : '#f6f8fa';
+  });
+
+  btnColor = computed(() => {
+    const palette = this.palette();
+    return palette && palette[1] ? `${palette[1].join(',')}` : '41,182,246';
+  });
 
   get showMoreInfo(): boolean {
     return this.expandedIndex === this.index;
@@ -43,7 +63,7 @@ export class ProjectComponent implements OnInit {
 
   onImageLoad(imageElement: HTMLImageElement) {
     this.dominantColor = this._colorThief.getColor(imageElement);
-    this.palette = this._colorThief.getPalette(imageElement);
+    this.palette.set(this._colorThief.getPalette(imageElement));
   }
 
   toggleMoreInfo() {
@@ -56,19 +76,6 @@ export class ProjectComponent implements OnInit {
 
   goTo() {
     if (this.url) window.open(this.url, '_blank');
-  }
-
-  getDynamicGradient(): string {
-    if (!this.palette || this.palette.length <= 1) return '';
-    return `linear-gradient(135deg, rgb(${this.palette[0].join(
-      ','
-    )}), rgb(${this.palette[1].join(',')}))`;
-  }
-
-  getTextColor(): string {
-    return this.palette && this.palette[1]
-      ? `rgb(${this.palette[1].join(',')})`
-      : '#f6f8fa';
   }
 
   canToggleInfo(): boolean {

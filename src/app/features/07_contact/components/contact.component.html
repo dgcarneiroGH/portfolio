@@ -9,7 +9,11 @@
       #nomacodaImgWrapper
       (mouseenter)="triggerSwing()"
     >
-      <img src="assets/images/nomacoda/nomacoda_climber.png" alt="Nomacoda" />
+      <img
+        src="assets/images/nomacoda/nomacoda_climber.png"
+        alt="Nomacoda"
+        loading="lazy"
+      />
     </div>
 
     <p [appAnimate]="animationDelay" [translationKey]="'07_CONTACT.TALK'"></p>
@@ -21,7 +25,11 @@
         target="_blank"
         [attr.title]="contactMethod.name"
       >
-        <img [src]="contactMethod.iconSrc" [alt]="contactMethod.name" />
+        <img
+          [src]="contactMethod.iconSrc"
+          [alt]="contactMethod.name"
+          loading="lazy"
+        />
       </a>
       }
     </div>

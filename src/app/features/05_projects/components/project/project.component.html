@@ -1,7 +1,7 @@
 <div
   class="project-container"
   [ngClass]="{ expanded: showMoreInfo, collapsed: !showMoreInfo }"
-  [style.--dynamic-gradient]="getDynamicGradient()"
+  [style.--dynamic-gradient]="dynamicGradient()"
   [style.--animation-delay]="animationDelay"
 >
   <div class="project-border">
@@ -11,6 +11,7 @@
       [src]="coverImgSrc"
       (load)="onImageLoad(sourceImage)"
       style="display: none"
+      loading="lazy"
     />
 
     <div
@@ -20,7 +21,7 @@
       (click)="goTo()"
     ></div>
 
-    <div class="project-info" [style.color]="getTextColor()">
+    <div class="project-info" [style.color]="textColor()">
       <h3 class="title" [ngClass]="{ show: showMoreInfo }">{{ name }}</h3>
 
       <div class="project-details">
@@ -30,18 +31,11 @@
 
         <div
           class="more-info"
+          [style.--btn-color]="btnColor()"
           [class.disabled]="!canToggleInfo()"
           (click)="handleMoreInfoClick()"
         >
-          <span>+ Info</span>
-          <img
-            [src]="
-              'assets/images/icons/material-icons/arrow_' +
-              (showMoreInfo ? 'up' : 'down') +
-              '.svg'
-            "
-            [alt]="showMoreInfo ? 'Up' : 'Down'"
-          />
+          <span>{{ showMoreInfo ? "-" : "+" }} Info</span>
         </div>
       </div>
     </div>

@@ -5,7 +5,7 @@
     [parallaxContent]="contentRef"
     #headerRef
   >
-    <h1 class="bordered-text">{{ "06_CERTS.CERTS" | translate }}</h1>
+    <h1>{{ "06_CERTS.CERTS" | translate }}</h1>
   </header>
   <div class="section-container" #contentRef>
     <app-certs-filter
@@ -26,7 +26,12 @@
             (click)="detectDblClick(cert)"
             [title]="cert.name"
           >
-            <img class="canvas-img" [src]="cert.iconSrc" [alt]="cert.name" />
+            <img
+              class="canvas-img"
+              [src]="cert.iconSrc"
+              [alt]="cert.name"
+              loading="lazy"
+            />
           </a>
           }
         </ng-tag-canvas>

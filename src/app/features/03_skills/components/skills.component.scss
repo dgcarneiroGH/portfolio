@@ -28,6 +28,7 @@
 //#region Responsive
 @media screen and (max-width: 760px) {
   .section-container {
+    z-index: 3;
     .skills-container {
       grid-template-columns: repeat(2, 1fr);
     }

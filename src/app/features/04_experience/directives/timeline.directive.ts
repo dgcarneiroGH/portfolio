@@ -3,8 +3,8 @@ import {
   ElementRef,
   HostListener,
   Input,
-  Renderer2,
   OnInit,
+  Renderer2,
   inject
 } from '@angular/core';
 
@@ -38,7 +38,7 @@ export class TimelineDirective implements OnInit {
     }
   }
 
-  isElementInViewport(el: any) {
+  isElementInViewport(el: HTMLElement) {
     const rect = el.getBoundingClientRect();
     return (
       rect.top >= 0 &&

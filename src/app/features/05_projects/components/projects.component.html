@@ -5,7 +5,7 @@
     [parallaxContent]="contentRef"
     #headerRef
   >
-    <h1 class="bordered-text">{{ "05_PROJECTS.PROJECTS" | translate }}</h1>
+    <h1>{{ "05_PROJECTS.PROJECTS" | translate }}</h1>
   </header>
   <div class="section-container" #contentRef style="position: relative">
     @for (project of projects; track project.name; let i = $index) {

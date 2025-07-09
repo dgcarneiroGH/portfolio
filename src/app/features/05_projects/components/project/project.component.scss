@@ -129,24 +129,33 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        background: rgba($color: palette.$accent-blue, $alpha: 0.37);
-        border: 2px solid palette.$accent-blue;
         border-radius: 2rem;
         padding: 0.7rem 2.5rem;
         font-size: 1.3rem;
         font-weight: bold;
         color: palette.$text-primary;
-        box-shadow: 0 2px 12px 0
-          rgba($color: palette.$accent-blue, $alpha: 0.25);
         cursor: pointer;
         transition: background 0.3s, box-shadow 0.3s;
         margin-top: 1rem;
         z-index: 2;
         gap: 0.7rem;
+
+        // background: rgba($color: palette.$accent-blue, $alpha: 0.37);
+        border: 2px solid palette.$accent-blue;
+        box-shadow: 0 2px 12px 0
+          rgba($color: palette.$accent-blue, $alpha: 0.25);
+
+        background: rgba(var(--btn-color), 0.37);
+        box-shadow: 0 2px 12px 0 rgba(var(--btn-color), 0.25);
+        border: 2px solid rgb(var(--btn-color));
+
         &:hover {
-          background: rgba(palette.$accent-blue, 0.25);
-          box-shadow: 0 4px 24px 0
-            rgba($color: palette.$accent-blue, $alpha: 0.35);
+          // background: rgba(palette.$accent-blue, 0.25);
+          // box-shadow: 0 4px 24px 0
+          //   rgba($color: palette.$accent-blue, $alpha: 0.35);
+
+          background: rgba(var(--btn-color), 0.25);
+          box-shadow: 0 4px 24px 0 rgba(var(--btn-color), 0.35);
         }
         img {
           width: 1.5rem;
