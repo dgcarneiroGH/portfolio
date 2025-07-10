@@ -14,6 +14,6 @@ export const SOCIAL_MEDIA_PROFILES: SocialMediaLinks[] = [
   {
     title: 'Cv',
     profileUrl: 'SIDEBAR.CV_URL',
-    iconPath: 'assets/images/icons/pdf.png'
+    iconPath: 'assets/images/icons/pdf.svg'
   }
 ];

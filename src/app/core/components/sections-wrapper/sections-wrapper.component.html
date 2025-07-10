@@ -1,11 +1,16 @@
 <div class="sections-wrapper">
   <app-home></app-home>
-  <img
-    id="mountains"
-    class="mountains"
-    src="assets/images/mountains.png"
-    alt="mountains"
-  />
+
+  <picture>
+    <source srcset="assets/images/mountains.avif" type="image/avif" />
+    <source srcset="assets/images/mountains.webp" type="image/webp" />
+    <img
+      id="mountains"
+      class="mountains"
+      src="assets/images/mountains.png"
+      alt="mountains"
+    />
+  </picture>
 
   <div class="cave-components">
     <app-about></app-about>
@@ -14,12 +19,15 @@
     <app-skills></app-skills>
     <app-certs></app-certs>
   </div>
-  <img
-    class="stalactites"
-    src="assets/images/stalactites.png"
-    alt="stalactites"
-    loading="lazy"
-  />
+  <picture>
+    <source srcset="assets/images/stalactites.avif" type="image/avif" />
+    <source srcset="assets/images/stalactites.webp" type="image/webp" />
+    <img
+      class="stalactites"
+      src="assets/images/stalactites.png"
+      alt="stalactites"
+    />
+  </picture>
   <app-contact></app-contact>
   <footer>
     // Crafted by Nomacoda ©{{ actualYear }}. Inspired by nature

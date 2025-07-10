@@ -1,0 +1,36 @@
+<section>
+  <header
+    class="section-header"
+    appParallaxHeader
+    [parallaxContent]="contentRef"
+    #headerRef
+  >
+    <h1>{{ "02_ABOUT.ABOUT_ME" | translate }}</h1>
+  </header>
+  <div class="section-container" #contentRef>
+    <div class="row">
+      <app-photo imgSrc="assets/images/photos/me_1.jpg"></app-photo>
+      <p>
+        {{ "02_ABOUT.PARAGRAPH_1" | translate }}
+      </p>
+    </div>
+
+    <div class="row">
+      <app-photo imgSrc="assets/images/photos/me_2.jpg"></app-photo>
+      <p>
+        {{ "02_ABOUT.PARAGRAPH_2" | translate }}
+      </p>
+    </div>
+
+    <div class="row">
+      <p>
+        {{ "02_ABOUT.PARAGRAPH_3" | translate }}
+      </p>
+    </div>
+    <div class="row">
+      <p>
+        {{ "02_ABOUT.PARAGRAPH_4" | translate }}
+      </p>
+    </div>
+  </div>
+</section>
