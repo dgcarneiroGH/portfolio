@@ -1,0 +1,44 @@
+<section>
+  <header
+    class="section-header"
+    appParallaxHeader
+    [parallaxContent]="contentRef"
+    #headerRef
+  >
+    <h1>{{ "06_CERTS.CERTS" | translate }}</h1>
+  </header>
+  <div class="section-container" #contentRef>
+    <app-certs-filter
+      class="filter-component"
+      [filterParams]="certsFilter"
+      (filter)="filter()"
+    />
+    <div class="tag-canvas">
+      <div
+        class="canvas-container"
+        *ngIf="showCanvas && filteredCerts.length > 0"
+      >
+        <ng-tag-canvas [options]="tagCanvasOptions">
+          @for (cert of filteredCerts; track cert.name) {
+          <a
+            ngTag
+            class="cert-tag"
+            (click)="detectDblClick(cert)"
+            [title]="cert.name"
+          >
+            <picture>
+              <source [srcset]="cert.iconSrc + '.avif'" type="image/avif" />
+              <source [srcset]="cert.iconSrc + '.webp'" type="image/webp" />
+              <img
+                class="canvas-img"
+                [src]="cert.iconSrc + '.png'"
+                [alt]="cert.name"
+              />
+            </picture>
+          </a>
+          }
+        </ng-tag-canvas>
+      </div>
+    </div>
+  </div>
+</section>

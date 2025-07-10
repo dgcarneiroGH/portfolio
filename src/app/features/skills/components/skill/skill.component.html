@@ -1,0 +1,66 @@
+<div class="progress-container" (click)="toggleProgress()">
+  <svg
+    class="progress-svg"
+    [class.visible]="showProgressBar"
+    [class.hidden]="!showProgressBar"
+    width="140"
+    height="90"
+    viewBox="0 0 120 60"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <defs>
+      <linearGradient id="animatedGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#29b6f6">
+          <animate
+            attributeName="stop-color"
+            values="#29b6f6; #ffa726; #29b6f6"
+            dur="5s"
+            repeatCount="indefinite"
+          />
+        </stop>
+        <stop offset="100%" stop-color="#ffa726">
+          <animate
+            attributeName="stop-color"
+            values="#ffa726; #29b6f6; #ffa726"
+            dur="5s"
+            repeatCount="indefinite"
+          />
+        </stop>
+      </linearGradient>
+    </defs>
+
+    <path
+      class="progress-path"
+      d="M10 50 A40 40 0 0 1 110 50"
+      fill="none"
+      [attr.stroke-dasharray]="currentStrokeDasharray"
+      stroke-dashoffset="0"
+      stroke="url(#animatedGradient)"
+    />
+
+    <text x="60" y="35" text-anchor="middle" fill="#f6f8fa" font-size="10">
+      {{ experienceText }}
+    </text>
+  </svg>
+
+  <div class="progress-info">
+    <div
+      class="progress-logo"
+      [class.visible]="!showProgressBar"
+      [class.hidden]="showProgressBar"
+    >
+      <picture>
+        <source [srcset]="logoSrc + '.avif'" type="image/avif" />
+        <source [srcset]="logoSrc + '.webp'" type="image/webp" />
+        <img [src]="logoSrc + '.png'" [alt]="text" />
+      </picture>
+    </div>
+    <p
+      [appAnimate]="2000"
+      [translationKey]="text"
+      class="progress-text"
+      [class.visible]="showProgressBar"
+      [class.hidden]="!showProgressBar"
+    ></p>
+  </div>
+</div>

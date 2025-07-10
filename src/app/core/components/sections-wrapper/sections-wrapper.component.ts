@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { HomeComponent } from 'src/app/features/01_home/components/home.component';
-import { AboutComponent } from 'src/app/features/02_about/components/about.component';
-import { SkillsComponent } from 'src/app/features/03_skills/components/skills.component';
-import { ProjectsComponent } from 'src/app/features/05_projects/components/projects.component';
-import { CertsComponent } from 'src/app/features/06_certs/components/certs.component';
-import { ExperienceComponent } from '../../../features/04_experience/components/experience.component';
-import { ContactComponent } from '../../../features/07_contact/components/contact.component';
+import { AboutComponent } from 'src/app/features/about/components/about.component';
+import { CertsComponent } from 'src/app/features/certs/components/certs.component';
+import { HomeComponent } from 'src/app/features/home/components/home.component';
+import { ProjectsComponent } from 'src/app/features/projects/components/projects.component';
+import { SkillsComponent } from 'src/app/features/skills/components/skills.component';
+import { ContactComponent } from '../../../features/contact/components/contact.component';
+import { ExperienceComponent } from '../../../features/experience/components/experience.component';
 
 @Component({
   selector: 'app-sections-wrapper',
