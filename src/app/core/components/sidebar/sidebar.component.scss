@@ -9,7 +9,7 @@
   align-items: center;
   justify-content: space-between;
 
-  z-index: 2;
+  z-index: 3;
 }
 
 .waves-container {
@@ -91,14 +91,13 @@
   }
 }
 
-
 //#region Responsive
 @media screen and (max-width: 720px) {
   .waves {
     height: 10%;
   }
 
-  .sidebar-content ul{
+  .sidebar-content ul {
     left: 1rem;
   }
 }

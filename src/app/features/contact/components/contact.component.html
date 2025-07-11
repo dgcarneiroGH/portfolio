@@ -1,3 +1,15 @@
+<img
+  class="stalactites"
+  src="assets/images/stalactites-1280.avif"
+  srcset="
+    assets/images/stalactites-480.avif   480w,
+    assets/images/stalactites-768.avif   768w,
+    assets/images/stalactites-1280.avif 1280w,
+    assets/images/stalactites-1920.avif 1920w
+  "
+  sizes="100vw"
+  alt="stalactites"
+/>
 <section>
   <div class="section-container">
     <h1
@@ -9,21 +21,7 @@
       #nomacodaImgWrapper
       (mouseenter)="triggerSwing()"
     >
-      <picture>
-        <source
-          srcset="assets/images/nomacoda/nomacoda_climber.avif"
-          type="image/avif"
-        />
-        <source
-          srcset="assets/images/nomacoda/nomacoda_climber.webp"
-          type="image/webp"
-        />
-        <img
-          src="assets/images/nomacoda/nomacoda_climber.png"
-          alt="Nomacoda"
-          loading="lazy"
-        />
-      </picture>
+      <img src="assets/images/nomacoda/nomacoda_climber.avif" alt="Nomacoda" />
     </div>
 
     <p [appAnimate]="animationDelay" [translationKey]="'07_CONTACT.TALK'"></p>
@@ -35,11 +33,7 @@
         target="_blank"
         [attr.title]="contactMethod.name"
       >
-        <img
-          [src]="contactMethod.iconSrc"
-          [alt]="contactMethod.name"
-          loading="lazy"
-        />
+        <img [src]="contactMethod.iconSrc" [alt]="contactMethod.name" />
       </a>
       }
     </div>

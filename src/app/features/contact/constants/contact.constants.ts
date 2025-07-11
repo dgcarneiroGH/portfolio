@@ -14,6 +14,6 @@ export const CONTACT_METHODS: ContactMethod[] = [
   {
     name: 'Phone',
     url: 'tel:+34661206962',
-    iconSrc: 'assets/images/icons/call.png'
+    iconSrc: 'assets/images/icons/phone.svg'
   }
 ];

@@ -1,34 +1,32 @@
 <div class="sections-wrapper">
   <app-home></app-home>
 
-  <picture>
-    <source srcset="assets/images/mountains.avif" type="image/avif" />
-    <source srcset="assets/images/mountains.webp" type="image/webp" />
-    <img
-      id="mountains"
-      class="mountains"
-      src="assets/images/mountains.png"
-      alt="mountains"
-    />
-  </picture>
-
   <div class="cave-components">
-    <app-about></app-about>
-    <app-projects></app-projects>
-    <app-experience></app-experience>
-    <app-skills></app-skills>
-    <app-certs></app-certs>
+    <app-lazy-load-container>
+      <app-about></app-about>
+    </app-lazy-load-container>
+
+    <app-lazy-load-container>
+      <app-projects></app-projects>
+    </app-lazy-load-container>
+
+    <app-lazy-load-container
+      ><app-experience></app-experience
+    ></app-lazy-load-container>
+
+    <app-lazy-load-container>
+      <app-skills></app-skills>
+    </app-lazy-load-container>
+
+    <app-lazy-load-container>
+      <app-certs></app-certs>
+    </app-lazy-load-container>
   </div>
-  <picture>
-    <source srcset="assets/images/stalactites.avif" type="image/avif" />
-    <source srcset="assets/images/stalactites.webp" type="image/webp" />
-    <img
-      class="stalactites"
-      src="assets/images/stalactites.png"
-      alt="stalactites"
-    />
-  </picture>
-  <app-contact></app-contact>
+
+  <app-lazy-load-container>
+    <app-contact></app-contact>
+  </app-lazy-load-container>
+
   <footer>
     // Crafted by Nomacoda ©{{ actualYear }}. Inspired by nature
     <img
