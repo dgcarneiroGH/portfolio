@@ -1,3 +1,5 @@
+@use "/src/styles/palette" as palette;
+
 .stalactites {
   position: absolute;
   bottom: 85vh;
@@ -47,7 +49,6 @@ section {
     img {
       width: 100%;
       display: block;
-      // filter: drop-shadow(2px 2px 4px rgba(255, 255, 255, 0.6));
       transition: transform 0.3s, filter 0.3s ease-in-out;
     }
   }
@@ -75,6 +76,44 @@ section {
 
         filter: none;
       }
+    }
+  }
+
+  .contact-icon-wrapper {
+    position: relative;
+    display: inline-block;
+
+    .contact-tooltip {
+      visibility: hidden;
+      opacity: 0;
+      width: max-content;
+      background-color: palette.$background-gradient-end;
+      color: palette.$text-primary;
+      text-align: center;
+      border-radius: 6px;
+      padding: 0.25em 0.7em;
+      position: absolute;
+      z-index: 10;
+      top: 110%;
+      left: 50%;
+      transform: translateX(-50%);
+      transition: opacity 0.3s;
+      pointer-events: none;
+      font-size: 0.95rem;
+      white-space: nowrap;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+    }
+
+    &:hover .contact-tooltip,
+    &:focus .contact-tooltip {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    img {
+      transition: none !important;
+      transform: none !important;
+      filter: drop-shadow(2px 2px 4px rgba(255, 255, 255, 0.6));
     }
   }
 

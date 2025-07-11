@@ -32,8 +32,10 @@
         [href]="contactMethod.url"
         target="_blank"
         [attr.title]="contactMethod.name"
+        class="contact-icon-wrapper"
       >
         <img [src]="contactMethod.iconSrc" [alt]="contactMethod.name" />
+        <span class="contact-tooltip">{{ contactMethod.info }}</span>
       </a>
       }
     </div>
