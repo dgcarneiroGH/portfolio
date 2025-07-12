@@ -27,10 +27,7 @@
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": ["src/favicon.ico", "src/assets"],
-            "styles": [
-              "src/styles/styles.scss",
-              "node_modules/flag-icons/css/flag-icons.min.css"
-            ],
+            "styles": ["src/styles/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -38,13 +35,13 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "600kb",
+                  "maximumWarning": "500kb",
                   "maximumError": "1mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "4kb",
-                  "maximumError": "5kb"
+                  "maximumWarning": "3kb",
+                  "maximumError": "4kb"
                 }
               ],
               "fileReplacements": [
@@ -54,7 +51,11 @@
                 }
               ],
               "outputHashing": "all",
-              "optimization": true
+              "optimization": true,
+              "vendorChunk": true,
+              "extractLicenses": true,
+              "sourceMap": false,
+              "allowedCommonJsDependencies": ["quantize", "blast-vanilla"]
             },
             "development": {
               "buildOptimizer": false,
@@ -94,10 +95,7 @@
             "karmaConfig": "karma.conf.js",
             "inlineStyleLanguage": "scss",
             "assets": ["src/favicon.ico", "src/assets"],
-            "styles": [
-              "src/styles/styles.scss",
-              "node_modules/flag-icons/css/flag-icons.min.css"
-            ],
+            "styles": ["src/styles/styles.scss"],
             "scripts": []
           }
         }

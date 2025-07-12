@@ -87,4 +87,15 @@ export class ProjectComponent implements OnInit {
       this.toggleMoreInfo();
     }
   }
+
+  onKeyDown(event: KeyboardEvent, action: 'goTo' | 'toggleInfo') {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      if (action === 'goTo') {
+        this.goTo();
+      } else {
+        this.handleMoreInfoClick();
+      }
+    }
+  }
 }

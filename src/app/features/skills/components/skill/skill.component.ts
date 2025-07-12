@@ -45,4 +45,11 @@ export class SkillComponent {
   toggleProgress(): void {
     this.showProgressBar = !this.showProgressBar;
   }
+
+  onKeyDown(event: KeyboardEvent) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      this.toggleProgress();
+    }
+  }
 }

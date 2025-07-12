@@ -20,18 +20,20 @@
       >
         <ng-tag-canvas [options]="tagCanvasOptions">
           @for (cert of filteredCerts; track cert.name) {
-          <a
+          <button
             ngTag
             class="cert-tag"
             (click)="detectDblClick(cert)"
-            [title]="cert.name"
+            [attr.aria-label]="'Ver certificado: ' + cert.name"
+            type="button"
           >
             <img
               class="canvas-img"
               [src]="cert.iconSrc + '.avif'"
-              [alt]="cert.name"
+              [alt]=""
+              aria-hidden="true"
             />
-          </a>
+          </button>
           }
         </ng-tag-canvas>
       </div>

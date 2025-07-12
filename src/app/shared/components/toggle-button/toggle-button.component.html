@@ -5,11 +5,12 @@
         type="checkbox"
         [(ngModel)]="isChecked"
         (ngModelChange)="toggle($event)"
+        [attr.aria-label]="label ? (label | translate) : 'Toggle'"
       />
-      <div class="slider"></div>
+      <div class="slider" aria-hidden="true"></div>
     </label>
   </div>
   @if (label) {
-  <div class="label">{{ label | translate }}</div>
+  <div class="label" id="toggle-label-{{ label }}">{{ label | translate }}</div>
   }
 </div>
