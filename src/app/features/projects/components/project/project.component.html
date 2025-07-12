@@ -12,12 +12,15 @@
       (load)="onImageLoad(sourceImage)"
       style="display: none"
     />
-    <div
+    <button
       class="cover-img"
       [ngClass]="{ 'has-url': url }"
       [style.background-image]="'url(' + coverImgSrc + '.avif)'"
       (click)="goTo()"
-    ></div>
+      (keydown)="onKeyDown($event, 'goTo')"
+      [attr.aria-label]="'Ver proyecto ' + name"
+      type="button"
+    ></button>
 
     <div class="project-info" [style.color]="textColor()">
       <h3 class="title" [ngClass]="{ show: showMoreInfo }">{{ name }}</h3>
@@ -27,14 +30,20 @@
           {{ description | translate }}
         </p>
 
-        <div
+        <button
           class="more-info"
           [style.--btn-color]="btnColor()"
           [class.disabled]="!canToggleInfo()"
           (click)="handleMoreInfoClick()"
+          (keydown)="onKeyDown($event, 'toggleInfo')"
+          [attr.aria-expanded]="showMoreInfo"
+          [attr.aria-label]="
+            (showMoreInfo ? 'Ocultar' : 'Mostrar') + ' información del proyecto'
+          "
+          type="button"
         >
           <span>{{ showMoreInfo ? "-" : "+" }} Info</span>
-        </div>
+        </button>
       </div>
     </div>
   </div>

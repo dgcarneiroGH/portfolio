@@ -1,4 +1,13 @@
-<div class="progress-container" (click)="toggleProgress()">
+<button
+  class="progress-container"
+  (click)="toggleProgress()"
+  (keydown)="onKeyDown($event)"
+  [attr.aria-label]="
+    'Alternar vista de ' + text + '. ' + experienceText + ' de experiencia'
+  "
+  [attr.aria-expanded]="showProgressBar"
+  type="button"
+>
   <svg
     class="progress-svg"
     [class.visible]="showProgressBar"
@@ -71,4 +80,4 @@
       [class.hidden]="!showProgressBar"
     ></p>
   </div>
-</div>
+</button>

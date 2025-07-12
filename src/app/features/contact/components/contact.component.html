@@ -20,8 +20,14 @@
       class="nomacoda-img-wrapper"
       #nomacodaImgWrapper
       (mouseenter)="triggerSwing()"
+      role="img"
+      aria-label="Nomacoda escalador"
     >
-      <img src="assets/images/nomacoda/nomacoda_climber.avif" alt="Nomacoda" />
+      <img
+        src="assets/images/nomacoda/nomacoda_climber.avif"
+        alt=""
+        aria-hidden="true"
+      />
     </div>
 
     <p [appAnimate]="animationDelay" [translationKey]="'07_CONTACT.TALK'"></p>
