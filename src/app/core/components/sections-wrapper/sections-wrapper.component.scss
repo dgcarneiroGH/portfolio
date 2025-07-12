@@ -4,22 +4,13 @@
   background-color: palette.$background-gradient-start;
 }
 
-.mountains {
-  position: absolute;
-  z-index: 1;
-  top: 69vh;
-  height: 47vh;
-  width: 100vw;
-  right: 0;
-}
-
-.stalactites {
-  position: absolute;
-  bottom: 85vh;
-  right: 0;
-  width: 95vw;
-  height: 15vh;
-  z-index: 2;
+.section-loading {
+  min-height: 40vh; // o el valor que se aproxime al tamaño real de la sección
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: #aaa;
 }
 
 footer {
@@ -34,12 +25,12 @@ footer {
 @media screen and (max-width: 720px) {
   .stalactites {
     width: 200vw;
-  }  
+  }
 }
 
-@media screen and (max-width: 450px) {  
-  footer{
-    font-size: .7rem;
+@media screen and (max-width: 450px) {
+  footer {
+    font-size: 0.7rem;
   }
 }
 //#endregion

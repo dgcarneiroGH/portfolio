@@ -49,11 +49,19 @@
       [class.visible]="!showProgressBar"
       [class.hidden]="showProgressBar"
     >
-      <picture>
-        <source [srcset]="logoSrc + '.avif'" type="image/avif" />
-        <source [srcset]="logoSrc + '.webp'" type="image/webp" />
-        <img [src]="logoSrc + '.png'" [alt]="text" />
-      </picture>
+      <img
+        [src]="logoSrc + '-64.avif'"
+        [srcset]="
+          logoSrc +
+          '-32.avif 32w, ' +
+          logoSrc +
+          '-64.avif 64w, ' +
+          logoSrc +
+          '-128.avif 128w'
+        "
+        sizes="(max-width: 600px) 32px, (max-width: 900px) 64px, 128px"
+        [alt]="text"
+      />
     </div>
     <p
       [appAnimate]="2000"

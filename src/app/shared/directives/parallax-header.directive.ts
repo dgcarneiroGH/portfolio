@@ -25,10 +25,15 @@ export class ParallaxHeaderDirective implements OnInit {
     const section = this.el.nativeElement.parentElement as HTMLElement;
     if (!section) return;
 
-    const { top } = section.getBoundingClientRect();
+    const rect = section.getBoundingClientRect();
     const windowHeight = window.innerHeight;
+    const activationThreshold = windowHeight * 0.4;
 
-    if (top > 0) {
+    if (
+      rect.top > activationThreshold ||
+      rect.bottom <= 0 ||
+      rect.top >= windowHeight
+    ) {
       this.setStyles(this.el.nativeElement, {
         opacity: 0,
         pointerEvents: 'none'
@@ -41,6 +46,7 @@ export class ParallaxHeaderDirective implements OnInit {
       return;
     }
 
+    const top = rect.top;
     let progress = 0;
     if (top < 0) progress = Math.min(Math.abs(top) / windowHeight, 1);
 

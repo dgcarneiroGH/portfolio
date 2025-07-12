@@ -1,0 +1,9 @@
+<ng-container *ngIf="isVisible; else loading">
+  <ng-content></ng-content>
+</ng-container>
+
+<ng-template #loading>
+  <div class="lazy-loader">
+    <span>Cargando sección...</span>
+  </div>
+</ng-template>

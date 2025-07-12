@@ -1,5 +1,14 @@
 @use "/src/styles/palette" as palette;
 
+.mountains {
+  position: absolute;
+  z-index: 2;
+  top: 69vh;
+  height: 47vh;
+  width: 100vw;
+  right: 0;
+}
+
 .section-container {
   position: relative;
   top: 0;
@@ -48,6 +57,7 @@
     h1 {
       width: 80%;
       font-size: 4rem;
+      margin: 0;
     }
   }
 }
