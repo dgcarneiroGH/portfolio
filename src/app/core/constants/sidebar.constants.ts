@@ -3,7 +3,7 @@ import { SocialMediaLinks } from '../interfaces/sidebar.interface';
 export const SOCIAL_MEDIA_PROFILES: SocialMediaLinks[] = [
   {
     title: 'LinkedIn',
-    profileUrl: 'https://www.linkedin.com/in/dgcarneiro/',
+    profileUrl: 'https://www.linkedin.com/in/nomacoda/',
     iconPath: 'assets/images/icons/linkedin.svg'
   },
   {

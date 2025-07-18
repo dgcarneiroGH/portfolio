@@ -3,9 +3,9 @@ import { ContactMethod } from '../interfaces/contact.interface';
 export const CONTACT_METHODS: ContactMethod[] = [
   {
     name: 'LinkedIn',
-    url: 'https://www.linkedin.com/in/dgcarneiro/',
+    url: 'https://www.linkedin.com/in/nomacoda/',
     iconSrc: 'assets/images/icons/linkedin.svg',
-    info: 'dgcarneiro'
+    info: 'Diego Carneiro Planes'
   },
   {
     name: 'Gmail',
