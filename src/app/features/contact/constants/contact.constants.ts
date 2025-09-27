@@ -9,9 +9,9 @@ export const CONTACT_METHODS: ContactMethod[] = [
   },
   {
     name: 'Gmail',
-    url: 'mailto:admin@nomacoda.com',
+    url: 'mailto:contact@nomacoda.com',
     iconSrc: 'assets/images/icons/gmail.svg',
-    info: 'admin@nomacoda.com'
+    info: 'contact@nomacoda.com'
   },
   {
     name: 'Phone',
