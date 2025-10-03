@@ -25,19 +25,12 @@ export class HomeComponent {
   constructor(private el: ElementRef) {}
 
   ngAfterViewInit() {
+    window.scrollTo(0, 0);
     const logos = this.el.nativeElement.querySelectorAll('.cert-img');
+    const total = logos.length;
     logos.forEach((logo: HTMLElement, index: number) => {
-      console.log({ logo });
-      console.log({ index });
-
-      // Posición aleatoria dentro del viewport
-      const top = Math.random() * 80 + 10; // entre 10% y 90%
-      const left = Math.random() * 80 + 10; // entre 10% y 90%
-
-      logo.style.top = `${top}vh`;
-      logo.style.left = `${left}vw`;
-
-      // Delay incremental (aparecen uno tras otro)
+      logo.style.top = '2vh';
+      logo.style.left = `${(index + 1) * (90 / (total + 1))}vw`;
       logo.style.animationDelay = `${index + 2}s`;
     });
   }

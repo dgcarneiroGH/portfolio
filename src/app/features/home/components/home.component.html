@@ -1,12 +1,13 @@
 <section>
   <div class="section-container">
     <div *ngFor="let cert of certs" class="certs-container">
-      <a class="cert-img" [href]="cert.url">
-        <img
-          style="width: 100%; height: 100%"
-          [src]="cert.iconSrc"
-          [alt]="cert.name"
-        />
+      <a
+        class="cert-img"
+        [href]="cert.url"
+        target="_blank"
+        [attr.title]="cert.name"
+      >
+        <img [src]="cert.iconSrc" [alt]="cert.name" />
       </a>
     </div>
 
