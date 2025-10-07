@@ -1,11 +1,10 @@
 import { Component, ElementRef } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { OscillatorComponent } from 'src/app/shared/components/oscillator/oscillator.component';
-import { AnimateDirective } from 'src/app/shared/directives/animate.directive';
 import { CERTS } from '../../certs/constants/certs.constants';
 import { Cert } from '../../certs/interfaces/certs.interface';
-import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { AnimateDirective } from '../../../shared/directives/animate.directive';
+import { OscillatorComponent } from '../../../shared/components/oscillator/oscillator.component';
 
 @Component({
   selector: 'app-home',

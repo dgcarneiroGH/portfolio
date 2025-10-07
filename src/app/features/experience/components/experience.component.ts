@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { ParallaxHeaderDirective } from 'src/app/shared/directives/parallax-header.directive';
 import { EXPERIENCES } from '../constants/experience.constants';
 import { TimelineDirective } from '../directives/timeline.directive';
 import { Experience } from '../interfaces/experience.interface';
+import { ParallaxHeaderDirective } from '../../../shared/directives/parallax-header.directive';
 
 @Component({
   selector: 'app-experience',
