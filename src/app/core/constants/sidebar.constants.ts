@@ -7,6 +7,11 @@ export const SOCIAL_MEDIA_PROFILES: SocialMediaLinks[] = [
     iconPath: 'assets/images/icons/linkedin.svg'
   },
   {
+    title: 'Instagram',
+    profileUrl: 'https://www.instagram.com/nomacoda/',
+    iconPath: 'assets/images/icons/instagram.svg'
+  },
+  {
     title: 'GitHub',
     profileUrl: 'https://github.com/dgcarneiroGH',
     iconPath: 'assets/images/icons/github.svg'
