@@ -28,7 +28,8 @@
             "inlineStyleLanguage": "scss",
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": ["src/styles/styles.scss"],
-            "scripts": []
+            "scripts": [],
+            "allowedCommonJsDependencies": ["quantize", "blast-vanilla"]
           },
           "configurations": {
             "production": {
@@ -63,7 +64,8 @@
               "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
-              "namedChunks": true
+              "namedChunks": true,
+              "allowedCommonJsDependencies": ["quantize", "blast-vanilla"]
             }
           },
           "defaultConfiguration": "production"

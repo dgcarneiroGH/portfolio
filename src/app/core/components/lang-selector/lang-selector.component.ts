@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { ClickOutsideDirective } from 'src/app/shared/directives/click-outside.directive';
 import { LANGUAGES } from '../../constants/lang.constants';
 import { LangService } from '../../services/lang.service';
+import { ClickOutsideDirective } from '../../../shared/directives/click-outside.directive';
 
 @Component({
   selector: 'app-lang-selector',
