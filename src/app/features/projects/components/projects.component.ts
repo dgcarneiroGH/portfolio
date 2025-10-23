@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { ParallaxHeaderDirective } from 'src/app/shared/directives/parallax-header.directive';
 import { PROJECTS } from '../constants/projects.constants';
 import { Project } from '../interfaces/project.interface';
 import { ProjectComponent } from './project/project.component';
+import { ParallaxHeaderDirective } from '../../../shared/directives/parallax-header.directive';
 
 @Component({
   standalone: true,

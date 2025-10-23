@@ -6,10 +6,10 @@ import {
   ViewChild
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { OscillatorComponent } from 'src/app/shared/components/oscillator/oscillator.component';
-import { AnimateDirective } from 'src/app/shared/directives/animate.directive';
 import { CONTACT_METHODS } from '../constants/contact.constants';
 import { ContactMethod } from '../interfaces/contact.interface';
+import { AnimateDirective } from '../../../shared/directives/animate.directive';
+import { OscillatorComponent } from '../../../shared/components/oscillator/oscillator.component';
 
 @Component({
   standalone: true,
