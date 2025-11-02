@@ -31,7 +31,7 @@
     .cert-img {
       position: absolute;
       width: 6rem;
-      z-index: 1;
+      z-index: 3;
 
       transform: scale(0);
       animation: grow-image 2s cubic-bezier(0.77, 0, 0.175, 1) forwards;
@@ -172,6 +172,12 @@
     .img-container {
       position: absolute;
       width: 70vw;
+    }
+
+    .certs-container {
+      .cert-img {
+        width: 4rem;
+      }
     }
   }
 }
