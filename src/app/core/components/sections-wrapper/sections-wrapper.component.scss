@@ -29,10 +29,9 @@
 
   img {
     height: 100%;
-    filter: none;
+    filter: drop-shadow(2px 2px 4px rgba(255, 255, 255, 0.6));
     transform-origin: bottom center;
     transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-    animation: enable-shadow 1ms linear 2.6s forwards;
   }
 
   &:hover {
@@ -55,15 +54,6 @@
   100% {
     transform: translateY(0);
     opacity: 1;
-  }
-}
-
-@keyframes enable-shadow {
-  0% {
-    filter: none;
-  }
-  100% {
-    filter: drop-shadow(2px 2px 4px rgba(255, 255, 255, 0.6));
   }
 }
 
