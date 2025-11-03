@@ -2,7 +2,6 @@
   <app-lang-selector></app-lang-selector>
 </header>
 <app-sidebar />
-<main class="inner-body">
-  <!-- <app-sections-wrapper></app-sections-wrapper> -->
-  <router-outlet></router-outlet>
+<main class="inner-body" [@routeAnimations]="prepareRoute(outlet)">
+  <router-outlet #outlet="outlet"></router-outlet>
 </main>

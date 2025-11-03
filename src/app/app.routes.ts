@@ -6,14 +6,16 @@ export const routes: Routes = [
     loadComponent: () =>
       import(
         './core/components/sections-wrapper/sections-wrapper.component'
-      ).then((m) => m.SectionsWrapperComponent)
+      ).then((m) => m.SectionsWrapperComponent),
+    data: { animation: 'Home' }
   },
   {
     path: 'blog',
     loadComponent: () =>
       import('./features/blog/components/blog.component').then(
         (m) => m.BlogComponent
-      )
+      ),
+    data: { animation: 'Blog' }
   },
   {
     path: '**',
