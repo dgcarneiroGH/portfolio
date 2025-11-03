@@ -23,11 +23,16 @@
   perspective: 700px;
   margin: 1rem;
 
+  transform: translateY(120%);
+  opacity: 0;
+  animation: emerge-from-ground 600ms cubic-bezier(0.22, 1, 0.36, 1) 2s forwards;
+
   img {
     height: 100%;
-    filter: drop-shadow(2px 2px 4px rgba(255, 255, 255, 0.6));
+    filter: none;
     transform-origin: bottom center;
     transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    animation: enable-shadow 1ms linear 2.6s forwards;
   }
 
   &:hover {
@@ -35,6 +40,30 @@
       transform: rotateX(12deg) rotateY(16deg);
       filter: none;
     }
+  }
+}
+
+@keyframes emerge-from-ground {
+  0% {
+    transform: translateY(120%);
+    opacity: 0;
+  }
+  70% {
+    transform: translateY(-6%);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes enable-shadow {
+  0% {
+    filter: none;
+  }
+  100% {
+    filter: drop-shadow(2px 2px 4px rgba(255, 255, 255, 0.6));
   }
 }
 
