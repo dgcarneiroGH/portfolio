@@ -1,8 +1,7 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { LangSelectorComponent } from './core/components/lang-selector/lang-selector.component';
-import { SectionsWrapperComponent } from './core/components/sections-wrapper/sections-wrapper.component';
 import { SidebarComponent } from './core/components/sidebar/sidebar.component';
 
 @Component({
@@ -12,8 +11,7 @@ import { SidebarComponent } from './core/components/sidebar/sidebar.component';
   standalone: true,
   imports: [
     SidebarComponent,
-    SectionsWrapperComponent,
-    CommonModule,
+    RouterOutlet,
     LangSelectorComponent,
     TranslateModule
   ],

@@ -52,5 +52,10 @@
   },
   "SIDEBAR": {
     "CV_URL": "https://drive.google.com/file/d/16_HnY7__FQIomt2ZLJQp5FXLXHcSi5Bn/view?usp=sharing"
+  },
+  "BLOG": {
+    "TITLE": "Blog",
+    "WELCOME_MESSAGE": "Welcome to my blog where I share my thoughts on web development, design and technology.",
+    "COMING_SOON": "Coming soon you'll find articles on the latest trends in front-end development, best practices and practical tutorials."
   }
 }

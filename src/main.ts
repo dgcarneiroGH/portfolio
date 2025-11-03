@@ -6,10 +6,12 @@ import {
 import { enableProdMode, importProvidersFrom } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { provideRouter } from '@angular/router';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TagCanvasModule } from 'ng-tagcanvas';
 import { AppComponent } from './app/app.component';
+import { routes } from './app/app.routes';
 import { AnimateDirective } from './app/shared/directives/animate.directive';
 import { environment } from './environments/environment';
 
@@ -23,6 +25,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 
 bootstrapApplication(AppComponent, {
   providers: [
+    provideRouter(routes),
     provideHttpClient(withInterceptorsFromDi()),
     importProvidersFrom(AnimateDirective),
     importProvidersFrom(
