@@ -4,8 +4,11 @@
   </header>
   <div class="section-container">
     <div class="blog-content">
-      <p>{{ "BLOG.WELCOME_MESSAGE" | translate }}</p>
-      <p>{{ "BLOG.COMING_SOON" | translate }}</p>
+      <app-blog-article
+        *ngFor="let article of articles"
+        [title]="article.title"
+        [content]="article.content"
+      ></app-blog-article>
     </div>
   </div>
 
