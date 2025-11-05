@@ -23,6 +23,8 @@
     "@angular/router": "^19.2.15",
     "@ngx-translate/core": "^16.0.4",
     "@ngx-translate/http-loader": "^16.0.1",
+    "@sanity/client": "^7.12.1",
+    "@sanity/image-url": "^1.2.0",
     "@soarlin/angular-color-thief": "^2.0.4",
     "blast-vanilla": "^2.1.6",
     "flag-icons": "^7.5.0",

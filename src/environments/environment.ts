@@ -3,7 +3,14 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  sanity: {
+    projectId: 'a5eryyb2',
+    dataset: 'production',
+    apiVersion: '2025-05-11', // o new Date().toISOString().slice(0,10)
+    useCdn: true, // true en lectura para caché, false si quieres datos frescos
+    token: undefined // NO pongan token en cliente en producción si es write!
+  }
 };
 
 /*
