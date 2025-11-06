@@ -1,8 +1,11 @@
+import { registerLocaleData } from '@angular/common';
 import {
   HttpClient,
   provideHttpClient,
   withInterceptorsFromDi
 } from '@angular/common/http';
+import localeEn from '@angular/common/locales/en';
+import localeEs from '@angular/common/locales/es';
 import { enableProdMode, importProvidersFrom } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -22,6 +25,9 @@ if (environment.production) {
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
+
+registerLocaleData(localeEs, 'es-ES');
+registerLocaleData(localeEn, 'en-US');
 
 bootstrapApplication(AppComponent, {
   providers: [

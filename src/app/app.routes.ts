@@ -18,6 +18,14 @@ export const routes: Routes = [
     data: { animation: 'Blog' }
   },
   {
+    path: 'blog/:slug',
+    loadComponent: () =>
+      import('./features/blog/components/blog.component').then(
+        (m) => m.BlogComponent
+      ),
+    data: { animation: 'Blog' }
+  },
+  {
     path: '**',
     redirectTo: ''
   }

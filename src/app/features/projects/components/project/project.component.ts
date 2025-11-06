@@ -11,11 +11,13 @@ import {
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { ColorThiefService } from '@soarlin/angular-color-thief';
+import { ButtonComponent } from '../../../../shared/components/button/button.component';
+import { AboutComponent } from '../../../about/components/about.component';
 
 @Component({
   standalone: true,
   selector: 'app-project',
-  imports: [CommonModule, TranslateModule],
+  imports: [CommonModule, TranslateModule, ButtonComponent, AboutComponent],
   templateUrl: './project.component.html',
   styleUrl: './project.component.scss'
 })

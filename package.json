@@ -23,6 +23,7 @@
     "@angular/router": "^19.2.15",
     "@ngx-translate/core": "^16.0.4",
     "@ngx-translate/http-loader": "^16.0.1",
+    "@portabletext/to-html": "^3.0.0",
     "@sanity/client": "^7.12.1",
     "@sanity/image-url": "^1.2.0",
     "@soarlin/angular-color-thief": "^2.0.4",

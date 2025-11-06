@@ -3,11 +3,14 @@
     <h1>{{ "BLOG.TITLE" | translate }}</h1>
   </header>
   <div class="section-container">
-    <div class="blog-content">
+    <div class="blog-content" *ngIf="articles$ | async as articles">
       <app-blog-article
         *ngFor="let article of articles"
         [title]="article.title"
-        [content]="article.content"
+        [date]="article.publishedAt"
+        [imgUrl]="imageUrl(article.image)"
+        [content]="getContent(article.body)"
+        [slug]="article.slug"
       ></app-blog-article>
     </div>
   </div>
