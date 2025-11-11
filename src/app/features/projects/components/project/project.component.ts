@@ -12,12 +12,11 @@ import {
 import { TranslateModule } from '@ngx-translate/core';
 import { ColorThiefService } from '@soarlin/angular-color-thief';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
-import { AboutComponent } from '../../../about/components/about.component';
 
 @Component({
   standalone: true,
   selector: 'app-project',
-  imports: [CommonModule, TranslateModule, ButtonComponent, AboutComponent],
+  imports: [CommonModule, TranslateModule, ButtonComponent],
   templateUrl: './project.component.html',
   styleUrl: './project.component.scss'
 })
@@ -40,9 +39,7 @@ export class ProjectComponent implements OnInit {
   dynamicGradient = computed(() => {
     const palette = this.palette();
     if (!palette || palette.length <= 1) return '';
-    return `linear-gradient(135deg, rgb(${palette[0].join(
-      ','
-    )}), rgb(${palette[1].join(',')}))`;
+    return `linear-gradient(135deg, rgb(${palette[0].join(',')}), rgb(${palette[1].join(',')}))`;
   });
 
   textColor = computed(() => {

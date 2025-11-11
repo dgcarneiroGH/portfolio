@@ -3,9 +3,9 @@ import { toHTML } from '@portabletext/to-html';
 import { createClient, type SanityClient } from '@sanity/client';
 import imageUrlBuilder from '@sanity/image-url';
 import { from, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
-import { Post } from '../models/post.model';
-import { PortableTextBlock } from './../../../../node_modules/@portabletext/types/src/portableText';
+import { BodyContent, Post } from '../../features/blog/models/post.model';
 
 @Injectable()
 export class SanityService {
@@ -28,10 +28,7 @@ export class SanityService {
     return this.client.fetch<T>(query, params as any);
   }
 
-  fetch$<T = any>(
-    query: string,
-    params?: Record<string, unknown>
-  ): Observable<T> {
+  fetch$<T = any>(query: string, params?: Record<string, unknown>): Observable<T> {
     return from(this.fetch<T>(query, params));
   }
 
@@ -45,7 +42,7 @@ export class SanityService {
   }
 
   // Translate text to HTML
-  portableTextToHtml(blocks: PortableTextBlock[] = []): string {
+  portableTextToHtml(blocks: BodyContent): string {
     return toHTML(blocks as any, {
       components: {
         // marcas (negrita, cursiva, código, links, etc.)
@@ -55,9 +52,7 @@ export class SanityService {
           code: ({ children }) => `<code>${children}</code>`,
           link: ({ value, children }) => {
             const href = value?.href ?? '#';
-            const rel = href.startsWith('/')
-              ? ''
-              : ' rel="noopener noreferrer" target="_blank"';
+            const rel = href.startsWith('/') ? '' : ' rel="noopener noreferrer" target="_blank"';
             return `<a href="${href}"${rel}>${children}</a>`;
           }
         },
@@ -73,9 +68,7 @@ export class SanityService {
           image: ({ value }) => {
             const url = this.imageBuilder(value)?.width(1200).url();
             const alt = value?.alt ?? '';
-            return url
-              ? `<figure><img src="${url}" alt="${alt}" /></figure>`
-              : '';
+            return url ? `<figure><img src="${url}" alt="${alt}" /></figure>` : '';
           }
         },
         // listas
@@ -91,9 +84,41 @@ export class SanityService {
   //#region GET
   getPosts(): Observable<Post[]> {
     const query = `*[_type == "post" && defined(publishedAt)] | order(publishedAt desc){
-      _id, title, "slug": slug.current, body, image, publishedAt
+      _id, 
+      _createdAt, 
+      titleES, 
+      titleEN, 
+      excerptES, 
+      excerptEN, 
+      bodyES, 
+      bodyEN, 
+      "slug": slug.current, 
+      image, 
+      publishedAt
     }`;
-    return this.fetch$(query);
+    return this.fetch$<any[]>(query).pipe(
+      map((posts) =>
+        posts.map((post) => ({
+          _id: post._id,
+          _createdAt: post._createdAt,
+          slug: post.slug,
+          publishedAt: new Date(post.publishedAt),
+          title: {
+            es: post.titleES || '',
+            ...(post.titleEN && { en: post.titleEN })
+          },
+          excerpt: {
+            es: post.excerptES || '',
+            ...(post.excerptEN && { en: post.excerptEN })
+          },
+          body: {
+            es: post.bodyES || [],
+            ...(post.bodyEN && { en: post.bodyEN })
+          },
+          image: post.image || undefined
+        }))
+      )
+    );
   }
   //#endregion
 }

@@ -1,0 +1,26 @@
+<article class="post-card">
+  <div
+    class="post-card__bg"
+    [ngStyle]="{ 'background-image': bgUrl ? 'url(' + bgUrl + ')' : 'none' }"
+  ></div>
+  <div class="post-card__overlay"></div>
+
+  <div class="post-card__content">
+    <header class="blog-header">
+      <p class="blog-header__date">{{ date | date: 'longDate' : '' : currentLocale }}</p>
+      <h2 class="blog-header__title">{{ title }}</h2>
+    </header>
+
+    <p class="excerpt">{{ excerpt }}</p>
+
+    <!-- TODO:Translate -->
+    <footer class="post-footer">
+      <app-button
+        color="#ffa726"
+        text="Artículo completo"
+        (buttonClick)="navigateToPostDetail()"
+        aria-label="Botón para ver el artículo completo"
+      ></app-button>
+    </footer>
+  </div>
+</article>
