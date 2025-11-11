@@ -1,4 +1,4 @@
-@use '/src/styles/palette' as palette;
+@use "/src/styles/palette" as palette;
 
 .section-container {
   min-height: 100vh;
@@ -52,7 +52,8 @@
         perspective: 700px;
         opacity: 0;
         transform: translateX(24px);
-        animation: blog-back-slide-in 400ms cubic-bezier(0.22, 1, 0.36, 1) 120ms forwards;
+        animation: blog-back-slide-in 400ms cubic-bezier(0.22, 1, 0.36, 1) 120ms
+          forwards;
         transition:
           transform 0.2s ease,
           opacity 0.2s ease;
@@ -113,6 +114,10 @@
       text-align: center;
     }
   }
+}
+
+.blog-post--not-found {
+  display: flex;
 }
 
 .blog-post__header__back-btn:focus-visible {

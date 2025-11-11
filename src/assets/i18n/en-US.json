@@ -54,6 +54,11 @@
     "CV_URL": "https://drive.google.com/file/d/16_HnY7__FQIomt2ZLJQp5FXLXHcSi5Bn/view?usp=sharing"
   },
   "BLOG": {
-    "TITLE": "Blog"
+    "TITLE": "Blog",
+    "FULL_POST": "Full Post"
+  },
+  "ERROR_404": {
+    "TITLE": "Oops! It seems that path doesn't exist",
+    "BODY": "There's been a slight detour on the path. The article you are looking for cannot be found, but don't worry, losing your way is part of the adventure."
   }
 }

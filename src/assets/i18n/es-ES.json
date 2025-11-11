@@ -54,6 +54,11 @@
     "CV_URL": "https://drive.google.com/file/d/1RItPA28zTioQgQSme0w5qmVJ-dNBcWMp/view?usp=sharing"
   },
   "BLOG": {
-    "TITLE": "Blog"
+    "TITLE": "Blog",
+    "FULL_POST": "Artículo completo"
+  },
+  "ERROR_404": {
+    "TITLE": "¡Vaya! Parece que esa ruta no existe",
+    "BODY": "Ha habido un pequeño desvío en el sendero. El artículo que buscas no se encuentra, pero no te preocupes, perder el rumbo es parte de la aventura."
   }
 }

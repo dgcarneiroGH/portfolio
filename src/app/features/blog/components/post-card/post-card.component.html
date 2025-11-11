@@ -7,17 +7,18 @@
 
   <div class="post-card__content">
     <header class="blog-header">
-      <p class="blog-header__date">{{ date | date: 'longDate' : '' : currentLocale }}</p>
+      <p class="blog-header__date">
+        {{ date | date: "longDate" : "" : currentLocale }}
+      </p>
       <h2 class="blog-header__title">{{ title }}</h2>
     </header>
 
     <p class="excerpt">{{ excerpt }}</p>
 
-    <!-- TODO:Translate -->
     <footer class="post-footer">
       <app-button
         color="#ffa726"
-        text="Artículo completo"
+        [text]="'BLOG.FULL_POST' | translate"
         (buttonClick)="navigateToPostDetail()"
         aria-label="Botón para ver el artículo completo"
       ></app-button>

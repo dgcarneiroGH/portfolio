@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { SanityService } from '../../../../core/services/sanity.service';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
 import { SanityImage } from '../../models/post.model';
@@ -8,7 +9,7 @@ import { SanityImage } from '../../models/post.model';
 @Component({
   selector: 'app-post-card',
   standalone: true,
-  imports: [CommonModule, ButtonComponent],
+  imports: [CommonModule, ButtonComponent, TranslateModule],
   templateUrl: './post-card.component.html',
   styleUrls: ['./post-card.component.scss']
 })
@@ -26,7 +27,13 @@ export class PostCardComponent {
   get bgUrl(): string {
     if (!this.image) return '';
 
-    return this._sanityService.imageBuilder(this.image).width(1200).height(800).url() ?? '';
+    return (
+      this._sanityService
+        .imageBuilder(this.image)
+        .width(1200)
+        .height(800)
+        .url() ?? ''
+    );
   }
 
   navigateToPostDetail(): void {
