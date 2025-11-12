@@ -30,20 +30,17 @@
           {{ description | translate }}
         </p>
 
-        <button
-          class="more-info"
-          [style.--btn-color]="btnColor()"
-          [class.disabled]="!canToggleInfo()"
-          (click)="handleMoreInfoClick()"
-          (keydown)="onKeyDown($event, 'toggleInfo')"
+        <app-button
+          style="z-index: 0"
+          [color]="btnColor()"
+          [text]="(showMoreInfo ? '-' : '+') + ' Info'"
+          [disabled]="!canToggleInfo()"
+          (buttonClick)="handleMoreInfoClick()"
           [attr.aria-expanded]="showMoreInfo"
           [attr.aria-label]="
             (showMoreInfo ? 'Ocultar' : 'Mostrar') + ' información del proyecto'
           "
-          type="button"
-        >
-          <span>{{ showMoreInfo ? "-" : "+" }} Info</span>
-        </button>
+        ></app-button>
       </div>
     </div>
   </div>
