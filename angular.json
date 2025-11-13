@@ -26,9 +26,10 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": ["src/favicon.ico", "src/assets"],
+            "assets": ["src/favicon.ico", "src/assets", "src/_redirects"],
             "styles": ["src/styles/styles.scss"],
             "scripts": [],
+            "baseHref": "/",
             "allowedCommonJsDependencies": [
               "quantize",
               "blast-vanilla",
@@ -50,6 +51,7 @@
                   "maximumError": "6kb"
                 }
               ],
+              "baseHref": "/",
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -111,7 +113,7 @@
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "inlineStyleLanguage": "scss",
-            "assets": ["src/favicon.ico", "src/assets"],
+            "assets": ["src/favicon.ico", "src/assets", "src/_redirects"],
             "styles": ["src/styles/styles.scss"],
             "scripts": []
           }
