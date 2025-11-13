@@ -1,10 +1,10 @@
+import { CommonModule } from '@angular/common';
 import { Component, ElementRef } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
+import { OscillatorComponent } from '../../../shared/components/oscillator/oscillator.component';
+import { AnimateDirective } from '../../../shared/directives/animate.directive';
 import { CERTS } from '../../certs/constants/certs.constants';
 import { Cert } from '../../certs/interfaces/certs.interface';
-import { CommonModule } from '@angular/common';
-import { AnimateDirective } from '../../../shared/directives/animate.directive';
-import { OscillatorComponent } from '../../../shared/components/oscillator/oscillator.component';
 
 @Component({
   selector: 'app-home',

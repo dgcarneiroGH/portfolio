@@ -29,7 +29,12 @@
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": ["src/styles/styles.scss"],
             "scripts": [],
-            "allowedCommonJsDependencies": ["quantize", "blast-vanilla"]
+            "allowedCommonJsDependencies": [
+              "quantize",
+              "blast-vanilla",
+              "@sanity/image-url",
+              "event-source-polyfill"
+            ]
           },
           "configurations": {
             "production": {
@@ -41,8 +46,8 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "3kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "5kb",
+                  "maximumError": "6kb"
                 }
               ],
               "fileReplacements": [
@@ -56,7 +61,12 @@
               "vendorChunk": true,
               "extractLicenses": true,
               "sourceMap": false,
-              "allowedCommonJsDependencies": ["quantize", "blast-vanilla"]
+              "allowedCommonJsDependencies": [
+                "quantize",
+                "blast-vanilla",
+                "@sanity/image-url",
+                "event-source-polyfill"
+              ]
             },
             "development": {
               "buildOptimizer": false,
@@ -65,7 +75,12 @@
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true,
-              "allowedCommonJsDependencies": ["quantize", "blast-vanilla"]
+              "allowedCommonJsDependencies": [
+                "quantize",
+                "blast-vanilla",
+                "@sanity/image-url",
+                "event-source-polyfill"
+              ]
             }
           },
           "defaultConfiguration": "production"

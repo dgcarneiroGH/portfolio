@@ -1,0 +1,73 @@
+<section>
+  <ng-container *ngIf="vm$ | async as vm">
+    <header *ngIf="!vm.hasSlug">
+      <h1>{{ "BLOG.TITLE" | translate }}</h1>
+    </header>
+    <div class="section-container">
+      <div class="blog-cards-container" *ngIf="vm.posts && !vm.hasSlug">
+        <app-post-card
+          *ngFor="let post of vm.posts"
+          [currentLocale]="vm.currentLocale"
+          [title]="post.title"
+          [date]="post.publishedAt"
+          [image]="post.image"
+          [excerpt]="post.excerpt"
+          [slug]="post.slug"
+        ></app-post-card>
+      </div>
+
+      <ng-container *ngIf="vm.hasSlug && vm.selectedPost as post">
+        <div class="blog-post">
+          <header class="blog-post__header">
+            <a class="blog-post__header__back-btn" routerLink="/blog">
+              <img
+                src="assets/images/icons/back_arrow.avif"
+                alt="Icono de flecha hacia atrás"
+              />
+            </a>
+            <p class="blog-post__header__date">
+              {{ post.publishedAt | date: "longDate" : "" : vm.currentLocale }}
+            </p>
+          </header>
+          <h2 class="blog-post__title">{{ post.title }}</h2>
+          <p class="blog-post__content">{{ post.excerpt }}</p>
+          <img
+            *ngIf="post.image"
+            class="blog-post__image"
+            [src]="post.imageUrl"
+            [alt]="post.title"
+          />
+          <div class="blog-post__content" [innerHTML]="post.body"></div>
+        </div>
+      </ng-container>
+      <div
+        class="blog-post blog-post--not-found"
+        *ngIf="vm.hasSlug && !vm.selectedPost"
+      >
+        <a class="blog-post__header__back-btn" routerLink="/blog">
+          <img
+            src="assets/images/icons/back_arrow.avif"
+            alt="Icono de flecha hacia atrás"
+          />
+        </a>
+        <h2 class="blog-post__title">
+          {{ "ERROR_404.TITLE" | translate }}
+        </h2>
+        <img
+          class="blog-post__image"
+          src="assets/images/nomacoda/error_404.avif"
+        />
+        <p>
+          {{ "ERROR_404.BODY" | translate }}
+        </p>
+      </div>
+    </div>
+
+    <a class="portfolio-btn" routerLink="/">
+      <img
+        src="assets/images/icons/portfolio_signal.avif"
+        alt="portfolio icon"
+      />
+    </a>
+  </ng-container>
+</section>
