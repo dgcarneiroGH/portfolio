@@ -26,6 +26,7 @@ export const routes: Routes = [
       ),
     data: { animation: 'Blog' }
   }
+  // TODO:Crear un 404
   // {
   //   path: '**',
   //   redirectTo: ''
