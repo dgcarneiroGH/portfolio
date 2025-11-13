@@ -25,9 +25,9 @@ export const routes: Routes = [
         (m) => m.BlogComponent
       ),
     data: { animation: 'Blog' }
-  },
-  {
-    path: '**',
-    redirectTo: ''
   }
+  // {
+  //   path: '**',
+  //   redirectTo: ''
+  // }
 ];
