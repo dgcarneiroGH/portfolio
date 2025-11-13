@@ -7,7 +7,8 @@ export const routes: Routes = [
       import(
         './core/components/sections-wrapper/sections-wrapper.component'
       ).then((m) => m.SectionsWrapperComponent),
-    data: { animation: 'Home' }
+    data: { animation: 'Home' },
+    pathMatch: 'full'
   },
   {
     path: 'blog',
