@@ -25,10 +25,12 @@ export const routes: Routes = [
         (m) => m.BlogComponent
       ),
     data: { animation: 'Blog' }
+  },
+  {
+    path: '**',
+    loadComponent: () =>
+      import('./core/not-found-404/not-found-404.component').then(
+        (m) => m.NotFound404Component
+      )
   }
-  // TODO:Crear un 404
-  // {
-  //   path: '**',
-  //   redirectTo: ''
-  // }
 ];
