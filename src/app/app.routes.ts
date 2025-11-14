@@ -12,14 +12,14 @@ export const routes: Routes = [
   },
   {
     path: 'blog',
-    // loadComponent: () =>
-    //   import('./features/blog/components/blog.component').then(
-    //     (m) => m.BlogComponent
-    //   ),
     loadComponent: () =>
-      import(
-        './core/components/features/blog/blog-test/blog-test.component'
-      ).then((m) => m.BlogTestComponent),
+      import('./features/blog/components/blog.component').then(
+        (m) => m.BlogComponent
+      ),
+    // loadComponent: () =>
+    //   import(
+    //     './core/components/features/blog/blog-test/blog-test.component'
+    //   ).then((m) => m.BlogTestComponent),
     data: { animation: 'Blog' }
   },
   {
