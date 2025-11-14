@@ -16,10 +16,6 @@ export const routes: Routes = [
       import('./features/blog/components/blog.component').then(
         (m) => m.BlogComponent
       ),
-    // loadComponent: () =>
-    //   import(
-    //     './core/components/features/blog/blog-test/blog-test.component'
-    //   ).then((m) => m.BlogTestComponent),
     data: { animation: 'Blog' }
   },
   {
@@ -37,9 +33,6 @@ export const routes: Routes = [
   },
   {
     path: '**',
-    loadComponent: () =>
-      import('./core/not-found-404/not-found-404.component').then(
-        (m) => m.NotFound404Component
-      )
+    redirectTo: ''
   }
 ];
