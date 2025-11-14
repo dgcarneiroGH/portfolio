@@ -2,7 +2,9 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  inject,
   Input,
+  NgZone,
   OnDestroy,
   ViewChild
 } from '@angular/core';
@@ -19,9 +21,21 @@ import { ITarget, ITendril } from '../../interfaces';
       style="display:block; width:100%; height:100%;"
     ></canvas>
   `,
-  styles: `:host { display: block; position: absolute; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 0; }`
+  styles: `
+    :host {
+      display: block;
+      position: absolute;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+    }
+  `
 })
 export class OscillatorComponent implements AfterViewInit, OnDestroy {
+  private _zone = inject(NgZone);
+
   @Input() initialTargetId?: string;
   @ViewChild('oscillatorCanvas', { static: true })
   canvasRef!: ElementRef<HTMLCanvasElement>;
@@ -45,15 +59,19 @@ export class OscillatorComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     this._ctx = this.canvasRef.nativeElement.getContext('2d')!;
-    this._resizeCanvas();
-    this._initOscillator();
-    window.addEventListener('resize', this._resizeCanvas);
+
+    this._zone.runOutsideAngular(() => {
+      this._resizeCanvas();
+      this._initOscillator();
+      window.addEventListener('resize', this._resizeCanvas);
+    });
   }
 
   ngOnDestroy(): void {
     this._running = false;
     cancelAnimationFrame(this._animationFrameId ?? 0);
     window.removeEventListener('resize', this._resizeCanvas);
+
     document.removeEventListener('mousemove', this._onFirstMouseMove);
     document.removeEventListener('touchstart', this._onFirstMouseMove);
     document.removeEventListener('mousemove', this._mousemove);

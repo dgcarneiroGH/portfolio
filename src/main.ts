@@ -12,7 +12,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { TagCanvasModule } from 'ng-tagcanvas';
 import { AppComponent } from './app/app.component';
 import { routes } from './app/app.routes';
 import { AnimateDirective } from './app/shared/directives/animate.directive';
@@ -36,7 +35,7 @@ bootstrapApplication(AppComponent, {
     importProvidersFrom(AnimateDirective),
     importProvidersFrom(
       BrowserAnimationsModule,
-      TagCanvasModule.forRoot(),
+      // TagCanvasModule.forRoot(),
       TranslateModule.forRoot({
         defaultLanguage: 'es-ES',
         loader: {

@@ -1,8 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, HostListener, OnInit } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { TagCanvasModule, TagCanvasOptions } from 'ng-tagcanvas';
-import { ParallaxHeaderDirective } from 'src/app/shared/directives/parallax-header.directive';
+import { TagCanvasOptions } from 'ng-tagcanvas';
 import {
   CERT_CANVAS_OPTIONS,
   CERTS,
@@ -15,11 +14,11 @@ import { CertsFilterComponent } from './certs-filter/certs-filter.component';
   selector: 'app-certs',
   standalone: true,
   imports: [
-    TagCanvasModule,
+    // TagCanvasModule,
     CommonModule,
     CertsFilterComponent,
-    TranslateModule,
-    ParallaxHeaderDirective
+    TranslateModule
+    // ParallaxHeaderDirective
   ],
   templateUrl: './certs.component.html',
   styleUrl: './certs.component.scss'
