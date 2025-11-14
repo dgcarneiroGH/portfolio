@@ -27,14 +27,14 @@ export const routes: Routes = [
     redirectTo: 'blog',
     pathMatch: 'full'
   },
-  {
-    path: 'blog/:slug',
-    loadComponent: () =>
-      import('./features/blog/components/blog.component').then(
-        (m) => m.BlogComponent
-      ),
-    data: { animation: 'Blog' }
-  },
+  // {
+  //   path: 'blog/:slug',
+  //   loadComponent: () =>
+  //     import('./features/blog/components/blog.component').then(
+  //       (m) => m.BlogComponent
+  //     ),
+  //   data: { animation: 'Blog' }
+  // },
   {
     path: '**',
     loadComponent: () =>
