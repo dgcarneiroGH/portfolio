@@ -7,7 +7,7 @@ export const routes: Routes = [
       import(
         './core/components/sections-wrapper/sections-wrapper.component'
       ).then((m) => m.SectionsWrapperComponent),
-    data: { animation: 'Home' },
+    // data: { animation: 'Home' },
     pathMatch: 'full'
   },
   {
@@ -19,8 +19,8 @@ export const routes: Routes = [
     loadComponent: () =>
       import(
         './core/components/features/blog/blog-test/blog-test.component'
-      ).then((m) => m.BlogTestComponent),
-    data: { animation: 'Blog' }
+      ).then((m) => m.BlogTestComponent)
+    // data: { animation: 'Blog' }
   },
   {
     path: 'blog/',
