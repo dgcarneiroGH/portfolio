@@ -6,9 +6,9 @@ export const routes: Routes = [
     loadComponent: () =>
       import(
         './core/components/sections-wrapper/sections-wrapper.component'
-      ).then((m) => m.SectionsWrapperComponent)
-    // data: { animation: 'Home' },
-    // pathMatch: 'full'
+      ).then((m) => m.SectionsWrapperComponent),
+    data: { animation: 'Home' },
+    pathMatch: 'full'
   },
   {
     path: 'blog',
@@ -19,22 +19,22 @@ export const routes: Routes = [
     loadComponent: () =>
       import(
         './core/components/features/blog/blog-test/blog-test.component'
-      ).then((m) => m.BlogTestComponent)
-    // data: { animation: 'Blog' }
+      ).then((m) => m.BlogTestComponent),
+    data: { animation: 'Blog' }
   },
   {
     path: 'blog/',
     redirectTo: 'blog',
     pathMatch: 'full'
   },
-  // {
-  //   path: 'blog/:slug',
-  //   loadComponent: () =>
-  //     import('./features/blog/components/blog.component').then(
-  //       (m) => m.BlogComponent
-  //     ),
-  //   data: { animation: 'Blog' }
-  // },
+  {
+    path: 'blog/:slug',
+    loadComponent: () =>
+      import('./features/blog/components/blog.component').then(
+        (m) => m.BlogComponent
+      ),
+    data: { animation: 'Blog' }
+  },
   {
     path: '**',
     loadComponent: () =>
