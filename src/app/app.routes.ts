@@ -6,9 +6,9 @@ export const routes: Routes = [
     loadComponent: () =>
       import(
         './core/components/sections-wrapper/sections-wrapper.component'
-      ).then((m) => m.SectionsWrapperComponent),
+      ).then((m) => m.SectionsWrapperComponent)
     // data: { animation: 'Home' },
-    pathMatch: 'full'
+    // pathMatch: 'full'
   },
   {
     path: 'blog',
