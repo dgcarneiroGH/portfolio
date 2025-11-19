@@ -4,6 +4,6 @@
 
 <ng-template #loading>
   <div class="lazy-loader">
-    <span>Cargando sección...</span>
+    <img [src]="loadingImage$ | async" alt="Loading" class="loading-image" />
   </div>
 </ng-template>

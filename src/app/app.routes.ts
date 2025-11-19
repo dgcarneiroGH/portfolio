@@ -19,25 +19,17 @@ export const routes: Routes = [
     data: { animation: 'Blog' }
   },
   {
-    path: 'blog/',
-    redirectTo: 'blog',
-    pathMatch: 'full'
-  },
-  {
     path: 'blog/:slug',
     loadComponent: () =>
       import('./features/blog/components/blog.component').then(
         (m) => m.BlogComponent
-      ),
-    data: { animation: 'Blog' }
+      )
   },
   {
     path: '**',
-    redirectTo: ''
-    //TODO:Dale estilo al 404, puedes usar la imagen que ya tienes para el blog, lo mismo con el texto
-    // loadComponent: () =>
-    //   import('./core/not-found-404/not-found-404.component').then(
-    //     (m) => m.NotFound404Component
-    //   )
+    loadComponent: () =>
+      import('./core/components/not-found-404/not-found-404.component').then(
+        (m) => m.NotFound404Component
+      )
   }
 ];
