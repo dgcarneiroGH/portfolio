@@ -35,7 +35,6 @@ bootstrapApplication(AppComponent, {
     importProvidersFrom(AnimateDirective),
     importProvidersFrom(
       BrowserAnimationsModule,
-      // TagCanvasModule.forRoot(),
       TranslateModule.forRoot({
         defaultLanguage: 'es-ES',
         loader: {
