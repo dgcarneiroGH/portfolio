@@ -9,10 +9,9 @@ import localeEs from '@angular/common/locales/es';
 import { enableProdMode, importProvidersFrom } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withHashLocation } from '@angular/router';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { TagCanvasModule } from 'ng-tagcanvas';
 import { AppComponent } from './app/app.component';
 import { routes } from './app/app.routes';
 import { AnimateDirective } from './app/shared/directives/animate.directive';
@@ -31,12 +30,11 @@ registerLocaleData(localeEn, 'en-US');
 
 bootstrapApplication(AppComponent, {
   providers: [
-    provideRouter(routes),
+    provideRouter(routes, withHashLocation()),
     provideHttpClient(withInterceptorsFromDi()),
     importProvidersFrom(AnimateDirective),
     importProvidersFrom(
       BrowserAnimationsModule,
-      TagCanvasModule.forRoot(),
       TranslateModule.forRoot({
         defaultLanguage: 'es-ES',
         loader: {

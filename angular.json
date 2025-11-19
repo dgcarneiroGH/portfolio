@@ -29,6 +29,7 @@
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": ["src/styles/styles.scss"],
             "scripts": [],
+            "baseHref": "/",
             "allowedCommonJsDependencies": [
               "quantize",
               "blast-vanilla",
@@ -50,6 +51,7 @@
                   "maximumError": "6kb"
                 }
               ],
+              "baseHref": "/",
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",

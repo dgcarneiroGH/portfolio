@@ -7,7 +7,8 @@ export const routes: Routes = [
       import(
         './core/components/sections-wrapper/sections-wrapper.component'
       ).then((m) => m.SectionsWrapperComponent),
-    data: { animation: 'Home' }
+    data: { animation: 'Home' },
+    pathMatch: 'full'
   },
   {
     path: 'blog',
@@ -16,6 +17,11 @@ export const routes: Routes = [
         (m) => m.BlogComponent
       ),
     data: { animation: 'Blog' }
+  },
+  {
+    path: 'blog/',
+    redirectTo: 'blog',
+    pathMatch: 'full'
   },
   {
     path: 'blog/:slug',
@@ -28,5 +34,10 @@ export const routes: Routes = [
   {
     path: '**',
     redirectTo: ''
+    //TODO:Dale estilo al 404, puedes usar la imagen que ya tienes para el blog, lo mismo con el texto
+    // loadComponent: () =>
+    //   import('./core/not-found-404/not-found-404.component').then(
+    //     (m) => m.NotFound404Component
+    //   )
   }
 ];
