@@ -13,5 +13,18 @@ export default defineConfig([
     files: ["**/*.{js,mjs,cjs,ts,mts,cts}"],
     languageOptions: { globals: globals.browser }
   },
+  {
+    files: ["scripts/**/*.{js,mjs,cjs}"],
+    languageOptions: {
+      globals: { ...globals.node },
+      ecmaVersion: "latest",
+      sourceType: "script"
+    },
+    rules: {
+      "@typescript-eslint/no-require-imports": "off",
+      "@typescript-eslint/no-var-requires": "off",
+      "no-undef": "off"
+    }
+  },
   tseslint.configs.recommended
 ]);
