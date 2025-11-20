@@ -10,15 +10,13 @@
   font-weight: bold;
   color: palette.$text-primary;
   cursor: pointer;
-  transition:
-    background 0.3s,
-    box-shadow 0.3s;
+  transition: background 0.3s, box-shadow 0.3s;
   margin-top: 1rem;
   z-index: 2;
   gap: 0.7rem;
 
   border: 2px solid palette.$accent-blue;
-  box-shadow: 0 2px 12px 0 palette.$shadow-dark;
+  box-shadow: 0 2px 12px 0 rgba($color: palette.$accent-blue, $alpha: 0.25);
 
   background: rgba(var(--btn-color), 0.37);
   box-shadow: 0 2px 12px 0 rgba(var(--btn-color), 0.25);

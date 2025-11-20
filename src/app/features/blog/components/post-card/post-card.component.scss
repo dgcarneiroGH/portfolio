@@ -1,4 +1,4 @@
-@use "/src/styles/palette" as palette;
+@use '/src/styles/palette' as palette;
 
 .post-card {
   position: relative;
@@ -16,7 +16,7 @@
   background: palette.$background-gradient-start;
   border-radius: 16px;
 
-  box-shadow: 0 8px 24px palette.$shadow-light;
+  box-shadow: 0 8px 24px rgba(255, 255, 255, 0.08);
 
   &__bg {
     position: absolute;

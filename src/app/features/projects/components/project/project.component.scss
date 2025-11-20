@@ -3,7 +3,8 @@
 .project-container {
   position: relative;
   border-radius: 2.5rem;
-  box-shadow: 0 8px 32px 0 palette.$shadow-dark;
+  box-shadow: 0 8px 32px 0
+    rgba($color: palette.$background-gradient-start, $alpha: 0.37);
   overflow: hidden;
   padding: 1.5rem;
   display: flex;
@@ -15,14 +16,9 @@
   max-width: 400px;
   width: 100%;
   margin: auto;
-  transition:
-    box-shadow 0.5s,
-    background 0.5s,
-    transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
-    z-index 0.5s,
-    min-width 0.5s,
-    max-width 0.5s,
-    width 0.5s;
+  transition: box-shadow 0.5s, background 0.5s,
+    transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), z-index 0.5s, min-width 0.5s,
+    max-width 0.5s, width 0.5s;
   z-index: 1;
 
   background: var(
@@ -68,10 +64,12 @@
     margin-bottom: 2rem;
     border: none;
 
-    box-shadow: 0 4px 24px 0 palette.$shadow-dark;
+    box-shadow: 0 4px 24px 0
+      rgba($color: palette.$background-gradient-start, $alpha: 0.17);
 
     &.has-url:hover {
-      box-shadow: 0 4px 24px 0 palette.$shadow-yellow;
+      box-shadow: 0 4px 24px 0
+        rgba($color: palette.$accent-yellow, $alpha: 0.35);
       cursor: pointer;
     }
   }
@@ -133,17 +131,13 @@
   &.expanded {
     transform: scale(1.12);
     z-index: 20;
-    box-shadow: 0 16px 48px 0 palette.$shadow-dark;
+    box-shadow: 0 16px 48px 0
+      rgba($color: palette.$background-gradient-start, $alpha: 0.45);
     max-width: 90vw;
     width: 110%;
-    transition:
-      box-shadow 0.5s,
-      background 0.5s,
-      transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
-      z-index 0.5s,
-      min-width 0.5s,
-      max-width 0.5s,
-      width 0.5s;
+    transition: box-shadow 0.5s, background 0.5s,
+      transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), z-index 0.5s, min-width 0.5s,
+      max-width 0.5s, width 0.5s;
   }
 
   &.collapsed {
