@@ -8,7 +8,7 @@
   z-index: 2;
 
   .toggle {
-    filter: drop-shadow(2px 2px 4px palette.$shadow-light);
+    filter: drop-shadow(2px 2px 4px rgba(255, 255, 255, 0.6));
 
     .toggle-btn {
       position: relative;
@@ -33,16 +33,14 @@
         background-size: 200% 100%;
         animation: moveGradient 5s linear infinite;
 
-        -webkit-mask:
-          linear-gradient(palette.$text-primary 0 0) content-box,
+        -webkit-mask: linear-gradient(palette.$text-primary 0 0) content-box,
           linear-gradient(palette.$text-primary 0 0);
-        mask:
-          linear-gradient(palette.$text-primary 0 0) content-box,
+        mask: linear-gradient(palette.$text-primary 0 0) content-box,
           linear-gradient(palette.$text-primary 0 0);
       }
 
       input:focus + .slider {
-        box-shadow: 0 0 1px palette.$shadow-light;
+        box-shadow: 0 0 1px palette.$text-primary;
       }
 
       input:checked + .slider:before {
