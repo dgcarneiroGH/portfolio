@@ -49,7 +49,9 @@ section {
     img {
       width: 100%;
       display: block;
-      transition: transform 0.3s, filter 0.3s ease-in-out;
+      transition:
+        transform 0.3s,
+        filter 0.3s ease-in-out;
     }
   }
 
@@ -64,9 +66,11 @@ section {
 
       img {
         width: 100%;
-        filter: drop-shadow(2px 2px 4px rgba(255, 255, 255, 0.6));
+        filter: drop-shadow(2px 2px 4px palette.$shadow-light);
 
-        transition: transform 0.3s, filter 0.3s ease-in-out;
+        transition:
+          transform 0.3s,
+          filter 0.3s ease-in-out;
       }
 
       img:hover {
@@ -101,7 +105,7 @@ section {
       pointer-events: none;
       font-size: 0.95rem;
       white-space: nowrap;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+      box-shadow: 0 4px 16px palette.$shadow-dark;
     }
 
     &:hover .contact-tooltip,
@@ -111,7 +115,7 @@ section {
     }
 
     img {
-      filter: drop-shadow(2px 2px 4px rgba(255, 255, 255, 0.6));
+      filter: drop-shadow(2px 2px 4px palette.$shadow-light);
     }
   }
 
