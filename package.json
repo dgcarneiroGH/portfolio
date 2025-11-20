@@ -4,14 +4,18 @@
   "version": "1.0.0",
   "scripts": {
     "start": "ng serve",
+    "start:prod": "ng serve --configuration production",
     "build": "ng build --base-href",
+    "build:prod": "node scripts/set-env.js --prod && ng build --configuration production",
+    "preview:prod": "npm run build:prod && npx serve -s dist/portfolio -l 4200",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist/portfolio",
     "format": "prettier \"src/**/*.html\" --write",
     "format:check": "prettier \"src/**/*.html\" --check",
     "compodoc": "npx compodoc -p tsconfig.doc.json -w -s --hideGenerator",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "env:generate": "node scripts/set-env.js"
   },
   "private": true,
   "dependencies": {

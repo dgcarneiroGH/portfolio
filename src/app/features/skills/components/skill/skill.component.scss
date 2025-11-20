@@ -1,3 +1,5 @@
+@use "/src/styles/palette" as palette;
+
 .progress-container {
   display: flex;
   flex-direction: column;
@@ -13,9 +15,11 @@
   display: block;
   opacity: 0;
   transform: scale(0.9);
-  transition: opacity 0.5s ease, transform 0.5s ease;
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease;
 
-  filter: drop-shadow(2px 2px 4px rgba(255, 255, 255, 0.6));
+  filter: drop-shadow(2px 2px 4px palette.$shadow-light);
 }
 .progress-svg.visible {
   opacity: 1;
@@ -56,9 +60,11 @@
 
     img {
       width: 100%;
-      filter: drop-shadow(2px 2px 4px rgba(255, 255, 255, 0.6));
+      filter: drop-shadow(2px 2px 4px palette.$shadow-light);
 
-      transition: transform 0.3s, filter 0.3s ease-in-out;
+      transition:
+        transform 0.3s,
+        filter 0.3s ease-in-out;
     }
 
     img:hover {

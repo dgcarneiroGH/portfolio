@@ -36,7 +36,7 @@
     background-color: rgba(0, 0, 0, 0.35);
     backdrop-filter: blur(6px);
     border-radius: 1rem;
-    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.45);
+    box-shadow: 0 1rem 3rem palette.$shadow-dark;
 
     &__header {
       display: flex;
@@ -65,7 +65,7 @@
         img {
           height: 100%;
           transform-origin: bottom center;
-          filter: drop-shadow(2px 2px 4px rgba(255, 255, 255, 0.6));
+          filter: drop-shadow(2px 2px 4px palette.$shadow-light);
           transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
@@ -93,7 +93,7 @@
       width: 100%;
       border-radius: 0.75rem;
       object-fit: cover;
-      box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.35);
+      box-shadow: 0 0.5rem 1.5rem palette.$shadow-dark;
     }
 
     &__content {
@@ -148,7 +148,7 @@
 
   img {
     height: 100%;
-    filter: drop-shadow(2px 2px 4px rgba(255, 255, 255, 0.6));
+    filter: drop-shadow(2px 2px 4px palette.$shadow-light);
     transform-origin: bottom center;
     transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
   }
