@@ -1,22 +1,51 @@
 <section>
-  <ng-container *ngIf="vm$ | async as vm">
-    <header *ngIf="!vm.hasSlug">
+  <!-- Loading state -->
+  @if (loading()) {
+    <div class="loading-container">
+      <p>{{ "BLOG.LOADING" | translate }}</p>
+      <!-- TODO:Add a spinner here -->
+    </div>
+  }
+
+  <!-- Error state -->
+  @if (hasError()) {
+    <div class="error-container">
+      <p>{{ "BLOG.ERROR" | translate }}</p>
+      <button (click)="clearError()">
+        {{ "BLOG.CLEAR_ERROR" | translate }}
+      </button>
+      <button (click)="refreshPosts()">{{ "BLOG.RETRY" | translate }}</button>
+    </div>
+  }
+
+  <!-- Dashboard -->
+  @if (!loading() && !hasError()) {
+    @let viewModel = vm();
+    <header *ngIf="!viewModel.hasSlug">
       <h1>{{ "BLOG.TITLE" | translate }}</h1>
     </header>
     <div class="section-container">
-      <div class="blog-cards-container" *ngIf="vm.posts && !vm.hasSlug">
-        <app-post-card
-          *ngFor="let post of vm.posts"
-          [currentLocale]="vm.currentLocale"
-          [title]="post.title"
-          [date]="post.publishedAt"
-          [image]="post.image"
-          [excerpt]="post.excerpt"
-          [slug]="post.slug"
-        ></app-post-card>
+      <!-- Posts list -->
+      <div
+        class="blog-cards-container"
+        *ngIf="viewModel.posts && !viewModel.hasSlug"
+      >
+        @for (post of viewModel.posts; track post._id) {
+          <app-post-card
+            [currentLocale]="viewModel.currentLocale"
+            [title]="post.title"
+            [date]="post.publishedAt"
+            [image]="post.image"
+            [excerpt]="post.excerpt"
+            [slug]="post.slug"
+          />
+        } @empty {
+          <p>{{ "BLOG.NO_POSTS" | translate }}</p>
+        }
       </div>
 
-      <ng-container *ngIf="vm.hasSlug && vm.selectedPost as post">
+      <!-- Post -->
+      @if (viewModel.hasSlug && viewModel.selectedPost; as post) {
         <div class="blog-post">
           <header class="blog-post__header">
             <a class="blog-post__header__back-btn" routerLink="/blog">
@@ -26,7 +55,10 @@
               />
             </a>
             <p class="blog-post__header__date">
-              {{ post.publishedAt | date: "longDate" : "" : vm.currentLocale }}
+              {{
+                post.publishedAt
+                  | date: "longDate" : "" : viewModel.currentLocale
+              }}
             </p>
           </header>
           <h2 class="blog-post__title">{{ post.title }}</h2>
@@ -39,28 +71,29 @@
           />
           <div class="blog-post__content" [innerHTML]="post.body"></div>
         </div>
-      </ng-container>
-      <div
-        class="blog-post blog-post--not-found"
-        *ngIf="vm.hasSlug && !vm.selectedPost"
-      >
-        <a class="blog-post__header__back-btn" routerLink="/blog">
+      }
+
+      <!-- Unknown post -->
+      @if (viewModel.hasSlug && !viewModel.selectedPost) {
+        <div class="blog-post blog-post--not-found">
+          <a class="blog-post__header__back-btn" routerLink="/blog">
+            <img
+              src="assets/images/icons/back_arrow.avif"
+              alt="Icono de flecha hacia atrás"
+            />
+          </a>
+          <h2 class="blog-post__title">
+            {{ "ERROR_404.TITLE" | translate }}
+          </h2>
           <img
-            src="assets/images/icons/back_arrow.avif"
-            alt="Icono de flecha hacia atrás"
+            class="blog-post__image"
+            src="assets/images/nomacoda/error_404.avif"
           />
-        </a>
-        <h2 class="blog-post__title">
-          {{ "ERROR_404.TITLE" | translate }}
-        </h2>
-        <img
-          class="blog-post__image"
-          src="assets/images/nomacoda/error_404.avif"
-        />
-        <p>
-          {{ "ERROR_404.BODY" | translate }}
-        </p>
-      </div>
+          <p>
+            {{ "ERROR_404.BODY" | translate }}
+          </p>
+        </div>
+      }
     </div>
 
     <a class="portfolio-btn" routerLink="/">
@@ -69,5 +102,5 @@
         alt="portfolio icon"
       />
     </a>
-  </ng-container>
+  }
 </section>
