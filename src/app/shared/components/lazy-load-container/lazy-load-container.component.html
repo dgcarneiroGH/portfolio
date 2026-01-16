@@ -1,9 +1,7 @@
-<ng-container *ngIf="isVisible; else loading">
+@if (isVisible()) {
   <ng-content></ng-content>
-</ng-container>
-
-<ng-template #loading>
+} @else {
   <div class="lazy-loader">
-    <img [src]="loadingImage$ | async" alt="Loading" class="loading-image" />
+    <img [src]="loadingImage()" alt="Loading" class="loading-image" />
   </div>
-</ng-template>
+}

@@ -3,10 +3,11 @@ import {
   Component,
   ElementRef,
   inject,
-  Input,
+  input,
   NgZone,
   OnDestroy,
-  ViewChild
+  viewChild,
+  signal
 } from '@angular/core';
 import { Tendril } from '../../classes/tendril.class';
 import { ITarget, ITendril } from '../../interfaces';
@@ -36,13 +37,19 @@ import { ITarget, ITendril } from '../../interfaces';
 export class OscillatorComponent implements AfterViewInit, OnDestroy {
   private _zone = inject(NgZone);
 
-  @Input() initialTargetId?: string;
-  @ViewChild('oscillatorCanvas', { static: true })
-  canvasRef!: ElementRef<HTMLCanvasElement>;
+  // Input signal
+  initialTargetId = input<string>();
+
+  // ViewChild signal
+  canvasRef =
+    viewChild.required<ElementRef<HTMLCanvasElement>>('oscillatorCanvas');
+
+  // Signals para el estado interno
+  private _running = signal(false);
+  running = this._running.asReadonly();
 
   private _ctx!: CanvasRenderingContext2D;
   private _animationFrameId?: number;
-  private _running = false;
   private _oscillatorStartTime = 0;
   private _firstMouseMove = false;
   private _tendrils: ITendril[] = [];
@@ -58,7 +65,8 @@ export class OscillatorComponent implements AfterViewInit, OnDestroy {
   private _color = this._randomIntFromInterval(1, 2);
 
   ngAfterViewInit(): void {
-    this._ctx = this.canvasRef.nativeElement.getContext('2d')!;
+    const canvas = this.canvasRef();
+    this._ctx = canvas.nativeElement.getContext('2d')!;
 
     this._zone.runOutsideAngular(() => {
       this._resizeCanvas();
@@ -68,7 +76,7 @@ export class OscillatorComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this._running = false;
+    this._running.set(false);
     cancelAnimationFrame(this._animationFrameId ?? 0);
     window.removeEventListener('resize', this._resizeCanvas);
 
@@ -80,14 +88,15 @@ export class OscillatorComponent implements AfterViewInit, OnDestroy {
   }
 
   private _resizeCanvas = () => {
-    const canvas = this.canvasRef.nativeElement;
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    const canvas = this.canvasRef();
+    canvas.nativeElement.width = window.innerWidth;
+    canvas.nativeElement.height = window.innerHeight;
   };
 
   private _getInitialTargetCenter(): ITarget {
-    if (this.initialTargetId) {
-      const el = document.getElementById(this.initialTargetId);
+    const targetId = this.initialTargetId();
+    if (targetId) {
+      const el = document.getElementById(targetId);
       if (el) {
         const rect = el.getBoundingClientRect();
         return {
@@ -99,7 +108,7 @@ export class OscillatorComponent implements AfterViewInit, OnDestroy {
       }
     }
 
-    const canvas = this.canvasRef.nativeElement;
+    const canvas = this.canvasRef().nativeElement;
     return {
       x: canvas.width / 2,
       y: canvas.height / 2,
@@ -128,7 +137,7 @@ export class OscillatorComponent implements AfterViewInit, OnDestroy {
     }
     document.addEventListener('mousemove', this._onFirstMouseMove);
     document.addEventListener('touchstart', this._onFirstMouseMove);
-    this._running = true;
+    this._running.set(true);
     this._loop();
   }
 
@@ -146,7 +155,8 @@ export class OscillatorComponent implements AfterViewInit, OnDestroy {
   }
 
   private _mousemove = (event: MouseEvent | TouchEvent) => {
-    const rect = this.canvasRef.nativeElement.getBoundingClientRect();
+    const canvas = this.canvasRef();
+    const rect = canvas.nativeElement.getBoundingClientRect();
     let x: number, y: number;
     if ('touches' in event && event.touches.length > 0) {
       x = event.touches[0].clientX - rect.left;
@@ -170,7 +180,7 @@ export class OscillatorComponent implements AfterViewInit, OnDestroy {
   };
 
   private _loop = () => {
-    if (!this._running) return;
+    if (!this._running()) return;
 
     const ctx = this._ctx;
     ctx.globalCompositeOperation = 'source-over';

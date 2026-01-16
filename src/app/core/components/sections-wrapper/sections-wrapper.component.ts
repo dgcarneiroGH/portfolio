@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, signal, computed } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AboutComponent } from '../../../features/about/components/about.component';
 import { ContactComponent } from '../../../features/contact/components/contact.component';
@@ -25,5 +25,10 @@ import { LazyLoadContainerComponent } from '../../../shared/components/lazy-load
   styleUrls: ['./sections-wrapper.component.scss']
 })
 export class SectionsWrapperComponent {
-  actualYear: number = new Date().getFullYear();
+  private _actualYear = signal(new Date().getFullYear());
+  actualYear = this._actualYear.asReadonly();
+
+  copyrightText = computed(
+    () => `© ${this.actualYear()} - Todos los derechos reservados`
+  );
 }
