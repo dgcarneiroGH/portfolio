@@ -2,11 +2,10 @@ import { CommonModule } from '@angular/common';
 import {
   Component,
   computed,
-  EventEmitter,
   inject,
-  Input,
+  input,
   OnInit,
-  Output,
+  output,
   signal
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
@@ -23,18 +22,19 @@ import { ButtonComponent } from '../../../../shared/components/button/button.com
 export class ProjectComponent implements OnInit {
   private _colorThief: ColorThiefService = inject(ColorThiefService);
 
-  @Input() coverImgSrc!: string;
-  @Input() name!: string;
-  @Input() description!: string;
-  @Input() url?: string = '';
-  @Input() index!: number;
-  @Input() expandedIndex!: number | null;
-  @Output() expandRequest = new EventEmitter<number>();
+  coverImgSrc = input.required<string>();
+  name = input.required<string>();
+  description = input.required<string>();
+  url = input<string | undefined>(undefined);
+  index = input.required<number>();
+  expandedIndex = input.required<number | null>();
+
+  expandRequest = output<number>();
 
   dominantColor: [number, number, number] | null = null;
-  palette = signal<[number, number, number][] | null>(null);
 
-  animationDelay: string = '0s';
+  palette = signal<[number, number, number][] | null>(null);
+  animationDelay = signal('0s');
 
   dynamicGradient = computed(() => {
     const palette = this.palette();
@@ -52,12 +52,19 @@ export class ProjectComponent implements OnInit {
     return palette && palette[1] ? `${palette[1].join(',')}` : '41,182,246';
   });
 
-  get showMoreInfo(): boolean {
-    return this.expandedIndex === this.index;
-  }
+  showMoreInfo = computed(() => {
+    return this.expandedIndex() === this.index();
+  });
+
+  canToggleInfo = computed(() => {
+    return (
+      this.expandedIndex() === null || this.expandedIndex() === this.index()
+    );
+  });
 
   ngOnInit(): void {
-    this.animationDelay = `${Math.random() * 5}s`;
+    const randomDelay = `${Math.random() * 5}s`;
+    this.animationDelay.set(randomDelay);
   }
 
   onImageLoad(imageElement: HTMLImageElement) {
@@ -66,19 +73,14 @@ export class ProjectComponent implements OnInit {
   }
 
   toggleMoreInfo() {
-    if (this.expandedIndex === this.index) {
-      this.expandRequest.emit(-1); // Cierra
-    } else {
-      this.expandRequest.emit(this.index); // Abre
-    }
+    this.expandedIndex() === this.index()
+      ? this.expandRequest.emit(-1) // Close
+      : this.expandRequest.emit(this.index()); // Open
   }
 
   goTo() {
-    if (this.url) window.open(this.url, '_blank');
-  }
-
-  canToggleInfo(): boolean {
-    return this.expandedIndex === null || this.expandedIndex === this.index;
+    const url = this.url();
+    if (url && url.trim()) window.open(url, '_blank');
   }
 
   handleMoreInfoClick(): void {

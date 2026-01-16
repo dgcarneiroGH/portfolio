@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, signal, computed, OnInit } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { SOCIAL_MEDIA_PROFILES } from '../../constants/sidebar.constants';
 import { SocialMediaLinks } from '../../interfaces/sidebar.interface';
@@ -10,12 +10,12 @@ import { SocialMediaLinks } from '../../interfaces/sidebar.interface';
   styleUrls: ['./sidebar.component.scss'],
   imports: [TranslateModule]
 })
-export class SidebarComponent implements OnInit {
-  public currentYear!: number;
-  public links!: SocialMediaLinks[];
+export class SidebarComponent {
+  private _currentYear = signal<number>(new Date().getFullYear());
+  private _links = signal<SocialMediaLinks[]>(SOCIAL_MEDIA_PROFILES);
 
-  ngOnInit(): void {
-    this.currentYear = new Date().getFullYear();
-    this.links = SOCIAL_MEDIA_PROFILES;
-  }
+  currentYear = this._currentYear.asReadonly();
+  links = this._links.asReadonly();
+
+  footerText = computed(() => `© ${this.currentYear()} - Portfolio`);
 }

@@ -3,7 +3,9 @@ import {
   ElementRef,
   inject,
   Renderer2,
-  ViewChild
+  viewChild,
+  signal,
+  computed
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { CONTACT_METHODS } from '../constants/contact.constants';
@@ -19,32 +21,40 @@ import { OscillatorComponent } from '../../../shared/components/oscillator/oscil
   styleUrl: './contact.component.scss'
 })
 export class ContactComponent {
-  @ViewChild('nomacodaImgWrapper') nomacodaImgWrapper!: ElementRef;
-
   private _renderer = inject(Renderer2);
 
-  animationDelay = 3000;
-  contactMethods: ContactMethod[] = CONTACT_METHODS;
-  actualYear: number = new Date().getFullYear();
+  nomacodaImgWrapper = viewChild<ElementRef>('nomacodaImgWrapper');
+
+  private _animationDelay = signal(3000);
+  private _contactMethods = signal<ContactMethod[]>(CONTACT_METHODS);
+  private _actualYear = signal(new Date().getFullYear());
+
+  animationDelay = this._animationDelay.asReadonly();
+  contactMethods = this._contactMethods.asReadonly();
+  actualYear = this._actualYear.asReadonly();
+
+  isSwinging = signal(false);
 
   public triggerSwing() {
-    if (!this.nomacodaImgWrapper) return;
+    const wrapper = this.nomacodaImgWrapper();
+    if (!wrapper) return;
 
-    this._renderer.removeClass(
-      this.nomacodaImgWrapper.nativeElement,
-      'swing-active'
-    );
+    this.isSwinging.set(true);
 
-    void this.nomacodaImgWrapper.nativeElement.offsetWidth;
-    this._renderer.addClass(
-      this.nomacodaImgWrapper.nativeElement,
-      'swing-active'
-    );
+    this._renderer.removeClass(wrapper.nativeElement, 'swing-active');
+
+    void wrapper.nativeElement.offsetWidth;
+    this._renderer.addClass(wrapper.nativeElement, 'swing-active');
+
     setTimeout(() => {
-      this._renderer.removeClass(
-        this.nomacodaImgWrapper.nativeElement,
-        'swing-active'
-      );
+      const currentWrapper = this.nomacodaImgWrapper();
+      if (currentWrapper) {
+        this._renderer.removeClass(
+          currentWrapper.nativeElement,
+          'swing-active'
+        );
+      }
+      this.isSwinging.set(false);
     }, 10000);
   }
 }

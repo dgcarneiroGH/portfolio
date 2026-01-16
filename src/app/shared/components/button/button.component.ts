@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, input, output, computed } from '@angular/core';
 
 @Component({
   selector: 'app-button',
@@ -7,21 +7,20 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrl: './button.component.scss'
 })
 export class ButtonComponent {
-  @Input() color = 'transparent';
-  @Input() disabled = false;
-  @Input() text = '';
+  color = input('transparent');
+  disabled = input(false);
+  text = input('');
 
-  @Output() buttonClick = new EventEmitter<void>();
+  buttonClick = output<void>();
 
-  cssColor(): string {
-    const value = this.color;
+  cssColor = computed(() => {
+    const value = this.color();
     if (value.startsWith('#')) return this._hexToRgb(value);
-
     return value;
-  }
+  });
 
   onClick(): void {
-    if (this.disabled) return;
+    if (this.disabled()) return;
 
     this.buttonClick.emit();
   }

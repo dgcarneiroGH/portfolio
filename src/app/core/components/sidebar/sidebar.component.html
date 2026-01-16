@@ -1,7 +1,7 @@
 <aside class="sidebar">
   <div class="sidebar-content">
     <ul>
-      @for (link of links; track link.profileUrl) {
+      @for (link of links(); track link.profileUrl) {
         <li>
           <a
             [href]="link.profileUrl | translate"

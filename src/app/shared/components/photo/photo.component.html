@@ -1,7 +1,7 @@
 <div
   class="photo-container"
   [ngStyle]="{
-    'background-image': 'url(' + imgSrc + ')',
-}"
-  [style.--animation-delay]="animationDelay"
+    'background-image': 'url(' + imgSrc() + ')'
+  }"
+  [style.--animation-delay]="animationDelay()"
 ></div>

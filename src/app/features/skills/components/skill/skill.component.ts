@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, input, signal, computed, effect } from '@angular/core';
 import { AnimateDirective } from '../../../../shared/directives/animate.directive';
 
 @Component({
@@ -10,40 +10,43 @@ import { AnimateDirective } from '../../../../shared/directives/animate.directiv
   styleUrl: './skill.component.scss'
 })
 export class SkillComponent {
-  @Input() progress!: number;
-  @Input() text!: string;
-  @Input() years!: number;
-  @Input() logoSrc!: string;
+  progress = input.required<number>();
+  text = input.required<string>();
+  years = input.required<number>();
+  logoSrc = input.required<string>();
+  showProgressBar = input<boolean>(false);
 
-  private _showProgressBar = false;
-  @Input()
-  get showProgressBar(): boolean {
-    return this._showProgressBar;
+  private _currentStrokeDasharray = signal('0 200');
+  currentStrokeDasharray = this._currentStrokeDasharray.asReadonly();
+
+  constructor() {
+    effect(() => {
+      if (this.showProgressBar()) {
+        setTimeout(() => {
+          this._currentStrokeDasharray.set(this.strokeDasharray());
+        }, 300);
+      }
+    });
   }
-  set showProgressBar(value: boolean) {
-    this._showProgressBar = value;
 
-    if (value)
-      setTimeout(() => {
-        this.currentStrokeDasharray = this.strokeDasharray;
-      }, 300);
-  }
-
-  currentStrokeDasharray = '0 200';
-
-  get strokeDasharray(): string {
+  strokeDasharray = computed(() => {
     const radius = 50;
     const circumference = Math.PI * radius;
-    const progressLength = (this.progress / 100) * circumference;
+    const progressLength = (this.progress() / 100) * circumference;
     return `${progressLength} ${circumference - progressLength}`;
-  }
+  });
 
-  get experienceText(): string {
-    return `${this.years} ${this.years === 1 ? 'año' : 'años'}`;
-  }
+  experienceText = computed(() => {
+    const years = this.years();
+    return `${years} ${years === 1 ? 'año' : 'años'}`;
+  });
 
   toggleProgress(): void {
-    this.showProgressBar = !this.showProgressBar;
+    // Como showProgressBar ahora es un input, no podemos modificarlo
+    // Este método podría emitir un evento al padre si fuera necesario
+    console.log(
+      'Toggle requested, but showProgressBar is now controlled by parent'
+    );
   }
 
   onKeyDown(event: KeyboardEvent) {

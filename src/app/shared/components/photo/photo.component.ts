@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, input, signal, OnInit } from '@angular/core';
 
 @Component({
   standalone: true,
@@ -9,11 +9,11 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrl: './photo.component.scss'
 })
 export class PhotoComponent implements OnInit {
-  @Input() imgSrc!: string;
+  imgSrc = input.required<string>();
 
-  animationDelay: string = '0s';
+  animationDelay = signal('0s');
 
   ngOnInit(): void {
-    this.animationDelay = `${Math.random() * 3}s`;
+    this.animationDelay.set(`${Math.random() * 3}s`);
   }
 }
