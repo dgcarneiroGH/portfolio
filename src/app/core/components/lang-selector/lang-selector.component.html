@@ -3,27 +3,50 @@
   appClickOutside
   (appClickOutside)="closeOptions()"
 >
-  <div
+  <button
     class="container-header"
     [ngClass]="{ active: showOptions() }"
     (click)="toggleOptions()"
+    (keydown)="onKeyDown($event)"
+    [attr.aria-expanded]="showOptions()"
+    [attr.aria-haspopup]="true"
+    [attr.aria-label]="
+      ('COMMON.LANGUAGE_SELECTOR' | translate) + ': ' + currentLanguage()?.label
+    "
+    type="button"
   >
     <div class="selected-language">
       <span class="fi" [ngClass]="currentLanguage()?.icon"></span>
       {{ currentLanguage()?.label }}
     </div>
     @if (showOptions()) {
-      <img src="assets/images/icons/material-icons/arrow_up.svg" [alt]="'COMMON.COLLAPSE_MENU' | translate" />
+      <img
+        src="assets/images/icons/material-icons/arrow_up.svg"
+        [alt]="'COMMON.COLLAPSE_MENU' | translate"
+      />
     } @else {
-      <img src="assets/images/icons/material-icons/arrow_down.svg" [alt]="'COMMON.EXPAND_MENU' | translate" />
+      <img
+        src="assets/images/icons/material-icons/arrow_down.svg"
+        [alt]="'COMMON.EXPAND_MENU' | translate"
+      />
     }
-  </div>
+  </button>
   <ul
     class="lang-selector-options"
     [ngClass]="{ visible: showOptions(), hidden: !showOptions() }"
+    role="listbox"
+    [attr.aria-label]="'COMMON.AVAILABLE_LANGUAGES' | translate"
   >
-    @for (lang of filteredLanguages(); track lang.id) {
-      <li class="lang" (click)="selectLanguage(lang.id)">
+    @for (lang of filteredLanguages(); track lang.id; let i = $index) {
+      <li
+        class="lang"
+        (click)="selectLanguage(lang.id)"
+        (keydown)="onLanguageKeyDown($event, lang.id)"
+        [attr.tabindex]="showOptions() ? 0 : -1"
+        [attr.aria-selected]="currentLanguage()?.id === lang.id"
+        [attr.aria-label]="lang.label"
+        role="option"
+      >
         <span class="fi" [ngClass]="lang.icon"></span>
         {{ lang.label }}
       </li>

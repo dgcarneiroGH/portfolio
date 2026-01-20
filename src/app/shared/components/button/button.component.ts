@@ -10,6 +10,8 @@ export class ButtonComponent {
   color = input('transparent');
   disabled = input(false);
   text = input('');
+  ariaLabel = input<string | undefined>();
+  ariaDescribedBy = input<string | undefined>();
 
   buttonClick = output<void>();
 
@@ -21,8 +23,15 @@ export class ButtonComponent {
 
   onClick(): void {
     if (this.disabled()) return;
-
     this.buttonClick.emit();
+  }
+
+  onKeyDown(event: KeyboardEvent): void {
+    // Handle Enter and Space as clicks
+    if ((event.key === 'Enter' || event.key === ' ') && !this.disabled()) {
+      event.preventDefault();
+      this.onClick();
+    }
   }
 
   private _hexToRgb(hex: string): string {

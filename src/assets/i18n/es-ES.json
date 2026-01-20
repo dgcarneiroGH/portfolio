@@ -3,7 +3,11 @@
     "NAV_BLOG": "Ir al blog",
     "NAV_HOME": "Ir al inicio",
     "EXPAND_MENU": "Expandir menú de idiomas",
-    "COLLAPSE_MENU": "Contraer menú de idiomas"
+    "COLLAPSE_MENU": "Contraer menú de idiomas",
+    "LANGUAGE_SELECTOR": "Selector de idioma",
+    "AVAILABLE_LANGUAGES": "Idiomas disponibles",
+    "SKIP_TO_MAIN": "Saltar al contenido principal",
+    "SKIP_TO_NAV": "Saltar a la navegación"
   },
   "01_HOME": {
     "HELLO": "Hola, soy Nomacoda",

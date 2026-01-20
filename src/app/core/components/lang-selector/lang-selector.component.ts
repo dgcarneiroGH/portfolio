@@ -37,4 +37,71 @@ export class LangSelectorComponent {
     this._langService.setLanguage(lang);
     this.closeOptions();
   }
+
+  onKeyDown(event: KeyboardEvent): void {
+    switch (event.key) {
+      case 'Enter':
+      case ' ':
+        event.preventDefault();
+        this.toggleOptions();
+        break;
+      case 'Escape':
+        this.closeOptions();
+        break;
+      case 'ArrowDown':
+        if (!this.showOptions()) {
+          event.preventDefault();
+          this.showOptions.set(true);
+        }
+        break;
+      case 'ArrowUp':
+        if (this.showOptions()) {
+          event.preventDefault();
+          this.closeOptions();
+        }
+        break;
+    }
+  }
+
+  onLanguageKeyDown(event: KeyboardEvent, langId: string): void {
+    switch (event.key) {
+      case 'Enter':
+      case ' ':
+        event.preventDefault();
+        this.selectLanguage(langId);
+        break;
+      case 'Escape':
+        this.closeOptions();
+        // Focus back to trigger button
+        const triggerButton = event.target as HTMLElement;
+        const container = triggerButton.closest('.lang-selector-container');
+        const button = container?.querySelector('button');
+        button?.focus();
+        break;
+      case 'ArrowDown':
+      case 'ArrowUp':
+        event.preventDefault();
+        this.navigateOptions(
+          event.key === 'ArrowDown' ? 1 : -1,
+          event.target as HTMLElement
+        );
+        break;
+    }
+  }
+
+  private navigateOptions(
+    direction: number,
+    currentElement: HTMLElement
+  ): void {
+    const options = Array.from(
+      currentElement.closest('ul')?.querySelectorAll('li') || []
+    );
+    const currentLi = currentElement.closest('li') as HTMLLIElement;
+    const currentIndex = options.indexOf(currentLi);
+    const nextIndex = currentIndex + direction;
+
+    if (nextIndex >= 0 && nextIndex < options.length) {
+      (options[nextIndex] as HTMLElement).focus();
+    }
+  }
 }

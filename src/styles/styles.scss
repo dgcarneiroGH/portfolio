@@ -1,10 +1,57 @@
 @use "_palette" as palette;
 
-// #region Text
+// #region Accessibility & Focus
 :root {
   --font-headings: "Space Grotesk", sans-serif;
   --font-body: "Inter", sans-serif;
+  --focus-color: #005fcc;
+  --focus-bg: rgba(0, 95, 204, 0.1);
 }
+
+/* Global focus indicators for accessibility */
+*:focus {
+  outline: 2px solid var(--focus-color);
+  outline-offset: 2px;
+}
+
+/* Enhanced focus for interactive elements */
+button:focus,
+a:focus,
+input:focus,
+select:focus,
+textarea:focus,
+[tabindex]:focus,
+[role="button"]:focus,
+[role="option"]:focus {
+  outline: 2px solid var(--focus-color);
+  outline-offset: 2px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Focus ring for custom elements */
+.focusable:focus {
+  outline: 2px solid var(--focus-color);
+  outline-offset: 2px;
+  background-color: var(--focus-bg);
+}
+
+/* Skip non-interactive elements from tab order */
+img, svg, [aria-hidden="true"] {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+/* Ensure decorative images aren't focusable */
+img[alt=""], img:not([alt]) {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+// #endregion
+
+// #region Text
 
 body,
 p,

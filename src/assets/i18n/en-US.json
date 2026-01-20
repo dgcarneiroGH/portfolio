@@ -3,7 +3,11 @@
     "NAV_BLOG": "Go to blog",
     "NAV_HOME": "Go to home",
     "EXPAND_MENU": "Expand language menu",
-    "COLLAPSE_MENU": "Collapse language menu"
+    "COLLAPSE_MENU": "Collapse language menu",
+    "LANGUAGE_SELECTOR": "Language selector",
+    "AVAILABLE_LANGUAGES": "Available languages",
+    "SKIP_TO_MAIN": "Skip to main content",
+    "SKIP_TO_NAV": "Skip to navigation"
   },
   "01_HOME": {
     "HELLO": "Hello, I'm Nomacoda",
