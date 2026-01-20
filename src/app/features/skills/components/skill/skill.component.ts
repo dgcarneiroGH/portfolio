@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, input, signal, computed, effect } from '@angular/core';
 import { AnimateDirective } from '../../../../shared/directives/animate.directive';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-skill',
   standalone: true,
-  imports: [CommonModule, AnimateDirective],
+  imports: [CommonModule, AnimateDirective, TranslateModule],
   templateUrl: './skill.component.html',
   styleUrl: './skill.component.scss'
 })
@@ -14,6 +15,7 @@ export class SkillComponent {
   text = input.required<string>();
   years = input.required<number>();
   logoSrc = input.required<string>();
+  altKey = input.required<string>();
   showProgressBar = input<boolean>(false);
 
   private _currentStrokeDasharray = signal('0 200');

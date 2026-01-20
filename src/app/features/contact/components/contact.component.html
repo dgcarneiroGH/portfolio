@@ -8,7 +8,7 @@
     assets/images/stalactites-1920.avif 1920w
   "
   sizes="100vw"
-  alt="stalactites"
+  alt=""
 />
 <section>
   <div class="section-container">
@@ -21,7 +21,7 @@
       #nomacodaImgWrapper
       (mouseenter)="triggerSwing()"
       role="img"
-      aria-label="Nomacoda escalador"
+      [attr.aria-label]="'07_CONTACT.NOMACODA_CLIMBING' | translate"
     >
       <img
         src="assets/images/nomacoda/nomacoda_climber.avif"

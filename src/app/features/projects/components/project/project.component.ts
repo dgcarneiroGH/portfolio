@@ -25,6 +25,7 @@ export class ProjectComponent implements OnInit {
   coverImgSrc = input.required<string>();
   name = input.required<string>();
   description = input.required<string>();
+  altKey = input.required<string>();
   url = input<string | undefined>(undefined);
   index = input.required<number>();
   expandedIndex = input.required<number | null>();

@@ -10,6 +10,7 @@ import { Component, input, signal, OnInit } from '@angular/core';
 })
 export class PhotoComponent implements OnInit {
   imgSrc = input.required<string>();
+  altText = input.required<string>();
 
   animationDelay = signal('0s');
 

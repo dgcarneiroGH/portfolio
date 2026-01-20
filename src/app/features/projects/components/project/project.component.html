@@ -18,7 +18,7 @@
       [style.background-image]="'url(' + coverImgSrc() + '.avif)'"
       (click)="goTo()"
       (keydown)="onKeyDown($event, 'goTo')"
-      [attr.aria-label]="'Ver proyecto ' + name()"
+      [attr.aria-label]="'Ver proyecto ' + name() + '. ' + (altKey() | translate)"
       type="button"
     ></button>
 

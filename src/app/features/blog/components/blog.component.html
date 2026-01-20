@@ -51,7 +51,7 @@
             <a class="blog-post__header__back-btn" routerLink="/blog">
               <img
                 src="assets/images/icons/back_arrow.avif"
-                alt="Icono de flecha hacia atrás"
+                [alt]="'BLOG.BACK_TO_BLOG' | translate"
               />
             </a>
             <p class="blog-post__header__date">
@@ -79,7 +79,7 @@
           <a class="blog-post__header__back-btn" routerLink="/blog">
             <img
               src="assets/images/icons/back_arrow.avif"
-              alt="Icono de flecha hacia atrás"
+              [alt]="'BLOG.BACK_TO_BLOG' | translate"
             />
           </a>
           <h2 class="blog-post__title">
@@ -88,6 +88,7 @@
           <img
             class="blog-post__image"
             src="assets/images/nomacoda/error_404.avif"
+            [alt]="'ERROR_404.IMAGE_ALT' | translate"
           />
           <p>
             {{ "ERROR_404.BODY" | translate }}
@@ -99,7 +100,7 @@
     <a class="portfolio-btn" routerLink="/">
       <img
         src="assets/images/icons/portfolio_signal.avif"
-        alt="portfolio icon"
+        [alt]="'COMMON.NAV_HOME' | translate"
       />
     </a>
   }
