@@ -6,6 +6,22 @@
   --font-body: "Inter", sans-serif;
   --focus-color: #005fcc;
   --focus-bg: rgba(0, 95, 204, 0.1);
+
+  /* Accessible color system */
+  --color-success: #28a745;
+  --color-warning: #ffc107;
+  --color-error: #dc3545;
+  --color-info: #17a2b8;
+
+  /* High contrast alternatives */
+  --color-success-high: #155724;
+  --color-warning-high: #856404;
+  --color-error-high: #721c24;
+  --color-info-high: #0c5460;
+
+  /* Pattern backgrounds for colorblind users */
+  --pattern-success: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNCIgaGVpZ2h0PSI0IiB2aWV3Qm94PSIwIDAgNCA0IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxjaXJjbGUgY3g9IjIiIGN5PSIyIiByPSIwLjUiIGZpbGw9IiMyOGE3NDUiIG9wYWNpdHk9IjAuNCIvPjwvc3ZnPg==");
+  --pattern-error: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOCIgaGVpZ2h0PSI4IiB2aWV3Qm94PSIwIDAgOCA4IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Im0wIDhsOC04bS0yIDhsOC04IiBzdHJva2U9IiNkYzM1NDUiIHN0cm9rZS13aWR0aD0iMC41IiBvcGFjaXR5PSIwLjMiLz48L3N2Zz4=");
 }
 
 /* Global focus indicators for accessibility */
@@ -37,17 +53,92 @@ textarea:focus,
 }
 
 /* Skip non-interactive elements from tab order */
-img, svg, [aria-hidden="true"] {
+img,
+svg,
+[aria-hidden="true"] {
   -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none;
 }
 
 /* Ensure decorative images aren't focusable */
-img[alt=""], img:not([alt]) {
+img[alt=""],
+img:not([alt]) {
   -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none;
+}
+
+/* Accessibility utilities for colorblind users */
+.accessible-success {
+  color: var(--color-success);
+
+  &::before {
+    content: "✓ ";
+    font-weight: bold;
+  }
+
+  &.with-pattern {
+    background-image: var(--pattern-success);
+  }
+}
+
+.accessible-error {
+  color: var(--color-error);
+
+  &::before {
+    content: "✗ ";
+    font-weight: bold;
+  }
+
+  &.with-pattern {
+    background-image: var(--pattern-error);
+  }
+}
+
+.accessible-warning {
+  color: var(--color-warning);
+
+  &::before {
+    content: "⚠ ";
+    font-weight: bold;
+  }
+}
+
+.accessible-info {
+  color: var(--color-info);
+
+  &::before {
+    content: "ℹ ";
+    font-weight: bold;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --color-success: var(--color-success-high);
+    --color-warning: var(--color-warning-high);
+    --color-error: var(--color-error-high);
+    --color-info: var(--color-info-high);
+    --focus-color: #000000;
+  }
+
+  * {
+    border-color: currentColor !important;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 // #endregion
 

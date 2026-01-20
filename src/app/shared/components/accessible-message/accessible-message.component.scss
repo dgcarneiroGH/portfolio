@@ -1,0 +1,110 @@
+@use "../../../../styles/palette" as palette;
+
+.accessible-message {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  border-left: 4px solid;
+
+  .icon {
+    font-weight: bold;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+
+  .message {
+    flex: 1;
+  }
+}
+
+.accessible-success {
+  background-color: rgba(40, 167, 69, 0.1);
+  border-left-color: palette.$accessible-success;
+  color: palette.$accessible-success;
+
+  .icon {
+    color: palette.$accessible-success;
+  }
+
+  /* Pattern for colorblind users */
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: var(--pattern-success);
+    opacity: 0.1;
+    pointer-events: none;
+  }
+}
+
+.accessible-error {
+  background-color: rgba(220, 53, 69, 0.1);
+  border-left-color: palette.$accessible-error;
+  color: palette.$accessible-error;
+
+  .icon {
+    color: palette.$accessible-error;
+  }
+
+  /* Pattern for colorblind users */
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: var(--pattern-error);
+    opacity: 0.1;
+    pointer-events: none;
+  }
+}
+
+.accessible-warning {
+  background-color: rgba(255, 193, 7, 0.1);
+  border-left-color: palette.$accessible-warning;
+  color: #856404; /* High contrast text */
+
+  .icon {
+    color: palette.$accessible-warning;
+  }
+}
+
+.accessible-info {
+  background-color: rgba(23, 162, 184, 0.1);
+  border-left-color: palette.$accessible-info;
+  color: #0c5460; /* High contrast text */
+
+  .icon {
+    color: palette.$accessible-info;
+  }
+}
+
+/* High contrast mode adjustments */
+@media (prefers-contrast: high) {
+  .accessible-message {
+    border-width: 2px;
+    font-weight: bold;
+
+    &::after {
+      opacity: 0.3 !important;
+    }
+  }
+}
+
+/* Ensure pattern backgrounds don't interfere with text */
+.accessible-message {
+  position: relative;
+  z-index: 1;
+
+  .icon,
+  .message {
+    position: relative;
+    z-index: 2;
+  }
+}

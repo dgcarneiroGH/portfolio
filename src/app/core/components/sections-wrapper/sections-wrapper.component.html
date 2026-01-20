@@ -35,7 +35,7 @@
 
   <div class="contact-trigger" #contactTrigger>
     @if (showContact()) {
-      <app-contact></app-contact>
+      <app-contact style="width: 100vw"></app-contact>
     } @else {
       <div class="lazy-loader">
         <img [src]="loadingImage()" alt="Loading" class="loading-image" />
@@ -43,7 +43,10 @@
     }
 
     <a class="blog-btn" routerLink="/blog">
-      <img src="assets/images/icons/blog_signal.avif" [alt]="'COMMON.NAV_BLOG' | translate" />
+      <img
+        src="assets/images/icons/blog_signal.avif"
+        [alt]="'COMMON.NAV_BLOG' | translate"
+      />
     </a>
 
     <footer>
