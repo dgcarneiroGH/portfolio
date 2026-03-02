@@ -1,0 +1,17 @@
+
+> portfolio@1.0.0 start
+> ng serve
+
+[33m❯[39m Building...
+[32m✔[39m Building...
+Application bundle generation failed. [4.161 seconds] - 2026-03-02T16:19:20.812Z
+
+[1m[31m[31mX [41;31m[[41;97mERROR[41;31m][0m [1mThis variable was not declared with !default in the @used module.
+  ╷
+2 │   $flag-icons-use-1x1: false,
+  │   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  ╵
+  src\app\core\components\lang-selector\lang-selector.component.scss 2:3  root stylesheet[0m [1m[35m[plugin angular-sass][0m
+
+[39m[22m
+Watch mode enabled. Watching for file changes...
