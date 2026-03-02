@@ -1,15 +1,15 @@
 import { registerLocaleData } from '@angular/common';
 import {
-  HttpClient,
-  provideHttpClient,
-  withInterceptorsFromDi
+    HttpClient,
+    provideHttpClient,
+    withInterceptorsFromDi
 } from '@angular/common/http';
 import localeEn from '@angular/common/locales/en';
 import localeEs from '@angular/common/locales/es';
 import {
-  enableProdMode,
-  importProvidersFrom,
-  provideExperimentalZonelessChangeDetection
+    enableProdMode,
+    importProvidersFrom,
+    provideZonelessChangeDetection
 } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -34,7 +34,7 @@ registerLocaleData(localeEn, 'en-US');
 
 bootstrapApplication(AppComponent, {
   providers: [
-    provideExperimentalZonelessChangeDetection(),
+    provideZonelessChangeDetection(),
     provideRouter(routes, withHashLocation()),
     provideHttpClient(withInterceptorsFromDi()),
     importProvidersFrom(AnimateDirective),
