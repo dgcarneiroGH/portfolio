@@ -4,4 +4,5 @@ export interface Project {
   description: string;
   url?: string;
   year: number;
+  altKey: string;
 }

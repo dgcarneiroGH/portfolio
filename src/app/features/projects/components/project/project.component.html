@@ -1,44 +1,45 @@
 <div
   class="project-container"
-  [ngClass]="{ expanded: showMoreInfo, collapsed: !showMoreInfo }"
+  [ngClass]="{ expanded: showMoreInfo(), collapsed: !showMoreInfo() }"
   [style.--dynamic-gradient]="dynamicGradient()"
-  [style.--animation-delay]="animationDelay"
+  [style.--animation-delay]="animationDelay()"
 >
   <div class="project-border">
     <!-- Hidden image to preload -->
     <img
       #sourceImage
-      [src]="coverImgSrc + '.avif'"
+      [src]="coverImgSrc() + '.avif'"
       (load)="onImageLoad(sourceImage)"
       style="display: none"
     />
     <button
       class="cover-img"
-      [ngClass]="{ 'has-url': url }"
-      [style.background-image]="'url(' + coverImgSrc + '.avif)'"
+      [ngClass]="{ 'has-url': url() }"
+      [style.background-image]="'url(' + coverImgSrc() + '.avif)'"
       (click)="goTo()"
       (keydown)="onKeyDown($event, 'goTo')"
-      [attr.aria-label]="'Ver proyecto ' + name"
+      [attr.aria-label]="'Ver proyecto ' + name() + '. ' + (altKey() | translate)"
       type="button"
     ></button>
 
     <div class="project-info" [style.color]="textColor()">
-      <h3 class="title" [ngClass]="{ show: showMoreInfo }">{{ name }}</h3>
+      <h3 class="title" [ngClass]="{ show: showMoreInfo() }">{{ name() }}</h3>
 
       <div class="project-details">
-        <p class="description" [ngClass]="{ show: showMoreInfo }">
-          {{ description | translate }}
+        <p class="description" [ngClass]="{ show: showMoreInfo() }">
+          {{ description() | translate }}
         </p>
 
         <app-button
           style="z-index: 0"
           [color]="btnColor()"
-          [text]="(showMoreInfo ? '-' : '+') + ' Info'"
+          [text]="(showMoreInfo() ? '-' : '+') + ' Info'"
           [disabled]="!canToggleInfo()"
           (buttonClick)="handleMoreInfoClick()"
-          [attr.aria-expanded]="showMoreInfo"
+          [attr.aria-expanded]="showMoreInfo()"
           [attr.aria-label]="
-            (showMoreInfo ? 'Ocultar' : 'Mostrar') + ' información del proyecto'
+            (showMoreInfo() ? 'Ocultar' : 'Mostrar') +
+            ' información del proyecto'
           "
         ></app-button>
       </div>

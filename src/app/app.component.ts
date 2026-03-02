@@ -6,7 +6,7 @@ import {
   transition,
   trigger
 } from '@angular/animations';
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { LangSelectorComponent } from './core/components/lang-selector/lang-selector.component';
@@ -113,11 +113,14 @@ import { SidebarComponent } from './core/components/sidebar/sidebar.component';
   ]
 })
 export class AppComponent {
-  prepareRoute(outlet: RouterOutlet) {
+  appInitialized = signal(true);
+
+  prepareRoute(outlet: RouterOutlet): string | null {
     return (
-      outlet &&
-      outlet.activatedRouteData &&
-      outlet.activatedRouteData['animation']
+      (outlet &&
+        outlet.activatedRouteData &&
+        outlet.activatedRouteData['animation']) ||
+      null
     );
   }
 }

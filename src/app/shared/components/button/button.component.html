@@ -1,10 +1,13 @@
-<!-- TODO:Este botón debe tener un keyDown para WCAG -->
 <button
   class="more-info"
   [style.--btn-color]="cssColor()"
-  [class.disabled]="disabled"
+  [class.disabled]="disabled()"
+  [disabled]="disabled()"
   (click)="onClick()"
+  (keydown)="onKeyDown($event)"
+  [attr.aria-label]="ariaLabel() || text()"
+  [attr.aria-describedby]="ariaDescribedBy()"
   type="button"
 >
-  <span>{{ text }}</span>
+  <span>{{ text() }}</span>
 </button>

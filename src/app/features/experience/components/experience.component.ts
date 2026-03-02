@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { EXPERIENCES } from '../constants/experience.constants';
 import { TimelineDirective } from '../directives/timeline.directive';
@@ -13,10 +13,13 @@ import { ParallaxHeaderDirective } from '../../../shared/directives/parallax-hea
   styleUrls: ['./experience.component.scss']
 })
 export class ExperienceComponent implements OnInit {
-  experience: Experience[] = EXPERIENCES;
+  private _experience = signal<Experience[]>(EXPERIENCES);
+  experience = this._experience.asReadonly();
+
+  initialized = signal(false);
 
   ngOnInit(): void {
-    //Added to avoid errors on show cards
     window.scrollTo({ top: 15, behavior: 'smooth' });
+    this.initialized.set(true);
   }
 }

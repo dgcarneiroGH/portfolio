@@ -1,19 +1,40 @@
 {
-  "COMMON": {},
+  "COMMON": {
+    "NAV_BLOG": "Ir al blog",
+    "NAV_HOME": "Ir al inicio",
+    "EXPAND_MENU": "Expandir menú de idiomas",
+    "COLLAPSE_MENU": "Contraer menú de idiomas",
+    "LANGUAGE_SELECTOR": "Selector de idioma",
+    "AVAILABLE_LANGUAGES": "Idiomas disponibles",
+    "SKIP_TO_MAIN": "Saltar al contenido principal",
+    "SKIP_TO_NAV": "Saltar a la navegación"
+  },
   "01_HOME": {
     "HELLO": "Hola, soy Nomacoda",
-    "DESCRIPTION": "Apasionado del <br>desarrollo Front-end <br>y el diseño web."
+    "DESCRIPTION": "Apasionado del <br>desarrollo Front-end <br>y el diseño web.",
+    "NOMACODA_LOGO": "Nomacoda - Logo del portafolio"
   },
   "02_ABOUT": {
     "ABOUT_ME": "Sobre mí",
     "PARAGRAPH_1": "Mi nombre es Diego. Como desarrollador especializado en Front-End, me dedico a crear experiencias digitales que no solo se vean bien, sino que sean fáciles de usar y funcionen a la perfección.",
     "PARAGRAPH_2": "Más allá de la tecnología, me impulsa colaborar en proyectos que generen un impacto social positivo. Mi mayor motivación es saber que mi código está contribuyendo a una buena causa y aportando valor real a la sociedad.",
     "PARAGRAPH_3": "Mi pasión por la escalada me ha enseñado a afrontar cada proyecto con paciencia y estrategia, dividiendo los grandes desafíos en pasos manejables hasta llegar a la meta marcada. La música me enseña a cuidar el ritmo y los detalles, dos claves que considero esenciales para una gran experiencia de usuario.",
-    "PARAGRAPH_4": "Para mí, cada cliente es un socio. Creo en la comunicación transparente, la organización impecable y en construir una relación de confianza."
+    "PARAGRAPH_4": "Para mí, cada cliente es un socio. Creo en la comunicación transparente, la organización impecable y en construir una relación de confianza.",
+    "DIEGO_PORTRAIT_1": "Retrato de Diego mostrando su lado profesional",
+    "DIEGO_PORTRAIT_2": "Diego en ambiente casual reflexionando sobre proyectos tecnológicos",
+    "DIEGO_PORTRAIT_3": "Diego disfrutando la música y enfocándose en los detalles",
+    "DIEGO_PORTRAIT_4": "Diego en un ambiente colaborativo construyendo confianza"
   },
   "03_SKILLS": {
     "SHOW_EXPERIENCE": "Mostrar experiencia",
-    "SKILLS": "Habilidades"
+    "SKILLS": "Habilidades",
+    "ANGULAR_ALT": "Logo del framework Angular",
+    "REACT_ALT": "Logo de la librería React",
+    "DOTNET_ALT": "Logo del framework .NET",
+    "PRESTASHOP_ALT": "Logo de la plataforma de e-commerce PrestaShop",
+    "MOODLE_ALT": "Logo de la plataforma de aprendizaje Moodle",
+    "SALESFORCE_ALT": "Logo de la plataforma CRM Salesforce",
+    "LARAVEL_ALT": "Logo del framework PHP Laravel"
   },
   "04_EXPERIENCE": {
     "ACTUAL_JOB": "2023 - Actualidad",
@@ -41,24 +62,36 @@
     "DESCRIPTION_LALIGA": "CRM y portal web para la gestión de datos comerciales y análisis del estado actual del paquete de fútbol contratado de negocios subscritos. Incluye visualización dinámica de métricas clave y segmentación de clientes.",
     "DESCRIPTION_MARISKITO": "E-commerce desarrollado con PrestaShop para una reconocida empresa gallega del sector marisquero. Incluye gestión de productos frescos, pedidos y logística integrada.",
     "DESCRIPTION_PHARMA": "Sitio web creado para un concurso donde los participantes optan a una beca en el ámbito médico. Incluye una primera fase gamificada con puzles y retos, y una segunda fase en la que los aspirantes suben vídeos presentando sus proyectos.",
-    "PROJECTS": "Proyectos"
+    "PROJECTS": "Proyectos",
+    "PROJECT_BABE_ALT": "Interfaz del sistema de gestión de rutas BABE",
+    "PROJECT_DATALAIA_ALT": "Dashboard de análisis de datos DataLaia",
+    "PROJECT_MARISKITO_ALT": "Plataforma de e-commerce Mariskito",
+    "PROJECT_INTERACT_ALT": "Interfaz de quiz médico PBC Interact",
+    "PROJECT_LALIGA_ALT": "Dashboard CRM comercial de La Liga",
+    "PROJECT_DISCAMINO_ALT": "Plataforma de gestión de rutas Discamino",
+    "PROJECT_PHARMA_ALT": "Plataforma de competición médica Pharma Challenge",
+    "PROJECT_DFG_ALT": "Sitio web corporativo DFG Natural Stone",
+    "PROJECT_ARCELOR_ALT": "Sistema de logística ferroviaria ArcelorMittal"
   },
   "06_CERTS": {
     "CERTS": "Certificados"
   },
   "07_CONTACT": {
     "NOW_WE_KNOW": "Ahora que ya me conoces . . .",
-    "TALK": "¿Hablamos?"
+    "TALK": "¿Hablamos?",
+    "NOMACODA_CLIMBING": "Nomacoda escalando, colgado de una cuerda y haciendo el gesto de llámame"
   },
   "SIDEBAR": {
     "CV_URL": "https://drive.google.com/file/d/1RItPA28zTioQgQSme0w5qmVJ-dNBcWMp/view?usp=sharing"
   },
   "BLOG": {
     "TITLE": "Blog",
-    "FULL_POST": "Artículo completo"
+    "FULL_POST": "Artículo completo",
+    "BACK_TO_BLOG": "Volver a la lista del blog"
   },
   "ERROR_404": {
     "TITLE": "¡Vaya! Parece que esa ruta no existe",
-    "BODY": "Ha habido un pequeño desvío en el sendero. El artículo que buscas no se encuentra, pero no te preocupes, perder el rumbo es parte de la aventura."
+    "BODY": "Ha habido un pequeño desvío en el sendero. El artículo que buscas no se encuentra, pero no te preocupes, perder el rumbo es parte de la aventura.",
+    "IMAGE_ALT": "Personaje confundido indicando que la página solicitada no fue encontrada"
   }
 }

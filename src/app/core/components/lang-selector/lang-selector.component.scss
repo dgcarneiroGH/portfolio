@@ -16,6 +16,14 @@
     display: flex;
     margin: 2rem 2rem 0;
     cursor: pointer;
+
+    border: none;
+    background: transparent;
+  }
+
+  .selected-language {
+    margin: auto;
+    font-size: 1rem;
   }
 
   .container-header:hover,
@@ -26,7 +34,9 @@
   .lang-selector-options {
     list-style: none;
     padding: 0;
-    transition: max-height 0.4s ease-in-out, opacity 0.3s ease-in-out;
+    transition:
+      max-height 0.4s ease-in-out,
+      opacity 0.3s ease-in-out;
     position: absolute;
     right: 3rem;
 

@@ -6,10 +6,11 @@ import {
   OnDestroy,
   OnInit,
   TemplateRef,
-  ViewChild
+  viewChild,
+  signal,
+  computed
 } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { map, startWith } from 'rxjs/operators';
 
 @Component({
   selector: 'app-lazy-load-container',
@@ -19,32 +20,28 @@ import { map, startWith } from 'rxjs/operators';
   standalone: true
 })
 export class LazyLoadContainerComponent implements OnInit, OnDestroy {
-  @ViewChild('loading', { static: true })
-  loadingTemplate!: TemplateRef<unknown>;
+  loadingTemplate = viewChild.required<TemplateRef<unknown>>('loading');
 
-  isVisible = false;
+  private _isVisible = signal(false);
+  isVisible = this._isVisible.asReadonly();
+
   private observer!: IntersectionObserver;
   private translateService = inject(TranslateService);
 
-  loadingImage$ = this.translateService.onLangChange.pipe(
-    map(() => this.getLoadingImage()),
-    startWith(this.getLoadingImage())
-  );
-
-  constructor(private elRef: ElementRef) {}
-
-  private getLoadingImage(): string {
+  loadingImage = computed(() => {
     const currentLang = this.translateService.currentLang || 'es-ES';
     return currentLang.startsWith('en')
       ? 'assets/images/nomacoda/loading_en.avif'
       : 'assets/images/nomacoda/loading_es.avif';
-  }
+  });
+
+  constructor(private elRef: ElementRef) {}
 
   ngOnInit(): void {
     this.observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          this.isVisible = true;
+          this._isVisible.set(true);
           this.observer.disconnect();
         }
       },

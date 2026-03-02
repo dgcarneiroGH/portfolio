@@ -8,15 +8,16 @@
     <h1>{{ "05_PROJECTS.PROJECTS" | translate }}</h1>
   </header>
   <div class="section-container" #contentRef style="position: relative">
-    @for (project of projects; track project.name; let i = $index) {
+    @for (project of projects(); track project.name; let i = $index) {
     <div class="project-wrapper">
       <app-project
         class="project-card"
         [coverImgSrc]="project.coverImgSrc"
         [name]="project.name"
         [description]="project.description"
+        [altKey]="project.altKey"
         [url]="project.url"
-        [expandedIndex]="expandedIndex"
+        [expandedIndex]="expandedIndex()"
         [index]="i"
         (expandRequest)="onExpandRequest(i)"
       ></app-project>

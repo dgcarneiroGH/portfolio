@@ -3,15 +3,15 @@
   (click)="toggleProgress()"
   (keydown)="onKeyDown($event)"
   [attr.aria-label]="
-    'Alternar vista de ' + text + '. ' + experienceText + ' de experiencia'
+    'Alternar vista de ' + text() + '. ' + experienceText() + ' de experiencia'
   "
-  [attr.aria-expanded]="showProgressBar"
+  [attr.aria-expanded]="showProgressBar()"
   type="button"
 >
   <svg
     class="progress-svg"
-    [class.visible]="showProgressBar"
-    [class.hidden]="!showProgressBar"
+    [class.visible]="showProgressBar()"
+    [class.hidden]="!showProgressBar()"
     width="140"
     height="90"
     viewBox="0 0 120 60"
@@ -42,42 +42,42 @@
       class="progress-path"
       d="M10 50 A40 40 0 0 1 110 50"
       fill="none"
-      [attr.stroke-dasharray]="currentStrokeDasharray"
+      [attr.stroke-dasharray]="currentStrokeDasharray()"
       stroke-dashoffset="0"
       stroke="url(#animatedGradient)"
     />
 
     <text x="60" y="35" text-anchor="middle" fill="#f6f8fa" font-size="10">
-      {{ experienceText }}
+      {{ experienceText() }}
     </text>
   </svg>
 
   <div class="progress-info">
     <div
       class="progress-logo"
-      [class.visible]="!showProgressBar"
-      [class.hidden]="showProgressBar"
+      [class.visible]="!showProgressBar()"
+      [class.hidden]="showProgressBar()"
     >
       <img
-        [src]="logoSrc + '-64.avif'"
+        [src]="logoSrc() + '-64.avif'"
         [srcset]="
-          logoSrc +
+          logoSrc() +
           '-32.avif 32w, ' +
-          logoSrc +
+          logoSrc() +
           '-64.avif 64w, ' +
-          logoSrc +
+          logoSrc() +
           '-128.avif 128w'
         "
         sizes="(max-width: 600px) 32px, (max-width: 900px) 64px, 128px"
-        [alt]="text"
+        [alt]="altKey() | translate"
       />
     </div>
     <p
       [appAnimate]="2000"
-      [translationKey]="text"
+      [translationKey]="text()"
       class="progress-text"
-      [class.visible]="showProgressBar"
-      [class.hidden]="!showProgressBar"
+      [class.visible]="showProgressBar()"
+      [class.hidden]="!showProgressBar()"
     ></p>
   </div>
 </button>

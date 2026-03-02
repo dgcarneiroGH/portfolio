@@ -1,19 +1,40 @@
 {
-  "COMMON": {},
+  "COMMON": {
+    "NAV_BLOG": "Go to blog",
+    "NAV_HOME": "Go to home",
+    "EXPAND_MENU": "Expand language menu",
+    "COLLAPSE_MENU": "Collapse language menu",
+    "LANGUAGE_SELECTOR": "Language selector",
+    "AVAILABLE_LANGUAGES": "Available languages",
+    "SKIP_TO_MAIN": "Skip to main content",
+    "SKIP_TO_NAV": "Skip to navigation"
+  },
   "01_HOME": {
     "HELLO": "Hello, I'm Nomacoda",
-    "DESCRIPTION": "Passionate about <br>Front-end development <br>and web design."
+    "DESCRIPTION": "Passionate about <br>Front-end development <br>and web design.",
+    "NOMACODA_LOGO": "Nomacoda - Portfolio logo"
   },
   "02_ABOUT": {
     "ABOUT_ME": "About me",
     "PARAGRAPH_1": "My name is Diego. As a developer specializing in Front-End, I'm dedicated to creating digital experiences that don't just look great, but are also intuitive and perform flawlessly.",
     "PARAGRAPH_2": "Beyond technology, I am driven by projects that create a positive social impact. My greatest motivation is knowing that my code is contributing to a good cause and bringing real value to society.",
     "PARAGRAPH_3": "My passion for rock climbing has taught me to approach each project with patience and strategy, breaking down big challenges into manageable steps to reach the final goal. Music teaches me to focus on rhythm and detail, two keys I consider essential for creating a great user experience.",
-    "PARAGRAPH_4": "For me, every client is a partner. I believe in transparent communication, impeccable organization and in building a trusting relationship."
+    "PARAGRAPH_4": "For me, every client is a partner. I believe in transparent communication, impeccable organization and in building a trusting relationship.",
+    "DIEGO_PORTRAIT_1": "Diego portrait showing his professional side",
+    "DIEGO_PORTRAIT_2": "Diego in casual setting reflecting on technology projects",
+    "DIEGO_PORTRAIT_3": "Diego enjoying music and focusing on details",
+    "DIEGO_PORTRAIT_4": "Diego in a collaborative environment building trust"
   },
   "03_SKILLS": {
     "SHOW_EXPERIENCE": "Show experience",
-    "SKILLS": "Skills"
+    "SKILLS": "Skills",
+    "ANGULAR_ALT": "Angular framework logo",
+    "REACT_ALT": "React library logo",
+    "DOTNET_ALT": ".NET framework logo",
+    "PRESTASHOP_ALT": "PrestaShop e-commerce platform logo",
+    "MOODLE_ALT": "Moodle learning platform logo",
+    "SALESFORCE_ALT": "Salesforce CRM platform logo",
+    "LARAVEL_ALT": "Laravel PHP framework logo"
   },
   "04_EXPERIENCE": {
     "ACTUAL_JOB": "2023 - Present",
@@ -41,24 +62,36 @@
     "DESCRIPTION_LALIGA": "CRM and web portal for managing business-related data and analyzing the current status of subscribed football packages. Features dynamic visualization of key metrics and advanced client segmentation tools.",
     "DESCRIPTION_MARISKITO": "E-commerce platform built with PrestaShop for a prominent Galician seafood company. Supports the management of fresh products, orders, and integrated logistics operations.",
     "DESCRIPTION_PHARMA": "Web application created for a medical competition where participants compete for a scholarship. The first phase includes gamified challenges such as puzzles and games, followed by a second phase where candidates upload video presentations of their projects.",
-    "PROJECTS": "Projects"
+    "PROJECTS": "Projects",
+    "PROJECT_BABE_ALT": "BABE route management system interface",
+    "PROJECT_DATALAIA_ALT": "DataLaia data analysis dashboard",
+    "PROJECT_MARISKITO_ALT": "Mariskito seafood e-commerce platform",
+    "PROJECT_INTERACT_ALT": "PBC Interact medical quiz interface",
+    "PROJECT_LALIGA_ALT": "La Liga business CRM dashboard",
+    "PROJECT_DISCAMINO_ALT": "DisCamino route management platform",
+    "PROJECT_PHARMA_ALT": "Pharma Challenge medical competition platform",
+    "PROJECT_DFG_ALT": "DFG Natural Stone corporate website",
+    "PROJECT_ARCELOR_ALT": "ArcelorMittal railway logistics system"
   },
   "06_CERTS": {
     "CERTS": "Certificates"
   },
   "07_CONTACT": {
     "NOW_WE_KNOW": "Now that you know me . . .",
-    "TALK": "Shall we talk?"
+    "TALK": "Shall we talk?",
+    "NOMACODA_CLIMBING": "Nomacoda climbing, hanging on a rope and and making the call me gesture"
   },
   "SIDEBAR": {
     "CV_URL": "https://drive.google.com/file/d/16_HnY7__FQIomt2ZLJQp5FXLXHcSi5Bn/view?usp=sharing"
   },
   "BLOG": {
     "TITLE": "Blog",
-    "FULL_POST": "Full Post"
+    "FULL_POST": "Full Post",
+    "BACK_TO_BLOG": "Back to blog list"
   },
   "ERROR_404": {
     "TITLE": "Oops! It seems that path doesn't exist",
-    "BODY": "There's been a slight detour on the path. The article you are looking for cannot be found, but don't worry, losing your way is part of the adventure."
+    "BODY": "There's been a slight detour on the path. The article you are looking for cannot be found, but don't worry, losing your way is part of the adventure.",
+    "IMAGE_ALT": "Confused character indicating that the requested page was not found"
   }
 }

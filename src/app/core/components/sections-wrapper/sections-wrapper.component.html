@@ -2,43 +2,63 @@
   <app-home></app-home>
 
   <div class="cave-components">
-    <app-lazy-load-container>
-      <app-about></app-about>
-    </app-lazy-load-container>
+    <div class="about-trigger" #aboutTrigger>
+      @if (showAbout()) {
+        <app-about></app-about>
+      } @else {
+        <div class="lazy-loader">
+          <img [src]="loadingImage()" alt="Loading" class="loading-image" />
+        </div>
+      }
+    </div>
 
-    <app-lazy-load-container>
-      <app-projects></app-projects>
-    </app-lazy-load-container>
+    <div class="projects-trigger" #projectsTrigger>
+      @if (showProjects()) {
+        <app-projects></app-projects>
+      } @else {
+        <div class="lazy-loader">
+          <img [src]="loadingImage()" alt="Loading" class="loading-image" />
+        </div>
+      }
+    </div>
 
-    <app-lazy-load-container
-      ><app-experience></app-experience
-    ></app-lazy-load-container>
-
-    <!-- Components commentend for having unneceseary information -->
-    <!-- <app-lazy-load-container>
-      <app-skills></app-skills>
-    </app-lazy-load-container>
-    <app-lazy-load-container>
-      <app-certs></app-certs>
-    </app-lazy-load-container> -->
+    <div class="experience-trigger" #experienceTrigger>
+      @if (showExperience()) {
+        <app-experience></app-experience>
+      } @else {
+        <div class="lazy-loader">
+          <img [src]="loadingImage()" alt="Loading" class="loading-image" />
+        </div>
+      }
+    </div>
   </div>
 
-  <app-lazy-load-container>
-    <app-contact></app-contact>
-  </app-lazy-load-container>
-  <a class="blog-btn" routerLink="/blog">
-    <img src="assets/images/icons/blog_signal.avif" alt="blog icon" />
-  </a>
+  <div class="contact-trigger" #contactTrigger>
+    @if (showContact()) {
+      <app-contact style="width: 100vw"></app-contact>
+    } @else {
+      <div class="lazy-loader">
+        <img [src]="loadingImage()" alt="Loading" class="loading-image" />
+      </div>
+    }
 
-  <footer>
-    // Crafted by Nomacoda ©{{ actualYear }}. Inspired by nature
-    <img
-      src="assets/images/icons/tree.svg"
-      width="20"
-      height="20"
-      style="vertical-align: middle; margin-left: 0.3em"
-      alt="tree icon"
-      loading="lazy"
-    />
-  </footer>
+    <a class="blog-btn" routerLink="/blog">
+      <img
+        src="assets/images/icons/blog_signal.avif"
+        [alt]="'COMMON.NAV_BLOG' | translate"
+      />
+    </a>
+
+    <footer>
+      // Crafted by Nomacoda ©{{ actualYear() }}. Inspired by nature
+      <img
+        src="assets/images/icons/tree.svg"
+        width="20"
+        height="20"
+        style="vertical-align: middle; margin-left: 0.3em"
+        alt=""
+        loading="lazy"
+      />
+    </footer>
+  </div>
 </div>

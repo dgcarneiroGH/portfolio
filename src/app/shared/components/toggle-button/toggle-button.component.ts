@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -11,13 +11,13 @@ import { TranslateModule } from '@ngx-translate/core';
   styleUrls: ['./toggle-button.component.scss']
 })
 export class ToggleButtonComponent {
-  @Input() isChecked = false;
-  @Input() label = '';
-  @Input() filterMode = false;
+  isChecked = input(false);
+  label = input('');
+  filterMode = input(false);
 
-  @Output() check: EventEmitter<boolean> = new EventEmitter<boolean>();
+  check = output<boolean>();
 
-  toggle(selected: boolean) {
+  toggle(selected: boolean): void {
     this.check.emit(selected);
   }
 }

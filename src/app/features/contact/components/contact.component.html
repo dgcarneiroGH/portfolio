@@ -8,12 +8,12 @@
     assets/images/stalactites-1920.avif 1920w
   "
   sizes="100vw"
-  alt="stalactites"
+  alt=""
 />
 <section>
   <div class="section-container">
     <h1
-      [appAnimate]="animationDelay"
+      [appAnimate]="animationDelay()"
       [translationKey]="'07_CONTACT.NOW_WE_KNOW'"
     ></h1>
     <div
@@ -21,7 +21,7 @@
       #nomacodaImgWrapper
       (mouseenter)="triggerSwing()"
       role="img"
-      aria-label="Nomacoda escalador"
+      [attr.aria-label]="'07_CONTACT.NOMACODA_CLIMBING' | translate"
     >
       <img
         src="assets/images/nomacoda/nomacoda_climber.avif"
@@ -30,19 +30,19 @@
       />
     </div>
 
-    <p [appAnimate]="animationDelay" [translationKey]="'07_CONTACT.TALK'"></p>
+    <p [appAnimate]="animationDelay()" [translationKey]="'07_CONTACT.TALK'"></p>
 
     <div class="contact-methods">
-      @for (contactMethod of contactMethods; track contactMethod.name){
-      <a
-        [href]="contactMethod.url"
-        target="_blank"
-        [attr.title]="contactMethod.name"
-        class="contact-icon-wrapper"
-      >
-        <img [src]="contactMethod.iconSrc" [alt]="contactMethod.name" />
-        <span class="contact-tooltip">{{ contactMethod.info }}</span>
-      </a>
+      @for (contactMethod of contactMethods(); track contactMethod.name) {
+        <a
+          [href]="contactMethod.url"
+          target="_blank"
+          [attr.title]="contactMethod.name"
+          class="contact-icon-wrapper"
+        >
+          <img [src]="contactMethod.iconSrc" [alt]="contactMethod.name" />
+          <span class="contact-tooltip">{{ contactMethod.info }}</span>
+        </a>
       }
     </div>
   </div>

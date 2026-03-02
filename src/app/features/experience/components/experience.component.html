@@ -11,7 +11,7 @@
   </header>
   <div class="section-container" #contentRef>
     <ul>
-      @for (e of experience; track e.company) {
+      @for (e of experience(); track e.company) {
       <li appTimeline customClassName="in-view">
         <div>
           <time>{{ e.yearRange | translate }}</time>
