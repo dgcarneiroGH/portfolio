@@ -5,7 +5,7 @@
 >
   <button
     class="container-header"
-    [ngClass]="{ active: showOptions() }"
+    [class.active]="showOptions()"
     (click)="toggleOptions()"
     (keydown)="onKeyDown($event)"
     [attr.aria-expanded]="showOptions()"
@@ -16,7 +16,7 @@
     type="button"
   >
     <div class="selected-language">
-      <span class="fi" [ngClass]="currentLanguage()?.icon"></span>
+      <span class="fi" [class]="currentLanguage()?.icon"></span>
       {{ currentLanguage()?.label }}
     </div>
     @if (showOptions()) {
@@ -33,7 +33,9 @@
   </button>
   <ul
     class="lang-selector-options"
-    [ngClass]="{ visible: showOptions(), hidden: !showOptions() }"
+    [class.visible]="showOptions()"
+    [class.hidden]="!showOptions()"
+    [attr.aria-hidden]="!showOptions()"
     role="listbox"
     [attr.aria-label]="'COMMON.AVAILABLE_LANGUAGES' | translate"
   >
@@ -47,11 +49,9 @@
         [attr.aria-label]="lang.label"
         role="option"
       >
-        <span class="fi" [ngClass]="lang.icon"></span>
+        <span class="fi" [class]="lang.icon"></span>
         {{ lang.label }}
       </li>
     }
   </ul>
 </div>
-<!-- </ul>
-</div> -->

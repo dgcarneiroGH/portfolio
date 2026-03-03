@@ -11,7 +11,9 @@
         (check)="check($event, item)"
       />
       }
-      <hr *ngIf="!last" />
+      @if (!last) {
+        <hr />
+      }
     </div>
     }
   </div>

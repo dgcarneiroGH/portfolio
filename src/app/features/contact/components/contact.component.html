@@ -37,7 +37,8 @@
         <a
           [href]="contactMethod.url"
           target="_blank"
-          [attr.title]="contactMethod.name"
+          rel="noopener noreferrer"
+          [attr.aria-label]="contactMethod.name"
           class="contact-icon-wrapper"
         >
           <img [src]="contactMethod.iconSrc" [alt]="contactMethod.name" />

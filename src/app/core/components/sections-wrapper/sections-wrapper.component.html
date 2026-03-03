@@ -6,8 +6,8 @@
       @if (showAbout()) {
         <app-about></app-about>
       } @else {
-        <div class="lazy-loader">
-          <img [src]="loadingImage()" alt="Loading" class="loading-image" />
+        <div class="lazy-loader" role="status" aria-label="Loading">
+          <img [src]="loadingImage()" alt="" class="loading-image" />
         </div>
       }
     </div>
@@ -16,8 +16,8 @@
       @if (showProjects()) {
         <app-projects></app-projects>
       } @else {
-        <div class="lazy-loader">
-          <img [src]="loadingImage()" alt="Loading" class="loading-image" />
+        <div class="lazy-loader" role="status" aria-label="Loading">
+          <img [src]="loadingImage()" alt="" class="loading-image" />
         </div>
       }
     </div>
@@ -26,19 +26,19 @@
       @if (showExperience()) {
         <app-experience></app-experience>
       } @else {
-        <div class="lazy-loader">
-          <img [src]="loadingImage()" alt="Loading" class="loading-image" />
+        <div class="lazy-loader" role="status" aria-label="Loading">
+          <img [src]="loadingImage()" alt="" class="loading-image" />
         </div>
       }
     </div>
   </div>
 
-  <div class="contact-trigger" #contactTrigger>
+  <div class="contact-trigger" id="contact-section" #contactTrigger>
     @if (showContact()) {
       <app-contact style="width: 100vw"></app-contact>
     } @else {
-      <div class="lazy-loader">
-        <img [src]="loadingImage()" alt="Loading" class="loading-image" />
+      <div class="lazy-loader" role="status" aria-label="Loading">
+        <img [src]="loadingImage()" alt="" class="loading-image" />
       </div>
     }
 
@@ -50,7 +50,7 @@
     </a>
 
     <footer>
-      // Crafted by Nomacoda ©{{ actualYear() }}. Inspired by nature
+      <span>Crafted by Nomacoda ©{{ actualYear() }}. Inspired by nature</span>
       <img
         src="assets/images/icons/tree.svg"
         width="20"

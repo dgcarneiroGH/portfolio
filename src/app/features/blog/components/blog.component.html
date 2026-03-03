@@ -21,34 +21,38 @@
   <!-- Dashboard -->
   @if (!loading() && !hasError()) {
     @let viewModel = vm();
-    <header *ngIf="!viewModel.hasSlug">
-      <h1>{{ "BLOG.TITLE" | translate }}</h1>
-    </header>
+    @if (!viewModel.hasSlug) {
+      <header>
+        <h1>{{ "BLOG.TITLE" | translate }}</h1>
+      </header>
+    }
     <div class="section-container">
-      <!-- Posts list -->
-      <div
-        class="blog-cards-container"
-        *ngIf="viewModel.posts && !viewModel.hasSlug"
-      >
-        @for (post of viewModel.posts; track post._id) {
-          <app-post-card
-            [currentLocale]="viewModel.currentLocale"
-            [title]="post.title"
-            [date]="post.publishedAt"
-            [image]="post.image"
-            [excerpt]="post.excerpt"
-            [slug]="post.slug"
-          />
-        } @empty {
-          <p>{{ "BLOG.NO_POSTS" | translate }}</p>
-        }
-      </div>
+      @if (viewModel.posts && !viewModel.hasSlug) {
+        <div class="blog-cards-container">
+          @for (post of viewModel.posts; track post._id) {
+            <app-post-card
+              [currentLocale]="viewModel.currentLocale"
+              [title]="post.title"
+              [date]="post.publishedAt"
+              [image]="post.image"
+              [excerpt]="post.excerpt"
+              [slug]="post.slug"
+            />
+          } @empty {
+            <p>{{ "BLOG.NO_POSTS" | translate }}</p>
+          }
+        </div>
+      }
 
       <!-- Post -->
       @if (viewModel.hasSlug && viewModel.selectedPost; as post) {
         <div class="blog-post">
           <header class="blog-post__header">
-            <a class="blog-post__header__back-btn" routerLink="/blog">
+            <a
+              class="blog-post__header__back-btn"
+              routerLink="/blog"
+              [attr.aria-label]="'BLOG.BACK_TO_BLOG_ARIA' | translate"
+            >
               <img
                 src="assets/images/icons/back_arrow.avif"
                 [alt]="'BLOG.BACK_TO_BLOG' | translate"
@@ -63,12 +67,13 @@
           </header>
           <h2 class="blog-post__title">{{ post.title }}</h2>
           <p class="blog-post__content">{{ post.excerpt }}</p>
-          <img
-            *ngIf="post.image"
-            class="blog-post__image"
-            [src]="post.imageUrl"
-            [alt]="post.title"
-          />
+          @if (post.image) {
+            <img
+              class="blog-post__image"
+              [src]="post.imageUrl"
+              [alt]="post.title"
+            />
+          }
           <div class="blog-post__content" [innerHTML]="post.body"></div>
         </div>
       }
@@ -76,7 +81,11 @@
       <!-- Unknown post -->
       @if (viewModel.hasSlug && !viewModel.selectedPost) {
         <div class="blog-post blog-post--not-found">
-          <a class="blog-post__header__back-btn" routerLink="/blog">
+          <a
+            class="blog-post__header__back-btn"
+            routerLink="/blog"
+            [attr.aria-label]="'BLOG.BACK_TO_BLOG_ARIA' | translate"
+          >
             <img
               src="assets/images/icons/back_arrow.avif"
               [alt]="'BLOG.BACK_TO_BLOG' | translate"

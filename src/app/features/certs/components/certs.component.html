@@ -16,27 +16,28 @@
     <div class="tag-canvas">
       <div
         class="canvas-container"
-        *ngIf="showCanvas && filteredCerts.length > 0"
       >
-        <ng-tag-canvas [options]="tagCanvasOptions">
-          @for (cert of filteredCerts; track cert.name) {
-          <button
-            ngTag
-            class="cert-tag"
-            (click)="detectDblClick(cert)"
-            [attr.aria-label]="'Ver certificado: ' + cert.name"
-            type="button"
-          >
-            <img
-              class="canvas-img"
-              [src]="cert.iconSrc + '.avif'"
-              [alt]=""
-              aria-hidden="true"
-            />
-          </button>
-          }
-        </ng-tag-canvas>
-      </div>
+        @if (showCanvas && filteredCerts.length > 0) {
+          <ng-tag-canvas [options]="tagCanvasOptions">
+            @for (cert of filteredCerts; track cert.name) {
+            <button
+              ngTag
+              class="cert-tag"
+              (click)="detectDblClick(cert)"
+              [attr.aria-label]="'06_CERTS.VIEW_CERT' | translate: { name: cert.name }"
+              type="button"
+            >
+              <img
+                class="canvas-img"
+                [src]="cert.iconSrc + '.avif'"
+                alt=""
+                aria-hidden="true"
+              />
+            </button>
+            }
+          </ng-tag-canvas>
+        }
     </div>
   </div>
+</div>
 </section>

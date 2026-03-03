@@ -6,8 +6,10 @@
     "COLLAPSE_MENU": "Collapse language menu",
     "LANGUAGE_SELECTOR": "Language selector",
     "AVAILABLE_LANGUAGES": "Available languages",
-    "SKIP_TO_MAIN": "Skip to main content",
-    "SKIP_TO_NAV": "Skip to navigation"
+    "SKIP_TO_BLOG": "Skip to blog",
+    "SKIP_TO_NAV": "Skip to navigation",
+    "YEAR": "year",
+    "YEARS": "years"
   },
   "01_HOME": {
     "HELLO": "Hello, I'm Nomacoda",
@@ -28,6 +30,7 @@
   "03_SKILLS": {
     "SHOW_EXPERIENCE": "Show experience",
     "SKILLS": "Skills",
+    "TOGGLE_SKILL_LABEL": "Toggle view for {{name}}. {{experience}} of experience",
     "ANGULAR_ALT": "Angular framework logo",
     "REACT_ALT": "React library logo",
     "DOTNET_ALT": ".NET framework logo",
@@ -52,6 +55,9 @@
     "TI_TECHNICIAN": "IT Technician"
   },
   "05_PROJECTS": {
+    "VIEW_PROJECT": "View project {{name}}",
+    "TOGGLE_INFO_SHOW": "Show project information",
+    "TOGGLE_INFO_HIDE": "Hide project information",
     "DESCRIPTION_BABE": "Road transport route management system integrated with the HERE API. Calculates optimized routes based on parameters such as vehicle weight and size. Built with Angular and Django.",
     "DESCRIPTION_DATALAIA": "Data analysis platform developed for NTT Data using Angular and Django. It enables large-scale data visualization through interactive charts and customizable dashboards.",
     "DESCRIPTION_DFG": "Corporate website for DFG Natural Stone, providing direct access to a digital product catalog and the purchasing portal.",
@@ -74,7 +80,8 @@
     "PROJECT_ARCELOR_ALT": "ArcelorMittal railway logistics system"
   },
   "06_CERTS": {
-    "CERTS": "Certificates"
+    "CERTS": "Certificates",
+    "VIEW_CERT": "View certificate: {{name}}"
   },
   "07_CONTACT": {
     "NOW_WE_KNOW": "Now that you know me . . .",
@@ -87,7 +94,14 @@
   "BLOG": {
     "TITLE": "Blog",
     "FULL_POST": "Full Post",
-    "BACK_TO_BLOG": "Back to blog list"
+    "FULL_POST_ARIA": "Read the full article",
+    "BACK_TO_BLOG": "Back to blog list",
+    "BACK_TO_BLOG_ARIA": "Back to the blog articles list",
+    "LOADING": "Loading articles...",
+    "ERROR": "Error loading articles",
+    "CLEAR_ERROR": "Dismiss error",
+    "RETRY": "Retry",
+    "NO_POSTS": "No articles available"
   },
   "ERROR_404": {
     "TITLE": "Oops! It seems that path doesn't exist",

@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, input, signal, computed, effect } from '@angular/core';
+import { Component, computed, effect, inject, input, signal } from '@angular/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { AnimateDirective } from '../../../../shared/directives/animate.directive';
-import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-skill',
@@ -11,6 +11,8 @@ import { TranslateModule } from '@ngx-translate/core';
   styleUrl: './skill.component.scss'
 })
 export class SkillComponent {
+  private _translate = inject(TranslateService);
+
   progress = input.required<number>();
   text = input.required<string>();
   years = input.required<number>();
@@ -40,7 +42,7 @@ export class SkillComponent {
 
   experienceText = computed(() => {
     const years = this.years();
-    return `${years} ${years === 1 ? 'año' : 'años'}`;
+    return `${years} ${years === 1 ? this._translate.instant('COMMON.YEAR') : this._translate.instant('COMMON.YEARS')}`;
   });
 
   toggleProgress(): void {

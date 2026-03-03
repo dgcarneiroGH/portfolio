@@ -2,7 +2,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    // "baseUrl": "./",
+    "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
     "esModuleInterop": true,
@@ -23,7 +23,8 @@
       "dom"
     ],
     "types": [
-      "node"
+      "node",
+      "jasmine"
     ],
     "skipLibCheck": true,
     "useDefineForClassFields": false

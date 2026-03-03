@@ -1,7 +1,7 @@
 <article class="post-card">
   <div
     class="post-card__bg"
-    [ngStyle]="{ 'background-image': bgUrl ? 'url(' + bgUrl + ')' : 'none' }"
+    [style.background-image]="bgUrl ? 'url(' + bgUrl + ')' : 'none'"
   ></div>
   <div class="post-card__overlay"></div>
 
@@ -20,7 +20,7 @@
         color="#ffa726"
         [text]="'BLOG.FULL_POST' | translate"
         (buttonClick)="navigateToPostDetail()"
-        aria-label="Botón para ver el artículo completo"
+        [attr.aria-label]="'BLOG.FULL_POST_ARIA' | translate"
       ></app-button>
     </footer>
   </div>

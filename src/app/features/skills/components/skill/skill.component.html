@@ -3,7 +3,8 @@
   (click)="toggleProgress()"
   (keydown)="onKeyDown($event)"
   [attr.aria-label]="
-    'Alternar vista de ' + text() + '. ' + experienceText() + ' de experiencia'
+    '03_SKILLS.TOGGLE_SKILL_LABEL'
+      | translate: { name: text(), experience: experienceText() }
   "
   [attr.aria-expanded]="showProgressBar()"
   type="button"
@@ -16,6 +17,7 @@
     height="90"
     viewBox="0 0 120 60"
     xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
   >
     <defs>
       <linearGradient id="animatedGradient" x1="0%" y1="0%" x2="100%" y2="0%">

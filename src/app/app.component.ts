@@ -6,11 +6,12 @@ import {
   transition,
   trigger
 } from '@angular/animations';
-import { Component, signal } from '@angular/core';
+import { Component, effect, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { LangSelectorComponent } from './core/components/lang-selector/lang-selector.component';
 import { SidebarComponent } from './core/components/sidebar/sidebar.component';
+import { LangService } from './core/services/lang.service';
 
 @Component({
   selector: 'app-root',
@@ -113,7 +114,26 @@ import { SidebarComponent } from './core/components/sidebar/sidebar.component';
   ]
 })
 export class AppComponent {
+  private _langService = inject(LangService);
   appInitialized = signal(true);
+
+  constructor() {
+    // WCAG 3.1.1: Keep <html lang> in sync with the active locale
+    effect(() => {
+      document.documentElement.lang = this._langService.currentLanguage();
+    });
+  }
+
+  scrollToContact(event: Event): void {
+    event.preventDefault();
+    const contactSection = document.getElementById('contact-section');
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      // Move focus into the section for keyboard users
+      contactSection.setAttribute('tabindex', '-1');
+      contactSection.focus({ preventScroll: true });
+    }
+  }
 
   prepareRoute(outlet: RouterOutlet): string | null {
     return (

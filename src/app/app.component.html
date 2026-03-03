@@ -1,7 +1,12 @@
+<a
+  class="skip-link"
+  href="#blog"
+  [attr.aria-label]="'COMMON.SKIP_TO_BLOG' | translate"
+>{{ 'COMMON.SKIP_TO_BLOG' | translate }}</a>
 <header class="header">
   <app-lang-selector></app-lang-selector>
 </header>
 <app-sidebar />
-<main class="inner-body" [@routeAnimations]="prepareRoute(outlet)">
+<main id="main-content" class="inner-body" [@routeAnimations]="prepareRoute(outlet)">
   <router-outlet #outlet="outlet"></router-outlet>
 </main>

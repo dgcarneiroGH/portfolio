@@ -6,8 +6,10 @@
     "COLLAPSE_MENU": "Contraer menú de idiomas",
     "LANGUAGE_SELECTOR": "Selector de idioma",
     "AVAILABLE_LANGUAGES": "Idiomas disponibles",
-    "SKIP_TO_MAIN": "Saltar al contenido principal",
-    "SKIP_TO_NAV": "Saltar a la navegación"
+    "SKIP_TO_BLOG": "Saltar al blog",
+    "SKIP_TO_NAV": "Saltar a la navegación",
+    "YEAR": "año",
+    "YEARS": "años"
   },
   "01_HOME": {
     "HELLO": "Hola, soy Nomacoda",
@@ -28,6 +30,7 @@
   "03_SKILLS": {
     "SHOW_EXPERIENCE": "Mostrar experiencia",
     "SKILLS": "Habilidades",
+    "TOGGLE_SKILL_LABEL": "Alternar vista de {{name}}. {{experience}} de experiencia",
     "ANGULAR_ALT": "Logo del framework Angular",
     "REACT_ALT": "Logo de la librería React",
     "DOTNET_ALT": "Logo del framework .NET",
@@ -52,6 +55,9 @@
     "TI_TECHNICIAN": "Técnico de TI"
   },
   "05_PROJECTS": {
+    "VIEW_PROJECT": "Ver proyecto {{name}}",
+    "TOGGLE_INFO_SHOW": "Mostrar información del proyecto",
+    "TOGGLE_INFO_HIDE": "Ocultar información del proyecto",
     "DESCRIPTION_BABE": "Sistema de gestión de rutas por carretera integrado con la API de HERE. Permite calcular trayectos optimizados teniendo en cuenta parámetros como peso y dimensiones del vehículo. Desarrollado con Angular y Django.",
     "DESCRIPTION_DATALAIA": "Plataforma de análisis de datos desarrollada para NTT Data. Combinando Angular y Django, permite visualizar grandes volúmenes de información mediante gráficas interactivas y dashboards personalizables.",
     "DESCRIPTION_DFG": "Portal corporativo para la empresa DFG Natural Stone, con acceso directo al área de compras y catálogo digital de productos.",
@@ -74,7 +80,8 @@
     "PROJECT_ARCELOR_ALT": "Sistema de logística ferroviaria ArcelorMittal"
   },
   "06_CERTS": {
-    "CERTS": "Certificados"
+    "CERTS": "Certificados",
+    "VIEW_CERT": "Ver certificado: {{name}}"
   },
   "07_CONTACT": {
     "NOW_WE_KNOW": "Ahora que ya me conoces . . .",
@@ -87,7 +94,14 @@
   "BLOG": {
     "TITLE": "Blog",
     "FULL_POST": "Artículo completo",
-    "BACK_TO_BLOG": "Volver a la lista del blog"
+    "FULL_POST_ARIA": "Leer el artículo completo",
+    "BACK_TO_BLOG": "Volver a la lista del blog",
+    "BACK_TO_BLOG_ARIA": "Volver a la lista de artículos del blog",
+    "LOADING": "Cargando artículos...",
+    "ERROR": "Error al cargar los artículos",
+    "CLEAR_ERROR": "Cerrar error",
+    "RETRY": "Reintentar",
+    "NO_POSTS": "No hay artículos disponibles"
   },
   "ERROR_404": {
     "TITLE": "¡Vaya! Parece que esa ruta no existe",

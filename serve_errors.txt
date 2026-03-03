@@ -1,8 +1,0 @@
-
-> portfolio@1.0.0 start
-> ng serve
-
-[33m❯[39m Building...
-[31m✖[39m Building... [31m[FAILED: The service was stopped: write EPIPE][39m
-[1m[31mAn unhandled exception occurred: The service was stopped: write EPIPE
-See "C:\Users\DieGallu\AppData\Local\Temp\ng-1VPcHV\angular-errors.log" for further details.[39m[22m

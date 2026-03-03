@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { of } from 'rxjs';
 import { ExperienceComponent } from './experience.component';
+
+const mockLoader = { getTranslation: () => of({}) };
 
 describe('ExperienceComponent', () => {
   let component: ExperienceComponent;
@@ -8,14 +11,18 @@ describe('ExperienceComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ ExperienceComponent ]
-    })
-    .compileComponents();
+      imports: [
+        ExperienceComponent,
+        TranslateModule.forRoot({ loader: { provide: TranslateLoader, useValue: mockLoader } })
+      ]
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ExperienceComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
+
+  afterEach(() => fixture.destroy());
 
   it('should create', () => {
     expect(component).toBeTruthy();
