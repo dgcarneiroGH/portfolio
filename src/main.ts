@@ -1,24 +1,22 @@
 import { registerLocaleData } from '@angular/common';
 import {
-    HttpClient,
-    provideHttpClient,
-    withInterceptorsFromDi
+  HttpClient,
+  provideHttpClient,
+  withInterceptorsFromDi
 } from '@angular/common/http';
 import localeEn from '@angular/common/locales/en';
 import localeEs from '@angular/common/locales/es';
 import {
-    enableProdMode,
-    importProvidersFrom,
-    provideZonelessChangeDetection
+  enableProdMode,
+  importProvidersFrom,
+  provideZonelessChangeDetection
 } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { provideRouter, withHashLocation } from '@angular/router';
+import { provideRouter, withHashLocation, withViewTransitions } from '@angular/router';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AppComponent } from './app/app.component';
 import { routes } from './app/app.routes';
-import { AnimateDirective } from './app/shared/directives/animate.directive';
 import { environment } from './environments/environment';
 
 if (environment.production) {
@@ -35,11 +33,9 @@ registerLocaleData(localeEn, 'en-US');
 bootstrapApplication(AppComponent, {
   providers: [
     provideZonelessChangeDetection(),
-    provideRouter(routes, withHashLocation()),
+    provideRouter(routes, withHashLocation(), withViewTransitions()),
     provideHttpClient(withInterceptorsFromDi()),
-    importProvidersFrom(AnimateDirective),
     importProvidersFrom(
-      BrowserAnimationsModule,
       TranslateModule.forRoot({
         defaultLanguage: 'es-ES',
         loader: {

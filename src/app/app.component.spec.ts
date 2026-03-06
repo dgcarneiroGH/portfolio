@@ -1,6 +1,6 @@
 import { signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { provideRouter, RouterOutlet } from '@angular/router';
+import { provideRouter } from '@angular/router';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { AppComponent } from './app.component';
@@ -60,8 +60,8 @@ describe('AppComponent', () => {
       expect(component).toBeTruthy();
     });
 
-    it('should expose appInitialized signal as true', () => {
-      expect(component.appInitialized()).toBeTrue();
+    it('should expose isBlogRoute signal', () => {
+      expect(typeof component.isBlogRoute()).toBe('boolean');
     });
   });
 
@@ -100,19 +100,6 @@ describe('AppComponent', () => {
     });
   });
 
-  describe('#prepareRoute', () => {
-    it('should return null when outlet has no activated route data', () => {
-      const fakeOutlet = { activatedRouteData: {} } as RouterOutlet;
-      expect(component.prepareRoute(fakeOutlet)).toBeNull();
-    });
-
-    it('should return the animation name from activatedRouteData', () => {
-      const fakeOutlet = {
-        activatedRouteData: { animation: 'Home' }
-      } as unknown as RouterOutlet;
-      expect(component.prepareRoute(fakeOutlet)).toBe('Home');
-    });
-  });
 
   describe('accessibility — semantic structure', () => {
     it('should include a skip-link as the first focusable element', () => {

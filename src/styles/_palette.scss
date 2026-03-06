@@ -11,17 +11,10 @@ $text-red: #d9534f;
 // Accents
 $accent-yellow: #ffa726;
 $accent-blue: #29b6f6;
+$accent-green:#2ecc71;
 
-// Accessibility colors - High contrast and colorblind-friendly
-$accessible-success: #28a745; // High contrast green
-$accessible-warning: #ffc107; // High contrast yellow
-$accessible-error: #dc3545; // High contrast red
-$accessible-info: #17a2b8; // High contrast cyan
-
-// Pattern alternatives for colorblind users
-$pattern-dots: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNCIgaGVpZ2h0PSI0IiB2aWV3Qm94PSIwIDAgNCA0IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxjaXJjbGUgY3g9IjIiIGN5PSIyIiByPSIwLjUiIGZpbGw9IiNmZmYiIG9wYWNpdHk9IjAuNCIvPjwvc3ZnPg==";
-$pattern-stripes: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOCIgaGVpZ2h0PSI4IiB2aWV3Qm94PSIwIDAgOCA4IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxwYXRoIGQ9Im0wIDhsOC04bS0yIDhsOC04IiBzdHJva2U9IiNmZmYiIHN0cm9rZS13aWR0aD0iMC41IiBvcGFjaXR5PSIwLjMiLz48L3N2Zz4=";
-
-// Contrast ratios - WCAG AA compliant
-$min-contrast-ratio: 4.5;
-$enhanced-contrast-ratio: 7;
+// High contrast alternatives
+$accent-green-high: #1e8449;
+$accent-yellow-high: #e67e22;
+$text-red-high: #c0392b;
+$accent-blue-high: #1a5276;

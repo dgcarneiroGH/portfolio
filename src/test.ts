@@ -2,7 +2,6 @@
 
 import { getTestBed } from '@angular/core/testing';
 import { BrowserTestingModule, platformBrowserTesting } from '@angular/platform-browser/testing';
-import 'zone.js/testing';
 
 // Global stub for IntersectionObserver (not available in ChromeHeadless/JSDOM)
 (window as Window & { IntersectionObserver: unknown }).IntersectionObserver = class {

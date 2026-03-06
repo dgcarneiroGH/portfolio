@@ -49,3 +49,9 @@ You are an expert in TypeScript, Angular, and scalable web application developme
 ## General Best Practices
 
 - **NEVER** use deprecated libraries, components, or methods. Always pay attention to deprecation warnings and use the recommended modern alternatives.
+
+## Test-Driven Development (TDD)
+
+- **All new features MUST be developed following TDD**: write the test(s) first, then implement the feature to make them pass.
+- After the feature is complete, **always run the relevant tests** (`ng test`) to verify they pass before considering the task done.
+- Tests must be written using the project's testing stack (Jasmine + Karma). Follow the guidelines in the `angular-testing` skill.
