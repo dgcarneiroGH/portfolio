@@ -9,8 +9,8 @@ import {
   signal
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { ColorThiefService } from '@soarlin/angular-color-thief';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
+import { Color, getColorSync, getPaletteSync } from 'colorthief';
 
 @Component({
   standalone: true,
@@ -20,8 +20,6 @@ import { ButtonComponent } from '../../../../shared/components/button/button.com
   styleUrl: './project.component.scss'
 })
 export class ProjectComponent implements OnInit {
-  private _colorThief: ColorThiefService = inject(ColorThiefService);
-
   coverImgSrc = input.required<string>();
   name = input.required<string>();
   description = input.required<string>();
@@ -32,25 +30,20 @@ export class ProjectComponent implements OnInit {
 
   expandRequest = output<number>();
 
-  dominantColor: [number, number, number] | null = null;
+  dominantColor: Color | null = null;
 
-  palette = signal<[number, number, number][] | null>(null);
+  palette = signal<Color[] | null>(null);
   animationDelay = signal('0s');
 
   dynamicGradient = computed(() => {
     const palette = this.palette();
     if (!palette || palette.length <= 1) return '';
-    return `linear-gradient(135deg, rgb(${palette[0].join(',')}), rgb(${palette[1].join(',')}))`;
-  });
-
-  textColor = computed(() => {
-    const palette = this.palette();
-    return palette && palette[1] ? `rgb(${palette[1].join(',')})` : '#f6f8fa';
+    return `linear-gradient(135deg, ${palette[0].hex()}, ${palette[1].hex()})`;
   });
 
   btnColor = computed(() => {
     const palette = this.palette();
-    return palette && palette[1] ? `${palette[1].join(',')}` : '41,182,246';
+    return palette && palette[1] ? `${palette[1].hex()}` : '41,182,246';
   });
 
   showMoreInfo = computed(() => {
@@ -69,8 +62,8 @@ export class ProjectComponent implements OnInit {
   }
 
   onImageLoad(imageElement: HTMLImageElement) {
-    this.dominantColor = this._colorThief.getColor(imageElement);
-    this.palette.set(this._colorThief.getPalette(imageElement));
+    this.dominantColor = getColorSync(imageElement);
+    this.palette.set(getPaletteSync(imageElement, { colorCount: 2 }));
   }
 
   toggleMoreInfo() {
@@ -85,19 +78,13 @@ export class ProjectComponent implements OnInit {
   }
 
   handleMoreInfoClick(): void {
-    if (this.canToggleInfo()) {
-      this.toggleMoreInfo();
-    }
+    if (this.canToggleInfo()) this.toggleMoreInfo();
   }
 
   onKeyDown(event: KeyboardEvent, action: 'goTo' | 'toggleInfo') {
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
-      if (action === 'goTo') {
-        this.goTo();
-      } else {
-        this.handleMoreInfoClick();
-      }
+      action === 'goTo' ? this.goTo() : this.handleMoreInfoClick();
     }
   }
 }

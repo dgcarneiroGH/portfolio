@@ -1,13 +1,13 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { ColorThiefService } from '@soarlin/angular-color-thief';
 import { of } from 'rxjs';
 import { ProjectComponent } from './project.component';
 
 const mockLoader = { getTranslation: () => of({}) };
 
 const colorThiefSpy = jasmine.createSpyObj<ColorThiefService>(
-  'ColorThiefService', ['getColor', 'getPalette']
+  'ColorThiefService',
+  ['getColor', 'getPalette']
 );
 
 describe('ProjectComponent', () => {
@@ -18,11 +18,11 @@ describe('ProjectComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         ProjectComponent,
-        TranslateModule.forRoot({ loader: { provide: TranslateLoader, useValue: mockLoader } })
+        TranslateModule.forRoot({
+          loader: { provide: TranslateLoader, useValue: mockLoader }
+        })
       ],
-      providers: [
-        { provide: ColorThiefService, useValue: colorThiefSpy }
-      ]
+      providers: [{ provide: ColorThiefService, useValue: colorThiefSpy }]
     }).compileComponents();
 
     fixture = TestBed.createComponent(ProjectComponent);
