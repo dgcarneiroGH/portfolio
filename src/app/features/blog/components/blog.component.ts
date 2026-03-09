@@ -1,17 +1,17 @@
 import { CommonModule } from '@angular/common';
 import {
   Component,
-  inject,
-  signal,
   computed,
-  effect,
+  inject,
+  OnDestroy,
   OnInit,
-  OnDestroy
+  signal
 } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, RouterModule } from '@angular/router';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
+import { LoadingComponent } from 'src/app/shared/components/loading/loading.component';
 import { LangService } from '../../../core/services/lang.service';
 import { BlogViewModel } from '../models/blog-view-model.model';
 import { BodyContent, Post } from '../models/post.model';
@@ -22,7 +22,7 @@ import { PostCardComponent } from './post-card/post-card.component';
 @Component({
   selector: 'app-blog',
   standalone: true,
-  imports: [CommonModule, TranslateModule, RouterModule, PostCardComponent],
+  imports: [CommonModule, TranslateModule, RouterModule, PostCardComponent,LoadingComponent],
   providers: [SanityService],
   templateUrl: './blog.component.html',
   styleUrls: ['./blog.component.scss']
@@ -67,13 +67,13 @@ export class BlogComponent implements OnInit, OnDestroy {
 
   // Public signals for template
   posts = this._sanityService.posts;
-  loading = this._sanityService.loading;
+  // loading = this._sanityService.loading;
+  loading = signal(true);
   error = this._sanityService.error;
   hasError = this._sanityService.hasError;
 
   async ngOnInit() {
     await this._sanityService.loadPosts();
-
     this._routeSubscription = this._activatedRoute.paramMap.subscribe(
       (params) => {
         const slug = params.get('slug');
