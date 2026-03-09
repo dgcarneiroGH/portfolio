@@ -7,7 +7,7 @@
         <app-about></app-about>
       } @else {
         <div class="lazy-loader" role="status" aria-label="Loading">
-          <img [src]="loadingImage()" alt="" class="loading-image" />
+          <app-loading />
         </div>
       }
     </div>
@@ -17,7 +17,7 @@
         <app-projects></app-projects>
       } @else {
         <div class="lazy-loader" role="status" aria-label="Loading">
-          <img [src]="loadingImage()" alt="" class="loading-image" />
+          <app-loading />
         </div>
       }
     </div>
@@ -27,7 +27,7 @@
         <app-experience></app-experience>
       } @else {
         <div class="lazy-loader" role="status" aria-label="Loading">
-          <img [src]="loadingImage()" alt="" class="loading-image" />
+          <app-loading />
         </div>
       }
     </div>
@@ -38,7 +38,7 @@
       <app-contact style="width: 100vw"></app-contact>
     } @else {
       <div class="lazy-loader" role="status" aria-label="Loading">
-        <img [src]="loadingImage()" alt="" class="loading-image" />
+        <app-loading />
       </div>
     }
 

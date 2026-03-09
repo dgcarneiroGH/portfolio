@@ -22,7 +22,13 @@ import { PostCardComponent } from './post-card/post-card.component';
 @Component({
   selector: 'app-blog',
   standalone: true,
-  imports: [CommonModule, TranslateModule, RouterModule, PostCardComponent,LoadingComponent],
+  imports: [
+    CommonModule,
+    TranslateModule,
+    RouterModule,
+    PostCardComponent,
+    LoadingComponent
+  ],
   providers: [SanityService],
   templateUrl: './blog.component.html',
   styleUrls: ['./blog.component.scss']
@@ -67,8 +73,7 @@ export class BlogComponent implements OnInit, OnDestroy {
 
   // Public signals for template
   posts = this._sanityService.posts;
-  // loading = this._sanityService.loading;
-  loading = signal(true);
+  loading = this._sanityService.loading;
   error = this._sanityService.error;
   hasError = this._sanityService.hasError;
 
