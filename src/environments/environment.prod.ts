@@ -6,5 +6,6 @@ export const environment = {
     apiVersion: '2025-05-11',
     useCdn: true,
     token: undefined
-  }
+  },
+  n8nWebhookUrl: 'testurl.com'
 };

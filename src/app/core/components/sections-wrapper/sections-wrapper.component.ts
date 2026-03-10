@@ -17,6 +17,7 @@ import { HomeComponent } from '../../../features/home/components/home.component'
 import { ProjectsComponent } from '../../../features/projects/components/projects.component';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { LoadingComponent } from 'src/app/shared/components/loading/loading.component';
+import { ContactFormComponent } from '../../../features/contact/components/contact-form.component';
 
 @Component({
   selector: 'app-sections-wrapper',
@@ -30,7 +31,8 @@ import { LoadingComponent } from 'src/app/shared/components/loading/loading.comp
     CommonModule,
     RouterModule,
     TranslateModule,
-    LoadingComponent
+    LoadingComponent,
+    ContactFormComponent
   ],
   templateUrl: './sections-wrapper.component.html',
   styleUrls: ['./sections-wrapper.component.scss']
@@ -53,11 +55,13 @@ export class SectionsWrapperComponent implements AfterViewInit, OnDestroy {
   private _showProjects = signal(false);
   private _showExperience = signal(false);
   private _showContact = signal(false);
+  private _showContactForm = signal(false);
 
   showAbout = this._showAbout.asReadonly();
   showProjects = this._showProjects.asReadonly();
   showExperience = this._showExperience.asReadonly();
   showContact = this._showContact.asReadonly();
+  showContactForm = this._showContactForm.asReadonly();
 
   aboutTrigger = viewChild.required<ElementRef<HTMLDivElement>>('aboutTrigger');
   projectsTrigger =
@@ -66,6 +70,8 @@ export class SectionsWrapperComponent implements AfterViewInit, OnDestroy {
     viewChild.required<ElementRef<HTMLDivElement>>('experienceTrigger');
   contactTrigger =
     viewChild.required<ElementRef<HTMLDivElement>>('contactTrigger');
+  contactFormTrigger =
+    viewChild.required<ElementRef<HTMLDivElement>>('contactFormTrigger');
 
   ngAfterViewInit() {
     this.setupIntersectionObserver();
@@ -103,7 +109,11 @@ export class SectionsWrapperComponent implements AfterViewInit, OnDestroy {
         this.experienceTrigger().nativeElement,
         () => this._showExperience.set(true)
       ],
-      [this.contactTrigger().nativeElement, () => this._showContact.set(true)]
+      [this.contactTrigger().nativeElement, () => this._showContact.set(true)],
+      [
+        this.contactFormTrigger().nativeElement,
+        () => this._showContactForm.set(true)
+      ]
     ]);
 
     this.observer = new IntersectionObserver(

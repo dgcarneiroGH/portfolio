@@ -1,0 +1,60 @@
+<div class="contact-form-container">
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div>
+      <label for="fullName">Nombre completo</label>
+      <input
+        id="fullName"
+        formControlName="fullName"
+        type="text"
+        placeholder="Tu nombre"
+      />
+      @if (form.get("fullName")?.invalid && form.get("fullName")?.touched) {
+        <div class="error-message">
+          El nombre es obligatorio (mínimo 3 caracteres).
+        </div>
+      }
+    </div>
+    <div>
+      <label for="email">Email</label>
+      <input
+        id="email"
+        formControlName="email"
+        type="email"
+        placeholder="tu@email.com"
+      />
+      @if (form.get("email")?.invalid && form.get("email")?.touched) {
+        <div class="error-message">Introduce un email válido.</div>
+      }
+    </div>
+    <div>
+      <label for="message">Mensaje</label>
+      <textarea
+        id="message"
+        formControlName="message"
+        rows="5"
+        placeholder="Tu mensaje..."
+      ></textarea>
+
+      @if (form.get("message")?.invalid && form.get("message")?.touched) {
+        <div class="error-message">
+          El mensaje es obligatorio (mínimo 10 caracteres).
+        </div>
+      }
+    </div>
+    <button type="submit" [disabled]="form.invalid || formStatus().loading">
+      Enviar
+    </button>
+  </form>
+
+  @if (formStatus().loading) {
+    <app-loading />
+  }
+
+  @if (formStatus().success) {
+    <div class="success-message">{{ formStatus().success }}</div>
+  }
+
+  @if (formStatus().error) {
+    <div class="error-message">{{ formStatus().error }}</div>
+  }
+</div>

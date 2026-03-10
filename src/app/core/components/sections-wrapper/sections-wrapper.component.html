@@ -32,8 +32,8 @@
       }
     </div>
   </div>
-
-  <div class="contact-trigger" id="contact-section" #contactTrigger>
+  <!-- TODO:Mix with contact form -->
+  <!-- <div class="contact-trigger" id="contact-section" #contactTrigger>
     @if (showContact()) {
       <app-contact style="width: 100vw"></app-contact>
     } @else {
@@ -41,24 +41,40 @@
         <app-loading />
       </div>
     }
+  </div> -->
 
-    <a class="blog-btn" routerLink="/blog">
-      <img
-        src="assets/images/icons/blog_signal.avif"
-        [alt]="'COMMON.NAV_BLOG' | translate"
-      />
-    </a>
-
-    <footer>
-      <span>Crafted by Nomacoda ©{{ actualYear() }}. Inspired by nature</span>
-      <img
-        src="assets/images/icons/tree.svg"
-        width="20"
-        height="20"
-        style="vertical-align: middle; margin-left: 0.3em"
-        alt=""
-        loading="lazy"
-      />
-    </footer>
+  <!-- <div
+    class="contact-form-trigger"
+    id="contact-form-section"
+    #contactFormTrigger
+  >
+    @if (showContactForm()) { -->
+  <div>
+    <app-contact-form style="width: 100vw"></app-contact-form>
   </div>
+  <!-- } @else {
+      <div class="lazy-loader" role="status" aria-label="Loading">
+        <app-loading />
+      </div>
+    }
+  </div> -->
+
+  <a class="blog-btn" routerLink="/blog">
+    <img
+      src="assets/images/icons/blog_signal.avif"
+      [alt]="'COMMON.NAV_BLOG' | translate"
+    />
+  </a>
+
+  <footer>
+    <span>Crafted by Nomacoda ©{{ actualYear() }}. Inspired by nature</span>
+    <img
+      src="assets/images/icons/tree.svg"
+      width="20"
+      height="20"
+      style="vertical-align: middle; margin-left: 0.3em"
+      alt=""
+      loading="lazy"
+    />
+  </footer>
 </div>
