@@ -21,7 +21,7 @@
           "builder": "@angular/build:application",
           "options": {
             "outputPath": {
-              "base": "dist/portfolio"
+              "base": "dist/portfolio/browser"
             },
             "index": "src/index.html",
             "tsConfig": "tsconfig.app.json",
@@ -38,9 +38,7 @@
             ],
             "browser": "src/main.ts",
             "stylePreprocessorOptions": {
-              "includePaths": [
-                "."
-              ]
+              "includePaths": ["."]
             }
           },
           "configurations": {
