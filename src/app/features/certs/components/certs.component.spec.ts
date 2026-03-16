@@ -1,3 +1,7 @@
+import {
+  provideZonelessChangeDetection,
+  CUSTOM_ELEMENTS_SCHEMA
+} from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
@@ -13,8 +17,12 @@ describe('CertsComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         CertsComponent,
-        TranslateModule.forRoot({ loader: { provide: TranslateLoader, useValue: mockLoader } })
-      ]
+        TranslateModule.forRoot({
+          loader: { provide: TranslateLoader, useValue: mockLoader }
+        })
+      ],
+      providers: [provideZonelessChangeDetection()],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
 
     fixture = TestBed.createComponent(CertsComponent);

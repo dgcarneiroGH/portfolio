@@ -16,7 +16,6 @@ import { ExperienceComponent } from '../../../features/experience/components/exp
 import { HomeComponent } from '../../../features/home/components/home.component';
 import { ProjectsComponent } from '../../../features/projects/components/projects.component';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { LoadingComponent } from 'src/app/shared/components/loading/loading.component';
 import { ContactFormComponent } from '../../../features/contact/components/contact-form.component';
 
 @Component({
@@ -31,7 +30,6 @@ import { ContactFormComponent } from '../../../features/contact/components/conta
     CommonModule,
     RouterModule,
     TranslateModule,
-    LoadingComponent,
     ContactFormComponent
   ],
   templateUrl: './sections-wrapper.component.html',

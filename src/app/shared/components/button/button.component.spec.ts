@@ -1,3 +1,4 @@
+import { provideZonelessChangeDetection } from '@angular/core';
 import { outputToObservable } from '@angular/core/rxjs-interop';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ButtonComponent } from './button.component';
@@ -8,7 +9,8 @@ describe('ButtonComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ButtonComponent]
+      imports: [ButtonComponent],
+      providers: [provideZonelessChangeDetection()]
     }).compileComponents();
 
     fixture = TestBed.createComponent(ButtonComponent);
@@ -53,7 +55,9 @@ describe('ButtonComponent', () => {
   describe('#onClick', () => {
     it('should emit buttonClick when not disabled', () => {
       let emitted = false;
-      outputToObservable(component.buttonClick).subscribe(() => emitted = true);
+      outputToObservable(component.buttonClick).subscribe(
+        () => (emitted = true)
+      );
 
       component.onClick();
 
@@ -65,7 +69,9 @@ describe('ButtonComponent', () => {
       fixture.detectChanges();
 
       let emitted = false;
-      outputToObservable(component.buttonClick).subscribe(() => emitted = true);
+      outputToObservable(component.buttonClick).subscribe(
+        () => (emitted = true)
+      );
 
       component.onClick();
 
@@ -76,7 +82,9 @@ describe('ButtonComponent', () => {
   describe('#onKeyDown — keyboard accessibility', () => {
     it('should emit buttonClick on Enter key', () => {
       let emitted = false;
-      outputToObservable(component.buttonClick).subscribe(() => emitted = true);
+      outputToObservable(component.buttonClick).subscribe(
+        () => (emitted = true)
+      );
 
       component.onKeyDown(new KeyboardEvent('keydown', { key: 'Enter' }));
 
@@ -85,7 +93,9 @@ describe('ButtonComponent', () => {
 
     it('should emit buttonClick on Space key', () => {
       let emitted = false;
-      outputToObservable(component.buttonClick).subscribe(() => emitted = true);
+      outputToObservable(component.buttonClick).subscribe(
+        () => (emitted = true)
+      );
 
       component.onKeyDown(new KeyboardEvent('keydown', { key: ' ' }));
 
@@ -97,7 +107,9 @@ describe('ButtonComponent', () => {
       fixture.detectChanges();
 
       let emitted = false;
-      outputToObservable(component.buttonClick).subscribe(() => emitted = true);
+      outputToObservable(component.buttonClick).subscribe(
+        () => (emitted = true)
+      );
 
       component.onKeyDown(new KeyboardEvent('keydown', { key: 'Enter' }));
 
@@ -106,7 +118,9 @@ describe('ButtonComponent', () => {
 
     it('should NOT emit on any other key', () => {
       let emitted = false;
-      outputToObservable(component.buttonClick).subscribe(() => emitted = true);
+      outputToObservable(component.buttonClick).subscribe(
+        () => (emitted = true)
+      );
 
       component.onKeyDown(new KeyboardEvent('keydown', { key: 'Tab' }));
 

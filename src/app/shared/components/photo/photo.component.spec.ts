@@ -1,3 +1,4 @@
+import { provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { PhotoComponent } from './photo.component';
 
@@ -7,7 +8,8 @@ describe('PhotoComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PhotoComponent]
+      imports: [PhotoComponent],
+      providers: [provideZonelessChangeDetection()]
     }).compileComponents();
 
     fixture = TestBed.createComponent(PhotoComponent);
@@ -41,7 +43,9 @@ describe('PhotoComponent', () => {
 
   describe('accessibility — image alt text', () => {
     it('should render an img element with the provided altText', () => {
-      const img = fixture.nativeElement.querySelector('img') as HTMLImageElement | null;
+      const img = fixture.nativeElement.querySelector(
+        'img'
+      ) as HTMLImageElement | null;
       if (img) {
         expect(img.alt).toBe('Diego Carneiro profile photo');
       } else {

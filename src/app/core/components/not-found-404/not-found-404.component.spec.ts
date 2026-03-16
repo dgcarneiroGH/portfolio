@@ -1,3 +1,4 @@
+import { provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -14,9 +15,11 @@ describe('NotFound404Component', () => {
     await TestBed.configureTestingModule({
       imports: [
         NotFound404Component,
-        TranslateModule.forRoot({ loader: { provide: TranslateLoader, useValue: mockLoader } })
+        TranslateModule.forRoot({
+          loader: { provide: TranslateLoader, useValue: mockLoader }
+        })
       ],
-      providers: [provideRouter([])]
+      providers: [provideZonelessChangeDetection(), provideRouter([])]
     }).compileComponents();
 
     fixture = TestBed.createComponent(NotFound404Component);

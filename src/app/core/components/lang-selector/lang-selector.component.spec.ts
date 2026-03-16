@@ -1,3 +1,4 @@
+import { provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -8,10 +9,13 @@ import { LangSelectorComponent } from './lang-selector.component';
 
 const mockLoader = { getTranslation: () => of({}) };
 
-function buildLangServiceSpy(currentLang = 'es-ES'): jasmine.SpyObj<LangService> {
+function buildLangServiceSpy(
+  currentLang = 'es-ES'
+): jasmine.SpyObj<LangService> {
   const spy = jasmine.createSpyObj<LangService>('LangService', ['setLanguage']);
   // Provide a readonly-compatible signal via a plain function
-  (spy as { currentLanguage: () => string }).currentLanguage = () => currentLang;
+  (spy as { currentLanguage: () => string }).currentLanguage = () =>
+    currentLang;
   return spy;
 }
 
@@ -31,6 +35,7 @@ describe('LangSelectorComponent', () => {
         })
       ],
       providers: [
+        provideZonelessChangeDetection(),
         { provide: LangService, useValue: langServiceSpy }
       ]
     }).compileComponents();
@@ -40,7 +45,11 @@ describe('LangSelectorComponent', () => {
     fixture.detectChanges();
   });
 
-  afterEach(() => fixture.destroy());
+  afterEach(() => {
+    if (fixture) {
+      fixture.destroy();
+    }
+  });
 
   describe('creation', () => {
     it('should create', () => {
@@ -61,7 +70,7 @@ describe('LangSelectorComponent', () => {
 
   describe('#filteredLanguages (computed)', () => {
     it('should exclude the currently active language from the list', () => {
-      const ids = component.filteredLanguages().map(l => l.id);
+      const ids = component.filteredLanguages().map((l) => l.id);
       expect(ids).not.toContain('es-ES');
       expect(ids).toContain('en-US');
     });

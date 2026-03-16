@@ -11,13 +11,13 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
-import { LoadingComponent } from 'src/app/shared/components/loading/loading.component';
 import { LangService } from '../../../core/services/lang.service';
 import { BlogViewModel } from '../models/blog-view-model.model';
 import { BodyContent, Post } from '../models/post.model';
 import { ProcessedPost } from '../models/processed-post.model';
 import { SanityService } from './../../../core/services/sanity.service';
 import { PostCardComponent } from './post-card/post-card.component';
+import { LoadingComponent } from '../../../shared/components/loading/loading.component';
 
 @Component({
   selector: 'app-blog',

@@ -1,10 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import {
-  CertFilter,
-  CertFilterItem
-} from 'src/app/features/certs/interfaces/certs.interface';
 import { ToggleButtonComponent } from '../../../../shared/components/toggle-button/toggle-button.component';
+import { CertFilter, CertFilterItem } from '../../interfaces/certs.interface';
 
 @Component({
   selector: 'app-certs-filter',
