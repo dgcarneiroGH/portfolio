@@ -2,45 +2,10 @@
   <app-home></app-home>
 
   <div class="cave-components">
-    <div class="about-trigger" #aboutTrigger>
-      @if (showAbout()) {
-        <app-about></app-about>
-      } @else {
-        <div class="lazy-loader" role="status" aria-label="Loading">
-          <app-loading />
-        </div>
-      }
-    </div>
-
-    <div class="projects-trigger" #projectsTrigger>
-      @if (showProjects()) {
-        <app-projects></app-projects>
-      } @else {
-        <div class="lazy-loader" role="status" aria-label="Loading">
-          <app-loading />
-        </div>
-      }
-    </div>
-
-    <div class="experience-trigger" #experienceTrigger>
-      @if (showExperience()) {
-        <app-experience></app-experience>
-      } @else {
-        <div class="lazy-loader" role="status" aria-label="Loading">
-          <app-loading />
-        </div>
-      }
-    </div>
-  </div>
-
-  <div class="contact-trigger" id="contact-section" #contactTrigger>
-    @if (showContact()) {
-      <app-contact style="width: 100vw"></app-contact>
-    } @else {
-      <div class="lazy-loader" role="status" aria-label="Loading">
-        <app-loading />
-      </div>
-    }
+    <app-about></app-about>
+    <app-projects></app-projects>
+    <app-experience></app-experience>
+    <app-contact style="width: 100vw"></app-contact>
 
     <a class="blog-btn" routerLink="/blog">
       <img
