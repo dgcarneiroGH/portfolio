@@ -3,7 +3,7 @@ import { Component, signal, inject } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { ContactService } from '../services/contact.service';
 import { ContactInquiry } from '../interfaces/contact-inquiry.interface';
-import { LoadingComponent } from 'src/app/shared/components/loading/loading.component';
+import { LoadingComponent } from '../../../shared/components/loading/loading.component';
 
 interface FormStatus {
   loading: boolean;
@@ -14,7 +14,7 @@ interface FormStatus {
 @Component({
   selector: 'app-contact-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, LoadingComponent],
+  imports: [CommonModule, ReactiveFormsModule,LoadingComponent],
   templateUrl: './contact-form.component.html',
   styleUrls: ['./contact-form.component.scss']
 })
