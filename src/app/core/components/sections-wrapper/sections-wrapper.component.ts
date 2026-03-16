@@ -29,8 +29,7 @@ import { LoadingComponent } from 'src/app/shared/components/loading/loading.comp
     ProjectsComponent,
     CommonModule,
     RouterModule,
-    TranslateModule,
-    LoadingComponent
+    TranslateModule
   ],
   templateUrl: './sections-wrapper.component.html',
   styleUrls: ['./sections-wrapper.component.scss']
