@@ -1,5 +1,10 @@
-import { TestBed, fakeAsync, tick } from '@angular/core/testing';
-import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
+import { provideZonelessChangeDetection } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
+import {
+  TranslateLoader,
+  TranslateModule,
+  TranslateService
+} from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { LangService } from './lang.service';
 
@@ -17,7 +22,8 @@ function setup(savedLang?: string, browserLang?: string) {
       TranslateModule.forRoot({
         loader: { provide: TranslateLoader, useValue: mockLoader }
       })
-    ]
+    ],
+    providers: [provideZonelessChangeDetection()]
   });
 
   if (browserLang) {
@@ -47,86 +53,78 @@ describe('LangService', () => {
   });
 
   describe('#setLanguage', () => {
-    it('should update currentLanguage signal to a valid language', fakeAsync(() => {
+    it('should update currentLanguage signal to a valid language', () => {
       const service = setup('es-ES');
       service.setLanguage('en-US');
-      tick();
       expect(service.currentLanguage()).toBe('en-US');
-    }));
+    });
 
-    it('should NOT update currentLanguage for an unsupported language', fakeAsync(() => {
+    it('should NOT update currentLanguage for an unsupported language', () => {
       const service = setup('es-ES');
-      tick(); // let initial setLanguage resolve
       service.setLanguage('fr-FR' as string);
-      tick();
       expect(service.currentLanguage()).toBe('es-ES');
-    }));
+    });
 
-    it('should persist language to localStorage when changed', fakeAsync(() => {
+    it('should persist language to localStorage when changed', async () => {
       const service = setup('es-ES');
-      tick();
       service.setLanguage('en-US');
-      tick();
+
+      // Wait a short time for async operations to complete
+      await new Promise((resolve) => setTimeout(resolve, 50));
+
       expect(localStorage.getItem('language')).toBe('en-US');
-    }));
+    });
   });
 
   describe('#getLanguage', () => {
-    it('should return the current language string', fakeAsync(() => {
+    it('should return the current language string', () => {
       const service = setup('en-US');
-      tick();
       expect(service.getLanguage()).toBe('en-US');
-    }));
+    });
   });
 
   describe('#isSpanish / #isEnglish', () => {
-    it('should return true for isSpanish when lang is es-ES', fakeAsync(() => {
+    it('should return true for isSpanish when lang is es-ES', () => {
       const service = setup('es-ES');
-      tick();
       expect(service.isSpanish()).toBeTrue();
       expect(service.isEnglish()).toBeFalse();
-    }));
+    });
 
-    it('should return true for isEnglish when lang is en-US', fakeAsync(() => {
+    it('should return true for isEnglish when lang is en-US', () => {
       const service = setup('en-US');
-      tick();
       expect(service.isEnglish()).toBeTrue();
       expect(service.isSpanish()).toBeFalse();
-    }));
+    });
   });
 
   describe('language resolution priority', () => {
-    it('should prioritise savedLang from localStorage', fakeAsync(() => {
+    it('should prioritise savedLang from localStorage', () => {
       const service = setup('en-US');
-      tick();
       expect(service.currentLanguage()).toBe('en-US');
-    }));
+    });
 
-    it('should fall back to es-ES when saved lang is invalid', fakeAsync(() => {
+    it('should fall back to es-ES when saved lang is invalid', () => {
       localStorage.setItem('language', 'fr-FR');
       TestBed.configureTestingModule({
         imports: [
           TranslateModule.forRoot({
             loader: { provide: TranslateLoader, useValue: mockLoader }
           })
-        ]
+        ],
+        providers: [provideZonelessChangeDetection()]
       });
 
       const translate = TestBed.inject(TranslateService);
       spyOn(translate, 'getBrowserLang').and.returnValue('fr');
 
       const service = TestBed.inject(LangService);
-      tick();
       // 'fr' does not start with 'es', so should resolve to 'en-US'
       expect(service.currentLanguage()).toBe('en-US');
-    }));
+    });
 
-    it('should map a Spanish browser lang to es-ES when no saved lang',
-      fakeAsync(() => {
-        const service = setup(undefined, 'es');
-        tick();
-        expect(service.currentLanguage()).toBe('es-ES');
-      })
-    );
+    it('should map a Spanish browser lang to es-ES when no saved lang', () => {
+      const service = setup(undefined, 'es');
+      expect(service.currentLanguage()).toBe('es-ES');
+    });
   });
 });

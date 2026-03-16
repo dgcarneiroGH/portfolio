@@ -1,10 +1,15 @@
+import { provideZonelessChangeDetection } from '@angular/core';
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { TimelineDirective } from './timeline.directive';
 
 @Component({
-  template: `<div appTimeline customClassName="in-view" style="height:10px"></div>`,
+  template: `<div
+    appTimeline
+    customClassName="in-view"
+    style="height:10px"
+  ></div>`,
   imports: [TimelineDirective]
 })
 class TestHostComponent {}
@@ -15,12 +20,14 @@ describe('TimelineDirective', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TestHostComponent]
+      imports: [TestHostComponent],
+      providers: [provideZonelessChangeDetection()]
     }).compileComponents();
 
     fixture = TestBed.createComponent(TestHostComponent);
     fixture.detectChanges();
-    hostEl = fixture.debugElement.query(By.directive(TimelineDirective)).nativeElement as HTMLElement;
+    hostEl = fixture.debugElement.query(By.directive(TimelineDirective))
+      .nativeElement as HTMLElement;
   });
 
   afterEach(() => fixture.destroy());
@@ -39,8 +46,14 @@ describe('TimelineDirective', () => {
 
       // Mock getBoundingClientRect to simulate in-viewport element
       spyOn(hostEl, 'getBoundingClientRect').and.returnValue({
-        top: 10, left: 10, bottom: 100, right: 200,
-        width: 190, height: 90, x: 10, y: 10,
+        top: 10,
+        left: 10,
+        bottom: 100,
+        right: 200,
+        width: 190,
+        height: 90,
+        x: 10,
+        y: 10,
         toJSON: () => ({})
       } as DOMRect);
 
@@ -53,8 +66,14 @@ describe('TimelineDirective', () => {
         .injector.get(TimelineDirective);
 
       spyOn(hostEl, 'getBoundingClientRect').and.returnValue({
-        top: 9999, left: 0, bottom: 10000, right: 200,
-        width: 200, height: 1, x: 0, y: 9999,
+        top: 9999,
+        left: 0,
+        bottom: 10000,
+        right: 200,
+        width: 200,
+        height: 1,
+        x: 0,
+        y: 9999,
         toJSON: () => ({})
       } as DOMRect);
 
@@ -100,7 +119,9 @@ describe('TimelineDirective', () => {
 
       directive.toggleView();
 
-      const count = Array.from(hostEl.classList).filter(c => c === 'in-view').length;
+      const count = Array.from(hostEl.classList).filter(
+        (c) => c === 'in-view'
+      ).length;
       expect(count).toBe(1);
     });
   });

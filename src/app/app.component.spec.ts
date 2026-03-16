@@ -1,4 +1,4 @@
-import { signal } from '@angular/core';
+import { provideZonelessChangeDetection, signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
@@ -31,6 +31,7 @@ describe('AppComponent', () => {
         })
       ],
       providers: [
+        provideZonelessChangeDetection(),
         provideRouter([]),
         { provide: LangService, useValue: langServiceStub }
       ]
@@ -83,7 +84,10 @@ describe('AppComponent', () => {
       spyOn(event, 'preventDefault');
       component.scrollToContact(event);
 
-      expect(scrollSpy).toHaveBeenCalledWith({ behavior: 'smooth', block: 'start' });
+      expect(scrollSpy).toHaveBeenCalledWith({
+        behavior: 'smooth',
+        block: 'start'
+      });
       document.body.removeChild(section);
     });
 
@@ -100,10 +104,11 @@ describe('AppComponent', () => {
     });
   });
 
-
   describe('accessibility — semantic structure', () => {
     it('should include a skip-link as the first focusable element', () => {
-      const skipLink = fixture.nativeElement.querySelector('a.skip-link') as HTMLAnchorElement | null;
+      const skipLink = fixture.nativeElement.querySelector(
+        'a.skip-link'
+      ) as HTMLAnchorElement | null;
       expect(skipLink).toBeTruthy();
     });
 

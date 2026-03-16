@@ -16,7 +16,6 @@ import { ExperienceComponent } from '../../../features/experience/components/exp
 import { HomeComponent } from '../../../features/home/components/home.component';
 import { ProjectsComponent } from '../../../features/projects/components/projects.component';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { LoadingComponent } from 'src/app/shared/components/loading/loading.component';
 
 @Component({
   selector: 'app-sections-wrapper',

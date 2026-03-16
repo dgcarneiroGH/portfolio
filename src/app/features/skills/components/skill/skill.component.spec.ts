@@ -1,5 +1,10 @@
-import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
-import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
+import { provideZonelessChangeDetection } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  TranslateLoader,
+  TranslateModule,
+  TranslateService
+} from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { SkillComponent } from './skill.component';
 
@@ -9,14 +14,28 @@ const mockTranslations = {
 };
 const mockLoader = { getTranslation: () => of(mockTranslations) };
 
-function setRequiredInputs(fixture: ComponentFixture<SkillComponent>, overrides: Partial<{
-  progress: number; text: string; years: number; logoSrc: string; altKey: string; showProgressBar: boolean;
-}> = {}): void {
+function setRequiredInputs(
+  fixture: ComponentFixture<SkillComponent>,
+  overrides: Partial<{
+    progress: number;
+    text: string;
+    years: number;
+    logoSrc: string;
+    altKey: string;
+    showProgressBar: boolean;
+  }> = {}
+): void {
   fixture.componentRef.setInput('progress', overrides.progress ?? 75);
   fixture.componentRef.setInput('text', overrides.text ?? 'Angular');
   fixture.componentRef.setInput('years', overrides.years ?? 3);
-  fixture.componentRef.setInput('logoSrc', overrides.logoSrc ?? '/assets/angular.svg');
-  fixture.componentRef.setInput('altKey', overrides.altKey ?? 'SKILLS.ANGULAR_ALT');
+  fixture.componentRef.setInput(
+    'logoSrc',
+    overrides.logoSrc ?? '/assets/angular.svg'
+  );
+  fixture.componentRef.setInput(
+    'altKey',
+    overrides.altKey ?? 'SKILLS.ANGULAR_ALT'
+  );
   if (overrides.showProgressBar !== undefined) {
     fixture.componentRef.setInput('showProgressBar', overrides.showProgressBar);
   }
@@ -34,7 +53,8 @@ describe('SkillComponent', () => {
         TranslateModule.forRoot({
           loader: { provide: TranslateLoader, useValue: mockLoader }
         })
-      ]
+      ],
+      providers: [provideZonelessChangeDetection()]
     }).compileComponents();
 
     fixture = TestBed.createComponent(SkillComponent);
@@ -43,7 +63,11 @@ describe('SkillComponent', () => {
     translate.use('es-ES');
   });
 
-  afterEach(() => fixture.destroy());
+  afterEach(() => {
+    if (fixture) {
+      fixture.destroy();
+    }
+  });
 
   describe('creation', () => {
     it('should create with required inputs', () => {
@@ -83,17 +107,19 @@ describe('SkillComponent', () => {
       expect(component.currentStrokeDasharray()).toBe('0 200');
     });
 
-    it('should update to computed value 300ms after showProgressBar becomes true', fakeAsync(() => {
+    it('should update to computed value after showProgressBar becomes true', async () => {
       setRequiredInputs(fixture, { showProgressBar: false });
       fixture.detectChanges();
 
       fixture.componentRef.setInput('showProgressBar', true);
       fixture.detectChanges();
-      tick(300);
+
+      // Wait a short time for async operations to complete
+      await new Promise((resolve) => setTimeout(resolve, 350));
       fixture.detectChanges();
 
       expect(component.currentStrokeDasharray()).not.toBe('0 200');
-    }));
+    });
   });
 
   describe('#experienceText (computed)', () => {

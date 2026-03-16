@@ -5,13 +5,8 @@
   "scripts": {
     "start": "ng serve",
     "build": "ng build --base-href",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist/portfolio",
-    "format": "prettier \"src/**/*.html\" --write",
-    "format:check": "prettier \"src/**/*.html\" --check",
-    "compodoc": "npx compodoc -p tsconfig.doc.json -w -s --hideGenerator",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "test:ci": "ng test --watch=false --browsers=ChromeHeadless"
   },
   "private": true,
   "dependencies": {

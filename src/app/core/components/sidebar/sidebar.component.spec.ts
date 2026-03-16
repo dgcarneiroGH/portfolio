@@ -1,3 +1,4 @@
+import { provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
@@ -17,7 +18,8 @@ describe('SidebarComponent', () => {
         TranslateModule.forRoot({
           loader: { provide: TranslateLoader, useValue: mockLoader }
         })
-      ]
+      ],
+      providers: [provideZonelessChangeDetection()]
     }).compileComponents();
 
     fixture = TestBed.createComponent(SidebarComponent);
@@ -61,18 +63,20 @@ describe('SidebarComponent', () => {
     });
 
     it('should include a LinkedIn profile', () => {
-      const linkedin = component.links().find(l => l.title === 'LinkedIn');
+      const linkedin = component.links().find((l) => l.title === 'LinkedIn');
       expect(linkedin).toBeTruthy();
     });
 
     it('should include a GitHub profile', () => {
-      const github = component.links().find(l => l.title === 'GitHub');
+      const github = component.links().find((l) => l.title === 'GitHub');
       expect(github).toBeTruthy();
     });
 
     it('should have a valid URL for each social profile that starts with https', () => {
-      const externalLinks = component.links().filter(l => l.profileUrl.startsWith('http'));
-      externalLinks.forEach(link => {
+      const externalLinks = component
+        .links()
+        .filter((l) => l.profileUrl.startsWith('http'));
+      externalLinks.forEach((link) => {
         expect(link.profileUrl).toMatch(/^https:\/\//);
       });
     });
@@ -80,7 +84,9 @@ describe('SidebarComponent', () => {
 
   describe('accessibility', () => {
     it('should render social links as anchor elements', () => {
-      const anchors = fixture.nativeElement.querySelectorAll('a[href]') as NodeListOf<HTMLAnchorElement>;
+      const anchors = fixture.nativeElement.querySelectorAll(
+        'a[href]'
+      ) as NodeListOf<HTMLAnchorElement>;
       expect(anchors.length).toBeGreaterThan(0);
     });
   });
