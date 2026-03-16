@@ -8,6 +8,7 @@
   CHROMEDRIVER_SKIP_DOWNLOAD = "true"
   PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD = "true"
   PUPPETEER_SKIP_CHROMIUM_DOWNLOAD = "true"
+  CHROME_BIN = "/usr/bin/google-chrome"
 
 [[redirects]]
   from = "/*"
