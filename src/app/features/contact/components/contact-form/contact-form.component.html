@@ -19,10 +19,12 @@
         id="email"
         formControlName="email"
         type="email"
-        placeholder="tu@email.com"
+        placeholder="Tu correo electrónico"
       />
       @if (invalid("email")) {
-        <div class="error-message">Introduce un email válido.</div>
+        <div class="error-message">
+          Introduce un email válido, ej:tu@email.com.
+        </div>
       }
     </div>
     <div>
@@ -30,7 +32,7 @@
         id="message"
         formControlName="message"
         rows="5"
-        placeholder="Tu mensaje..."
+        placeholder="Cuéntame sobre tu proyecto o lo que quieras compartir"
       ></textarea>
 
       @if (invalid("message")) {
