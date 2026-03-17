@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, signal, inject } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
-import { ContactService } from '../services/contact.service';
-import { ContactInquiry } from '../interfaces/contact-inquiry.interface';
-import { LoadingComponent } from '../../../shared/components/loading/loading.component';
+import { LoadingComponent } from '../../../../shared/components/loading/loading.component';
+import { ContactService } from '../../services/contact.service';
+import { ContactInquiry } from '../../interfaces/contact-inquiry.interface';
 
 interface FormStatus {
   loading: boolean;
@@ -14,7 +14,7 @@ interface FormStatus {
 @Component({
   selector: 'app-contact-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule,LoadingComponent],
+  imports: [CommonModule, ReactiveFormsModule, LoadingComponent],
   templateUrl: './contact-form.component.html',
   styleUrls: ['./contact-form.component.scss']
 })
@@ -39,9 +39,6 @@ export class ContactFormComponent {
     if (this.form.invalid) return;
 
     this.formStatus.set({ loading: true });
-    // this.loading.set(true);
-    // this.success.set(null);
-    // this.error.set(null);
 
     const inquiry: ContactInquiry = {
       ...this.form.value,
@@ -64,5 +61,9 @@ export class ContactFormComponent {
         });
       }
     });
+  }
+
+  invalid(property: string): boolean | undefined {
+    return this.form.get(property)?.invalid && this.form.get(property)?.touched;
   }
 }

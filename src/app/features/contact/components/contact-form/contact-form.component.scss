@@ -4,7 +4,7 @@
   max-width: 420px;
   margin: 0 auto;
   padding: 2rem 1rem;
-  background: var(--surface, palette.$text-primary);
+  // background: var(--surface, palette.$text-primary);
   border-radius: 1.2rem;
   box-shadow: 0 2px 16px rgba(0, 0, 0, 0.07);
   display: flex;
@@ -28,7 +28,7 @@ textarea {
   width: 100%;
   padding: 0.7rem 1rem;
   border: 1px solid #d1d5db;
-  border-radius: 0.6rem;
+  border-radius: 2rem;
   font-size: 1rem;
   background: var(--input-bg, #f9f9f9);
   transition: border 0.2s;

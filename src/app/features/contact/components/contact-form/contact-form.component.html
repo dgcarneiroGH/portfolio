@@ -1,33 +1,31 @@
 <div class="contact-form-container">
+  <!-- TODO:Translate -->
   <form [formGroup]="form" (ngSubmit)="submit()">
     <div>
-      <label for="fullName">Nombre completo</label>
       <input
         id="fullName"
         formControlName="fullName"
         type="text"
         placeholder="Tu nombre"
       />
-      @if (form.get("fullName")?.invalid && form.get("fullName")?.touched) {
+      @if (invalid("fullName")) {
         <div class="error-message">
           El nombre es obligatorio (mínimo 3 caracteres).
         </div>
       }
     </div>
     <div>
-      <label for="email">Email</label>
       <input
         id="email"
         formControlName="email"
         type="email"
         placeholder="tu@email.com"
       />
-      @if (form.get("email")?.invalid && form.get("email")?.touched) {
+      @if (invalid("email")) {
         <div class="error-message">Introduce un email válido.</div>
       }
     </div>
     <div>
-      <label for="message">Mensaje</label>
       <textarea
         id="message"
         formControlName="message"
@@ -35,7 +33,7 @@
         placeholder="Tu mensaje..."
       ></textarea>
 
-      @if (form.get("message")?.invalid && form.get("message")?.touched) {
+      @if (invalid("message")) {
         <div class="error-message">
           El mensaje es obligatorio (mínimo 10 caracteres).
         </div>

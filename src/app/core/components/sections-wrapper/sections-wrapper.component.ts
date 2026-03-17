@@ -16,7 +16,6 @@ import { ExperienceComponent } from '../../../features/experience/components/exp
 import { HomeComponent } from '../../../features/home/components/home.component';
 import { ProjectsComponent } from '../../../features/projects/components/projects.component';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
-import { ContactFormComponent } from '../../../features/contact/components/contact-form.component';
 
 @Component({
   selector: 'app-sections-wrapper',
@@ -29,8 +28,7 @@ import { ContactFormComponent } from '../../../features/contact/components/conta
     ProjectsComponent,
     CommonModule,
     RouterModule,
-    TranslateModule,
-    ContactFormComponent
+    TranslateModule
   ],
   templateUrl: './sections-wrapper.component.html',
   styleUrls: ['./sections-wrapper.component.scss']

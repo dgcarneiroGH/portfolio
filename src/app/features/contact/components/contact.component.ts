@@ -12,11 +12,17 @@ import { CONTACT_METHODS } from '../constants/contact.constants';
 import { ContactMethod } from '../interfaces/contact.interface';
 import { AnimateDirective } from '../../../shared/directives/animate.directive';
 import { OscillatorComponent } from '../../../shared/components/oscillator/oscillator.component';
+import { ContactFormComponent } from './contact-form/contact-form.component';
 
 @Component({
   standalone: true,
   selector: 'app-contact',
-  imports: [TranslateModule, AnimateDirective, OscillatorComponent],
+  imports: [
+    TranslateModule,
+    AnimateDirective,
+    OscillatorComponent,
+    ContactFormComponent
+  ],
   templateUrl: './contact.component.html',
   styleUrl: './contact.component.scss'
 })
