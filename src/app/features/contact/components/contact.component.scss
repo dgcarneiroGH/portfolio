@@ -27,12 +27,6 @@ section {
     font-size: 3rem;
   }
 
-  #animatedText {
-    font-size: 4rem;
-    margin: 1rem;
-    font-weight: bold;
-  }
-
   .nomacoda-img-wrapper {
     position: absolute;
     width: 21rem;
@@ -52,149 +46,6 @@ section {
       display: block;
       transition: transform 0.3s, filter 0.3s ease-in-out;
     }
-  }
-
-  .contact-methods {
-    display: flex;
-    align-items: center;
-    padding-top: 2rem;
-
-    a {
-      width: 8rem;
-      margin: 1rem;
-
-      img {
-        width: 100%;
-        filter: drop-shadow(2px 2px 4px rgba(255, 255, 255, 0.6));
-
-        transition: transform 0.3s, filter 0.3s ease-in-out;
-      }
-
-      img:hover {
-        -ms-transform: scale(1.2);
-        -webkit-transform: scale(1.2);
-        transform: scale(1.2);
-
-        filter: none;
-      }
-    }
-  }
-
-  .contact-icon-wrapper {
-    position: relative;
-    display: inline-block;
-
-    .contact-tooltip {
-      visibility: hidden;
-      opacity: 0;
-      width: max-content;
-      background-color: palette.$background-gradient-end;
-      color: palette.$text-primary;
-      text-align: center;
-      border-radius: 6px;
-      padding: 0.25em 0.7em;
-      position: absolute;
-      z-index: 10;
-      top: 110%;
-      left: 50%;
-      transform: translateX(-50%);
-      transition: opacity 0.3s;
-      pointer-events: none;
-      font-size: 0.95rem;
-      white-space: nowrap;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
-    }
-
-    &:hover .contact-tooltip,
-    &:focus .contact-tooltip {
-      visibility: visible;
-      opacity: 1;
-    }
-
-    img {
-      filter: drop-shadow(2px 2px 4px rgba(255, 255, 255, 0.6));
-    }
-  }
-
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-}
-
-@keyframes swing-rope-soft {
-  0% {
-    transform: rotateZ(0deg);
-  }
-  10% {
-    transform: rotateZ(-5deg);
-  }
-  20% {
-    transform: rotateZ(5deg);
-  }
-  30% {
-    transform: rotateZ(-4deg);
-  }
-  40% {
-    transform: rotateZ(4deg);
-  }
-  50% {
-    transform: rotateZ(-3deg);
-  }
-  60% {
-    transform: rotateZ(3deg);
-  }
-  70% {
-    transform: rotateZ(-2deg);
-  }
-  80% {
-    transform: rotateZ(2deg);
-  }
-  90% {
-    transform: rotateZ(-1deg);
-  }
-  100% {
-    transform: rotateZ(0deg);
-  }
-}
-
-@keyframes swing-rope-strong {
-  0% {
-    transform: rotateZ(0deg);
-  }
-  10% {
-    transform: rotateZ(-18deg);
-  }
-  20% {
-    transform: rotateZ(16deg);
-  }
-  30% {
-    transform: rotateZ(-14deg);
-  }
-  40% {
-    transform: rotateZ(12deg);
-  }
-  50% {
-    transform: rotateZ(-10deg);
-  }
-  60% {
-    transform: rotateZ(8deg);
-  }
-  70% {
-    transform: rotateZ(-6deg);
-  }
-  80% {
-    transform: rotateZ(4deg);
-  }
-  90% {
-    transform: rotateZ(-2deg);
-  }
-  100% {
-    transform: rotateZ(0deg);
   }
 }
 
@@ -251,10 +102,6 @@ section {
 
     p {
       font-size: 2rem;
-    }
-
-    .contact-methods {
-      flex-direction: column;
     }
   }
 }

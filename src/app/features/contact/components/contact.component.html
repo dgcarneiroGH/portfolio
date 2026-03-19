@@ -33,20 +33,6 @@
     <p [appAnimate]="animationDelay()" [translationKey]="'07_CONTACT.TALK'"></p>
 
     <app-contact-form></app-contact-form>
-    <!-- <div class="contact-methods">
-      @for (contactMethod of contactMethods(); track contactMethod.name) {
-        <a
-          [href]="contactMethod.url"
-          target="_blank"
-          rel="noopener noreferrer"
-          [attr.aria-label]="contactMethod.name"
-          class="contact-icon-wrapper"
-        >
-          <img [src]="contactMethod.iconSrc" [alt]="contactMethod.name" />
-          <span class="contact-tooltip">{{ contactMethod.info }}</span>
-        </a>
-      }
-    </div> -->
   </div>
 </section>
 <app-oscillator style="bottom: 0"></app-oscillator>
