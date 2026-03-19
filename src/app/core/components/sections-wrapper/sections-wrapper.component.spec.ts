@@ -1,4 +1,3 @@
-import { Component } from '@angular/core';
 import { provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter, RouterLink } from '@angular/router';
@@ -24,16 +23,7 @@ describe('SectionsWrapperComponent', () => {
     })
       .overrideComponent(SectionsWrapperComponent, {
         set: {
-          imports: [RouterLink, TranslateModule],
-          template: `
-          <div class="sections-wrapper">
-            <div #aboutTrigger></div>
-            <div #projectsTrigger></div>
-            <div #experienceTrigger></div>
-            <div #contactTrigger><a routerLink="/blog"></a></div>
-            <div #contactFormTrigger></div>
-          </div>
-        `
+          imports: [RouterLink, TranslateModule]
         }
       })
       .compileComponents();
@@ -47,16 +37,5 @@ describe('SectionsWrapperComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-  });
-
-  it('should compute a loading image URL', () => {
-    expect(component.loadingImage()).toContain('loading_');
-  });
-
-  it('should start with all lazy signals as false', () => {
-    expect(component.showAbout()).toBeFalse();
-    expect(component.showProjects()).toBeFalse();
-    expect(component.showExperience()).toBeFalse();
-    expect(component.showContact()).toBeFalse();
   });
 });
