@@ -20,7 +20,10 @@
     background 0.18s ease,
     color 0.18s ease;
 
-  &:hover,
+  &:hover {
+    opacity: .8;
+  }
+
   &:focus-visible,
   &:active {
     background: palette.$accent-yellow;
