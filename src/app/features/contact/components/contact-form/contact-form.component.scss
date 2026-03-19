@@ -8,6 +8,17 @@ form {
   width: 40vw;
 }
 
+.name-email-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+
+  @media (max-width: 1531px) {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
 .field-group {
   display: flex;
   flex-direction: column;

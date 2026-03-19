@@ -16,47 +16,81 @@
         <polyline points="20 6 9 17 4 12" />
       </svg>
     </div>
-    <p class="success-title">{{ '07_CONTACT.FORM_SUCCESS' | translate }}</p>
+    <p class="success-title">{{ "07_CONTACT.FORM_SUCCESS" | translate }}</p>
   </div>
 } @else {
   <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+    <!-- Name and Email Row -->
+    <div class="name-email-row">
+      <!-- Name -->
+      <div class="field-group">
+        <input
+          id="fullName"
+          formControlName="fullName"
+          type="text"
+          [placeholder]="'07_CONTACT.NAME_PLACEHOLDER' | translate"
+          [class.input-error]="invalid('fullName')"
+          [attr.aria-label]="'07_CONTACT.NAME_PLACEHOLDER' | translate"
+          autocomplete="name"
+        />
+        @if (invalid("fullName")) {
+          <div class="error-message" role="alert">
+            <svg
+              class="error-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path
+                d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"
+              />
+              <line x1="12" y1="9" x2="12" y2="13" />
+              <line x1="12" y1="17" x2="12.01" y2="17" />
+            </svg>
+            {{ "07_CONTACT.NAME_ERROR" | translate }}
+          </div>
+        }
+      </div>
 
-    <!-- Name -->
-    <div class="field-group">
-      <input
-        id="fullName"
-        formControlName="fullName"
-        type="text"
-        [placeholder]="'07_CONTACT.NAME_PLACEHOLDER' | translate"
-        [class.input-error]="invalid('fullName')"
-        [attr.aria-label]="'07_CONTACT.NAME_PLACEHOLDER' | translate"
-        autocomplete="name"
-      />
-      @if (invalid('fullName')) {
-        <div class="error-message" role="alert">
-          <svg class="error-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-          {{ '07_CONTACT.NAME_ERROR' | translate }}
-        </div>
-      }
-    </div>
-
-    <!-- Email -->
-    <div class="field-group">
-      <input
-        id="email"
-        formControlName="email"
-        type="email"
-        [placeholder]="'07_CONTACT.EMAIL_PLACEHOLDER' | translate"
-        [class.input-error]="invalid('email')"
-        [attr.aria-label]="'07_CONTACT.EMAIL_ARIA' | translate"
-        autocomplete="email"
-      />
-      @if (invalid('email')) {
-        <div class="error-message" role="alert">
-          <svg class="error-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-          {{ '07_CONTACT.EMAIL_ERROR' | translate }}
-        </div>
-      }
+      <!-- Email -->
+      <div class="field-group">
+        <input
+          id="email"
+          formControlName="email"
+          type="email"
+          [placeholder]="'07_CONTACT.EMAIL_PLACEHOLDER' | translate"
+          [class.input-error]="invalid('email')"
+          [attr.aria-label]="'07_CONTACT.EMAIL_ARIA' | translate"
+          autocomplete="email"
+        />
+        @if (invalid("email")) {
+          <div class="error-message" role="alert">
+            <svg
+              class="error-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path
+                d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"
+              />
+              <line x1="12" y1="9" x2="12" y2="13" />
+              <line x1="12" y1="17" x2="12.01" y2="17" />
+            </svg>
+            {{ "07_CONTACT.EMAIL_ERROR" | translate }}
+          </div>
+        }
+      </div>
     </div>
 
     <!-- Message -->
@@ -69,10 +103,26 @@
         [class.input-error]="invalid('message')"
         [attr.aria-label]="'07_CONTACT.MESSAGE_ARIA' | translate"
       ></textarea>
-      @if (invalid('message')) {
+      @if (invalid("message")) {
         <div class="error-message" role="alert">
-          <svg class="error-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-          {{ '07_CONTACT.MESSAGE_ERROR' | translate }}
+          <svg
+            class="error-icon"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path
+              d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"
+            />
+            <line x1="12" y1="9" x2="12" y2="13" />
+            <line x1="12" y1="17" x2="12.01" y2="17" />
+          </svg>
+          {{ "07_CONTACT.MESSAGE_ERROR" | translate }}
         </div>
       }
     </div>
@@ -87,15 +137,16 @@
     >
       @if (formStatus().loading) {
         <span class="btn-spinner" aria-hidden="true"></span>
-        {{ '07_CONTACT.SUBMIT_LOADING' | translate }}
+        {{ "07_CONTACT.SUBMIT_LOADING" | translate }}
       } @else {
-        {{ '07_CONTACT.SUBMIT_BUTTON' | translate }} &rarr;
+        {{ "07_CONTACT.SUBMIT_BUTTON" | translate }} &rarr;
       }
     </button>
 
     @if (formStatus().error) {
-      <div class="form-error" role="alert">{{ formStatus().error | translate }}</div>
+      <div class="form-error" role="alert">
+        {{ formStatus().error! | translate }}
+      </div>
     }
-
   </form>
 }
