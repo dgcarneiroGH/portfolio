@@ -7,5 +7,5 @@ export const environment = {
     useCdn: true,
     token: undefined
   },
-  n8nWebhookUrl: 'https://n8n.nomacoda.com/webhook/portfolio-contact-form'
+  contactEndpoint: 'https://nomacoda.com/.netlify/functions/contact'
 };

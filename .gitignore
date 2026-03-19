@@ -43,3 +43,12 @@ Thumbs.db
 
 # Documentation generated from compodoc package
 /documentation
+
+# Environment variables (security)
+.env
+.env.local
+.env.production
+.env.development
+
+# Local Netlify folder
+.netlify

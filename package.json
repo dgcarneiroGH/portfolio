@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "scripts": {
     "start": "ng serve",
+    "dev": "netlify dev",
     "build": "ng build --base-href",
     "build:prod": "ng build --configuration production",
     "test": "ng test",
@@ -44,6 +45,7 @@
     "@angular/compiler-cli": "^21.2.4",
     "@compodoc/compodoc": "^1.2.1",
     "@eslint/js": "^9.39.4",
+    "@netlify/functions": "^5.1.5",
     "@types/jasmine": "~5.1.5",
     "ajv": "^8.18.0",
     "angular-eslint": "21.3.0",
