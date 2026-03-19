@@ -27,6 +27,7 @@
     }
     <div class="section-container">
       @if (viewModel.posts && !viewModel.hasSlug) {
+        <app-blog-filter />
         <div class="blog-cards-container">
           @for (post of viewModel.posts; track post._id) {
             <app-post-card

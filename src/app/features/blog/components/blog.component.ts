@@ -18,6 +18,7 @@ import { ProcessedPost } from '../models/processed-post.model';
 import { SanityService } from './../../../core/services/sanity.service';
 import { PostCardComponent } from './post-card/post-card.component';
 import { LoadingComponent } from '../../../shared/components/loading/loading.component';
+import { BlogFilterComponent } from './blog-filter/blog-filter.component';
 
 @Component({
   selector: 'app-blog',
@@ -27,7 +28,8 @@ import { LoadingComponent } from '../../../shared/components/loading/loading.com
     TranslateModule,
     RouterModule,
     PostCardComponent,
-    LoadingComponent
+    LoadingComponent,
+    BlogFilterComponent
   ],
   providers: [SanityService],
   templateUrl: './blog.component.html',

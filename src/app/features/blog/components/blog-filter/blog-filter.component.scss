@@ -1,0 +1,30 @@
+@use "/src/styles/palette" as palette;
+
+.filter-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1.25rem;
+
+  background: transparent;
+  color: palette.$accent-yellow;
+  border: 1.5px solid palette.$accent-yellow;
+  border-radius: 999px;
+
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+
+  transition:
+    background 0.18s ease,
+    color 0.18s ease;
+
+  &:hover,
+  &:focus-visible,
+  &:active {
+    background: palette.$accent-yellow;
+    color: palette.$background-gradient-start;
+    outline: none;
+  }
+}
