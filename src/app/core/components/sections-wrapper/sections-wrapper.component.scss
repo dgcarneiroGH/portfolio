@@ -1,15 +1,4 @@
 @use "/src/styles/palette" as palette;
-// TODO:Neccesary??s
-// Lazy loading triggers
-.about-trigger,
-.projects-trigger,
-.experience-trigger,
-.contact-trigger {
-  min-height: 50vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
 
 .cave-components {
   background-color: palette.$background-gradient-start;
