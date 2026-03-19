@@ -8,18 +8,6 @@ import { SectionsWrapperComponent } from './sections-wrapper.component';
 
 const mockLoader = { getTranslation: () => of({}) };
 
-// Minimal stub components so we don't need to provide deep dependency trees
-@Component({ template: '' })
-class HomeStubComponent {}
-@Component({ template: '' })
-class AboutStubComponent {}
-@Component({ template: '' })
-class ExperienceStubComponent {}
-@Component({ template: '' })
-class ContactStubComponent {}
-@Component({ template: '' })
-class ProjectsStubComponent {}
-
 describe('SectionsWrapperComponent', () => {
   let component: SectionsWrapperComponent;
   let fixture: ComponentFixture<SectionsWrapperComponent>;
@@ -34,17 +22,16 @@ describe('SectionsWrapperComponent', () => {
       ],
       providers: [provideZonelessChangeDetection(), provideRouter([])]
     })
-      // Replace SectionsWrapperComponent's deep imports with lightweight stubs
       .overrideComponent(SectionsWrapperComponent, {
         set: {
           imports: [RouterLink, TranslateModule],
-          // Minimal template that retains the required #trigger template variables
           template: `
           <div class="sections-wrapper">
             <div #aboutTrigger></div>
             <div #projectsTrigger></div>
             <div #experienceTrigger></div>
             <div #contactTrigger><a routerLink="/blog"></a></div>
+            <div #contactFormTrigger></div>
           </div>
         `
         }
