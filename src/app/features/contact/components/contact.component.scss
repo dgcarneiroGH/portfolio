@@ -41,6 +41,7 @@ section {
     transform-origin: 50% 0%;
     animation: none;
     transition: none;
+    z-index: -1;
 
     &.swing-active {
       animation: swing-rope-hover 8s cubic-bezier(0.4, 0, 0.2, 1) 1;

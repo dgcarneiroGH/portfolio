@@ -87,7 +87,20 @@
   "07_CONTACT": {
     "NOW_WE_KNOW": "Ahora que ya me conoces . . .",
     "TALK": "¿Hablamos?",
-    "NOMACODA_CLIMBING": "Nomacoda escalando, colgado de una cuerda y haciendo el gesto de llámame"
+    "NOMACODA_CLIMBING": "Nomacoda escalando, colgado de una cuerda y haciendo el gesto de llámame",
+    "FORM_SUCCESS": "¡Mensaje enviado con éxito!",
+    "FORM_ERROR": "Error al enviar el mensaje. Inténtalo de nuevo más tarde.",
+    "NAME_PLACEHOLDER": "Tu nombre",
+    "NAME_ERROR": "El nombre es obligatorio (mínimo 3 caracteres).",
+    "EMAIL_PLACEHOLDER": "tu@email.com",
+    "EMAIL_ARIA": "Tu correo electrónico",
+    "EMAIL_ERROR": "Formato de email no válido.",
+    "MESSAGE_PLACEHOLDER": "Cuéntame sobre tu proyecto...",
+    "MESSAGE_ARIA": "Mensaje",
+    "MESSAGE_ERROR": "El mensaje es obligatorio (mínimo 10 caracteres).",
+    "SUBMIT_ARIA": "Enviar mensaje",
+    "SUBMIT_LOADING": "Enviando...",
+    "SUBMIT_BUTTON": "Enviar Mensaje"
   },
   "SIDEBAR": {
     "CV_URL": "https://drive.google.com/file/d/1RItPA28zTioQgQSme0w5qmVJ-dNBcWMp/view?usp=sharing"
