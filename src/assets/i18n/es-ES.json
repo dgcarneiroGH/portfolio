@@ -28,18 +28,6 @@
     "DIEGO_PORTRAIT_3": "Diego disfrutando la música y enfocándose en los detalles",
     "DIEGO_PORTRAIT_4": "Diego en un ambiente colaborativo construyendo confianza"
   },
-  "03_SKILLS": {
-    "SHOW_EXPERIENCE": "Mostrar experiencia",
-    "SKILLS": "Habilidades",
-    "TOGGLE_SKILL_LABEL": "Alternar vista de {{name}}. {{experience}} de experiencia",
-    "ANGULAR_ALT": "Logo del framework Angular",
-    "REACT_ALT": "Logo de la librería React",
-    "DOTNET_ALT": "Logo del framework .NET",
-    "PRESTASHOP_ALT": "Logo de la plataforma de e-commerce PrestaShop",
-    "MOODLE_ALT": "Logo de la plataforma de aprendizaje Moodle",
-    "SALESFORCE_ALT": "Logo de la plataforma CRM Salesforce",
-    "LARAVEL_ALT": "Logo del framework PHP Laravel"
-  },
   "04_EXPERIENCE": {
     "ACTUAL_JOB": "2023 - Actualidad",
     "CALL_CENTER_AGENT": "Teleoperador",
