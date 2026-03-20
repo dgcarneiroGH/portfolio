@@ -1,8 +1,12 @@
 export interface BlogFilter {
   label: string;
-  category: PostCategory;
+  category: PostCategory | null;
 }
-//TODO:Add correct enums to this
+
 export enum PostCategory {
-  ANGULAR = 'ANGULAR'
+  ALL = 'ALL',
+  NEW = 'NEW',
+  CODER4CHANGE = 'CODER4CHANGE',
+  N8N_WORKFLOW = 'N8N_WORKFLOW',
+  MINDFUL_CODE = 'MINDFUL_CODE'
 }

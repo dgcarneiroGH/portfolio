@@ -90,16 +90,23 @@
     "CV_URL": "https://drive.google.com/file/d/16_HnY7__FQIomt2ZLJQp5FXLXHcSi5Bn/view?usp=sharing"
   },
   "BLOG": {
-    "TITLE": "Blog",
-    "FULL_POST": "Full Post",
-    "FULL_POST_ARIA": "Read the full article",
-    "BACK_TO_BLOG": "Back to blog list",
     "BACK_TO_BLOG_ARIA": "Back to the blog articles list",
-    "LOADING": "Loading articles...",
-    "ERROR": "Error loading articles",
+    "BACK_TO_BLOG": "Back to blog list",
     "CLEAR_ERROR": "Dismiss error",
+    "ERROR": "Error loading articles",
+    "FULL_POST_ARIA": "Read the full article",
+    "FULL_POST": "Full Post",
+    "LOADING": "Loading articles...",
+    "NO_POSTS": "No articles available",
     "RETRY": "Retry",
-    "NO_POSTS": "No articles available"
+    "TITLE": "Blog",
+    "FILTER": {
+      "ALL": "All",
+      "CODER4CHANGE": "Coders4Change",
+      "MINDFUL_CODE": "Mindful Code",
+      "N8N_WORKFLOW": "N8N Workflows",
+      "NEW": "News"
+    }
   },
   "ERROR_404": {
     "TITLE": "Oops! It seems that path doesn't exist",

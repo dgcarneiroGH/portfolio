@@ -1,9 +1,7 @@
-@for (filter of filters; track filter.category) {
-  <button
-    class="filter-pill"
-    type="button"
-    data-testid="filter-pill"
-  >
-    {{ filter.label }}
-  </button>
-}
+<div class="filter-container">
+  @for (filter of filters; track filter.category) {
+    <button class="filter-pill" type="button" data-testid="filter-pill">
+      {{ filter.label | translate }}
+    </button>
+  }
+</div>

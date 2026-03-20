@@ -91,16 +91,23 @@
     "CV_URL": "https://drive.google.com/file/d/1RItPA28zTioQgQSme0w5qmVJ-dNBcWMp/view?usp=sharing"
   },
   "BLOG": {
-    "TITLE": "Blog",
-    "FULL_POST": "Artículo completo",
-    "FULL_POST_ARIA": "Leer el artículo completo",
-    "BACK_TO_BLOG": "Volver a la lista del blog",
     "BACK_TO_BLOG_ARIA": "Volver a la lista de artículos del blog",
-    "LOADING": "Cargando artículos...",
-    "ERROR": "Error al cargar los artículos",
+    "BACK_TO_BLOG": "Volver a la lista del blog",
     "CLEAR_ERROR": "Cerrar error",
+    "ERROR": "Error al cargar los artículos",
+    "FULL_POST_ARIA": "Leer el artículo completo",
+    "FULL_POST": "Artículo completo",
+    "LOADING": "Cargando artículos...",
+    "NO_POSTS": "No hay artículos disponibles",
     "RETRY": "Reintentar",
-    "NO_POSTS": "No hay artículos disponibles"
+    "TITLE": "Blog",
+    "FILTER": {
+      "ALL": "Todos",
+      "CODER4CHANGE": "Coders4Change",
+      "MINDFUL_CODE": "Mindful Code",
+      "N8N_WORKFLOW": "Flujos de N8N",
+      "NEW": "Noticias"
+    }
   },
   "ERROR_404": {
     "TITLE": "¡Vaya! Parece que esa ruta no existe",
