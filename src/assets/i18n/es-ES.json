@@ -80,10 +80,7 @@
     "PROJECT_DFG_ALT": "Sitio web corporativo DFG Natural Stone",
     "PROJECT_ARCELOR_ALT": "Sistema de logística ferroviaria ArcelorMittal"
   },
-  "06_CERTS": {
-    "CERTS": "Certificados",
-    "VIEW_CERT": "Ver certificado: {{name}}"
-  },
+
   "07_CONTACT": {
     "NOW_WE_KNOW": "Ahora que ya me conoces . . .",
     "TALK": "¿Hablamos?",

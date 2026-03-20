@@ -80,10 +80,6 @@
     "PROJECT_DFG_ALT": "DFG Natural Stone corporate website",
     "PROJECT_ARCELOR_ALT": "ArcelorMittal railway logistics system"
   },
-  "06_CERTS": {
-    "CERTS": "Certificates",
-    "VIEW_CERT": "View certificate: {{name}}"
-  },
   "07_CONTACT": {
     "NOW_WE_KNOW": "Now that you know me . . .",
     "TALK": "Shall we talk?",
