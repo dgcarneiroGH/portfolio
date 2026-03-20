@@ -48,14 +48,9 @@ describe('ContactService', () => {
         expect(response).toEqual(mockResponse);
       });
 
-      const req = httpMock.expectOne(environment.n8nWebhookUrl);
+      const req = httpMock.expectOne(environment.contactEndpoint);
       expect(req.request.method).toBe('POST');
       expect(req.request.body).toEqual(mockContactInquiry);
-
-      // Verify custom header is set
-      expect(req.request.headers.get('X-Portfolio-Token')).toBe(
-        '6d5ea5db9d3b060e8e35da3ba913f3fac117db4fae2afe2e9c926f48abf734f5'
-      );
 
       req.flush(mockResponse);
     });
@@ -71,23 +66,18 @@ describe('ContactService', () => {
         }
       });
 
-      const req = httpMock.expectOne(environment.n8nWebhookUrl);
+      const req = httpMock.expectOne(environment.contactEndpoint);
       expect(req.request.method).toBe('POST');
 
       req.flush(errorMessage, { status: 500, statusText: 'Server Error' });
     });
 
-    it('should include all required headers in request', () => {
+    it('should verify request body format', () => {
       service.sendInquiry(mockContactInquiry).subscribe();
 
-      const req = httpMock.expectOne(environment.n8nWebhookUrl);
+      const req = httpMock.expectOne(environment.contactEndpoint);
 
-      // Verify custom header is set
-      expect(req.request.headers.get('X-Portfolio-Token')).toBe(
-        '6d5ea5db9d3b060e8e35da3ba913f3fac117db4fae2afe2e9c926f48abf734f5'
-      );
-
-      // Verify request body is the expected object (JSON will be set automatically)
+      // Verify request body is the expected object
       expect(req.request.body).toEqual(mockContactInquiry);
 
       req.flush({});
@@ -104,7 +94,7 @@ describe('ContactService', () => {
 
       service.sendInquiry(minimalInquiry).subscribe();
 
-      const req = httpMock.expectOne(environment.n8nWebhookUrl);
+      const req = httpMock.expectOne(environment.contactEndpoint);
       expect(req.request.body).toEqual(minimalInquiry);
 
       req.flush({ success: true });
