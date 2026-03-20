@@ -1,8 +1,8 @@
 export interface BlogFilter {
   label: string;
-  category: BlogCategory;
+  category: PostCategory;
 }
 //TODO:Add correct enums to this
-export enum BlogCategory {
+export enum PostCategory {
   ANGULAR = 'ANGULAR'
 }
