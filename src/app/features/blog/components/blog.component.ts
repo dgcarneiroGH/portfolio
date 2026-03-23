@@ -139,7 +139,8 @@ export class BlogComponent implements OnInit, OnDestroy {
       excerpt,
       body: safeHtml,
       imageUrl,
-      image: article.image
+      image: article.image,
+      category: article.category
     };
   }
 }

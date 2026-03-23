@@ -11,4 +11,5 @@ export interface ProcessedPost {
   body: SafeHtml;
   imageUrl: string;
   image?: SanityImage;
+  category?: string;
 }

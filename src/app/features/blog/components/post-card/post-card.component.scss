@@ -45,10 +45,45 @@
   }
 
   .blog-header {
+    &__meta {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+
+      &--has-category {
+        justify-content: space-between;
+      }
+    }
+
+    .category-badge {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 8px 3px 6px;
+      border-radius: 4px;
+      background: rgba(palette.$accent-blue, 0.1);
+
+      &__line {
+        width: 2px;
+        height: 14px;
+        border-radius: 2px;
+        background: palette.$accent-blue;
+      }
+
+      &__text {
+        color: lighten(palette.$accent-blue, 15%);
+        font-size: 10px;
+        font-weight: 500;
+        letter-spacing: 0.3px;
+        text-transform: uppercase;
+      }
+    }
+
     &__date {
       color: palette.$text-secondary;
       font-style: italic;
-      text-align: end;
+      text-align: right;
+      margin: 0;
     }
 
     &__title {

@@ -7,9 +7,17 @@
 
   <div class="post-card__content">
     <header class="blog-header">
-      <p class="blog-header__date">
-        {{ date | date: "longDate" : "" : currentLocale }}
-      </p>
+      <div class="blog-header__meta" [class.blog-header__meta--has-category]="!!categoryLabel">
+        @if (categoryLabel) {
+          <div class="category-badge">
+            <span class="category-badge__line"></span>
+            <span class="category-badge__text">{{ categoryLabel | translate }}</span>
+          </div>
+        }
+        <p class="blog-header__date">
+          {{ date | date: "longDate" : "" : currentLocale }}
+        </p>
+      </div>
       <h2 class="blog-header__title">{{ title }}</h2>
     </header>
 

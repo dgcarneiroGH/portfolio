@@ -113,7 +113,8 @@ export class SanityService {
         bodyEN, 
         "slug": slug.current, 
         image, 
-        publishedAt
+        publishedAt,
+        category
       }`;
 
       const rawPosts = await this.fetch<any[]>(query);
@@ -134,7 +135,8 @@ export class SanityService {
           es: post.bodyES || [],
           ...(post.bodyEN && { en: post.bodyEN })
         },
-        image: post.image || undefined
+        image: post.image || undefined,
+        category: post.category
       }));
 
       this._posts.set(posts);

@@ -7,6 +7,7 @@ export interface Post {
   excerpt: MultilangString;
   body: MultilangBody;
   image?: SanityImage;
+  category?: string;
 }
 
 export type BodyContent = SanityBlock[];
