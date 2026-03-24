@@ -3,7 +3,9 @@ import { toHTML } from '@portabletext/to-html';
 import { createClient, type SanityClient } from '@sanity/client';
 import imageUrlBuilder from '@sanity/image-url';
 import { environment } from '../../../environments/environment';
-import { BodyContent, Post } from '../../features/blog/models/post.model';
+import { Post } from '../../features/blog/models/post.model';
+import { PostCategory } from '../../features/blog/models/category.model';
+import { BodyContent } from '../models/sanity.models';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +16,7 @@ export class SanityService {
 
   // Post state management with signals
   private _posts = signal<Post[]>([]);
+  private _categories = signal<PostCategory[]>([]);
   private _loading = signal(false);
   private _error = signal<string | null>(null);
 
@@ -97,14 +100,47 @@ export class SanityService {
 
   //#region GET
 
+  async loadCategories(): Promise<void> {
+    this._loading.set(true);
+    this._error.set(null);
+
+    try {
+      const query = `*[_type == "category" && defined(publishedAt)]{
+        _id,
+        nameES, 
+        nameEN, 
+        value
+      }`;
+
+      const rawCategories = await this.fetch<any[]>(query);
+
+      const categories = rawCategories.map((category) => ({
+        id: category._id,
+        name: {
+          es: category.nameES || '',
+          en: category.nameEN || ''
+        },
+        value: category.value
+      }));
+
+      this._categories.set(categories);
+    } catch (error) {
+      this._error.set(`Error loading categories: ${error}`);
+      console.error('Error loading categories:', error);
+    } finally {
+      this._loading.set(false);
+    }
+  }
+
   async loadPosts(): Promise<void> {
+    await this.loadCategories();
+
     this._loading.set(true);
     this._error.set(null);
 
     try {
       const query = `*[_type == "post" && defined(publishedAt)] | order(publishedAt desc){
         _id, 
-        _createdAt, 
         titleES, 
         titleEN, 
         excerptES, 
@@ -113,18 +149,19 @@ export class SanityService {
         bodyEN, 
         "slug": slug.current, 
         image, 
-        publishedAt
+        publishedAt,
+        "category": category._ref
       }`;
 
       const rawPosts = await this.fetch<any[]>(query);
+
       const posts = rawPosts.map((post) => ({
-        _id: post._id,
-        _createdAt: post._createdAt,
+        id: post._id,
         slug: post.slug,
         publishedAt: new Date(post.publishedAt),
         title: {
           es: post.titleES || '',
-          ...(post.titleEN && { en: post.titleEN })
+          en: post.titleEN || ''
         },
         excerpt: {
           es: post.excerptES || '',
@@ -134,7 +171,9 @@ export class SanityService {
           es: post.bodyES || [],
           ...(post.bodyEN && { en: post.bodyEN })
         },
-        image: post.image || undefined
+        image: post.image || undefined,
+        category: this._categories().find(({ id }) => id === post.category)
+          ?.value
       }));
 
       this._posts.set(posts);

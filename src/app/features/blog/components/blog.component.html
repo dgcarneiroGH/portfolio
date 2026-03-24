@@ -27,8 +27,9 @@
     }
     <div class="section-container">
       @if (viewModel.posts && !viewModel.hasSlug) {
+        <app-blog-filter (filterChange)="onFilterChange($event)" />
         <div class="blog-cards-container">
-          @for (post of viewModel.posts; track post._id) {
+          @for (post of viewModel.posts; track post.id) {
             <app-post-card
               [currentLocale]="viewModel.currentLocale"
               [title]="post.title"
@@ -36,6 +37,7 @@
               [image]="post.image"
               [excerpt]="post.excerpt"
               [slug]="post.slug"
+              [category]="post.category"
             />
           } @empty {
             <p>{{ "BLOG.NO_POSTS" | translate }}</p>

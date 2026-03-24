@@ -28,18 +28,6 @@
     "DIEGO_PORTRAIT_3": "Diego enjoying music and focusing on details",
     "DIEGO_PORTRAIT_4": "Diego in a collaborative environment building trust"
   },
-  "03_SKILLS": {
-    "SHOW_EXPERIENCE": "Show experience",
-    "SKILLS": "Skills",
-    "TOGGLE_SKILL_LABEL": "Toggle view for {{name}}. {{experience}} of experience",
-    "ANGULAR_ALT": "Angular framework logo",
-    "REACT_ALT": "React library logo",
-    "DOTNET_ALT": ".NET framework logo",
-    "PRESTASHOP_ALT": "PrestaShop e-commerce platform logo",
-    "MOODLE_ALT": "Moodle learning platform logo",
-    "SALESFORCE_ALT": "Salesforce CRM platform logo",
-    "LARAVEL_ALT": "Laravel PHP framework logo"
-  },
   "04_EXPERIENCE": {
     "ACTUAL_JOB": "2023 - Present",
     "CALL_CENTER_AGENT": "Telemarketer",
@@ -80,10 +68,6 @@
     "PROJECT_DFG_ALT": "DFG Natural Stone corporate website",
     "PROJECT_ARCELOR_ALT": "ArcelorMittal railway logistics system"
   },
-  "06_CERTS": {
-    "CERTS": "Certificates",
-    "VIEW_CERT": "View certificate: {{name}}"
-  },
   "07_CONTACT": {
     "NOW_WE_KNOW": "Now that you know me . . .",
     "TALK": "Shall we talk?",
@@ -106,16 +90,23 @@
     "CV_URL": "https://drive.google.com/file/d/16_HnY7__FQIomt2ZLJQp5FXLXHcSi5Bn/view?usp=sharing"
   },
   "BLOG": {
-    "TITLE": "Blog",
-    "FULL_POST": "Full Post",
-    "FULL_POST_ARIA": "Read the full article",
-    "BACK_TO_BLOG": "Back to blog list",
     "BACK_TO_BLOG_ARIA": "Back to the blog articles list",
-    "LOADING": "Loading articles...",
-    "ERROR": "Error loading articles",
+    "BACK_TO_BLOG": "Back to blog list",
     "CLEAR_ERROR": "Dismiss error",
+    "ERROR": "Error loading articles",
+    "FULL_POST_ARIA": "Read the full article",
+    "FULL_POST": "Full Post",
+    "LOADING": "Loading articles...",
+    "NO_POSTS": "No articles available",
     "RETRY": "Retry",
-    "NO_POSTS": "No articles available"
+    "TITLE": "Blog",
+    "FILTER": {
+      "ALL": "All",
+      "CODER4CHANGE": "Coders4Change",
+      "MINDFUL_CODE": "Mindful Code",
+      "N8N_WORKFLOW": "N8N Workflows",
+      "NEW": "News"
+    }
   },
   "ERROR_404": {
     "TITLE": "Oops! It seems that path doesn't exist",

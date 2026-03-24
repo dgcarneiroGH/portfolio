@@ -4,7 +4,8 @@ import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { SanityService } from '../../../../core/services/sanity.service';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
-import { SanityImage } from '../../models/post.model';
+import { BLOG_FILTERS } from '../../constants/blog-filter.constants';
+import { SanityImage } from '../../../../core/models/sanity.models';
 
 @Component({
   selector: 'app-post-card',
@@ -23,6 +24,13 @@ export class PostCardComponent {
   @Input() excerpt!: string;
   @Input() slug!: string;
   @Input() currentLocale!: string;
+  @Input() category?: string;
+
+  get categoryLabel(): string | null {
+    if (!this.category) return null;
+    const filter = BLOG_FILTERS.find((f) => f.category === this.category);
+    return filter ? filter.label : null;
+  }
 
   get bgUrl(): string {
     if (!this.image) return '';

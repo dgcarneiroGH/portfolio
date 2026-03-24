@@ -1,0 +1,12 @@
+<div class="filter-container">
+  @for (filter of filters; track filter.category) {
+    <button 
+      class="filter-pill" 
+      [class.active]="isFilterSelected(filter)"
+      type="button" 
+      data-testid="filter-pill"
+      (click)="selectFilter(filter)">
+      {{ filter.label | translate }}
+    </button>
+  }
+</div>

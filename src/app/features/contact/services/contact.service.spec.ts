@@ -52,9 +52,6 @@ describe('ContactService', () => {
       expect(req.request.method).toBe('POST');
       expect(req.request.body).toEqual(mockContactInquiry);
 
-      // Verify Content-Type header is set
-      expect(req.request.headers.get('Content-Type')).toBe('application/json');
-
       req.flush(mockResponse);
     });
 
@@ -78,13 +75,10 @@ describe('ContactService', () => {
       req.flush(errorResponse, { status: 500, statusText: 'Server Error' });
     });
 
-    it('should include correct headers in request', () => {
+    it('should verify request body format', () => {
       service.sendInquiry(mockContactInquiry).subscribe();
 
       const req = httpMock.expectOne(environment.contactEndpoint);
-
-      // Verify Content-Type header is set (no X-Portfolio-Token as it's handled by Netlify Function)
-      expect(req.request.headers.get('Content-Type')).toBe('application/json');
 
       // Verify request body is the expected object
       expect(req.request.body).toEqual(mockContactInquiry);

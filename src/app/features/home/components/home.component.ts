@@ -3,8 +3,8 @@ import { Component, ElementRef, signal, AfterViewInit } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { OscillatorComponent } from '../../../shared/components/oscillator/oscillator.component';
 import { AnimateDirective } from '../../../shared/directives/animate.directive';
-import { CERTS } from '../../certs/constants/certs.constants';
-import { Cert } from '../../certs/interfaces/certs.interface';
+import { CERTS } from '../constants/certs.constants';
+import { Cert } from '../interfaces/certs.interface';
 
 @Component({
   selector: 'app-home',
