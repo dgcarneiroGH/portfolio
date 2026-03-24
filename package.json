@@ -9,6 +9,8 @@
     "build:prod": "ng build --configuration production",
     "test": "ng test",
     "test:ci": "ng test --watch=false --browsers=ChromeHeadlessCI --code-coverage",
+    "test:coverage": "ng test --code-coverage",
+    "coverage:open": "start coverage/portfolio/index.html",
     "prepare": "husky",
     "lint": "ng lint"
   },
@@ -31,7 +33,6 @@
     "colorthief": "^3.3.1",
     "flag-icons": "^7.5.0",
     "gh-pages": "^6.2.0",
-    "ng-tagcanvas": "^1.0.2",
     "rxjs": "~7.8.1",
     "tslib": "^2.8.1"
   },

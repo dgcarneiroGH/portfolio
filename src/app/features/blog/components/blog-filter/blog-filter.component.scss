@@ -1,0 +1,56 @@
+@use "/src/styles/palette" as palette;
+
+.filter-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1rem;
+}
+
+.filter-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1.25rem;
+
+  background: transparent;
+  color: palette.$accent-yellow;
+  border: 1.5px solid palette.$accent-yellow;
+  border-radius: 999px;
+
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+
+  transition:
+    background 0.18s ease,
+    color 0.18s ease;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  &.active {
+    background: palette.$accent-yellow;
+    color: palette.$background-gradient-start;
+    outline: none;
+  }
+}
+
+@media screen and (max-width: 802px) {
+  .filter-container {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media screen and (max-width: 760px) {
+  .filter-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .filter-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

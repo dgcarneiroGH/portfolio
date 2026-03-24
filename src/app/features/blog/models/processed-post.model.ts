@@ -1,9 +1,8 @@
 import { SafeHtml } from '@angular/platform-browser';
-import { SanityImage } from './post.model';
+import { SanityImage } from '../../../core/models/sanity.models';
 
 export interface ProcessedPost {
-  _id: string;
-  _createdAt?: string;
+  id: string;
   slug: string;
   publishedAt: Date;
   title: string;
@@ -11,4 +10,5 @@ export interface ProcessedPost {
   body: SafeHtml;
   imageUrl: string;
   image?: SanityImage;
+  category?: string;
 }
