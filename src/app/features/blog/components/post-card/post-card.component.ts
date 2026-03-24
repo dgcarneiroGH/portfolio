@@ -5,7 +5,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { SanityService } from '../../../../core/services/sanity.service';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
 import { BLOG_FILTERS } from '../../constants/blog-filter.constants';
-import { SanityImage } from '../../models/post.model';
+import { SanityImage } from '../../../../core/models/sanity.models';
 
 @Component({
   selector: 'app-post-card',

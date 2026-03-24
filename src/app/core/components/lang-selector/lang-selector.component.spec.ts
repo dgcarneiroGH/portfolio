@@ -154,18 +154,231 @@ describe('LangSelectorComponent', () => {
   });
 
   describe('#onLanguageKeyDown — option keyboard navigation', () => {
+    let mockElements: HTMLElement[];
+    const testLangId = 'en-US';
+
+    beforeEach(() => {
+      mockElements = [];
+    });
+
+    afterEach(() => {
+      // Clean only our test elements
+      mockElements.forEach((el) => {
+        if (el.parentNode) {
+          el.parentNode.removeChild(el);
+        }
+      });
+      mockElements = [];
+    });
+
     it('should select the language on Enter', () => {
       const event = new KeyboardEvent('keydown', { key: 'Enter' });
       spyOn(event, 'preventDefault');
-      component.onLanguageKeyDown(event, 'en-US');
-      expect(langServiceSpy.setLanguage).toHaveBeenCalledWith('en-US');
+
+      component.onLanguageKeyDown(event, testLangId);
+
+      expect(event.preventDefault).toHaveBeenCalled();
+      expect(langServiceSpy.setLanguage).toHaveBeenCalledWith(testLangId);
     });
 
     it('should select the language on Space', () => {
       const event = new KeyboardEvent('keydown', { key: ' ' });
       spyOn(event, 'preventDefault');
-      component.onLanguageKeyDown(event, 'en-US');
-      expect(langServiceSpy.setLanguage).toHaveBeenCalledWith('en-US');
+
+      component.onLanguageKeyDown(event, testLangId);
+
+      expect(event.preventDefault).toHaveBeenCalled();
+      expect(langServiceSpy.setLanguage).toHaveBeenCalledWith(testLangId);
+    });
+
+    it('should close options and focus button on Escape key', () => {
+      spyOn(component, 'closeOptions');
+
+      // Setup minimal DOM structure
+      const container = document.createElement('div');
+      container.className = 'lang-selector-container';
+      const button = document.createElement('button');
+      const mockTarget = document.createElement('li');
+
+      container.appendChild(button);
+      container.appendChild(mockTarget);
+      document.body.appendChild(container);
+
+      mockElements.push(container); // Track for cleanup
+
+      spyOn(button, 'focus');
+
+      // Create event with mockTarget as target
+      const event = Object.create(KeyboardEvent.prototype);
+      Object.defineProperty(event, 'key', { value: 'Escape' });
+      Object.defineProperty(event, 'target', { value: mockTarget });
+
+      component.onLanguageKeyDown(event, testLangId);
+
+      expect(component.closeOptions).toHaveBeenCalled();
+      expect(button.focus).toHaveBeenCalled();
+    });
+
+    it('should prevent default and navigate down on ArrowDown key', () => {
+      spyOn(component, 'navigateOptions' as any);
+      const mockTarget = document.createElement('li');
+
+      const event = Object.create(KeyboardEvent.prototype);
+      Object.defineProperty(event, 'key', { value: 'ArrowDown' });
+      Object.defineProperty(event, 'target', { value: mockTarget });
+      event.preventDefault = jasmine.createSpy('preventDefault');
+
+      component.onLanguageKeyDown(event, testLangId);
+
+      expect(event.preventDefault).toHaveBeenCalled();
+      expect(component['navigateOptions']).toHaveBeenCalledWith(1, mockTarget);
+    });
+
+    it('should prevent default and navigate up on ArrowUp key', () => {
+      spyOn(component, 'navigateOptions' as any);
+      const mockTarget = document.createElement('li');
+
+      const event = Object.create(KeyboardEvent.prototype);
+      Object.defineProperty(event, 'key', { value: 'ArrowUp' });
+      Object.defineProperty(event, 'target', { value: mockTarget });
+      event.preventDefault = jasmine.createSpy('preventDefault');
+
+      component.onLanguageKeyDown(event, testLangId);
+
+      expect(event.preventDefault).toHaveBeenCalled();
+      expect(component['navigateOptions']).toHaveBeenCalledWith(-1, mockTarget);
+    });
+
+    it('should do nothing on unhandled keys', () => {
+      spyOn(component, 'selectLanguage');
+      spyOn(component, 'closeOptions');
+      spyOn(component, 'navigateOptions' as any);
+
+      const event = new KeyboardEvent('keydown', { key: 'Tab' });
+      spyOn(event, 'preventDefault');
+
+      component.onLanguageKeyDown(event, testLangId);
+
+      expect(event.preventDefault).not.toHaveBeenCalled();
+      expect(component.selectLanguage).not.toHaveBeenCalled();
+      expect(component.closeOptions).not.toHaveBeenCalled();
+      expect(component['navigateOptions']).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('accessibility', () => {
+    it('should render a button as the trigger (keyboard focusable)', () => {
+      const btn = fixture.debugElement.query(By.css('button'));
+      expect(btn).toBeTruthy();
+    });
+  });
+
+  describe('#onLanguageKeyDown — option keyboard navigation', () => {
+    let mockTarget: HTMLElement;
+    const testLangId = 'en-US';
+
+    beforeEach(() => {
+      // Create mock elements for testing
+      mockTarget = document.createElement('li');
+      const mockContainer = document.createElement('div');
+      mockContainer.className = 'lang-selector-container';
+      const mockButton = document.createElement('button');
+      mockContainer.appendChild(mockButton);
+      mockContainer.appendChild(mockTarget);
+
+      // Setup DOM hierarchy
+      document.body.appendChild(mockContainer);
+    });
+
+    it('should select the language on Enter', () => {
+      const event = new KeyboardEvent('keydown', { key: 'Enter' });
+      spyOn(event, 'preventDefault');
+
+      component.onLanguageKeyDown(event, testLangId);
+
+      expect(event.preventDefault).toHaveBeenCalled();
+      expect(langServiceSpy.setLanguage).toHaveBeenCalledWith(testLangId);
+    });
+
+    it('should select the language on Space', () => {
+      const event = new KeyboardEvent('keydown', { key: ' ' });
+      spyOn(event, 'preventDefault');
+
+      component.onLanguageKeyDown(event, testLangId);
+
+      expect(event.preventDefault).toHaveBeenCalled();
+      expect(langServiceSpy.setLanguage).toHaveBeenCalledWith(testLangId);
+    });
+
+    it('should close options and focus button on Escape key', () => {
+      spyOn(component, 'closeOptions');
+
+      // Setup DOM hierarchy with button
+      const container = document.createElement('div');
+      container.className = 'lang-selector-container';
+      const button = document.createElement('button');
+      spyOn(button, 'focus');
+      container.appendChild(button);
+      container.appendChild(mockTarget);
+      document.body.appendChild(container);
+
+      // Create event with mockTarget as target
+      const event = Object.create(KeyboardEvent.prototype);
+      Object.defineProperty(event, 'key', { value: 'Escape' });
+      Object.defineProperty(event, 'target', { value: mockTarget });
+
+      component.onLanguageKeyDown(event, testLangId);
+
+      expect(component.closeOptions).toHaveBeenCalled();
+      expect(button.focus).toHaveBeenCalled();
+    });
+
+    it('should prevent default and navigate down on ArrowDown key', () => {
+      spyOn(component, 'navigateOptions' as any);
+      const event = new KeyboardEvent('keydown', { key: 'ArrowDown' });
+      spyOn(event, 'preventDefault');
+
+      // Create event with mockTarget as target
+      const eventWithTarget = Object.create(KeyboardEvent.prototype);
+      Object.defineProperty(eventWithTarget, 'key', { value: 'ArrowDown' });
+      Object.defineProperty(eventWithTarget, 'target', { value: mockTarget });
+      eventWithTarget.preventDefault = jasmine.createSpy('preventDefault');
+
+      component.onLanguageKeyDown(eventWithTarget, testLangId);
+
+      expect(eventWithTarget.preventDefault).toHaveBeenCalled();
+      expect(component['navigateOptions']).toHaveBeenCalledWith(1, mockTarget);
+    });
+
+    it('should prevent default and navigate up on ArrowUp key', () => {
+      spyOn(component, 'navigateOptions' as any);
+
+      // Create event with mockTarget as target
+      const eventWithTarget = Object.create(KeyboardEvent.prototype);
+      Object.defineProperty(eventWithTarget, 'key', { value: 'ArrowUp' });
+      Object.defineProperty(eventWithTarget, 'target', { value: mockTarget });
+      eventWithTarget.preventDefault = jasmine.createSpy('preventDefault');
+
+      component.onLanguageKeyDown(eventWithTarget, testLangId);
+
+      expect(eventWithTarget.preventDefault).toHaveBeenCalled();
+      expect(component['navigateOptions']).toHaveBeenCalledWith(-1, mockTarget);
+    });
+
+    it('should do nothing on unhandled keys', () => {
+      spyOn(component, 'selectLanguage');
+      spyOn(component, 'closeOptions');
+      spyOn(component, 'navigateOptions' as any);
+
+      const event = new KeyboardEvent('keydown', { key: 'Tab' });
+      spyOn(event, 'preventDefault');
+
+      component.onLanguageKeyDown(event, testLangId);
+
+      expect(event.preventDefault).not.toHaveBeenCalled();
+      expect(component.selectLanguage).not.toHaveBeenCalled();
+      expect(component.closeOptions).not.toHaveBeenCalled();
+      expect(component['navigateOptions']).not.toHaveBeenCalled();
     });
   });
 

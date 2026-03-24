@@ -6,19 +6,21 @@
   <div class="post-card__overlay"></div>
 
   <div class="post-card__content">
-    <header class="blog-header">
-      <div class="blog-header__meta" [class.blog-header__meta--has-category]="!!categoryLabel">
+    <header class="post-card-header">
+      <div class="post-card-header__meta">
         @if (categoryLabel) {
           <div class="category-badge">
             <span class="category-badge__line"></span>
-            <span class="category-badge__text">{{ categoryLabel | translate }}</span>
+            <span class="category-badge__text">{{
+              categoryLabel | translate
+            }}</span>
           </div>
         }
-        <p class="blog-header__date">
+        <p class="post-card-header__date">
           {{ date | date: "longDate" : "" : currentLocale }}
         </p>
       </div>
-      <h2 class="blog-header__title">{{ title }}</h2>
+      <h2 class="post-card-header__title">{{ title }}</h2>
     </header>
 
     <p class="excerpt">{{ excerpt }}</p>

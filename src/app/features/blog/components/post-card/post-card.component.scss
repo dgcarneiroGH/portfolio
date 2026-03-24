@@ -4,6 +4,7 @@
   position: relative;
   margin: 1.5rem auto;
   padding: 1.5rem 2rem;
+  height: 100%;
 
   min-height: 35vh;
 
@@ -44,22 +45,19 @@
     justify-content: space-between;
   }
 
-  .blog-header {
+  .post-card-header {
     &__meta {
       display: flex;
       justify-content: flex-end;
-      align-items: center;
-
-      &--has-category {
-        justify-content: space-between;
-      }
+      align-items: flex-end;
+      flex-direction: column;
     }
 
     .category-badge {
       display: flex;
       align-items: center;
       gap: 4px;
-      padding: 3px 8px 3px 6px;
+      padding: 2px 5px 2px 5px;
       border-radius: 4px;
       background: rgba(palette.$accent-blue, 0.1);
 
@@ -80,6 +78,7 @@
     }
 
     &__date {
+      margin-top: 0.5rem;
       color: palette.$text-secondary;
       font-style: italic;
       text-align: right;

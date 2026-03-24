@@ -13,12 +13,14 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { LangService } from '../../../core/services/lang.service';
 import { BlogViewModel } from '../models/blog-view-model.model';
-import { BodyContent, Post } from '../models/post.model';
+import { Post } from '../models/post.model';
 import { ProcessedPost } from '../models/processed-post.model';
+import { PostCategoryType } from '../models/blog-filter.model';
 import { SanityService } from './../../../core/services/sanity.service';
 import { PostCardComponent } from './post-card/post-card.component';
 import { LoadingComponent } from '../../../shared/components/loading/loading.component';
 import { BlogFilterComponent } from './blog-filter/blog-filter.component';
+import { BodyContent } from '../../../core/models/sanity.models';
 
 @Component({
   selector: 'app-blog',
@@ -43,17 +45,28 @@ export class BlogComponent implements OnInit, OnDestroy {
   private _routeSubscription?: Subscription;
 
   private _currentSlug = signal<string | null>(null);
+  private _currentFilter = signal<PostCategoryType | null>(null);
 
   currentLang = computed(() => this._langService.currentLanguage());
 
   processedArticles = computed(() => {
     const posts = this._sanityService.posts();
+
     const langCode = this.currentLang()?.startsWith('en') ? 'en' : 'es';
 
     return posts
       .map((article) => this._processPost(article, langCode))
       .filter((p) => p.publishedAt.getTime() <= Date.now())
       .sort((a, b) => b.publishedAt.getTime() - a.publishedAt.getTime());
+  });
+
+  filteredPosts = computed(() => {
+    const allPosts = this.processedArticles();
+    const currentFilter = this._currentFilter();
+
+    if (currentFilter === null) return allPosts;
+
+    return allPosts.filter((post) => post.category === currentFilter);
   });
 
   selectedPost = computed(() => {
@@ -66,7 +79,7 @@ export class BlogComponent implements OnInit, OnDestroy {
 
   vm = computed(
     (): BlogViewModel => ({
-      posts: this.processedArticles(),
+      posts: this.filteredPosts(),
       hasSlug: !!this._currentSlug(),
       selectedPost: this.selectedPost(),
       currentLocale: this.currentLang()
@@ -105,6 +118,10 @@ export class BlogComponent implements OnInit, OnDestroy {
     this._sanityService.clearError();
   }
 
+  onFilterChange(category: PostCategoryType | null): void {
+    this._currentFilter.set(category);
+  }
+
   private _processPost(article: Post, langCode: 'es' | 'en'): ProcessedPost {
     const title =
       langCode === 'en' && article.title.en
@@ -131,8 +148,7 @@ export class BlogComponent implements OnInit, OnDestroy {
       : '';
 
     return {
-      _id: article._id,
-      _createdAt: article._createdAt,
+      id: article.id,
       slug: article.slug,
       publishedAt: article.publishedAt,
       title,

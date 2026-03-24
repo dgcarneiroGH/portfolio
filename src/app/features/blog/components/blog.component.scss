@@ -15,6 +15,10 @@
     max-width: 80vw;
     padding: 2rem;
 
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+
     p {
       padding: 1rem;
       text-align: justify;
@@ -168,9 +172,9 @@
   .section-container {
     width: 90%;
 
-    // .blog-content {
-    //   grid-template-columns: repeat(1, 1fr);
-    // }
+    .blog-cards-container {
+      grid-template-columns: 1fr;
+    }
 
     .blog-article {
       padding: 1.5rem;

@@ -30,8 +30,7 @@
     opacity: 0.8;
   }
 
-  &:focus-visible,
-  &:active {
+  &.active {
     background: palette.$accent-yellow;
     color: palette.$background-gradient-start;
     outline: none;
