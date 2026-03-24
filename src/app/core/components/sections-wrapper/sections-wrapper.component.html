@@ -5,28 +5,41 @@
     <app-about></app-about>
     <app-projects></app-projects>
     <app-experience></app-experience>
+    <img
+      class="stalactites"
+      src="assets/images/stalactites-1280.avif"
+      srcset="
+        assets/images/stalactites-480.avif   480w,
+        assets/images/stalactites-768.avif   768w,
+        assets/images/stalactites-1280.avif 1280w,
+        assets/images/stalactites-1920.avif 1920w
+      "
+      sizes="100vw"
+      alt=""
+    />
   </div>
-  
-    <app-contact style="width: 100vw"></app-contact>
-    <app-reviews style="width: 100vw"></app-reviews>
 
-    <a class="blog-btn" routerLink="/blog">
-      <img
-        src="assets/images/icons/blog_signal.avif"
-        [alt]="'COMMON.NAV_BLOG' | translate"
-      />
-    </a>
+  <div>
+    <app-contact></app-contact>
+    <app-reviews></app-reviews>
+  </div>
 
-    <footer>
-      <span>Crafted by Nomacoda ©{{ actualYear() }}. Inspired by nature</span>
-      <img
-        src="assets/images/icons/tree.svg"
-        width="20"
-        height="20"
-        style="vertical-align: middle; margin-left: 0.3em"
-        alt=""
-        loading="lazy"
-      />
-    </footer>
-  
+  <a class="blog-btn" routerLink="/blog">
+    <img
+      src="assets/images/icons/blog_signal.avif"
+      [alt]="'COMMON.NAV_BLOG' | translate"
+    />
+  </a>
+
+  <footer>
+    <span>Crafted by Nomacoda ©{{ actualYear() }}. Inspired by nature</span>
+    <img
+      src="assets/images/icons/tree.svg"
+      width="20"
+      height="20"
+      style="vertical-align: middle; margin-left: 0.3em"
+      alt=""
+      loading="lazy"
+    />
+  </footer>
 </div>
