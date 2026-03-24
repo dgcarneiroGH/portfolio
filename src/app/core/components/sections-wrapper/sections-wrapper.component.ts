@@ -1,12 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
 import { AboutComponent } from '../../../features/about/components/about.component';
 import { ContactComponent } from '../../../features/contact/components/contact.component';
 import { ExperienceComponent } from '../../../features/experience/components/experience.component';
 import { HomeComponent } from '../../../features/home/components/home.component';
 import { ProjectsComponent } from '../../../features/projects/components/projects.component';
-import { TranslateModule } from '@ngx-translate/core';
+import { ReviewsComponent } from '../../../features/reviews/components/reviews.component';
 
 @Component({
   selector: 'app-sections-wrapper',
@@ -17,6 +18,7 @@ import { TranslateModule } from '@ngx-translate/core';
     ExperienceComponent,
     ContactComponent,
     ProjectsComponent,
+    ReviewsComponent,
     CommonModule,
     RouterModule,
     TranslateModule

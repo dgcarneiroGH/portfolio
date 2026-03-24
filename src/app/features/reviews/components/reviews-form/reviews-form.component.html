@@ -1,0 +1,100 @@
+<form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+  <!-- Name and Email Row -->
+  <div class="name-email-row">
+    <!-- Name -->
+    <div class="field-group">
+      <input
+        id="fullName"
+        formControlName="fullName"
+        type="text"
+        [placeholder]="'07_CONTACT.NAME_PLACEHOLDER' | translate"
+        [class.input-error]="invalid('fullName')"
+        autocomplete="name"
+      />
+    </div>
+
+    <!-- Email -->
+    <div class="field-group">
+      <input
+        id="email"
+        formControlName="email"
+        type="email"
+        [placeholder]="'07_CONTACT.EMAIL_PLACEHOLDER' | translate"
+        [class.input-error]="invalid('email')"
+        autocomplete="email"
+      />
+      @if (invalid("email")) {
+        <div class="error-message" role="alert">
+          <svg class="error-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          Requerido y válido
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- Rating Group -->
+  <div class="field-group rating-group">
+    <label class="rating-label">{{ "REVIEW.RATING_LABEL" | translate }}</label>
+    <div class="stars-row">
+      @for (star of stars; track star) {
+        <button 
+          type="button" 
+          class="star-btn" 
+          [class.active]="form.get('rating')?.value >= star"
+          (click)="setRating(star)"
+          [attr.aria-label]="star + ' stars'">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-star"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </button>
+      }
+    </div>
+    @if (invalid("rating")) {
+      <div class="error-message" role="alert">
+        <svg class="error-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        Requerido
+      </div>
+    }
+  </div>
+
+  <!-- Message -->
+  <div class="field-group">
+    <textarea
+      id="message"
+      formControlName="message"
+      rows="5"
+      [placeholder]="'REVIEW.MESSAGE_PLACEHOLDER' | translate"
+      [class.input-error]="invalid('message')"
+    ></textarea>
+    @if (invalid("message")) {
+      <div class="error-message" role="alert">
+        <svg class="error-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        Requerido
+      </div>
+    }
+  </div>
+
+  <!-- Checkbox -->
+  <div class="field-group checkbox-group">
+    <label class="custom-checkbox">
+      <input type="checkbox" formControlName="acceptsLinkedIn" />
+      <span class="checkmark">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      </span>
+      <span class="checkbox-text">{{ "REVIEW.ACCEPT_LINKEDIN" | translate }}</span>
+    </label>
+    @if (invalid("acceptsLinkedIn")) {
+      <div class="error-message" role="alert">
+        <svg class="error-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        Debes aceptar para continuar
+      </div>
+    }
+  </div>
+
+  <!-- Submit -->
+  <button
+    type="submit"
+    class="submit-btn"
+    [disabled]="form.invalid"
+  >
+    {{ "REVIEW.SUBMIT_BUTTON" | translate }}
+  </button>
+</form>
