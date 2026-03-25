@@ -19,9 +19,12 @@
     />
   </div>
 
-  <div>
-    <app-contact></app-contact>
-    <app-reviews></app-reviews>
+  <div class="slider-wrapper">
+    @if (activeSlide === 0) {
+      <app-contact [navigate]="() => activeSlide = 1"></app-contact>
+    } @else if (activeSlide === 1) {
+      <app-reviews [navigate]="() => activeSlide = 0"></app-reviews>
+    }
   </div>
 
   <a class="blog-btn" routerLink="/blog">

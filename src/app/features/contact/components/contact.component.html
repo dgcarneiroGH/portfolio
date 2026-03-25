@@ -1,18 +1,24 @@
-<section>
+<section class="slider-slide">
   <div class="section-container">
     <h1
       [appAnimate]="animationDelay()"
       [translationKey]="'07_CONTACT.NOW_WE_KNOW'"
     ></h1>
     <div
-      class="nomacoda-img-wrapper"
-      #nomacodaImgWrapper
-      (mouseenter)="triggerSwing()"
+      class="nomacoda-animation-wrapper"
       role="img"
       [attr.aria-label]="'07_CONTACT.NOMACODA_CLIMBING' | translate"
+      (click)="navigate()"
     >
       <img
-        src="assets/images/nomacoda/nomacoda_climber.avif"
+        src="assets/images/nomacoda/nomacoda_climber1.avif"
+        class="img-base"
+        alt=""
+        aria-hidden="true"
+      />
+      <img
+        src="assets/images/nomacoda/nomacoda_climber2.avif"
+        class="img-hover"
         alt=""
         aria-hidden="true"
       />

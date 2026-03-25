@@ -1,7 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, signal } from '@angular/core';
+import { Component, signal, Output, EventEmitter, Input } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { ReviewFormData, ReviewsFormComponent } from './reviews-form/reviews-form.component';
+import {
+  ReviewFormData,
+  ReviewsFormComponent
+} from './reviews-form/reviews-form.component';
 
 @Component({
   selector: 'app-reviews',
@@ -11,6 +14,8 @@ import { ReviewFormData, ReviewsFormComponent } from './reviews-form/reviews-for
   styleUrls: ['./reviews.component.scss']
 })
 export class ReviewsComponent {
+  @Input() navigate!: () => void;
+
   status = signal<'idle' | 'loading' | 'success'>('idle');
 
   onSubmit(data: ReviewFormData): void {

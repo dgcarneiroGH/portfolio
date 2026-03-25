@@ -29,4 +29,6 @@ import { ReviewsComponent } from '../../../features/reviews/components/reviews.c
 export class SectionsWrapperComponent {
   private _actualYear = signal(new Date().getFullYear());
   actualYear = this._actualYear.asReadonly();
+
+  activeSlide = 0;
 }
