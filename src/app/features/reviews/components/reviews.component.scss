@@ -6,6 +6,7 @@ section {
   padding: 4rem 2rem;
   position: relative;
   z-index: 1;
+  min-height: 100vh;
 }
 
 .section-container {
@@ -40,7 +41,7 @@ section {
 
 .success-state {
   color: palette.$accent-green;
-  
+
   svg {
     margin-bottom: 1rem;
     color: palette.$accent-green;
@@ -57,7 +58,7 @@ section {
   animation: rotate 2s linear infinite;
   width: 50px;
   height: 50px;
-  
+
   & .path {
     stroke: palette.$accent-blue;
     stroke-linecap: round;

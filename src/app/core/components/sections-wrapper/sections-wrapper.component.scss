@@ -1,47 +1,10 @@
 @use "/src/styles/palette" as palette;
-// Slider styles for contact/reviews navigation
-.slider-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100vw;
-  margin: 0 auto 2rem auto;
-  position: relative;
-  min-height: 60vh;
-}
-
-.slider-arrow {
-  background: none;
-  border: none;
-  font-size: 2.5rem;
-  color: palette.$text-primary;
-  cursor: pointer;
-  padding: 0 1rem;
-  transition: color 0.2s;
-  z-index: 2;
-  user-select: none;
-  &:disabled {
-    color: #ccc;
-    cursor: default;
-  }
-}
 
 .slider-wrapper {
   width: 100vw;
   overflow: hidden;
   display: flex;
   justify-content: center;
-}
-
-.slider-slide {
-  width: 100vw;
-  max-width: 700px;
-  min-height: 50vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .cave-components {

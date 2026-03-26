@@ -52,42 +52,6 @@ section {
   }
 }
 
-@keyframes swing-rope-hover {
-  0% {
-    transform: rotateZ(0deg);
-  }
-  10% {
-    transform: rotateZ(-18deg);
-  }
-  20% {
-    transform: rotateZ(16deg);
-  }
-  30% {
-    transform: rotateZ(-14deg);
-  }
-  40% {
-    transform: rotateZ(12deg);
-  }
-  50% {
-    transform: rotateZ(-10deg);
-  }
-  60% {
-    transform: rotateZ(8deg);
-  }
-  70% {
-    transform: rotateZ(-6deg);
-  }
-  80% {
-    transform: rotateZ(4deg);
-  }
-  90% {
-    transform: rotateZ(-2deg);
-  }
-  100% {
-    transform: rotateZ(0deg);
-  }
-}
-
 //#region Responsive
 @media (pointer: coarse) and (hover: none) {
   .section-container {
