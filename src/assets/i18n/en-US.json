@@ -12,12 +12,12 @@
     "YEAR": "year",
     "YEARS": "years"
   },
-  "01_HOME": {
+  "HOME": {
     "HELLO": "Hello, I'm Nomacoda",
     "DESCRIPTION": "Passionate about <br>Front-end development <br>and web design.",
     "NOMACODA_LOGO": "Nomacoda - Portfolio logo"
   },
-  "02_ABOUT": {
+  "ABOUT": {
     "ABOUT_ME": "About me",
     "PARAGRAPH_1": "My name is Diego. As a developer specializing in Front-End, I'm dedicated to creating digital experiences that don't just look great, but are also intuitive and perform flawlessly.",
     "PARAGRAPH_2": "Beyond technology, I am driven by projects that create a positive social impact. My greatest motivation is knowing that my code is contributing to a good cause and bringing real value to society.",
@@ -28,7 +28,7 @@
     "DIEGO_PORTRAIT_3": "Diego enjoying music and focusing on details",
     "DIEGO_PORTRAIT_4": "Diego in a collaborative environment building trust"
   },
-  "04_EXPERIENCE": {
+  "EXPERIENCE": {
     "ACTUAL_JOB": "2023 - Present",
     "CALL_CENTER_AGENT": "Telemarketer",
     "DESCRIPTION_BOSCH": "Sales agent for the mobile phone company Orange, through its subcontractor Bosch.",
@@ -43,7 +43,7 @@
     "INTERNET_ADS_ASESSOR": "Internet Ads Advisor",
     "TI_TECHNICIAN": "IT Technician"
   },
-  "05_PROJECTS": {
+  "PROJECTS": {
     "VIEW_PROJECT": "View project {{name}}",
     "TOGGLE_INFO_SHOW": "Show project information",
     "TOGGLE_INFO_HIDE": "Hide project information",
@@ -68,7 +68,7 @@
     "PROJECT_DFG_ALT": "DFG Natural Stone corporate website",
     "PROJECT_ARCELOR_ALT": "ArcelorMittal railway logistics system"
   },
-  "07_CONTACT": {
+  "CONTACT": {
     "NOW_WE_KNOW": "Now that you know me . . .",
     "TALK": "Shall we talk?",
     "NOMACODA_CLIMBING": "Nomacoda climbing, pointing right to access the reviews section",

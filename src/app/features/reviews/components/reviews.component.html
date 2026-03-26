@@ -7,7 +7,7 @@
     &#8592;
   </button>
   <div class="section-container">
-    <h1>{{ "REVIEW.TITLE" | translate }}</h1>
+    <h1>{{ "REVIEWS.TITLE" | translate }}</h1>
 
     @if (status() === "idle") {
       <app-reviews-form (submitted)="onSubmit($event)"></app-reviews-form>
@@ -41,7 +41,7 @@
           <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
           <polyline points="22 4 12 14.01 9 11.01" />
         </svg>
-        <p>{{ "REVIEW.SUCCESS" | translate }}</p>
+        <p>{{ "FORM.SUCCESS" | translate }}</p>
       </div>
     }
   </div>

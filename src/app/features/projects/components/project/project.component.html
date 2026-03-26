@@ -20,9 +20,7 @@
       [style.background-image]="'url(' + coverImgSrc() + '.avif)'"
       (click)="goTo()"
       (keydown)="onKeyDown($event, 'goTo')"
-      [attr.aria-label]="
-        '05_PROJECTS.VIEW_PROJECT' | translate: { name: name() }
-      "
+      [attr.aria-label]="'PROJECTS.VIEW_PROJECT' | translate: { name: name() }"
       type="button"
     ></button>
 
@@ -43,8 +41,8 @@
           [attr.aria-expanded]="showMoreInfo()"
           [attr.aria-label]="
             (showMoreInfo()
-              ? '05_PROJECTS.TOGGLE_INFO_HIDE'
-              : '05_PROJECTS.TOGGLE_INFO_SHOW'
+              ? 'PROJECTS.TOGGLE_INFO_HIDE'
+              : 'PROJECTS.TOGGLE_INFO_SHOW'
             ) | translate
           "
         ></app-button>

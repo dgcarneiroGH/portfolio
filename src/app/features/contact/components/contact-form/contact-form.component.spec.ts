@@ -8,13 +8,13 @@ import { ContactInquiry } from '../../interfaces/contact-inquiry.interface';
 
 // Mock TranslateLoader
 const mockTranslations = {
-  '07_CONTACT.FORM_SUCCESS': 'Message sent successfully',
-  '07_CONTACT.FORM_ERROR': 'Error sending message',
-  '07_CONTACT.NAME_PLACEHOLDER': 'Full Name',
-  '07_CONTACT.EMAIL_PLACEHOLDER': 'Email',
-  '07_CONTACT.MESSAGE_PLACEHOLDER': 'Message',
-  '07_CONTACT.SUBMIT_BUTTON': 'Send Message',
-  '07_CONTACT.SUBMIT_LOADING': 'Sending...'
+  'CONTACT.FORM_SUCCESS': 'Message sent successfully',
+  'CONTACT.FORM_ERROR': 'Error sending message',
+  'CONTACT.NAME_PLACEHOLDER': 'Full Name',
+  'CONTACT.EMAIL_PLACEHOLDER': 'Email',
+  'CONTACT.MESSAGE_PLACEHOLDER': 'Message',
+  'CONTACT.SUBMIT_BUTTON': 'Send Message',
+  'CONTACT.SUBMIT_LOADING': 'Sending...'
 };
 
 const mockLoader = {
@@ -161,7 +161,9 @@ describe('ContactFormComponent', () => {
     it('should set loading state to true during submission', () => {
       // Setup a Subject to control when the observable completes
       const responseSubject = new Subject<{ success: boolean }>();
-      contactServiceSpy.sendInquiry.and.returnValue(responseSubject.asObservable());
+      contactServiceSpy.sendInquiry.and.returnValue(
+        responseSubject.asObservable()
+      );
 
       component.form.patchValue(validFormData);
       component.submit();
@@ -169,14 +171,14 @@ describe('ContactFormComponent', () => {
       // Initially should be loading
       expect(component.formStatus().loading).toBeTrue();
       expect(component.formStatus().success).toBeUndefined();
-      
+
       // Complete the request
       responseSubject.next({ success: true });
       responseSubject.complete();
-      
+
       // Now should be success and not loading
       expect(component.formStatus().loading).toBeFalse();
-      expect(component.formStatus().success).toBe('07_CONTACT.FORM_SUCCESS');
+      expect(component.formStatus().success).toBe('CONTACT.FORM_SUCCESS');
     });
 
     it('should send correct data to service on successful submission', () => {
@@ -207,7 +209,7 @@ describe('ContactFormComponent', () => {
       component.form.patchValue(validFormData);
       component.submit();
 
-      expect(component.formStatus().success).toBe('07_CONTACT.FORM_SUCCESS');
+      expect(component.formStatus().success).toBe('CONTACT.FORM_SUCCESS');
       expect(component.formStatus().loading).toBeFalse();
       expect(component.formStatus().error).toBeUndefined();
       expect(component.form.pristine).toBeTrue(); // Form should be reset
@@ -221,7 +223,7 @@ describe('ContactFormComponent', () => {
       component.form.patchValue(validFormData);
       component.submit();
 
-      expect(component.formStatus().error).toBe('07_CONTACT.FORM_ERROR');
+      expect(component.formStatus().error).toBe('CONTACT.FORM_ERROR');
       expect(component.formStatus().loading).toBeFalse();
       expect(component.formStatus().success).toBeUndefined();
     });
@@ -307,7 +309,7 @@ describe('ContactFormComponent', () => {
     it('should show success message with proper accessibility attributes', () => {
       component.formStatus.set({
         loading: false,
-        success: '07_CONTACT.FORM_SUCCESS'
+        success: 'CONTACT.FORM_SUCCESS'
       });
       fixture.detectChanges();
 

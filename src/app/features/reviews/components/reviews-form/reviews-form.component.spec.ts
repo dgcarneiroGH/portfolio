@@ -5,14 +5,15 @@ import { of } from 'rxjs';
 import { ReviewFormData, ReviewsFormComponent } from './reviews-form.component';
 
 const mockLoader = {
-  getTranslation: () => of({
-    '07_CONTACT.NAME_PLACEHOLDER': 'Tu nombre (Opcional)',
-    '07_CONTACT.EMAIL_PLACEHOLDER': 'Tu correo electrónico *',
-    'REVIEW.MESSAGE_PLACEHOLDER': 'Escribe tu reseña aquí... *',
-    'REVIEW.RATING_LABEL': 'Valora tu experiencia *',
-    'REVIEW.ACCEPT_LINKEDIN': 'Acepto que compartas esto por LinkedIn *',
-    'REVIEW.SUBMIT_BUTTON': 'Enviar Reseña →'
-  })
+  getTranslation: () =>
+    of({
+      'CONTACT.NAME_PLACEHOLDER': 'Tu nombre (Opcional)',
+      'CONTACT.EMAIL_PLACEHOLDER': 'Tu correo electrónico *',
+      'REVIEW.MESSAGE_PLACEHOLDER': 'Escribe tu reseña aquí... *',
+      'REVIEW.RATING_LABEL': 'Valora tu experiencia *',
+      'REVIEW.ACCEPT_LINKEDIN': 'Acepto que compartas esto por LinkedIn *',
+      'REVIEW.SUBMIT_BUTTON': 'Enviar Reseña →'
+    })
 };
 
 describe('ReviewsFormComponent', () => {
@@ -93,7 +94,7 @@ describe('ReviewsFormComponent', () => {
   describe('submit', () => {
     it('should emit data when valid', () => {
       let emittedObj: ReviewFormData | undefined;
-      component.submitted.subscribe(val => emittedObj = val);
+      component.submitted.subscribe((val) => (emittedObj = val));
 
       component.form.setValue({
         fullName: 'John Doe',

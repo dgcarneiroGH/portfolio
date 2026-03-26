@@ -46,14 +46,14 @@ export class ContactFormComponent {
       next: () => {
         this.formStatus.set({
           loading: false,
-          success: '07_CONTACT.FORM_SUCCESS'
+          success: 'CONTACT.FORM_SUCCESS'
         });
         this.form.reset();
       },
       error: () => {
         this.formStatus.set({
           loading: false,
-          error: '07_CONTACT.FORM_ERROR'
+          error: 'CONTACT.FORM_ERROR'
         });
       }
     });

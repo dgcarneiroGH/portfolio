@@ -2,12 +2,12 @@
   <div class="section-container">
     <h1
       [appAnimate]="animationDelay()"
-      [translationKey]="'07_CONTACT.NOW_WE_KNOW'"
+      [translationKey]="'CONTACT.NOW_WE_KNOW'"
     ></h1>
     <div
       class="nomacoda-animation-wrapper"
       role="img"
-      [attr.aria-label]="'07_CONTACT.NOMACODA_CLIMBING' | translate"
+      [attr.aria-label]="'CONTACT.NOMACODA_CLIMBING' | translate"
       (click)="navigate()"
     >
       <img
@@ -24,7 +24,7 @@
       />
     </div>
 
-    <p [appAnimate]="animationDelay()" [translationKey]="'07_CONTACT.TALK'"></p>
+    <p [appAnimate]="animationDelay()" [translationKey]="'CONTACT.TALK'"></p>
 
     <app-contact-form></app-contact-form>
   </div>
