@@ -30,7 +30,7 @@ export class ReviewsFormComponent {
       email: ['', [Validators.required, Validators.email]],
       message: ['', [Validators.required]],
       rating: [0, [Validators.required, Validators.min(1), Validators.max(5)]],
-      acceptsLinkedIn: [false, [Validators.requiredTrue]]
+      acceptsLinkedIn: [false]
     });
   }
 

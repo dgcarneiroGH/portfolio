@@ -3,10 +3,61 @@
 section {
   display: flex;
   justify-content: center;
+  align-items: center;
   padding: 4rem 2rem;
   position: relative;
   z-index: 1;
   min-height: 100vh;
+  width: 100vw;
+}
+
+app-reviews-form{
+  z-index: 2;
+}
+
+.nomacoda-campfire {
+  position: absolute;
+  left: 2rem;
+  bottom: 3rem;
+  width: 20rem;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-around;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+
+
+  .campfire-fire {
+  display: block;
+  width: 50%;
+
+  /* Heat-wave distortion + warm glow */
+  filter: url('#heat-wave') drop-shadow(0 0 12px rgba(255, 167, 38, 0.6));
+  animation: fire-pulse 2.5s infinite alternate ease-in-out;
+
+  &:hover {
+    transform: translateX(-6px) scale(1.02);
+filter: url('#heat-wave') drop-shadow(0 0 22px rgba(255, 167, 38, 0.95));
+  }
+}
+
+.campfire-character {
+  display: block;
+  width: 50%;
+}
+}
+
+@keyframes fire-pulse {
+  0% {
+    filter: url('#heat-wave') drop-shadow(0 0 8px rgba(255, 140, 0, 0.4));
+  }
+  50% {
+    filter: url('#heat-wave') drop-shadow(0 0 18px rgba(255, 180, 30, 0.75)) drop-shadow(0 0 30px rgba(255, 100, 0, 0.3));
+  }
+  100% {
+    filter: url('#heat-wave') drop-shadow(0 0 12px rgba(255, 167, 38, 0.65));
+  }
 }
 
 .section-container {
