@@ -46,7 +46,8 @@ cp .env.example .env
 
 **Required variables:**
 - `PORTFOLIO_TOKEN`: Security token for N8N webhook
-- `N8N_WEBHOOK_URL`: Contact endpoint URL
+- `N8N_CONTACT_WEBHOOK_URL`: Contact endpoint URL
+- `N8N_REVIEWS_WEBHOOK_URL`: Reviews endpoint URL
 
 ## 🛠️ Available Scripts
 
@@ -94,7 +95,7 @@ Files are generated in `dist/portfolio/`
 ### Deploy on Netlify
 1. **Environment variables** in Netlify Dashboard:
    - Site Settings → Environment Variables
-   - Add `PORTFOLIO_TOKEN` and `N8N_WEBHOOK_URL`
+   - Add `PORTFOLIO_TOKEN` and `N8N_CONTACT_WEBHOOK_URL`
 
 2. **Auto-deploy**:
    - Push to `main` → Automatic deploy

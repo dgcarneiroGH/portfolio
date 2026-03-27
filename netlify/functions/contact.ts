@@ -47,7 +47,7 @@ const handler: Handler = async (event, context): Promise<HandlerResponse> => {
 
   try {
     const portfolioToken = process.env.PORTFOLIO_TOKEN;
-    const n8nWebhookUrl = process.env.N8N_WEBHOOK_URL;
+    const n8nWebhookUrl = process.env.N8N_CONTACT_WEBHOOK_URL;
 
     if (!portfolioToken || !n8nWebhookUrl) {
       return {

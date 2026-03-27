@@ -7,5 +7,6 @@ export const environment = {
     useCdn: true, // true for cached reads, false if you want fresh data
     token: undefined
   },
-  contactEndpoint: 'http://localhost:8888/.netlify/functions/contact'
+  contactEndpoint: 'http://localhost:8888/.netlify/functions/contact',
+  reviewsEndpoint: 'http://localhost:8888/.netlify/functions/reviews'
 };
