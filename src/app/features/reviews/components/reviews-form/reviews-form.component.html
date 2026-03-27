@@ -76,8 +76,8 @@
         <button
           type="button"
           class="star-btn"
-          [class.active]="form.get('rating')?.value >= star"
-          [class.lit]="hoveredRating() >= star || form.get('rating')?.value >= star"
+          [class.active]="currentRating >= star"
+          [class.lit]="hoveredRating() >= star || currentRating >= star"
           (mouseenter)="setHovered(star)"
           (click)="setRating(star)"
           [attr.aria-label]="star + ' stars'"

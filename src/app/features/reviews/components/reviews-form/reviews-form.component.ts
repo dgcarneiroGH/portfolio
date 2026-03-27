@@ -27,6 +27,10 @@ export class ReviewsFormComponent {
   stars = [1, 2, 3, 4, 5];
   hoveredRating = signal(0);
 
+  get currentRating(): number {
+    return this.form.get('rating')?.value || 0;
+  }
+
   form = this.fb.group({
     fullName: [''],
     email: ['', [Validators.required, Validators.email]],
