@@ -133,13 +133,13 @@
       class="submit-btn"
       [disabled]="form.invalid || formStatus().loading"
       [class.loading]="formStatus().loading"
-      [attr.aria-label]="'FORM.SUBMIT_ARIA' | translate"
+      [attr.aria-label]="'FORM.SUBMIT_BUTTON' | translate"
     >
       @if (formStatus().loading) {
         <span class="btn-spinner" aria-hidden="true"></span>
         {{ "FORM.SUBMIT_LOADING" | translate }}
       } @else {
-        {{ "FORM.SUBMIT_BUTTON" | translate }} &rarr;
+        {{ "FORM.SUBMIT_BUTTON" | translate }}
       }
     </button>
 

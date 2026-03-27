@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, output } from '@angular/core';
+import { Component, output, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -8,7 +8,6 @@ export interface ReviewFormData {
   email: string;
   message: string;
   rating: number;
-  acceptsLinkedIn: boolean;
 }
 
 @Component({
@@ -23,14 +22,14 @@ export class ReviewsFormComponent {
   submitted = output<ReviewFormData>();
 
   stars = [1, 2, 3, 4, 5];
+  hoveredRating = signal(0);
 
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
       fullName: [''],
       email: ['', [Validators.required, Validators.email]],
       message: ['', [Validators.required]],
-      rating: [0, [Validators.required, Validators.min(1), Validators.max(5)]],
-      acceptsLinkedIn: [false]
+      rating: [0, [Validators.max(5)]],
     });
   }
 
@@ -42,10 +41,18 @@ export class ReviewsFormComponent {
     this.form.get('rating')?.markAsDirty();
   }
 
+  setHovered(star: number): void {
+    this.hoveredRating.set(star);
+  }
+
+  clearHovered(): void {
+    this.hoveredRating.set(0);
+  }
+
   submit(): void {
     if (this.form.valid) {
       this.submitted.emit(this.form.value);
-      this.form.reset({ rating: 0, acceptsLinkedIn: false });
+      this.form.reset({ rating: 0 }); 
     } else {
       Object.keys(this.form.controls).forEach(key => {
         const control = this.form.get(key);

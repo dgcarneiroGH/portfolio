@@ -19,7 +19,7 @@ form {
 
 .name-email-row {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
 
   @media (max-width: 1531px) {
@@ -100,29 +100,14 @@ textarea {
       border: none;
       cursor: pointer;
       padding: 0;
-      color: #55687a; /* grayish disabled state */
+      color: palette.$text-secondary;
       transition: color 0.2s ease, transform 0.2s ease;
 
-      &.active,
-      &:hover {
+      &.lit {
         color: palette.$accent-yellow;
         transform: scale(1.1);
       }
     }
-
-    /* Hover effect for previous stars (when hovering a star, illuminate previous ones if possible via CSS or just keep simple toggle logic) */
-    &:hover .star-btn {
-      color: #55687a; /* reset all to gray on hover of the container */
-    }
-
-    .star-btn:hover,
-    .star-btn:hover ~ .star-btn {
-      /* This won't perfectly light up the previous ones without a clever selector. In this case, standard state handles the `.active` class */
-    }
-
-    /* Better CSS-only hover for preceding siblings: 
-       We reverse the flex order so that hovering a rightmost star affects its 'following' siblings visually.
-       Wait, simple approach: just let Angular handle the active state. */
   }
 }
 

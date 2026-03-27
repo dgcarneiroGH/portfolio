@@ -16,6 +16,7 @@
     "EMAIL_ARIA": "Tu correo electrónico",
     "EMAIL_ERROR": "Formato de email no válido.",
     "EMAIL_PLACEHOLDER": "tu@email.com",
+    "EMAIL_REQUIRED_ERROR": "Requerido y válido",
     "FORM_ERROR": "Error al enviar el mensaje. Inténtalo de nuevo más tarde.",
     "FORM_SUCCESS": "¡Mensaje enviado con éxito!",
     "MESSAGE_ARIA": "Mensaje",
@@ -23,8 +24,9 @@
     "MESSAGE_PLACEHOLDER": "Cuéntame sobre tu proyecto...",
     "NAME_ERROR": "El nombre es obligatorio (mínimo 3 caracteres).",
     "NAME_PLACEHOLDER": "Tu nombre",
-    "SUBMIT_ARIA": "Enviar mensaje",
-    "SUBMIT_BUTTON": "Enviar Mensaje",
+    "REQUIRED_ERROR": "Requerido",
+    "REVIEW_MESSAGE_PLACEHOLDER": "Escribe tu reseña...",
+    "SUBMIT_BUTTON": "Enviar",
     "SUBMIT_LOADING": "Enviando..."
   },
   "HOME": {
