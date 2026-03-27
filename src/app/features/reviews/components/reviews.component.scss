@@ -27,45 +27,34 @@ app-reviews-form{
   cursor: pointer;
   transition: transform 0.3s ease;
 
+  &:hover {
+    .campfire-fire {
+      transform: scaleY(1.2);
+      filter: url('#heat-wave') drop-shadow(0 0 22px rgba(255, 167, 38, 0.95));
+    }
+  }
 
   .campfire-fire {
-  display: block;
-  width: 50%;
-
-  /* Heat-wave distortion + warm glow */
-  filter: url('#heat-wave') drop-shadow(0 0 12px rgba(255, 167, 38, 0.6));
-  animation: fire-pulse 2.5s infinite alternate ease-in-out;
-
-  &:hover {
-    transform: translateX(-6px) scale(1.02);
-filter: url('#heat-wave') drop-shadow(0 0 22px rgba(255, 167, 38, 0.95));
+    display: block;
+    width: 50%;
+    transform-origin: bottom center;
+    transition: transform 2s ease, filter 0.3s ease;
+    filter: url('#heat-wave') drop-shadow(0 0 12px rgba(255, 167, 38, 0.6));
   }
-}
 
-.campfire-character {
-  display: block;
-  width: 50%;
-}
-}
-
-@keyframes fire-pulse {
-  0% {
-    filter: url('#heat-wave') drop-shadow(0 0 8px rgba(255, 140, 0, 0.4));
-  }
-  50% {
-    filter: url('#heat-wave') drop-shadow(0 0 18px rgba(255, 180, 30, 0.75)) drop-shadow(0 0 30px rgba(255, 100, 0, 0.3));
-  }
-  100% {
-    filter: url('#heat-wave') drop-shadow(0 0 12px rgba(255, 167, 38, 0.65));
+  .campfire-character {
+    display: block;
+    width: 50%;
   }
 }
 
 .section-container {
-  display: flex;
+ display: flex;
+  align-items: start;
+  justify-content: center;
   flex-direction: column;
-  align-items: center;
-  max-width: 1200px;
-  width: 100%;
+  flex: 1 0 0%;
+  z-index: 1;
 
   h1 {
     font-size: 3rem;
