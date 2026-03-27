@@ -1,13 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { Component, output, signal } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, inject, signal } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
+import { ReviewInquiry } from '../../interfaces/review-inquiry.interface';
+import { ReviewsService } from '../../services/reviews.service';
 
-export interface ReviewFormData {
-  fullName?: string;
-  email: string;
-  message: string;
-  rating: number;
+interface FormStatus {
+  loading: boolean;
+  success?: string;
+  error?: string;
 }
 
 @Component({
@@ -18,20 +19,20 @@ export interface ReviewFormData {
   styleUrls: ['./reviews-form.component.scss']
 })
 export class ReviewsFormComponent {
-  form: FormGroup;
-  submitted = output<ReviewFormData>();
+  private fb = inject(FormBuilder);
+  private reviewsService = inject(ReviewsService);
+
+  formStatus = signal<FormStatus>({ loading: false });
 
   stars = [1, 2, 3, 4, 5];
   hoveredRating = signal(0);
 
-  constructor(private fb: FormBuilder) {
-    this.form = this.fb.group({
-      fullName: [''],
-      email: ['', [Validators.required, Validators.email]],
-      message: ['', [Validators.required]],
-      rating: [0, [Validators.max(5)]],
-    });
-  }
+  form = this.fb.group({
+    fullName: [''],
+    email: ['', [Validators.required, Validators.email]],
+    message: ['', [Validators.required]],
+    rating: [0, [Validators.max(5)]]
+  });
 
   setRating(rating: number): void {
     if (rating < 1) rating = 1;
@@ -50,19 +51,35 @@ export class ReviewsFormComponent {
   }
 
   submit(): void {
-    if (this.form.valid) {
-      this.submitted.emit(this.form.value);
-      this.form.reset({ rating: 0 }); 
-    } else {
-      Object.keys(this.form.controls).forEach(key => {
-        const control = this.form.get(key);
-        control?.markAsTouched();
-      });
-    }
+    if (this.form.invalid) return;
+
+    this.formStatus.set({ loading: true });
+
+    const review: ReviewInquiry = {
+      ...this.form.value,
+      creationDate: new Date().toISOString(),
+      origin: 'nomacoda_portfolio'
+    } as ReviewInquiry;
+
+    this.reviewsService.sendReview(review).subscribe({
+      next: () => {
+        this.formStatus.set({
+          loading: false,
+          success: 'REVIEWS.FORM_SUCCESS'
+        });
+        this.form.reset({ rating: 0 });
+        this.hoveredRating.set(0);
+      },
+      error: () => {
+        this.formStatus.set({
+          loading: false,
+          error: 'FORM.FORM_ERROR'
+        });
+      }
+    });
   }
 
-  invalid(controlName: string): boolean {
-    const control = this.form.get(controlName);
-    return !!(control && control.invalid && (control.dirty || control.touched));
+  invalid(property: string): boolean | undefined {
+    return this.form.get(property)?.invalid && this.form.get(property)?.touched;
   }
 }

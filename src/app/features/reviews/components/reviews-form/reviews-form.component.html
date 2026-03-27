@@ -1,3 +1,24 @@
+@if (formStatus().success) {
+  <!-- Success State -->
+  <div class="success-state" role="status" aria-live="polite">
+    <div class="success-icon-wrap">
+      <svg
+        class="success-icon"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <polyline points="20 6 9 17 4 12" />
+      </svg>
+    </div>
+    <p class="success-title">{{ "REVIEWS.FORM_SUCCESS" | translate }}</p>
+  </div>
+} @else {
 <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
   <!-- Name and Email Row -->
   <div class="name-email-row">
@@ -116,7 +137,24 @@
   </div>
 
   <!-- Submit -->
-  <button type="submit" class="submit-btn" [disabled]="form.invalid">
-    {{ "FORM.SUBMIT_BUTTON" | translate }}
+  <button
+    type="submit"
+    class="submit-btn"
+    [disabled]="form.invalid || formStatus().loading"
+    [class.loading]="formStatus().loading"
+  >
+    @if (formStatus().loading) {
+      <span class="btn-spinner" aria-hidden="true"></span>
+      {{ "FORM.SUBMIT_LOADING" | translate }}
+    } @else {
+      {{ "FORM.SUBMIT_BUTTON" | translate }}
+    }
   </button>
+
+  @if (formStatus().error) {
+    <div class="form-error" role="alert">
+      {{ formStatus().error! | translate }}
+    </div>
+  }
 </form>
+}

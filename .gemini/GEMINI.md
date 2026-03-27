@@ -55,3 +55,8 @@ You are an expert in TypeScript, Angular, and scalable web application developme
 - **All new features MUST be developed following TDD**: write the test(s) first, then implement the feature to make them pass.
 - After the feature is complete, **always run the relevant tests** (`ng test`) to verify they pass before considering the task done.
 - Tests must be written using the project's testing stack (Jasmine + Karma). Follow the guidelines in the `angular-testing` skill.
+- **Code coverage**: every new feature or service must maintain a **minimum of 80% coverage** (statements, branches, functions, lines). Run `ng test --watch=false --browsers=ChromeHeadless --code-coverage` and verify the output before closing the task. Coverage reports land in `coverage/portfolio/index.html`.
+
+## NPM and dependencies
+
+- **Package installation**: When installing an NPM package, you must resolve all vulnerabilities until the counter reaches 0 (e.g. using `npm audit fix` or other necessary tools/updates).

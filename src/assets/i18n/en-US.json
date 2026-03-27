@@ -112,6 +112,11 @@
       "NEW": "News"
     }
   },
+  "REVIEWS": {
+    "FORM_SUCCESS": "Thank you for your review!",
+    "GO_BACK": "Go back",
+    "TITLE": "Reviews"
+  },
   "ERROR_404": {
     "TITLE": "Oops! It seems that path doesn't exist",
     "BODY": "There's been a slight detour on the path. The article you are looking for cannot be found, but don't worry, losing your way is part of the adventure.",

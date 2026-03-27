@@ -227,3 +227,65 @@ textarea {
     transform: none;
   }
 }
+
+.btn-spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(palette.$background-gradient-start, 0.3);
+  border-top-color: palette.$background-gradient-start;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.form-error {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8125rem;
+  color: palette.$text-red;
+  text-align: center;
+  padding: 0.5rem 0;
+}
+
+.success-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  text-align: center;
+  padding: 2rem 0;
+  animation: fadeInUp 0.4s ease;
+}
+
+.success-icon-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: rgba(palette.$accent-yellow, 0.15);
+
+  .success-icon {
+    width: 40px;
+    height: 40px;
+    stroke: palette.$accent-yellow;
+  }
+}
+
+.success-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: palette.$text-primary;
+  margin: 0;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

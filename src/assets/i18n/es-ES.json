@@ -113,6 +113,8 @@
     }
   },
   "REVIEWS": {
+    "FORM_SUCCESS": "¡Gracias por tu reseña!",
+    "GO_BACK": "Volver",
     "TITLE": "Reseñas"
   },
   "ERROR_404": {

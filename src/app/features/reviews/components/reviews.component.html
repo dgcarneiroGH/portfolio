@@ -52,41 +52,6 @@
   </div>
   <div class="section-container">
     <h1>{{ "REVIEWS.TITLE" | translate }}</h1>
-
-    @if (status() === "idle") {
-      <app-reviews-form (submitted)="onSubmit($event)"></app-reviews-form>
-    } @else if (status() === "loading") {
-      <div class="loading-state">
-        <svg class="spinner" viewBox="0 0 50 50">
-          <circle
-            class="path"
-            cx="25"
-            cy="25"
-            r="20"
-            fill="none"
-            stroke-width="5"
-          ></circle>
-        </svg>
-      </div>
-    } @else if (status() === "success") {
-      <div class="success-state">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="64"
-          height="64"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          class="lucide lucide-check-circle"
-        >
-          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-          <polyline points="22 4 12 14.01 9 11.01" />
-        </svg>
-        <p>{{ "FORM.SUCCESS" | translate }}</p>
-      </div>
-    }
+    <app-reviews-form></app-reviews-form>
   </div>
 </section>
