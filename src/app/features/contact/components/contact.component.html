@@ -6,8 +6,11 @@
     ></h1>
     <div
       class="nomacoda-animation-wrapper"
-      role="img"
-      [attr.aria-label]="'CONTACT.NOMACODA_CLIMBING' | translate"
+      role="button"
+      tabindex="0"
+      (keydown.enter)="navigate()"
+      (keydown.space)="navigate()"
+      [attr.aria-label]="'CONTACT.GO_TO_REVIEWS' | translate"
       (click)="navigate()"
     >
       <img

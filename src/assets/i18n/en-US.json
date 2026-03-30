@@ -12,6 +12,23 @@
     "YEAR": "year",
     "YEARS": "years"
   },
+  "FORM": {
+    "EMAIL_ARIA": "Your email address",
+    "EMAIL_ERROR": "Invalid email format.",
+    "EMAIL_PLACEHOLDER": "you@email.com",
+    "EMAIL_REQUIRED_ERROR": "Required and valid",
+    "FORM_ERROR": "Error sending message. Please try again later.",
+    "FORM_SUCCESS": "Message sent successfully!",
+    "MESSAGE_ARIA": "Message",
+    "MESSAGE_ERROR": "Message is required (minimum 10 characters).",
+    "MESSAGE_PLACEHOLDER": "Tell me about your project...",
+    "NAME_ERROR": "Name is required (minimum 3 characters).",
+    "NAME_PLACEHOLDER": "Your name",
+    "REQUIRED_ERROR": "Required",
+    "REVIEW_MESSAGE_PLACEHOLDER": "Write your review...",
+    "SUBMIT_BUTTON": "Send",
+    "SUBMIT_LOADING": "Sending..."
+  },
   "HOME": {
     "HELLO": "Hello, I'm Nomacoda",
     "DESCRIPTION": "Passionate about <br>Front-end development <br>and web design.",
@@ -71,24 +88,7 @@
   "CONTACT": {
     "NOW_WE_KNOW": "Now that you know me . . .",
     "TALK": "Shall we talk?",
-    "NOMACODA_CLIMBING": "Nomacoda climbing, pointing right to access the reviews section"
-  },
-  "FORM": {
-    "EMAIL_ARIA": "Your email address",
-    "EMAIL_ERROR": "Invalid email format.",
-    "EMAIL_PLACEHOLDER": "you@email.com",
-    "EMAIL_REQUIRED_ERROR": "Required and valid",
-    "FORM_ERROR": "Error sending message. Please try again later.",
-    "FORM_SUCCESS": "Message sent successfully!",
-    "MESSAGE_ARIA": "Message",
-    "MESSAGE_ERROR": "Message is required (minimum 10 characters).",
-    "MESSAGE_PLACEHOLDER": "Tell me about your project...",
-    "NAME_ERROR": "Name is required (minimum 3 characters).",
-    "NAME_PLACEHOLDER": "Your name",
-    "REQUIRED_ERROR": "Required",
-    "REVIEW_MESSAGE_PLACEHOLDER": "Write your review...",
-    "SUBMIT_BUTTON": "Send",
-    "SUBMIT_LOADING": "Sending..."
+    "GO_TO_REVIEWS": "Go to reviews"
   },
   "SIDEBAR": {
     "CV_URL": "https://drive.google.com/file/d/16_HnY7__FQIomt2ZLJQp5FXLXHcSi5Bn/view?usp=sharing"

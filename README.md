@@ -29,16 +29,7 @@ npm install
 
 ### 2. Environment variables
 
-**Option A: Automatic setup (Recommended)**
-```bash
-# Linux/Mac
-./setup-env.sh
-
-# Windows
-setup-env.bat
-```
-
-**Option B: Manual setup**
+**Manual setup**
 ```bash
 cp .env.example .env
 # Edit .env with your real values

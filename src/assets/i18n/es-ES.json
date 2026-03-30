@@ -21,7 +21,7 @@
     "FORM_SUCCESS": "¡Mensaje enviado con éxito!",
     "MESSAGE_ARIA": "Mensaje",
     "MESSAGE_ERROR": "El mensaje es obligatorio (mínimo 10 caracteres).",
-    "MESSAGE_PLACEHOLDER": "Cuéntame sobre tu proyecto...",
+    "MESSAGE_PLACEHOLDER": "Háblame de tu proyecto...",
     "NAME_ERROR": "El nombre es obligatorio (mínimo 3 caracteres).",
     "NAME_PLACEHOLDER": "Tu nombre",
     "REQUIRED_ERROR": "Requerido",
@@ -88,7 +88,7 @@
   "CONTACT": {
     "NOW_WE_KNOW": "Ahora que ya me conoces . . .",
     "TALK": "¿Hablamos?",
-    "NOMACODA_CLIMBING": "Nomacoda escalando, señalando hacia la derecha para acceder a la sección de reseñas"
+    "GO_TO_REVIEWS": "Ir a reseñas"
   },
   "SIDEBAR": {
     "CV_URL": "https://drive.google.com/file/d/1RItPA28zTioQgQSme0w5qmVJ-dNBcWMp/view?usp=sharing"
