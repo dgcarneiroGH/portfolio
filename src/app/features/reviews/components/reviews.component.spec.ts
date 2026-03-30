@@ -1,9 +1,9 @@
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { of, throwError } from 'rxjs';
+import { of } from 'rxjs';
 import { ReviewsService } from '../services/reviews.service';
 import { ReviewsFormComponent } from './reviews-form/reviews-form.component';
 import { ReviewsComponent } from './reviews.component';
@@ -70,27 +70,25 @@ describe('ReviewsComponent', () => {
   });
 
   it('should call navigate() when campfire button is clicked', () => {
-    const campfire = fixture.debugElement.query(By.css('.nomacoda-campfire'));
-    campfire.triggerEventHandler('click', null);
+    const campfire = fixture.nativeElement.querySelector('.nomacoda-campfire') as HTMLElement;
+    campfire.click();
     expect(component.navigate).toHaveBeenCalled();
   });
 
   it('should call navigate() on Enter key on campfire', () => {
-    const campfire = fixture.debugElement.query(By.css('.nomacoda-campfire'));
-    campfire.triggerEventHandler('keydown.enter', null);
+    const campfire = fixture.nativeElement.querySelector('.nomacoda-campfire') as HTMLElement;
+    campfire.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }));
     expect(component.navigate).toHaveBeenCalled();
   });
 
   it('should call navigate() on Space key on campfire', () => {
-    const campfire = fixture.debugElement.query(By.css('.nomacoda-campfire'));
-    campfire.triggerEventHandler('keydown.space', null);
+    const campfire = fixture.nativeElement.querySelector('.nomacoda-campfire') as HTMLElement;
+    campfire.dispatchEvent(new KeyboardEvent('keydown', { key: ' ', bubbles: true }));
     expect(component.navigate).toHaveBeenCalled();
   });
 
-  it('should show success state after form submission', fakeAsync(() => {
-    // Get the child component instance directly
-    const formDebugEl = fixture.debugElement.query(By.directive(ReviewsFormComponent));
-    const formComponent = formDebugEl.componentInstance as ReviewsFormComponent;
+  it('should show success state after form submission', async () => {
+    const formComponent = component.reviewsForm;
 
     formComponent.form.setValue({
       fullName: 'Test',
@@ -99,12 +97,13 @@ describe('ReviewsComponent', () => {
       rating: 5
     });
     formComponent.submit();
-    tick();
+
+    await fixture.whenStable();
     fixture.detectChanges();
 
     const successEl = fixture.nativeElement.querySelector('.success-state');
     expect(successEl).toBeTruthy();
-  }));
+  });
 
   it('should not show success state initially', () => {
     const successEl = fixture.nativeElement.querySelector('.success-state');

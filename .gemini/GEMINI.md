@@ -1,5 +1,20 @@
 You are an expert in TypeScript, Angular, and scalable web application development. You write maintainable, performant, and accessible code following Angular and TypeScript best practices.
 
+## Skill Confirmation Before Any Code Generation
+
+Before writing any code or generating any file, you MUST:
+
+1. Identify every `.agent/skills/*.md` file that is relevant to the current task.
+2. Show the user a list of the skills you intend to use, for example:
+   > **Skills I will apply:**
+   > - `angular-testing` — to write Jasmine/Karma specs
+   > - `design-expert` — to follow the visual identity guidelines
+3. Ask the user to confirm or add more skills before proceeding:
+   > _Are these skills correct? Do you want me to add any others before I start?_
+4. **Do NOT generate any code until the user explicitly confirms.**
+
+This step is mandatory for every task, no exceptions.
+
 ## TypeScript Best Practices
 
 - Use strict type checking
@@ -56,6 +71,7 @@ You are an expert in TypeScript, Angular, and scalable web application developme
 - After the feature is complete, **always run the relevant tests** (`ng test`) to verify they pass before considering the task done.
 - Tests must be written using the project's testing stack (Jasmine + Karma). Follow the guidelines in the `angular-testing` skill.
 - **Code coverage**: every new feature or service must maintain a **minimum of 80% coverage** (statements, branches, functions, lines). Run `ng test --watch=false --browsers=ChromeHeadless --code-coverage` and verify the output before closing the task. Coverage reports land in `coverage/portfolio/index.html`.
+- **Silence expected `console.error` in tests**: When a test intentionally triggers an error path (e.g. using a mock that rejects), add `spyOn(console, 'error')` at the top of that `it()` block. Karma treats unsilenced `console.error` calls as test-suite errors, even when they are expected. Always include the comment `// suppress expected error log`.
 
 ## NPM and dependencies
 

@@ -19,6 +19,46 @@ description: Expert guidelines for writing unit and integration tests in Angular
 
 ---
 
+## ⚠️ CRITICAL: Zoneless Architecture
+
+This project runs in **zoneless mode** (no `zone.js` in the runtime or test setup). This has a direct impact on which test helpers you can use:
+
+| Helper | Status | Reason |
+|--------|--------|---------|
+| `fakeAsync` | ❌ **FORBIDDEN** | Requires `zone.js/testing`, which is not loaded |
+| `tick()` | ❌ **FORBIDDEN** | Only valid inside `fakeAsync` |
+| `flush()` | ❌ **FORBIDDEN** | Only valid inside `fakeAsync` |
+| `async/await` | ✅ Use this | Native JS async, no zone dependency |
+| `fixture.whenStable()` | ✅ Use this | Zoneless-safe stability check |
+| `firstValueFrom()` | ✅ Use this | Converts Observable to awaitable Promise |
+
+### Zoneless async test pattern (ALWAYS use this)
+
+```typescript
+// ✅ CORRECT — zoneless compatible
+it('should show success after submit', async () => {
+  component.submit();
+  await fixture.whenStable();
+  fixture.detectChanges();
+  expect(fixture.nativeElement.querySelector('.success')).toBeTruthy();
+});
+
+// ✅ CORRECT — Observable to Promise
+it('should resolve with data', async () => {
+  const result = await firstValueFrom(service.getData());
+  expect(result).toBeDefined();
+});
+
+// ❌ WRONG — will crash with "zone-testing.js is needed"
+it('should do something', fakeAsync(() => {
+  tick(300);
+}));
+```
+
+> **Rule**: Never import `fakeAsync`, `tick`, or `flush` from `@angular/core/testing` in this project.
+
+---
+
 ## 1. Core Testing Principles
 
 - **One responsibility per test**: each `it()` block verifies one behaviour.
@@ -169,25 +209,27 @@ it('should compute strokeDasharray from progress input', () => {
 });
 ```
 
-### 4.2 Triggering `effect()` with `fakeAsync`
+### 4.2 Triggering `effect()` — zoneless pattern
 
-`effect()` runs asynchronously. Use `fakeAsync` + `tick()` to advance the scheduler:
+`effect()` runs asynchronously. In zoneless mode, use `async/await` with `fixture.whenStable()` instead of `fakeAsync` + `tick()`:
 
 ```typescript
-import { fakeAsync, tick } from '@angular/core/testing';
-
-it('should update strokeDasharray after showProgressBar becomes true', fakeAsync(() => {
+// ✅ CORRECT — zoneless compatible
+it('should update strokeDasharray after showProgressBar becomes true', async () => {
   fixture.componentRef.setInput('showProgressBar', false);
   fixture.detectChanges();
 
   fixture.componentRef.setInput('showProgressBar', true);
   fixture.detectChanges();
-  tick(300); // advance the setTimeout inside the effect
+  await fixture.whenStable(); // wait for effect + any microtasks/macrotasks to settle
   fixture.detectChanges();
 
   const value = component.currentStrokeDasharray();
   expect(value).not.toBe('0 200');
-}));
+});
+
+// ❌ WRONG in this project — requires zone.js/testing
+// fakeAsync(() => { tick(300); })
 ```
 
 ### 4.3 Writable signals via `TestBed.runInInjectionContext`
@@ -369,31 +411,33 @@ describe('SanityService', () => {
 
 ## 9. Async Testing Patterns
 
-| Scenario | Pattern |
-|----------|---------|
-| `setTimeout` / `setInterval` | `fakeAsync` + `tick(ms)` |
-| `Promise` | `async/await` or `fakeAsync` + `flushMicrotasks()` |
-| `Observable` (single) | `firstValueFrom(obs$)` + `await` |
-| `Observable` (stream) | `fakeAsync` + marble testing |
-| `delay()` in RxJS | `fakeAsync` + `tick(ms)` |
+> ⚠️ **Zoneless project**: `fakeAsync`, `tick()`, and `flush()` are **forbidden**. They require `zone.js/testing` which is not loaded. Always use `async/await` + `fixture.whenStable()`.
+
+| Scenario | ✅ Zoneless Pattern | ❌ Zone-based (forbidden) |
+|----------|--------------------|---------------------------|
+| Pending Observables / state changes | `await fixture.whenStable()` | `fakeAsync` + `tick()` |
+| `Promise` | `async/await` | `fakeAsync` + `flushMicrotasks()` |
+| `Observable` (single value) | `await firstValueFrom(obs$)` | `fakeAsync` + subscribe |
+| Timer / `setTimeout` | `await fixture.whenStable()` | `fakeAsync` + `tick(ms)` |
+| RxJS `delay()` | `await firstValueFrom(obs$)` | `fakeAsync` + `tick(ms)` |
 
 ```typescript
-import { fakeAsync, tick, flush } from '@angular/core/testing';
 import { firstValueFrom } from 'rxjs';
+// ✅ Never import fakeAsync, tick, or flush in this project
 
-// Observable to Promise
+// Waiting for DOM/state to settle after an action
+it('should show success state after submit', async () => {
+  component.submit();
+  await fixture.whenStable();
+  fixture.detectChanges();
+  expect(fixture.nativeElement.querySelector('.success-state')).toBeTruthy();
+});
+
+// Observable as Promise
 it('should resolve with data', async () => {
   const result = await firstValueFrom(service.getData());
   expect(result).toBeDefined();
 });
-
-// Timer-based
-it('should complete animation after 300ms', fakeAsync(() => {
-  component.startAnimation();
-  tick(300);
-  fixture.detectChanges();
-  expect(component.isAnimating()).toBeFalse();
-}));
 ```
 
 ---
@@ -632,13 +676,14 @@ expect(() => riskyFn()).toThrow();
 | `No provider for X` | Add the provider or a spy to `TestBed.configureTestingModule` |
 | Required `input()` not set | Use `fixture.componentRef.setInput()` before `detectChanges()` |
 | Signal value stale after change | Call `fixture.detectChanges()` after mutating inputs/signals |
-| `effect()` not running | Use `fakeAsync` + `tick()` or `flushMicrotasks()` |
+| `effect()` not running | Use `async/await` + `fixture.whenStable()` (never `fakeAsync`) |
 | `RouterTestingModule` deprecated | Use `provideRouter([...])` + `RouterTestingHarness` instead |
 | `RouterTestingModule` import | Avoid — use the new `provideRouter` API from `@angular/router` |
 | `declarations: [X]` for standalone | Use `imports: [X]` — standalone components are never declared |
-| `async` not resolving | Prefer `fakeAsync` + `tick`; use `async` only for real Promises |
+| `async` not resolving | Use `async/await` + `fixture.whenStable()` for all async tests |
 | Translation keys not resolved | Set up `TranslateModule.forRoot(...)` with a mock loader |
 | `detectChanges` throws error | Move `setInput` calls before first `detectChanges()` |
+| `console.error` logged during test run | Karma treats `console.error` as a test-suite error. Add `spyOn(console, 'error')` at the top of any `it()` block that intentionally triggers an error path. Always add the comment `// suppress expected error log` |
 
 ---
 
@@ -663,3 +708,9 @@ expect(() => riskyFn()).toThrow();
 - ❌ `any` type in test code
 - ❌ `fdescribe` / `fit` committed to source control (blocks other tests)
 - ❌ Shared mutable state across `it()` blocks without `beforeEach` reset
+- ❌ **`fakeAsync`** — FORBIDDEN in this project (requires `zone.js/testing`, incompatible with zoneless)
+- ❌ **`tick()`** — FORBIDDEN (only valid inside `fakeAsync`)
+- ❌ **`flush()`** — FORBIDDEN (only valid inside `fakeAsync`)
+- ❌ **Unsilenced `console.error` in error-path tests** — Karma captures `console.error` and reports it as a test-suite error. Always add `spyOn(console, 'error')` at the top of any `it()` that intentionally triggers an error path. Add the comment `// suppress expected error log` next to it.
+
+> Use `async/await` + `fixture.whenStable()` or `firstValueFrom()` for all async tests.

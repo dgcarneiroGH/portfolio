@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { ReviewsFormComponent } from './reviews-form/reviews-form.component';
 
@@ -12,4 +12,5 @@ import { ReviewsFormComponent } from './reviews-form/reviews-form.component';
 })
 export class ReviewsComponent {
   @Input() navigate!: () => void;
+  @ViewChild(ReviewsFormComponent) reviewsForm!: ReviewsFormComponent;
 }

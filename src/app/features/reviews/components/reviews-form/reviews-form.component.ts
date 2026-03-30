@@ -34,14 +34,13 @@ export class ReviewsFormComponent {
   form = this.fb.group({
     fullName: [''],
     email: ['', [Validators.required, Validators.email]],
-    message: ['', [Validators.required]],
-    rating: [0, [Validators.max(5)]]
+    message: [''],
+    rating: [0, [Validators.min(1), Validators.max(5)]]
   });
 
   setRating(rating: number): void {
-    if (rating < 1) rating = 1;
-    if (rating > 5) rating = 5;
-    this.form.get('rating')?.setValue(rating);
+    const clampedRating = Math.max(1, Math.min(5, rating));
+    this.form.get('rating')?.setValue(clampedRating);
     this.form.get('rating')?.markAsTouched();
     this.form.get('rating')?.markAsDirty();
   }
@@ -55,7 +54,10 @@ export class ReviewsFormComponent {
   }
 
   submit(): void {
-    if (this.form.invalid) return;
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
 
     this.formStatus.set({ loading: true });
 

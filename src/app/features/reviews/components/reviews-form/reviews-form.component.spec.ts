@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { of, throwError } from 'rxjs';
@@ -70,10 +70,13 @@ describe('ReviewsFormComponent', () => {
   // ─── Form validation ───────────────────────────────────────────────────────
 
   describe('Form validation', () => {
-    it('should be invalid when empty (email and message required)', () => {
+    it('should be invalid when empty (email required)', () => {
       expect(component.form.valid).toBeFalse();
       expect(component.form.get('email')?.valid).toBeFalse();
-      expect(component.form.get('message')?.valid).toBeFalse();
+    });
+
+    it('message field should be valid when empty (no required validator)', () => {
+      expect(component.form.get('message')?.valid).toBeTrue();
     });
 
     it('should allow empty fullName', () => {
@@ -165,16 +168,15 @@ describe('ReviewsFormComponent', () => {
       component.form.setValue({ fullName: 'Test User', email: 'user@test.com', message: 'Great!', rating: 5 });
     });
 
-    it('should call ReviewsService.sendReview with correct payload', fakeAsync(() => {
+    it('should call ReviewsService.sendReview with correct payload', () => {
       component.submit();
-      tick();
 
       expect(reviewsServiceSpy.sendReview).toHaveBeenCalledOnceWith(
         jasmine.objectContaining({ email: 'user@test.com', message: 'Great!', rating: 5, origin: 'nomacoda_portfolio' })
       );
-    }));
+    });
 
-    it('should set formStatus.loading to true while request is in flight', fakeAsync(() => {
+    it('should set formStatus.loading to true while request is in flight', () => {
       let loadingDuringCall = false;
       reviewsServiceSpy.sendReview.and.callFake(() => {
         loadingDuringCall = component.formStatus().loading;
@@ -182,37 +184,33 @@ describe('ReviewsFormComponent', () => {
       });
 
       component.submit();
-      tick();
 
       expect(loadingDuringCall).toBeTrue();
-    }));
+    });
 
-    it('should set formStatus.success after successful submission', fakeAsync(() => {
+    it('should set formStatus.success after successful submission', () => {
       component.submit();
-      tick();
 
       expect(component.formStatus().success).toBe('REVIEWS.FORM_SUCCESS');
       expect(component.formStatus().loading).toBeFalse();
-    }));
+    });
 
-    it('should reset the form after successful submission', fakeAsync(() => {
+    it('should reset the form after successful submission', () => {
       component.submit();
-      tick();
 
       expect(component.form.get('rating')?.value).toBe(0);
       expect(component.hoveredRating()).toBe(0);
-    }));
+    });
 
-    it('should show success state in the DOM after submission', fakeAsync(() => {
+    it('should show success state in the DOM after submission', () => {
       component.submit();
-      tick();
       fixture.detectChanges();
 
       const successEl = fixture.nativeElement.querySelector('.success-state');
       expect(successEl).toBeTruthy();
       const formEl = fixture.nativeElement.querySelector('form');
       expect(formEl).toBeFalsy();
-    }));
+    });
   });
 
   // ─── submit() – error path ─────────────────────────────────────────────────
@@ -223,13 +221,12 @@ describe('ReviewsFormComponent', () => {
       component.form.setValue({ fullName: '', email: 'user@test.com', message: 'Great!', rating: 4 });
     });
 
-    it('should set formStatus.error on failure', fakeAsync(() => {
+    it('should set formStatus.error on failure', () => {
       component.submit();
-      tick();
 
       expect(component.formStatus().error).toBe('FORM.FORM_ERROR');
       expect(component.formStatus().loading).toBeFalse();
-    }));
+    });
   });
 
   // ─── submit() – invalid ────────────────────────────────────────────────────
