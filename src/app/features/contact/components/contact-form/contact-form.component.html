@@ -16,7 +16,7 @@
         <polyline points="20 6 9 17 4 12" />
       </svg>
     </div>
-    <p class="success-title">{{ "07_CONTACT.FORM_SUCCESS" | translate }}</p>
+    <p class="success-title">{{ "FORM.FORM_SUCCESS" | translate }}</p>
   </div>
 } @else {
   <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
@@ -28,9 +28,9 @@
           id="fullName"
           formControlName="fullName"
           type="text"
-          [placeholder]="'07_CONTACT.NAME_PLACEHOLDER' | translate"
+          [placeholder]="'FORM.NAME_PLACEHOLDER' | translate"
           [class.input-error]="invalid('fullName')"
-          [attr.aria-label]="'07_CONTACT.NAME_PLACEHOLDER' | translate"
+          [attr.aria-label]="'FORM.NAME_PLACEHOLDER' | translate"
           autocomplete="name"
         />
         @if (invalid("fullName")) {
@@ -52,7 +52,7 @@
               <line x1="12" y1="9" x2="12" y2="13" />
               <line x1="12" y1="17" x2="12.01" y2="17" />
             </svg>
-            {{ "07_CONTACT.NAME_ERROR" | translate }}
+            {{ "FORM.NAME_ERROR" | translate }}
           </div>
         }
       </div>
@@ -63,9 +63,9 @@
           id="email"
           formControlName="email"
           type="email"
-          [placeholder]="'07_CONTACT.EMAIL_PLACEHOLDER' | translate"
+          [placeholder]="'FORM.EMAIL_PLACEHOLDER' | translate"
           [class.input-error]="invalid('email')"
-          [attr.aria-label]="'07_CONTACT.EMAIL_ARIA' | translate"
+          [attr.aria-label]="'FORM.EMAIL_ARIA' | translate"
           autocomplete="email"
         />
         @if (invalid("email")) {
@@ -87,7 +87,7 @@
               <line x1="12" y1="9" x2="12" y2="13" />
               <line x1="12" y1="17" x2="12.01" y2="17" />
             </svg>
-            {{ "07_CONTACT.EMAIL_ERROR" | translate }}
+            {{ "FORM.EMAIL_ERROR" | translate }}
           </div>
         }
       </div>
@@ -99,9 +99,9 @@
         id="message"
         formControlName="message"
         rows="5"
-        [placeholder]="'07_CONTACT.MESSAGE_PLACEHOLDER' | translate"
+        [placeholder]="'FORM.MESSAGE_PLACEHOLDER' | translate"
         [class.input-error]="invalid('message')"
-        [attr.aria-label]="'07_CONTACT.MESSAGE_ARIA' | translate"
+        [attr.aria-label]="'FORM.MESSAGE_ARIA' | translate"
       ></textarea>
       @if (invalid("message")) {
         <div class="error-message" role="alert">
@@ -122,7 +122,7 @@
             <line x1="12" y1="9" x2="12" y2="13" />
             <line x1="12" y1="17" x2="12.01" y2="17" />
           </svg>
-          {{ "07_CONTACT.MESSAGE_ERROR" | translate }}
+          {{ "FORM.MESSAGE_ERROR" | translate }}
         </div>
       }
     </div>
@@ -133,13 +133,13 @@
       class="submit-btn"
       [disabled]="form.invalid || formStatus().loading"
       [class.loading]="formStatus().loading"
-      [attr.aria-label]="'07_CONTACT.SUBMIT_ARIA' | translate"
+      [attr.aria-label]="'FORM.SUBMIT_BUTTON' | translate"
     >
       @if (formStatus().loading) {
         <span class="btn-spinner" aria-hidden="true"></span>
-        {{ "07_CONTACT.SUBMIT_LOADING" | translate }}
+        {{ "FORM.SUBMIT_LOADING" | translate }}
       } @else {
-        {{ "07_CONTACT.SUBMIT_BUTTON" | translate }} &rarr;
+        {{ "FORM.SUBMIT_BUTTON" | translate }}
       }
     </button>
 

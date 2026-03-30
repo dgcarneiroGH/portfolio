@@ -7,5 +7,6 @@ export const environment = {
     useCdn: true,
     token: undefined
   },
-  contactEndpoint: 'https://nomacoda.com/.netlify/functions/contact'
+  contactEndpoint: 'https://nomacoda.com/.netlify/functions/contact',
+  reviewsEndpoint: 'https://nomacoda.com/.netlify/functions/reviews'
 };

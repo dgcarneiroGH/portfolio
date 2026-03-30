@@ -5,7 +5,7 @@ const handler: Handler = async (event, context): Promise<HandlerResponse> => {
     'https://nomacoda.com',
     'http://localhost:4200',
     'http://localhost:4201',
-    'http://localhost:4202'
+    'http://localhost:4202',
   ];
 
   const origin = event.headers.origin;
@@ -47,7 +47,7 @@ const handler: Handler = async (event, context): Promise<HandlerResponse> => {
 
   try {
     const portfolioToken = process.env.PORTFOLIO_TOKEN;
-    const n8nWebhookUrl = process.env.N8N_CONTACT_WEBHOOK_URL;
+    const n8nWebhookUrl = process.env.N8N_REVIEWS_WEBHOOK_URL; // Asegúrate de configurar esta variable de entorno en Netlify
 
     if (!portfolioToken || !n8nWebhookUrl) {
       return {
@@ -59,7 +59,8 @@ const handler: Handler = async (event, context): Promise<HandlerResponse> => {
 
     const data = JSON.parse(event.body || '{}');
 
-    if (!data.fullName || !data.email || !data.message) {
+    // Validación básica de los campos del review
+    if (!data.email || !data.message) {
       return {
         statusCode: 400,
         headers: corsHeaders,
@@ -88,7 +89,7 @@ const handler: Handler = async (event, context): Promise<HandlerResponse> => {
       body: JSON.stringify({ success: true, data: result })
     };
   } catch (error) {
-    console.error('Contact function error:', error);
+    console.error('Reviews function error:', error);
 
     return {
       statusCode: 500,

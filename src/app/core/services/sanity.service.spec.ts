@@ -77,6 +77,7 @@ describe('SanityService', () => {
 
   describe('#fetch method', () => {
     it('should handle fetch errors and set error state', async () => {
+      spyOn(console, 'error'); 
       // Mock the client temporarily to simulate error
       const originalClient = (service as any).client;
       (service as any).client = mockErrorClient;
@@ -220,6 +221,7 @@ describe('SanityService', () => {
     });
 
     it('should handle errors and update error state', async () => {
+      spyOn(console, 'error'); 
       const originalClient = (service as any).client;
       (service as any).client = mockErrorClient;
 
@@ -296,6 +298,7 @@ describe('SanityService', () => {
     });
 
     it('should handle errors correctly', async () => {
+      spyOn(console, 'error'); 
       spyOn(service, 'loadCategories').and.returnValue(Promise.resolve());
       const originalClient = (service as any).client;
       (service as any).client = mockErrorClient;
@@ -373,6 +376,7 @@ describe('SanityService', () => {
 
   describe('#integration scenarios', () => {
     it('should maintain consistent state through error and recovery', async () => {
+      spyOn(console, 'error'); 
       // Start with error
       const originalClient = (service as any).client;
       (service as any).client = mockErrorClient;

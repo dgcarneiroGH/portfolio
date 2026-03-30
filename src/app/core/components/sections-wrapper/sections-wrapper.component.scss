@@ -1,5 +1,12 @@
 @use "/src/styles/palette" as palette;
 
+.slider-wrapper {
+  width: 100vw;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+}
+
 .cave-components {
   background-color: palette.$background-gradient-start;
 }
@@ -54,6 +61,15 @@ footer {
   text-align: center;
   width: 100%;
   margin-bottom: 1rem;
+}
+
+.stalactites {
+  position: relative;
+  bottom: -15vh;
+  right: 0;
+  width: 100vw;
+  height: 15vh;
+  z-index: 2;
 }
 
 //#region Responsive

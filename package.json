@@ -4,7 +4,7 @@
   "version": "1.4.0",
   "scripts": {
     "start": "ng serve",
-    "dev": "netlify dev",
+    "dev": "npx --yes netlify-cli dev",
     "build": "ng build --base-href",
     "build:prod": "ng build --configuration production",
     "test": "ng test",

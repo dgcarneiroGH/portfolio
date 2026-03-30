@@ -5,25 +5,44 @@
     <app-about></app-about>
     <app-projects></app-projects>
     <app-experience></app-experience>
-    <app-contact style="width: 100vw"></app-contact>
-
-    <a class="blog-btn" routerLink="/blog">
-      <img
-        src="assets/images/icons/blog_signal.avif"
-        [alt]="'COMMON.NAV_BLOG' | translate"
-      />
-    </a>
-
-    <footer>
-      <span>Crafted by Nomacoda ©{{ actualYear() }}. Inspired by nature</span>
-      <img
-        src="assets/images/icons/tree.svg"
-        width="20"
-        height="20"
-        style="vertical-align: middle; margin-left: 0.3em"
-        alt=""
-        loading="lazy"
-      />
-    </footer>
+    <img
+      class="stalactites"
+      src="assets/images/stalactites-1280.avif"
+      srcset="
+        assets/images/stalactites-480.avif   480w,
+        assets/images/stalactites-768.avif   768w,
+        assets/images/stalactites-1280.avif 1280w,
+        assets/images/stalactites-1920.avif 1920w
+      "
+      sizes="100vw"
+      alt=""
+    />
   </div>
+
+  <div class="slider-wrapper">
+    @if (activeSlide() === 0) {
+      <app-contact [navigate]="() => goToSlide(1)"></app-contact>
+    } @else if (activeSlide() === 1) {
+      <app-reviews [navigate]="() => goToSlide(0)"></app-reviews>
+    }
+  </div>
+
+  <a id="blog" class="blog-btn" routerLink="/blog">
+    <img
+      src="assets/images/icons/blog_signal.avif"
+      [alt]="'COMMON.NAV_BLOG' | translate"
+    />
+  </a>
+
+  <footer>
+    <span>Crafted by Nomacoda ©{{ actualYear() }}. Inspired by nature</span>
+    <img
+      src="assets/images/icons/tree.svg"
+      width="20"
+      height="20"
+      style="vertical-align: middle; margin-left: 0.3em"
+      alt=""
+      loading="lazy"
+    />
+  </footer>
 </div>

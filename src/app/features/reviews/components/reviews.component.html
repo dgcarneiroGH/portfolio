@@ -1,0 +1,57 @@
+
+
+<section id="reviews" class="slider-slide">
+  <svg width="0" height="0" style="position: absolute;" aria-hidden="true">
+    <filter id="heat-wave" x="-20%" y="-20%" width="140%" height="140%">
+      <!-- Animated turbulence for living heat shimmer -->
+      <feTurbulence
+        type="fractalNoise"
+        baseFrequency="0.012 0.04"
+        numOctaves="3"
+        seed="2"
+        result="warp"
+      >
+        <animate
+          attributeName="baseFrequency"
+          values="0.012 0.04; 0.018 0.06; 0.012 0.04"
+          dur="3s"
+          repeatCount="indefinite"
+        />
+      </feTurbulence>
+      <feDisplacementMap
+        xChannelSelector="R"
+        yChannelSelector="G"
+        scale="6"
+        in="SourceGraphic"
+        in2="warp"
+      />
+    </filter>
+  </svg>
+  <div
+    class="nomacoda-campfire"
+    (click)="navigate()"
+    role="button"
+    tabindex="0"
+    (keydown.enter)="navigate()"
+    (keydown.space)="navigate()"
+    [attr.aria-label]="'REVIEWS.GO_BACK' | translate"
+  >
+    <!-- Fire image: heat-wave distortion + glow animation -->
+    <img
+      src="assets/images/campfire.avif"
+      alt=""
+      aria-hidden="true"
+      class="campfire-fire"
+    />
+    <!-- Character image: no filter -->
+    <img
+      src="assets/images/nomacoda/nomacoda_campfire.avif"
+      alt="Nomacoda character"
+      class="campfire-character"
+    />
+  </div>
+  <div class="section-container">
+    <h1>{{ "REVIEWS.TITLE" | translate }}</h1>
+    <app-reviews-form></app-reviews-form>
+  </div>
+</section>

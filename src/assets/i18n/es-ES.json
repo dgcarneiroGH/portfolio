@@ -12,12 +12,29 @@
     "YEAR": "año",
     "YEARS": "años"
   },
-  "01_HOME": {
+  "FORM": {
+    "EMAIL_ARIA": "Tu correo electrónico",
+    "EMAIL_ERROR": "Formato de email no válido.",
+    "EMAIL_PLACEHOLDER": "tu@email.com",
+    "EMAIL_REQUIRED_ERROR": "Requerido y válido",
+    "FORM_ERROR": "Error al enviar el mensaje. Inténtalo de nuevo más tarde.",
+    "FORM_SUCCESS": "¡Mensaje enviado con éxito!",
+    "MESSAGE_ARIA": "Mensaje",
+    "MESSAGE_ERROR": "El mensaje es obligatorio (mínimo 10 caracteres).",
+    "MESSAGE_PLACEHOLDER": "Háblame de tu proyecto...",
+    "NAME_ERROR": "El nombre es obligatorio (mínimo 3 caracteres).",
+    "NAME_PLACEHOLDER": "Tu nombre",
+    "REQUIRED_ERROR": "Requerido",
+    "REVIEW_MESSAGE_PLACEHOLDER": "Escribe tu reseña...",
+    "SUBMIT_BUTTON": "Enviar",
+    "SUBMIT_LOADING": "Enviando..."
+  },
+  "HOME": {
     "HELLO": "Hola, soy Nomacoda",
     "DESCRIPTION": "Apasionado del <br>desarrollo Front-end <br>y el diseño web.",
     "NOMACODA_LOGO": "Nomacoda - Logo del portafolio"
   },
-  "02_ABOUT": {
+  "ABOUT": {
     "ABOUT_ME": "Sobre mí",
     "PARAGRAPH_1": "Mi nombre es Diego. Como desarrollador especializado en Front-End, me dedico a crear experiencias digitales que no solo se vean bien, sino que sean fáciles de usar y funcionen a la perfección.",
     "PARAGRAPH_2": "Más allá de la tecnología, me impulsa colaborar en proyectos que generen un impacto social positivo. Mi mayor motivación es saber que mi código está contribuyendo a una buena causa y aportando valor real a la sociedad.",
@@ -28,7 +45,7 @@
     "DIEGO_PORTRAIT_3": "Diego disfrutando la música y enfocándose en los detalles",
     "DIEGO_PORTRAIT_4": "Diego en un ambiente colaborativo construyendo confianza"
   },
-  "04_EXPERIENCE": {
+  "EXPERIENCE": {
     "ACTUAL_JOB": "2023 - Actualidad",
     "CALL_CENTER_AGENT": "Teleoperador",
     "DESCRIPTION_BOSCH": "Agente de ventas para la empresa de telefonía móvil Orange, a través de la subcontrata Bosch.",
@@ -43,7 +60,7 @@
     "INTERNET_ADS_ASESSOR": "Internet Ads Asessor",
     "TI_TECHNICIAN": "Técnico de TI"
   },
-  "05_PROJECTS": {
+  "PROJECTS": {
     "VIEW_PROJECT": "Ver proyecto {{name}}",
     "TOGGLE_INFO_SHOW": "Mostrar información del proyecto",
     "TOGGLE_INFO_HIDE": "Ocultar información del proyecto",
@@ -68,24 +85,10 @@
     "PROJECT_DFG_ALT": "Sitio web corporativo DFG Natural Stone",
     "PROJECT_ARCELOR_ALT": "Sistema de logística ferroviaria ArcelorMittal"
   },
-
-  "07_CONTACT": {
+  "CONTACT": {
     "NOW_WE_KNOW": "Ahora que ya me conoces . . .",
     "TALK": "¿Hablamos?",
-    "NOMACODA_CLIMBING": "Nomacoda escalando, colgado de una cuerda y haciendo el gesto de llámame",
-    "FORM_SUCCESS": "¡Mensaje enviado con éxito!",
-    "FORM_ERROR": "Error al enviar el mensaje. Inténtalo de nuevo más tarde.",
-    "NAME_PLACEHOLDER": "Tu nombre",
-    "NAME_ERROR": "El nombre es obligatorio (mínimo 3 caracteres).",
-    "EMAIL_PLACEHOLDER": "tu@email.com",
-    "EMAIL_ARIA": "Tu correo electrónico",
-    "EMAIL_ERROR": "Formato de email no válido.",
-    "MESSAGE_PLACEHOLDER": "Cuéntame sobre tu proyecto...",
-    "MESSAGE_ARIA": "Mensaje",
-    "MESSAGE_ERROR": "El mensaje es obligatorio (mínimo 10 caracteres).",
-    "SUBMIT_ARIA": "Enviar mensaje",
-    "SUBMIT_LOADING": "Enviando...",
-    "SUBMIT_BUTTON": "Enviar Mensaje"
+    "GO_TO_REVIEWS": "Ir a reseñas"
   },
   "SIDEBAR": {
     "CV_URL": "https://drive.google.com/file/d/1RItPA28zTioQgQSme0w5qmVJ-dNBcWMp/view?usp=sharing"
@@ -108,6 +111,11 @@
       "N8N_WORKFLOW": "Flujos de N8N",
       "NEW": "Noticias"
     }
+  },
+  "REVIEWS": {
+    "FORM_SUCCESS": "¡Gracias por tu reseña!",
+    "GO_BACK": "Volver",
+    "TITLE": "Reseñas"
   },
   "ERROR_404": {
     "TITLE": "¡Vaya! Parece que esa ruta no existe",

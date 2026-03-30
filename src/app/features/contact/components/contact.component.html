@@ -1,36 +1,33 @@
-<img
-  class="stalactites"
-  src="assets/images/stalactites-1280.avif"
-  srcset="
-    assets/images/stalactites-480.avif   480w,
-    assets/images/stalactites-768.avif   768w,
-    assets/images/stalactites-1280.avif 1280w,
-    assets/images/stalactites-1920.avif 1920w
-  "
-  sizes="100vw"
-  alt=""
-/>
-<section>
+<section class="slider-slide">
   <div class="section-container">
     <h1
       [appAnimate]="animationDelay()"
-      [translationKey]="'07_CONTACT.NOW_WE_KNOW'"
+      [translationKey]="'CONTACT.NOW_WE_KNOW'"
     ></h1>
     <div
-      class="nomacoda-img-wrapper"
-      #nomacodaImgWrapper
-      (mouseenter)="triggerSwing()"
-      role="img"
-      [attr.aria-label]="'07_CONTACT.NOMACODA_CLIMBING' | translate"
+      class="nomacoda-animation-wrapper"
+      role="button"
+      tabindex="0"
+      (keydown.enter)="navigate()"
+      (keydown.space)="navigate()"
+      [attr.aria-label]="'CONTACT.GO_TO_REVIEWS' | translate"
+      (click)="navigate()"
     >
       <img
-        src="assets/images/nomacoda/nomacoda_climber.avif"
+        src="assets/images/nomacoda/nomacoda_climber1.avif"
+        class="img-base"
+        alt=""
+        aria-hidden="true"
+      />
+      <img
+        src="assets/images/nomacoda/nomacoda_climber2.avif"
+        class="img-hover"
         alt=""
         aria-hidden="true"
       />
     </div>
 
-    <p [appAnimate]="animationDelay()" [translationKey]="'07_CONTACT.TALK'"></p>
+    <p [appAnimate]="animationDelay()" [translationKey]="'CONTACT.TALK'"></p>
 
     <app-contact-form></app-contact-form>
   </div>
