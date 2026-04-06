@@ -115,7 +115,8 @@
   "REVIEWS": {
     "FORM_SUCCESS": "Thank you for your review!",
     "GO_BACK": "Go back",
-    "TITLE": "Reviews"
+    "TITLE": "Do you already know me?",
+    "SUBTITLE": "Leave me a review, I'd love to hear your opinion!"
   },
   "ERROR_404": {
     "TITLE": "Oops! It seems that path doesn't exist",
