@@ -11,7 +11,7 @@ section {
   width: 100vw;
 }
 
-app-reviews-form{
+app-reviews-form {
   z-index: 2;
 }
 
@@ -30,7 +30,7 @@ app-reviews-form{
   &:hover {
     .campfire-fire {
       transform: scaleY(1.2);
-      filter: url('#heat-wave') drop-shadow(0 0 22px rgba(255, 167, 38, 0.95));
+      filter: url("#heat-wave") drop-shadow(0 0 22px rgba(255, 167, 38, 0.95));
     }
   }
 
@@ -38,8 +38,10 @@ app-reviews-form{
     display: block;
     width: 50%;
     transform-origin: bottom center;
-    transition: transform 2s ease, filter 0.3s ease;
-    filter: url('#heat-wave') drop-shadow(0 0 12px rgba(255, 167, 38, 0.6));
+    transition:
+      transform 2s ease,
+      filter 0.3s ease;
+    filter: url("#heat-wave") drop-shadow(0 0 12px rgba(255, 167, 38, 0.6));
   }
 
   .campfire-character {
@@ -49,7 +51,7 @@ app-reviews-form{
 }
 
 .section-container {
- display: flex;
+  display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
@@ -59,12 +61,18 @@ app-reviews-form{
   h1 {
     font-size: 3rem;
     font-weight: 700;
-    margin-bottom: 2rem;
+    margin-bottom: 0.5rem;
     text-align: center;
     color: palette.$text-primary;
 
     @media (max-width: 768px) {
       font-size: 2.25rem;
+    }
+  }
+
+  .subtitle {
+    @media (max-width: 768px) {
+      display: none;
     }
   }
 }

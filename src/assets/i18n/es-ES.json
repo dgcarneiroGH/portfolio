@@ -115,7 +115,8 @@
   "REVIEWS": {
     "FORM_SUCCESS": "¡Gracias por tu reseña!",
     "GO_BACK": "Volver",
-    "TITLE": "Reseñas"
+    "TITLE": "¿Ya me conoces?",
+    "SUBTITLE": "Déjame una reseña, ¡me encantaría saber tu opinión!"
   },
   "ERROR_404": {
     "TITLE": "¡Vaya! Parece que esa ruta no existe",
