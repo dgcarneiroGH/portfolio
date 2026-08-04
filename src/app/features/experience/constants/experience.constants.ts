@@ -2,9 +2,15 @@ import { Experience } from '../interfaces/experience.interface';
 
 export const EXPERIENCES: Experience[] = [
   {
+    company: 'Nomacoda',
+    designation: 'EXPERIENCE.FREELANCE_DEVELOPER',
+    yearRange: 'EXPERIENCE.ACTUAL_JOB',
+    role: 'EXPERIENCE.DESCRIPTION_NOMACODA'
+  },
+  {
     company: 'Clarcat Cantábrico',
     designation: 'EXPERIENCE.FULLSTACK_DEVELOPER',
-    yearRange: 'EXPERIENCE.ACTUAL_JOB',
+    yearRange: '2023 - 2026',
     role: 'EXPERIENCE.DESCRIPTION_CLARCAT'
   },
   {

@@ -1,6 +1,6 @@
 import { Project } from '../interfaces/project.interface';
 
-export const PROJECTS: Project[] = [
+export const PROJECTS: Project[] = [  
   {
     year: 2023,
     coverImgSrc: 'assets/images/projects/babe',
@@ -14,21 +14,6 @@ export const PROJECTS: Project[] = [
     name: 'Datalaia',
     description: 'PROJECTS.DESCRIPTION_DATALAIA',
     altKey: 'PROJECTS.PROJECT_DATALAIA_ALT'
-  },
-  {
-    year: 2022,
-    coverImgSrc: 'assets/images/projects/mariskito',
-    name: 'Mariskito',
-    description: 'PROJECTS.DESCRIPTION_MARISKITO',
-    url: 'https://mariskito.com/',
-    altKey: 'PROJECTS.PROJECT_MARISKITO_ALT'
-  },
-  {
-    year: 2021,
-    coverImgSrc: 'assets/images/projects/pbcinteract',
-    name: 'PBC Interact',
-    description: 'PROJECTS.DESCRIPTION_INTERACT',
-    altKey: 'PROJECTS.PROJECT_INTERACT_ALT'
   },
   {
     year: 2024,
@@ -45,25 +30,18 @@ export const PROJECTS: Project[] = [
     altKey: 'PROJECTS.PROJECT_DISCAMINO_ALT'
   },
   {
-    year: 2022,
-    coverImgSrc: 'assets/images/projects/pharmachallenge',
-    name: 'Pharma Challenge',
-    description: 'PROJECTS.DESCRIPTION_PHARMA',
-    altKey: 'PROJECTS.PROJECT_PHARMA_ALT'
-  },
-  {
-    year: 2022,
-    coverImgSrc: 'assets/images/projects/dfg',
-    name: 'DFG',
-    description: 'PROJECTS.DESCRIPTION_DFG',
-    url: 'https://web.dfg.es/',
-    altKey: 'PROJECTS.PROJECT_DFG_ALT'
-  },
-  {
     year: 2025,
     coverImgSrc: 'assets/images/projects/arcelor',
     name: 'Hermes - Artemis',
     description: 'PROJECTS.DESCRIPTION_HERMES',
     altKey: 'PROJECTS.PROJECT_ARCELOR_ALT'
+  },
+  {
+    year: 2026,
+    coverImgSrc: 'assets/images/projects/portalconvocatorias',
+    name: 'Portal Convocatorias',
+    description: 'PROJECTS.DESCRIPTION_PORTAL_CONVOCATORIAS',
+    url: 'https://portalconvocatorias.es/',
+    altKey: 'PROJECTS.PROJECT_PORTAL_CONVOCATORIAS_ALT'
   }
 ];
