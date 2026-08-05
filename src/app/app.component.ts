@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, effect, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { NavigationEnd, NavigationStart, Router, RouterLink, RouterOutlet } from '@angular/router';
+import { NavigationEnd, NavigationStart, Router, RouterOutlet } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { filter, map, pairwise, startWith } from 'rxjs';
 import { LangSelectorComponent } from './core/components/lang-selector/lang-selector.component';
@@ -22,8 +22,7 @@ function routeIndex(url: string): number {
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     SidebarComponent,
-    RouterOutlet,
-    RouterLink,
+    RouterOutlet,    
     LangSelectorComponent,
     TranslateModule
   ],
@@ -62,6 +61,17 @@ export class AppComponent {
       } else {
         document.documentElement.removeAttribute('data-slide-dir');
       }
+    });
+
+    // WCAG 2.4.3: Move focus to <main> after SPA navigation so keyboard users
+    // land on the new content rather than on a stale element.
+    this._router.events.pipe(
+      filter((e): e is NavigationEnd => e instanceof NavigationEnd)
+    ).subscribe(() => {
+      const main = document.getElementById('main-content');
+      if (!main) return;
+      main.setAttribute('tabindex', '-1');
+      main.focus({ preventScroll: true });
     });
   }
 

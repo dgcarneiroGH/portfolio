@@ -1,16 +1,19 @@
 import { provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { By } from '@angular/platform-browser';
 import { outputToObservable } from '@angular/core/rxjs-interop';
-import { of } from 'rxjs';
+import { firstValueFrom, of } from 'rxjs';
 
 import { ProjectComponent } from './project.component';
 
+// Synchronous mock loader so the translate pipe resolves immediately.
 const mockTranslations = {
   'PROJECTS.PORTFOLIO_ALT': 'Portfolio project image',
-  'PROJECTS.VIEW_PROJECT': 'View project',
-  'PROJECTS.MORE_INFO': 'More info'
+  'PROJECTS.VIEW_PROJECT': 'View project {{name}}',
+  'PROJECTS.MORE_INFO': 'More info',
+  'PROJECTS.TOGGLE_INFO_HIDE': 'Hide project information',
+  'PROJECTS.TOGGLE_INFO_SHOW': 'Show project information'
 };
 
 const mockLoader = {
@@ -343,32 +346,42 @@ describe('ProjectComponent', () => {
   });
 
   describe('Accessibility', () => {
-    it('should have proper ARIA attributes for interactive elements', () => {
-      const interactiveElements = fixture.nativeElement.querySelectorAll(
-        '[role="button"], button'
-      );
-
-      interactiveElements.forEach((el: HTMLElement) => {
-        expect(el.getAttribute('tabindex')).not.toBe('-1');
-      });
+    it('cover image renders an <img> with a translated alt text', async () => {
+      const translateService = TestBed.inject(TranslateService);
+      await firstValueFrom(translateService.use('en'));
+      fixture.detectChanges();
+      const img = fixture.nativeElement.querySelector('button.cover-img img') as HTMLImageElement;
+      expect(img).toBeTruthy();
+      expect(img.alt).toBe('Portfolio project image');
     });
 
-    it('should handle keyboard navigation properly', () => {
-      const button = fixture.debugElement.query(By.css('[role="button"]'));
+    it('cover button has aria-label that includes the alt text', async () => {
+      const translateService = TestBed.inject(TranslateService);
+      await firstValueFrom(translateService.use('en'));
+      fixture.detectChanges();
+      const button = fixture.nativeElement.querySelector('button.cover-img') as HTMLButtonElement;
+      expect(button).toBeTruthy();
+      const aria = button.getAttribute('aria-label');
+      expect(aria).toContain('View project Portfolio');
+      expect(aria).toContain('Portfolio project image');
+    });
 
-      if (button) {
-        button.triggerEventHandler(
-          'keydown',
-          new KeyboardEvent('keydown', { key: 'Enter' })
-        );
-        fixture.detectChanges();
-        // Should not throw error and should handle the event
-        expect(true).toBeTrue(); // Event was handled successfully
-      } else {
-        // If no button element with role="button", the test should still pass
-        // as the component may not have that specific element in the basic test setup
-        expect(component).toBeTruthy(); // Component exists and is functional
-      }
+    it('toggle button has aria-controls matching the description id', async () => {
+      const translateService = TestBed.inject(TranslateService);
+      await firstValueFrom(translateService.use('en'));
+      fixture.componentRef.setInput('expandedIndex', 0);
+      fixture.detectChanges();
+      const desc = fixture.nativeElement.querySelector('#project-desc-0') as HTMLElement;
+      expect(desc).toBeTruthy();
+      const appBtn = fixture.nativeElement.querySelector('app-button') as HTMLElement;
+      // aria-controls is set on the <app-button> host element via [attr.x] binding.
+      const controls = appBtn?.getAttribute('aria-controls');
+      expect(controls).toBe('project-desc-0');
+    });
+
+    it('has no role="button" overrides (uses native buttons)', () => {
+      const divButtons = fixture.nativeElement.querySelectorAll('[role="button"]:not(button)');
+      expect(divButtons.length).toBe(0);
     });
   });
 });

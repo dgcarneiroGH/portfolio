@@ -25,6 +25,13 @@ export class AnimateDirective implements AfterViewInit {
     const element = this.el.nativeElement;
     if (!element) return;
 
+    if (this._prefersReducedMotion()) {
+      this.translate.get(this.translationKey!).subscribe((text) => {
+        if (text) element.textContent = text;
+      });
+      return;
+    }
+
     this._initializeText(element);
   }
 
@@ -107,5 +114,13 @@ export class AnimateDirective implements AfterViewInit {
       this.renderer.removeClass(element, 'animated');
       this.renderer.removeClass(element, 'rubberBand');
     });
+  }
+
+  private _prefersReducedMotion(): boolean {
+    return (
+      typeof window !== 'undefined' &&
+      typeof window.matchMedia === 'function' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    );
   }
 }

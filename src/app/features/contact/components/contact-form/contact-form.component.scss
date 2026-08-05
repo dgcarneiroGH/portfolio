@@ -9,6 +9,12 @@ form {
   width: 40vw;
 }
 
+label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.875rem;
+  color: palette.$text-primary;
+}
+
 .name-email-row {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -47,7 +53,7 @@ textarea {
   resize: none;
 
   &::placeholder {
-    color: rgba(palette.$text-secondary, 0.6);
+    color: rgba(palette.$text-primary, 0.75);
   }
 
   &:focus {

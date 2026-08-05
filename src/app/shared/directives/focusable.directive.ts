@@ -1,32 +1,13 @@
-import { Directive, ElementRef, OnInit, Renderer2 } from '@angular/core';
+import { Directive } from '@angular/core';
 
+/**
+ * @deprecated Use native <button> or <a> elements instead.
+ * This directive will be removed in a future release (WCAG 4.1.2).
+ */
 @Directive({
   selector: '[appFocusable]',
   standalone: true
 })
-export class FocusableDirective implements OnInit {
-  constructor(
-    private elementRef: ElementRef,
-    private renderer: Renderer2
-  ) {}
-
-  ngOnInit(): void {
-    const element = this.elementRef.nativeElement;
-
-    // Make element focusable if it's not already
-    if (
-      !element.hasAttribute('tabindex') &&
-      !['A', 'BUTTON', 'INPUT', 'SELECT', 'TEXTAREA'].includes(element.tagName)
-    ) {
-      this.renderer.setAttribute(element, 'tabindex', '0');
-    }
-
-    // Add role if needed
-    if (
-      !element.hasAttribute('role') &&
-      !['A', 'BUTTON', 'INPUT', 'SELECT', 'TEXTAREA'].includes(element.tagName)
-    ) {
-      this.renderer.setAttribute(element, 'role', 'button');
-    }
-  }
+export class FocusableDirective {
+  // No-op: replaced by native interactive elements throughout the codebase.
 }

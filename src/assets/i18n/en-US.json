@@ -5,7 +5,10 @@
     "EXPAND_MENU": "Expand language menu",
     "COLLAPSE_MENU": "Collapse language menu",
     "LANGUAGE_SELECTOR": "Language selector",
+    "LOADING": "Loading...",
+    "SOCIAL_NAV": "Social media and contact",
     "AVAILABLE_LANGUAGES": "Available languages",
+    "SKIP_TO_MAIN": "Skip to main content",
     "SKIP_TO_BLOG": "Skip to blog",
     "SKIP_TO_PORTFOLIO": "Skip to portfolio",
     "SKIP_TO_NAV": "Skip to navigation",
@@ -100,7 +103,8 @@
     "RETRY": "Retry",
     "TITLE": "Blog",
     "FILTER": {
-      "ALL": "All",
+      "FILTER_GROUP": "Filter articles by category",
+    "ALL": "All",
       "CODER4CHANGE": "Coders4Change",
       "MINDFUL_CODE": "Mindful Code",
       "N8N_WORKFLOW": "N8N Workflows",
@@ -111,11 +115,19 @@
     "FORM_SUCCESS": "Thank you for your review!",
     "GO_BACK": "Go back",
     "TITLE": "Do you already know me?",
-    "SUBTITLE": "Leave me a review, I'd love to hear your opinion!"
+    "SUBTITLE": "Leave me a review, I'd love to hear your opinion!",
+    "RATING_LABEL": "Rating",
+    "STAR_ARIA": "{{count}} stars"
   },
   "ERROR_404": {
     "TITLE": "Oops! It seems that path doesn't exist",
     "BODY": "There's been a slight detour on the path. The article you are looking for cannot be found, but don't worry, losing your way is part of the adventure.",
     "IMAGE_ALT": "Confused character indicating that the requested page was not found"
+  },
+  "ROUTE": {
+    "PORTFOLIO": "Portfolio",
+    "BLOG": "Blog",
+    "BLOG_POST": "Blog post",
+    "NOT_FOUND": "Page not found"
   }
 }

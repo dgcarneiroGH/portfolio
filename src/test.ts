@@ -4,6 +4,7 @@ import {
   BrowserTestingModule,
   platformBrowserTesting
 } from '@angular/platform-browser/testing';
+import { toHaveNoViolations, toHaveLessThanXViolations } from 'jasmine-axe';
 
 // Global stub for IntersectionObserver (not available in ChromeHeadless/JSDOM)
 (window as Window & { IntersectionObserver: unknown }).IntersectionObserver =
@@ -24,3 +25,10 @@ getTestBed().initTestEnvironment(
   BrowserTestingModule,
   platformBrowserTesting()
 );
+
+// Install jasmine-axe a11y matchers globally so any spec can call
+// expect(await axe(html)).toHaveNoViolations() without per-test setup.
+beforeEach(() => {
+  jasmine.addMatchers(toHaveNoViolations);
+  jasmine.addMatchers(toHaveLessThanXViolations);
+});

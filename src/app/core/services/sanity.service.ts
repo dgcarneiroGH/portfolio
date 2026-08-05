@@ -67,23 +67,23 @@ export class SanityService {
           em: ({ children }) => `<em>${children}</em>`,
           code: ({ children }) => `<code>${children}</code>`,
           link: ({ value, children }) => {
-            const href = value?.href ?? '#';
-            const rel = href.startsWith('/')
-              ? ''
-              : ' rel="noopener noreferrer" target="_blank"';
-            return `<a href="${href}"${rel}>${children}</a>`;
+            const href = (value?.href ?? '#').replace(/"/g, '&quot;');
+            const external = /^https?:\/\//.test(href);
+            const target = external ? ' target="_blank"' : '';
+            const rel = external ? ' rel="noopener noreferrer"' : '';
+            return `<a href="${href}"${target}${rel}>${children}</a>`;
           }
         },
         block: {
           normal: ({ children }) => `<p>${children}</p>`,
-          h1: ({ children }) => `<h1>${children}</h1>`,
+          h1: ({ children }) => `<h2>${children}</h2>`,
           h2: ({ children }) => `<h2>${children}</h2>`,
           h3: ({ children }) => `<h3>${children}</h3>`
         },
         types: {
           image: ({ value }) => {
             const url = this.imageBuilder(value)?.width(1200).url();
-            const alt = value?.alt ?? '';
+            const alt = (value?.alt ?? '').replace(/"/g, '&quot;');
             return url
               ? `<figure><img src="${url}" alt="${alt}" /></figure>`
               : '';

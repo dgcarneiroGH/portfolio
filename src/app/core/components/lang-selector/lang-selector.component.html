@@ -4,12 +4,14 @@
   (appClickOutside)="closeOptions()"
 >
   <button
+    #triggerBtn
     class="container-header"
     [class.active]="showOptions()"
     (click)="toggleOptions()"
     (keydown)="onKeyDown($event)"
     [attr.aria-expanded]="showOptions()"
-    [attr.aria-haspopup]="true"
+    [attr.aria-haspopup]="'listbox'"
+    [attr.aria-controls]="'lang-options'"
     [attr.aria-label]="
       ('COMMON.LANGUAGE_SELECTOR' | translate) + ': ' + currentLanguage()?.label
     "
@@ -32,6 +34,8 @@
     }
   </button>
   <ul
+    #langOptions
+    id="lang-options"
     class="lang-selector-options"
     [class.visible]="showOptions()"
     [class.hidden]="!showOptions()"

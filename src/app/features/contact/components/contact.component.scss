@@ -22,6 +22,8 @@ section {
   .nomacoda-animation-wrapper {
     position: absolute;
     width: 21rem;
+    min-width: 44px;
+    min-height: 44px;
     top: 0;
     right: 5rem;
     transform-origin: 50% 0%;

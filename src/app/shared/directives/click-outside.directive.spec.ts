@@ -100,8 +100,14 @@ describe('ClickOutsideDirective', () => {
   it('should attach directive to element', () => {
     const directiveElement = fixture.debugElement.query(By.directive(ClickOutsideDirective));
     const directive = directiveElement.injector.get(ClickOutsideDirective);
-    
+
     expect(directive).toBeTruthy();
     expect(directive.appClickOutside).toBeDefined();
+  });
+
+  it('does not emit after the host component is destroyed (no document listener leak)', () => {
+    fixture.destroy();
+    document.body.click();
+    expect(component.clickOutsideCount).toBe(0);
   });
 });

@@ -1,16 +1,4 @@
-@if (isBlogRoute()) {
-  <a
-    class="skip-link"
-    routerLink="/"
-    [attr.aria-label]="'COMMON.SKIP_TO_PORTFOLIO' | translate"
-  >{{ 'COMMON.SKIP_TO_PORTFOLIO' | translate }}</a>
-} @else {
-  <a
-    class="skip-link"
-    href="#blog"
-    [attr.aria-label]="'COMMON.SKIP_TO_BLOG' | translate"
-  >{{ 'COMMON.SKIP_TO_BLOG' | translate }}</a>
-}
+<a class="skip-link" href="#blog">{{ 'COMMON.SKIP_TO_BLOG' | translate }}</a>
 <header class="header">
   <app-lang-selector></app-lang-selector>
 </header>

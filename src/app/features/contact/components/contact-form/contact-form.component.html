@@ -24,17 +24,21 @@
     <div class="name-email-row">
       <!-- Name -->
       <div class="field-group">
+        <label for="contact-fullName">{{ "FORM.NAME_PLACEHOLDER" | translate }}</label>
         <input
-          id="fullName"
+          id="contact-fullName"
           formControlName="fullName"
           type="text"
-          [placeholder]="'FORM.NAME_PLACEHOLDER' | translate"
           [class.input-error]="invalid('fullName')"
-          [attr.aria-label]="'FORM.NAME_PLACEHOLDER' | translate"
+          [attr.aria-invalid]="invalid('fullName') ? 'true' : null"
+          [attr.aria-describedby]="
+            invalid('fullName') ? 'contact-fullName-error' : null
+          "
           autocomplete="name"
+          required
         />
-        @if (invalid("fullName")) {
-          <div class="error-message" role="alert">
+        @if (invalid('fullName')) {
+          <div id="contact-fullName-error" class="error-message" role="alert">
             <svg
               class="error-icon"
               xmlns="http://www.w3.org/2000/svg"
@@ -59,17 +63,21 @@
 
       <!-- Email -->
       <div class="field-group">
+        <label for="contact-email">{{ "FORM.EMAIL_ARIA" | translate }}</label>
         <input
-          id="email"
+          id="contact-email"
           formControlName="email"
           type="email"
-          [placeholder]="'FORM.EMAIL_PLACEHOLDER' | translate"
           [class.input-error]="invalid('email')"
-          [attr.aria-label]="'FORM.EMAIL_ARIA' | translate"
+          [attr.aria-invalid]="invalid('email') ? 'true' : null"
+          [attr.aria-describedby]="
+            invalid('email') ? 'contact-email-error' : null
+          "
           autocomplete="email"
+          required
         />
-        @if (invalid("email")) {
-          <div class="error-message" role="alert">
+        @if (invalid('email')) {
+          <div id="contact-email-error" class="error-message" role="alert">
             <svg
               class="error-icon"
               xmlns="http://www.w3.org/2000/svg"
@@ -95,16 +103,20 @@
 
     <!-- Message -->
     <div class="field-group">
+      <label for="contact-message">{{ "FORM.MESSAGE_ARIA" | translate }}</label>
       <textarea
-        id="message"
+        id="contact-message"
         formControlName="message"
         rows="5"
-        [placeholder]="'FORM.MESSAGE_PLACEHOLDER' | translate"
         [class.input-error]="invalid('message')"
-        [attr.aria-label]="'FORM.MESSAGE_ARIA' | translate"
+        [attr.aria-invalid]="invalid('message') ? 'true' : null"
+        [attr.aria-describedby]="
+          invalid('message') ? 'contact-message-error' : null
+        "
+        required
       ></textarea>
-      @if (invalid("message")) {
-        <div class="error-message" role="alert">
+      @if (invalid('message')) {
+        <div id="contact-message-error" class="error-message" role="alert">
           <svg
             class="error-icon"
             xmlns="http://www.w3.org/2000/svg"

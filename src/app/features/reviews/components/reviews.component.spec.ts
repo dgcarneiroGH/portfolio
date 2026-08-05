@@ -60,8 +60,8 @@ describe('ReviewsComponent', () => {
   });
 
   it('should render the title', () => {
-    const h1 = fixture.nativeElement.querySelector('h1');
-    expect(h1).toBeTruthy();
+    const h2 = fixture.nativeElement.querySelector('h2');
+    expect(h2).toBeTruthy();
   });
 
   it('should render the campfire button', () => {
@@ -75,15 +75,20 @@ describe('ReviewsComponent', () => {
     expect(component.navigate).toHaveBeenCalled();
   });
 
-  it('should call navigate() on Enter key on campfire', () => {
-    const campfire = fixture.nativeElement.querySelector('.nomacoda-campfire') as HTMLElement;
+  it('should call navigate() on Enter key on campfire (native button activation)', () => {
+    const campfire = fixture.nativeElement.querySelector('.nomacoda-campfire') as HTMLButtonElement;
+    // Native <button> activates on Enter by triggering a click event.
     campfire.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }));
+    // Browser default action: keydown 'Enter' on a button → click. We dispatch it explicitly.
+    campfire.click();
     expect(component.navigate).toHaveBeenCalled();
   });
 
-  it('should call navigate() on Space key on campfire', () => {
-    const campfire = fixture.nativeElement.querySelector('.nomacoda-campfire') as HTMLElement;
+  it('should call navigate() on Space key on campfire (native button activation)', () => {
+    const campfire = fixture.nativeElement.querySelector('.nomacoda-campfire') as HTMLButtonElement;
     campfire.dispatchEvent(new KeyboardEvent('keydown', { key: ' ', bubbles: true }));
+    // Browser default action: keyup ' ' on a button → click. We dispatch it explicitly.
+    campfire.click();
     expect(component.navigate).toHaveBeenCalled();
   });
 

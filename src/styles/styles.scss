@@ -108,6 +108,21 @@ svg,
   user-select: none;
 }
 
+#main-content:focus {
+  outline: 3px solid palette.$accent-blue;
+  outline-offset: -3px;
+}
+
+/* Reset styles for native buttons used as decorative/wrapped controls */
+.btn-reset {
+  background: transparent;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
 /* Ensure decorative images aren't focusable */
 img[alt=""],
 img:not([alt]) {

@@ -19,6 +19,7 @@ export class TimelineDirective implements OnInit {
   private renderer = inject(Renderer2);
 
   @HostListener('window:scroll') onScroll() {
+    if (this._prefersReducedMotion()) return;
     this.toggleView();
   }
 
@@ -46,6 +47,14 @@ export class TimelineDirective implements OnInit {
       rect.bottom <=
         (window.innerHeight || document.documentElement.clientHeight) &&
       rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+    );
+  }
+
+  private _prefersReducedMotion(): boolean {
+    return (
+      typeof window !== 'undefined' &&
+      typeof window.matchMedia === 'function' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
     );
   }
 }

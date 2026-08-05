@@ -1,11 +1,17 @@
-<div class="filter-container">
+<div
+  class="filter-container"
+  role="group"
+  [attr.aria-label]="'BLOG.FILTER_GROUP' | translate"
+>
   @for (filter of filters; track filter.category) {
-    <button 
-      class="filter-pill" 
+    <button
+      class="filter-pill"
       [class.active]="isFilterSelected(filter)"
-      type="button" 
+      type="button"
       data-testid="filter-pill"
-      (click)="selectFilter(filter)">
+      [attr.aria-pressed]="isFilterSelected(filter)"
+      (click)="selectFilter(filter)"
+    >
       {{ filter.label | translate }}
     </button>
   }

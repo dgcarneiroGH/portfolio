@@ -1,5 +1,5 @@
-import { CommonModule } from '@angular/common';
 import { Component, input, output } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
@@ -11,7 +11,7 @@ import { TranslateModule } from '@ngx-translate/core';
 })
 export class ToggleButtonComponent {
   isChecked = input(false);
-  label = input('');
+  label = input.required<string>();
   filterMode = input(false);
 
   check = output<boolean>();

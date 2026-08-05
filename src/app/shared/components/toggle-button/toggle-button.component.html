@@ -5,8 +5,7 @@
         type="checkbox"
         [checked]="isChecked()"
         (change)="toggle($any($event.target).checked)"
-        [attr.aria-labelledby]="label() ? 'toggle-label-' + label() : null"
-        [attr.aria-label]="label() ? null : 'Toggle'"
+        [attr.aria-labelledby]="'toggle-label-' + label()"
       />
       <div class="slider" aria-hidden="true"></div>
     </label>

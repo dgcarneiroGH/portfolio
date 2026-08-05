@@ -22,6 +22,7 @@ export class ParallaxHeaderDirective implements OnInit {
 
   @HostListener('window:scroll', [])
   onWindowScroll() {
+    if (this._prefersReducedMotion()) return;
     const section = this.el.nativeElement.parentElement as HTMLElement;
     if (!section) return;
 
@@ -69,6 +70,14 @@ export class ParallaxHeaderDirective implements OnInit {
         transition: 'opacity 0.3s cubic-bezier(0.4,0,0.2,1)'
       });
     }
+  }
+
+  private _prefersReducedMotion(): boolean {
+    return (
+      typeof window !== 'undefined' &&
+      typeof window.matchMedia === 'function' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    );
   }
 
   private setStyles(

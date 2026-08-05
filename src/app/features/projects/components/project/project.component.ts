@@ -2,12 +2,13 @@ import { CommonModule } from '@angular/common';
 import {
   Component,
   computed,
+  inject,
   input,
   OnInit,
   output,
   signal
 } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
 import { Color, getColorSync, getPaletteSync } from 'colorthief';
 
@@ -19,6 +20,8 @@ import { Color, getColorSync, getPaletteSync } from 'colorthief';
   styleUrl: './project.component.scss'
 })
 export class ProjectComponent implements OnInit {
+  private _translate = inject(TranslateService);
+
   coverImgSrc = input.required<string>();
   name = input.required<string>();
   description = input.required<string>();

@@ -14,7 +14,15 @@ const mockTranslations = {
   'CONTACT.EMAIL_PLACEHOLDER': 'Email',
   'CONTACT.MESSAGE_PLACEHOLDER': 'Message',
   'CONTACT.SUBMIT_BUTTON': 'Send Message',
-  'CONTACT.SUBMIT_LOADING': 'Sending...'
+  'CONTACT.SUBMIT_LOADING': 'Sending...',
+  'FORM.NAME_PLACEHOLDER': 'Your name',
+  'FORM.NAME_ERROR': 'Name is required',
+  'FORM.EMAIL_ARIA': 'Your email address',
+  'FORM.EMAIL_ERROR': 'Invalid email format.',
+  'FORM.MESSAGE_ARIA': 'Your message',
+  'FORM.MESSAGE_ERROR': 'Message is required',
+  'FORM.SUBMIT_BUTTON': 'Send',
+  'FORM.SUBMIT_LOADING': 'Sending...'
 };
 
 const mockLoader = {
@@ -236,37 +244,38 @@ describe('ContactFormComponent', () => {
       expect(form.getAttribute('novalidate')).toBe('');
     });
 
-    it('should have proper input labels and accessibility attributes', () => {
-      const nameInput = fixture.nativeElement.querySelector(
-        '#fullName'
-      ) as HTMLInputElement;
-      const emailInput = fixture.nativeElement.querySelector(
-        '#email'
-      ) as HTMLInputElement;
-      const messageInput = fixture.nativeElement.querySelector(
-        '#message'
-      ) as HTMLTextAreaElement;
+    it('should have <label for=> for every input', () => {
+      const nameLabel = fixture.nativeElement.querySelector('label[for="contact-fullName"]') as HTMLLabelElement;
+      const emailLabel = fixture.nativeElement.querySelector('label[for="contact-email"]') as HTMLLabelElement;
+      const messageLabel = fixture.nativeElement.querySelector('label[for="contact-message"]') as HTMLLabelElement;
+
+      expect(nameLabel).toBeTruthy();
+      expect(emailLabel).toBeTruthy();
+      expect(messageLabel).toBeTruthy();
+
+      const nameInput = fixture.nativeElement.querySelector('#contact-fullName') as HTMLInputElement;
+      const emailInput = fixture.nativeElement.querySelector('#contact-email') as HTMLInputElement;
+      const messageInput = fixture.nativeElement.querySelector('#contact-message') as HTMLTextAreaElement;
 
       expect(nameInput).toBeTruthy();
-      expect(nameInput.getAttribute('aria-label')).toBeTruthy();
       expect(nameInput.getAttribute('autocomplete')).toBe('name');
 
       expect(emailInput).toBeTruthy();
-      expect(emailInput.getAttribute('aria-label')).toBeTruthy();
       expect(emailInput.getAttribute('autocomplete')).toBe('email');
 
       expect(messageInput).toBeTruthy();
-      expect(messageInput.getAttribute('aria-label')).toBeTruthy();
     });
 
-    it('should show error messages with proper ARIA attributes', () => {
-      // Make form invalid and touched
-      component.form.get('fullName')?.setValue('Jo');
+    it('shows error messages with proper ARIA attributes and connects them via aria-describedby', () => {
+      component.form.get('fullName')?.setValue('Jo'); // invalid (minlength)
       component.form.get('fullName')?.markAsTouched();
       fixture.detectChanges();
 
-      const errorMessage =
-        fixture.nativeElement.querySelector('.error-message');
+      const nameInput = fixture.nativeElement.querySelector('#contact-fullName') as HTMLInputElement;
+      expect(nameInput.getAttribute('aria-invalid')).toBe('true');
+      expect(nameInput.getAttribute('aria-describedby')).toBe('contact-fullName-error');
+
+      const errorMessage = fixture.nativeElement.querySelector('#contact-fullName-error');
       expect(errorMessage).toBeTruthy();
       expect(errorMessage.getAttribute('role')).toBe('alert');
     });

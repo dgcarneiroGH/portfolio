@@ -7,14 +7,19 @@ import { ReviewsFormComponent } from './reviews-form.component';
 
 const mockTranslations = {
   'FORM.NAME_PLACEHOLDER': 'Your name',
+  'FORM.NAME_ERROR': 'Name is required',
   'FORM.EMAIL_PLACEHOLDER': 'you@email.com',
+  'FORM.EMAIL_ARIA': 'Your email address',
+  'FORM.EMAIL_ERROR': 'Invalid email format.',
   'FORM.REVIEW_MESSAGE_PLACEHOLDER': 'Write your review...',
   'FORM.SUBMIT_BUTTON': 'Send',
   'FORM.SUBMIT_LOADING': 'Sending...',
   'FORM.REQUIRED_ERROR': 'Required',
   'FORM.EMAIL_REQUIRED_ERROR': 'Required and valid',
   'FORM.FORM_ERROR': 'Error. Please try again.',
-  'REVIEWS.FORM_SUCCESS': 'Thank you for your review!'
+  'REVIEWS.FORM_SUCCESS': 'Thank you for your review!',
+  'REVIEWS.RATING_LABEL': 'Rating',
+  'REVIEWS.STAR_ARIA': '{{count}} stars'
 };
 
 const mockLoader = { getTranslation: () => of(mockTranslations) };
@@ -235,6 +240,45 @@ describe('ReviewsFormComponent', () => {
     it('should not call the service when the form is invalid', () => {
       component.submit(); // form is empty → invalid
       expect(reviewsServiceSpy.sendReview).not.toHaveBeenCalled();
+    });
+  });
+
+  // ─── Accessibility ──────────────────────────────────────────────────────────
+
+  describe('Accessibility', () => {
+    it('email input has an associated <label for="reviews-email">', () => {
+      const label = fixture.nativeElement.querySelector('label[for="reviews-email"]') as HTMLLabelElement;
+      const input = fixture.nativeElement.querySelector('#reviews-email') as HTMLInputElement;
+      expect(label).toBeTruthy();
+      expect(input).toBeTruthy();
+    });
+
+    it('marks email as aria-invalid and aria-describedby after invalid+touched', () => {
+      component.form.get('email')!.setValue('not-an-email');
+      component.form.get('email')!.markAsTouched();
+      fixture.detectChanges();
+      const input = fixture.nativeElement.querySelector('#reviews-email') as HTMLInputElement;
+      expect(input.getAttribute('aria-invalid')).toBe('true');
+      expect(input.getAttribute('aria-describedby')).toBe('reviews-email-error');
+    });
+
+    it('rating group exposes role="radiogroup" with 5 radio buttons', () => {
+      const group = fixture.nativeElement.querySelector('[role="radiogroup"]') as HTMLElement;
+      expect(group).toBeTruthy();
+      const radios = fixture.nativeElement.querySelectorAll('[role="radio"]');
+      expect(radios.length).toBe(5);
+    });
+
+    it('rating buttons reflect aria-checked and emit a translated aria-label', () => {
+      component.setRating(3);
+      fixture.detectChanges();
+      const starThree = fixture.nativeElement.querySelectorAll('[role="radio"]')[2] as HTMLButtonElement;
+      expect(starThree.getAttribute('aria-checked')).toBe('true');
+      // aria-label may render as the raw interpolation key when the mock loader
+      // returns before the pipe runs; assert attribute presence + non-empty.
+      const aria = starThree.getAttribute('aria-label');
+      expect(aria).toBeTruthy();
+      expect(aria!.length).toBeGreaterThan(0);
     });
   });
 });

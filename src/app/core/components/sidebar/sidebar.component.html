@@ -1,4 +1,4 @@
-<aside class="sidebar">
+<nav class="sidebar" [attr.aria-label]="'COMMON.SOCIAL_NAV' | translate">
   <div class="sidebar-content">
     <ul>
       @for (link of links(); track link.profileUrl) {
@@ -23,6 +23,8 @@
       viewBox="0 24 150 28"
       preserveAspectRatio="none"
       shape-rendering="auto"
+      aria-hidden="true"
+      focusable="false"
     >
       <defs>
         <path
@@ -61,4 +63,4 @@
       </g>
     </svg>
   </div>
-</aside>
+</nav>

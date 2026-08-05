@@ -2,7 +2,7 @@
   class="loading-overlay"
   data-testid="loading-overlay"
   role="status"
-  aria-label="Cargando..."
+  [attr.aria-label]="'COMMON.LOADING' | translate"
   aria-busy="true"
   inert
 >
@@ -18,7 +18,8 @@
       class="loading-nomacoda"
       data-testid="loading-nomacoda"
       src="assets/images/nomacoda/nomacoda_full_transparent.avif"
-      alt="Nomacoda"
+      alt=""
+      aria-hidden="true"
     />
   </div>
 </div>

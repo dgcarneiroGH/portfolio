@@ -105,6 +105,38 @@ npm run test:ci
 # Generated in /coverage/
 ```
 
+## ♿ Accessibility
+
+Target: **WCAG 2.2 Level AA**.
+
+Reference docs:
+- `docs/superpowers/specs/2026-08-04-a11y-audit-design.md` — full audit (32 hallazgos).
+- `docs/superpowers/plans/2026-08-04-a11y-improvements.md` — phased implementation plan.
+
+### Automated checks
+
+- **Unit-level axe matchers** (via `jasmine-axe`) are wired in `src/test.ts`. Any spec
+  can call `expect(await axe(fixture.nativeElement)).toHaveNoViolations();`.
+- **Smoke test against the build** with `@axe-core/cli`:
+  ```bash
+  npm run a11y:smoke   # requires npm start in another terminal
+  ```
+  Generates JSON reports in `a11y-report/`.
+
+> axe-core v4 in Angular zone-less tests has known environment incompatibilities
+> (`Right-hand side of 'instanceof' is not callable`). The unit axe test falls back
+> to `pending()` rather than failing the suite; the smoke script covers those gaps
+> in real browser context.
+
+### Manual checks
+
+Run `npm start`, then verify with NVDA or VoiceOver:
+1. Tab order matches visual order on each section.
+2. Skip-link targets `#main-content`.
+3. Forms announce errors via `aria-describedby`.
+4. `prefers-reduced-motion: reduce` disables parallax/blast animations.
+5. Page `<title>` updates per route (Portafolio / Blog / Artículo / Página no encontrada).
+
 ## 📁 Project Architecture
 
 ```

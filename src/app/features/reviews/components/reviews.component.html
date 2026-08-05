@@ -25,13 +25,10 @@
       />
     </filter>
   </svg>
-  <div
-    class="nomacoda-campfire"
+  <button
+    type="button"
+    class="nomacoda-campfire btn-reset"
     (click)="navigate()"
-    role="button"
-    tabindex="0"
-    (keydown.enter)="navigate()"
-    (keydown.space)="navigate()"
     [attr.aria-label]="'REVIEWS.GO_BACK' | translate"
   >
     <!-- Fire image: heat-wave distortion + glow animation -->
@@ -44,13 +41,14 @@
     <!-- Character image: no filter -->
     <img
       src="assets/images/nomacoda/nomacoda_campfire.avif"
-      alt="Nomacoda character"
+      alt=""
+      aria-hidden="true"
       class="campfire-character"
     />
-  </div>
+  </button>
   <div class="section-container">
     <!-- <h1>{{ "REVIEWS.TITLE" | translate }}</h1> -->
-    <h1 [appAnimate]="animationDelay()" translationKey="REVIEWS.TITLE"></h1>
+    <h2 [appAnimate]="animationDelay()" translationKey="REVIEWS.TITLE"></h2>
     <p
       class="subtitle"
       [appAnimate]="animationDelay()"

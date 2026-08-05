@@ -1,10 +1,19 @@
-<div class="error-container">
+<main class="error-container" role="main">
   <img
     class="error-image"
     src="assets/images/nomacoda/error_404.avif"
     [alt]="'ERROR_404.IMAGE_ALT' | translate"
   />
-  <a class="portfolio-btn" routerLink="/">
-    <img src="assets/images/icons/portfolio_signal.avif" [alt]="'COMMON.NAV_HOME' | translate" />
+  <h1 class="visually-hidden">{{ 'ERROR_404.TITLE' | translate }}</h1>
+  <a
+    class="portfolio-btn"
+    routerLink="/"
+    [attr.aria-label]="'COMMON.NAV_HOME' | translate"
+  >
+    <img
+      src="assets/images/icons/portfolio_signal.avif"
+      alt=""
+      aria-hidden="true"
+    />
   </a>
-</div>
+</main>

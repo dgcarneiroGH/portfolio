@@ -5,16 +5,24 @@
     [parallaxContent]="contentRef"
     #headerRef
   >
-    <h1>
+    <h2>
       {{ "EXPERIENCE.EXPERIENCE" | translate }}
-    </h1>
+    </h2>
   </header>
   <div class="section-container" #contentRef>
     <ul>
       @for (e of experience(); track e.company) {
         <li appTimeline customClassName="in-view">
           <div>
-            <time>{{ e.yearRange | translate }}</time>
+            <time
+              [attr.datetime]="
+                e.yearStart && (e.yearEnd === 'Present' || e.yearEnd === 'Actualidad')
+                  ? e.yearStart
+                  : e.yearStart && e.yearEnd
+                  ? e.yearStart + '/' + e.yearEnd
+                  : null
+              "
+            >{{ e.yearRange | translate }}</time>
             <div class="discovery">
               <h2>{{ e.company }}</h2>
               <p class="designation">{{ e.designation | translate }}</p>

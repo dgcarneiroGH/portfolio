@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, signal, computed } from '@angular/core';
+import { Component, ElementRef, inject, signal, computed, viewChild } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { LANGUAGES } from '../../constants/lang.constants';
 import { LangService } from '../../services/lang.service';
@@ -25,6 +25,9 @@ export class LangSelectorComponent {
     LANGUAGES.filter(({ id }) => id !== this.currentLanguage()?.id)
   );
 
+  private _optionsList = viewChild<ElementRef<HTMLUListElement>>('langOptions');
+  private _triggerButton = viewChild<ElementRef<HTMLButtonElement>>('triggerBtn');
+
   toggleOptions(): void {
     this.showOptions.set(!this.showOptions());
   }
@@ -36,6 +39,8 @@ export class LangSelectorComponent {
   selectLanguage(lang: string): void {
     this._langService.setLanguage(lang);
     this.closeOptions();
+    // Restore focus to the trigger after selection (WCAG 2.4.3)
+    this._triggerButton()?.nativeElement.focus();
   }
 
   onKeyDown(event: KeyboardEvent): void {
@@ -44,14 +49,18 @@ export class LangSelectorComponent {
       case ' ':
         event.preventDefault();
         this.toggleOptions();
+        if (this.showOptions()) {
+          queueMicrotask(() => this._focusOption(0));
+        }
         break;
       case 'Escape':
         this.closeOptions();
         break;
       case 'ArrowDown':
+        event.preventDefault();
         if (!this.showOptions()) {
-          event.preventDefault();
           this.showOptions.set(true);
+          queueMicrotask(() => this._focusOption(0));
         }
         break;
       case 'ArrowUp':
@@ -60,6 +69,20 @@ export class LangSelectorComponent {
           this.closeOptions();
         }
         break;
+      case 'Home':
+        if (this.showOptions()) { event.preventDefault(); this._focusOption(0); }
+        break;
+      case 'End':
+        if (this.showOptions()) { event.preventDefault(); this._focusOption(this.filteredLanguages().length - 1); }
+        break;
+      default: {
+        // TypeAhead: jump to first option whose label starts with the typed character.
+        if (this.showOptions() && event.key.length === 1 && /\S/.test(event.key)) {
+          const ch = event.key.toLowerCase();
+          const idx = this.filteredLanguages().findIndex(l => l.label.toLowerCase().startsWith(ch));
+          if (idx >= 0) { event.preventDefault(); this._focusOption(idx); }
+        }
+      }
     }
   }
 
@@ -72,11 +95,7 @@ export class LangSelectorComponent {
         break;
       case 'Escape':
         this.closeOptions();
-        // Focus back to trigger button
-        const triggerButton = event.target as HTMLElement;
-        const container = triggerButton.closest('.lang-selector-container');
-        const button = container?.querySelector('button');
-        button?.focus();
+        this._triggerButton()?.nativeElement.focus();
         break;
       case 'ArrowDown':
       case 'ArrowUp':
@@ -103,5 +122,10 @@ export class LangSelectorComponent {
     if (nextIndex >= 0 && nextIndex < options.length) {
       (options[nextIndex] as HTMLElement).focus();
     }
+  }
+
+  private _focusOption(index: number): void {
+    const options = this._optionsList()?.nativeElement.querySelectorAll<HTMLLIElement>('li.lang');
+    options?.[index]?.focus();
   }
 }

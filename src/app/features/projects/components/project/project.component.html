@@ -6,29 +6,35 @@
   [style.--animation-delay]="animationDelay()"
 >
   <div class="project-border">
-    <!-- Hidden image to preload -->
-    <img
-      #sourceImage
-      [src]="coverImgSrc() + '.avif'"
-      (load)="onImageLoad(sourceImage)"
-      alt=""
-      style="display: none"
-    />
     <button
       class="cover-img"
       [class.has-url]="url()"
-      [style.background-image]="'url(' + coverImgSrc() + '.avif)'"
       (click)="goTo()"
       (keydown)="onKeyDown($event, 'goTo')"
-      [attr.aria-label]="'PROJECTS.VIEW_PROJECT' | translate: { name: name() }"
+      [attr.aria-label]="
+        ('PROJECTS.VIEW_PROJECT' | translate: { name: name() }) + ' — ' + (altKey() | translate)
+      "
       type="button"
-    ></button>
+    >
+      <img
+        #coverImage
+        class="cover-img-el"
+        [src]="coverImgSrc() + '.avif'"
+        (load)="onImageLoad(coverImage)"
+        [alt]="altKey() | translate"
+      />
+    </button>
 
     <div class="project-info">
-      <h3 class="title" [class.show]="showMoreInfo()">{{ name() }}</h3>
+      <h3 class="title" [class.show]="showMoreInfo()" [id]="'project-title-' + index()">{{ name() }}</h3>
 
       <div class="project-details">
-        <p class="description" [class.show]="showMoreInfo()">
+        <p
+          class="description"
+          [class.show]="showMoreInfo()"
+          [id]="'project-desc-' + index()"
+          [attr.aria-labelledby]="'project-title-' + index()"
+        >
           {{ description() | translate }}
         </p>
 
@@ -39,11 +45,9 @@
           [disabled]="!canToggleInfo()"
           (buttonClick)="handleMoreInfoClick()"
           [attr.aria-expanded]="showMoreInfo()"
+          [attr.aria-controls]="'project-desc-' + index()"
           [attr.aria-label]="
-            (showMoreInfo()
-              ? 'PROJECTS.TOGGLE_INFO_HIDE'
-              : 'PROJECTS.TOGGLE_INFO_SHOW'
-            ) | translate
+            (showMoreInfo() ? 'PROJECTS.TOGGLE_INFO_HIDE' : 'PROJECTS.TOGGLE_INFO_SHOW') | translate
           "
         ></app-button>
       </div>

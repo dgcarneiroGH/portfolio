@@ -12,7 +12,8 @@
     "test:coverage": "ng test --code-coverage",
     "coverage:open": "start coverage/portfolio/index.html",
     "prepare": "husky",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "a11y:smoke": "node scripts/a11y-smoke.mjs"
   },
   "private": true,
   "dependencies": {
@@ -44,15 +45,18 @@
     "@angular/build": "^21.2.2",
     "@angular/cli": "^21.2.2",
     "@angular/compiler-cli": "^21.2.4",
+    "@axe-core/cli": "^4.12.1",
     "@compodoc/compodoc": "^1.2.1",
     "@eslint/js": "^9.39.4",
     "@netlify/functions": "^5.1.5",
     "@types/jasmine": "~5.1.5",
     "ajv": "^8.18.0",
     "angular-eslint": "21.3.0",
+    "axe-core": "^4.12.1",
     "baseline-browser-mapping": "^2.9.14",
     "eslint": "^9.39.4",
     "husky": "^9.1.7",
+    "jasmine-axe": "^1.1.0",
     "jasmine-core": "~5.5.0",
     "karma": "~6.4.4",
     "karma-chrome-launcher": "~3.2.0",

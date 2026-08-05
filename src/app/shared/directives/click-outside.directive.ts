@@ -2,8 +2,9 @@ import {
   Directive,
   ElementRef,
   EventEmitter,
-  inject,
-  Output
+  HostListener,
+  Output,
+  inject
 } from '@angular/core';
 
 @Directive({
@@ -15,11 +16,10 @@ export class ClickOutsideDirective {
 
   @Output() appClickOutside = new EventEmitter<void>();
 
-  constructor() {
-    document.addEventListener('click', (event: MouseEvent) => {
-      if (!this.elementRef.nativeElement.contains(event.target)) {
-        this.appClickOutside.emit();
-      }
-    });
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent): void {
+    if (!this.elementRef.nativeElement.contains(event.target as Node)) {
+      this.appClickOutside.emit();
+    }
   }
 }

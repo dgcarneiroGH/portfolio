@@ -12,12 +12,13 @@ import {
   provideZonelessChangeDetection
 } from '@angular/core';
 import { bootstrapApplication } from '@angular/platform-browser';
-import { provideRouter, withHashLocation, withViewTransitions } from '@angular/router';
+import { provideRouter, withHashLocation, withViewTransitions, TitleStrategy } from '@angular/router';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AppComponent } from './app/app.component';
 import { routes } from './app/app.routes';
 import { environment } from './environments/environment';
+import { A11yTitleStrategy } from './app/core/services/a11y-title-strategy';
 
 if (environment.production) {
   enableProdMode();
@@ -35,6 +36,7 @@ bootstrapApplication(AppComponent, {
     provideZonelessChangeDetection(),
     provideRouter(routes, withHashLocation(), withViewTransitions()),
     provideHttpClient(withInterceptorsFromDi()),
+    { provide: TitleStrategy, useClass: A11yTitleStrategy },
     importProvidersFrom(
       TranslateModule.forRoot({
         defaultLanguage: 'es-ES',

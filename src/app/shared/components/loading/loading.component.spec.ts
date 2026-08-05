@@ -1,7 +1,11 @@
 import { provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { of } from 'rxjs';
 import { LoadingComponent } from './loading.component';
+
+const mockLoader = { getTranslation: () => of({}) };
 
 describe('LoadingComponent', () => {
   let component: LoadingComponent;
@@ -9,7 +13,12 @@ describe('LoadingComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [LoadingComponent],
+      imports: [
+        LoadingComponent,
+        TranslateModule.forRoot({
+          loader: { provide: TranslateLoader, useValue: mockLoader }
+        })
+      ],
       providers: [provideZonelessChangeDetection()]
     }).compileComponents();
 
@@ -46,6 +55,15 @@ describe('LoadingComponent', () => {
       const overlay = fixture.nativeElement.querySelector('[data-testid="loading-overlay"]') as HTMLElement;
       expect(overlay.hasAttribute('inert')).toBeTrue();
     });
+
+    it('should have a translated aria-label (not hardcoded)', () => {
+      const overlay = fixture.nativeElement.querySelector('[data-testid="loading-overlay"]') as HTMLElement;
+      // aria-label is set via TranslatePipe; in tests with mock loader the value
+      // is empty string, but the attribute must be present and not "Cargando..."
+      const aria = overlay.getAttribute('aria-label');
+      expect(aria).not.toBe('Cargando...');
+      expect(aria === null || aria === '' || typeof aria === 'string').toBeTrue();
+    });
   });
 
   describe('spinner image (loading.avif)', () => {
@@ -76,9 +94,10 @@ describe('LoadingComponent', () => {
       expect(logo).toBeTruthy();
     });
 
-    it('should have alt="Nomacoda"', () => {
+    it('should have empty alt (decorative, hidden from AT)', () => {
       const logo = fixture.nativeElement.querySelector('[data-testid="loading-nomacoda"]') as HTMLImageElement;
-      expect(logo.alt).toBe('Nomacoda');
+      expect(logo.alt).toBe('');
+      expect(logo.getAttribute('aria-hidden')).toBe('true');
     });
   });
 

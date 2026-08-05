@@ -6,7 +6,7 @@ $surface-sidebar: #f6f8fa;
 // Text
 $text-primary: #f0f4f8;
 $text-secondary: #a0bbd8;
-$text-red: #d9534f;
+$text-red: #ff8a80;            // WCAG AA on $background-gradient-start (was #d9534f, 2.6:1)
 
 // Accents
 $accent-yellow: #ffa726;
@@ -16,5 +16,5 @@ $accent-green:#2ecc71;
 // High contrast alternatives
 $accent-green-high: #1e8449;
 $accent-yellow-high: #e67e22;
-$text-red-high: #c0392b;
+$text-red-high: #d32f2f;        // WCAG AAA alternative for high-contrast mode
 $accent-blue-high: #1a5276;
