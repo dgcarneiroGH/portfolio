@@ -63,6 +63,8 @@
     background: transparent;
     overflow: hidden;
     cursor: pointer;
+    min-height: 44px;
+    min-width: 24px;
 
     box-shadow: 0 4px 24px 0
       rgba($color: palette.$background-gradient-start, $alpha: 0.17);

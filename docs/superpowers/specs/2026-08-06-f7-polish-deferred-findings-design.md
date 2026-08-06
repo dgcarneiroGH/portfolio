@@ -333,11 +333,13 @@ describe('LangTagPipe', () => {
 | `src/app/shared/components/oscillator/oscillator.component.ts` | Modificar | F7-T3 |
 | `src/app/shared/components/oscillator/oscillator.component.spec.ts` | Crear | F7-T3 |
 | `src/assets/i18n/es-ES.json` | Modificar | F7-T4a |
+| `src/app/features/projects/components/project/project.component.html` | Modificar | F7-T4a (migración a `[innerHTML]`) |
+| `src/app/features/experience/components/experience.component.html` | Modificar | F7-T4a (migración a `[innerHTML]`) |
 | `src/app/shared/pipes/lang-tag.pipe.ts` | Crear | F7-T4b |
 | `src/app/shared/pipes/lang-tag.pipe.spec.ts` | Crear | F7-T4b |
 | `src/app/features/blog/components/blog.component.ts` | Modificar | F7-T4b |
 
-**Total:** 4 archivos modificados en F7-T1/T2/T3, 2 archivos i18n/pipes nuevos en F7-T4, 6 specs creados/modificados.
+**Total:** 6 archivos modificados en F7-T1/T2/T3, 2 archivos i18n/pipes nuevos en F7-T4, 6 specs creados/modificados + 2 migraciones de plantilla.
 
 ---
 
@@ -397,4 +399,4 @@ F7 se considera completa cuando:
 2. El spec del `LangTagPipe` cubre los 4 casos acordados.
 3. La verificación manual con `npm run a11y:smoke` no introduce violations nuevas vs baseline.
 4. Cambio de idioma `es-ES ↔ en-US` no muestra etiquetas `<span>` literales en `/`, `/projects`, `/experience`, `/blog`.
-5. `git diff` muestra exactamente los 12 archivos listados en §4 (verificación de scope).
+5. `git diff` muestra exactamente los 14 archivos listados en §4 (verificación de scope).

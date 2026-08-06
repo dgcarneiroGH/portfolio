@@ -384,4 +384,15 @@ describe('ProjectComponent', () => {
       expect(divButtons.length).toBe(0);
     });
   });
+
+  describe('Hit area (WCAG 2.5.5/2.5.8)', () => {
+    it('cover-img button has at least 44×24 hit area when collapsed', () => {
+      fixture.componentRef.setInput('expandedIndex', null);
+      fixture.detectChanges();
+      const btn = fixture.nativeElement.querySelector('button.cover-img') as HTMLElement;
+      const rect = btn.getBoundingClientRect();
+      expect(rect.height).toBeGreaterThanOrEqual(44);
+      expect(rect.width).toBeGreaterThanOrEqual(24);
+    });
+  });
 });
