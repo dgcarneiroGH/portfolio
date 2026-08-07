@@ -13,7 +13,10 @@
     "coverage:open": "start coverage/portfolio/index.html",
     "prepare": "husky",
     "lint": "ng lint",
-    "a11y:smoke": "node scripts/a11y-smoke.mjs"
+    "a11y:smoke": "node scripts/a11y-smoke.mjs",
+    "serve:dist": "node scripts/serve-dist.mjs",
+    "lh:baseline": "node scripts/lighthouse-baseline.mjs",
+    "test:scripts": "node --test scripts/lighthouse-baseline.spec.mjs"
   },
   "private": true,
   "dependencies": {
@@ -55,6 +58,7 @@
     "axe-core": "^4.12.1",
     "baseline-browser-mapping": "^2.9.14",
     "eslint": "^9.39.4",
+    "http-server": "^14.1.1",
     "husky": "^9.1.7",
     "jasmine-axe": "^1.1.0",
     "jasmine-core": "~5.5.0",
@@ -63,6 +67,7 @@
     "karma-coverage": "~2.2.1",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
+    "lighthouse": "^12.8.2",
     "prettier": "^3.6.2",
     "typescript": "~5.9.3",
     "typescript-eslint": "8.56.1"

@@ -1,0 +1,39 @@
+{
+  "lighthouseVersion": "12.0.0",
+  "fetchTime": "2026-08-07T12:00:00.000Z",
+  "finalDisplayedUrl": "http://localhost:4200/",
+  "categories": {
+    "accessibility": {
+      "id": "accessibility",
+      "title": "Accessibility",
+      "score": 0.97
+    },
+    "best-practices": {
+      "id": "best-practices",
+      "title": "Best Practices",
+      "score": 0.92
+    },
+    "performance": {
+      "id": "performance",
+      "title": "Performance",
+      "score": 0.83
+    },
+    "seo": {
+      "id": "seo",
+      "title": "SEO",
+      "score": 1.0
+    }
+  },
+  "audits": {
+    "color-contrast": {
+      "id": "color-contrast",
+      "title": "Background and foreground colors have a sufficient contrast ratio",
+      "score": 1
+    },
+    "document-title": {
+      "id": "document-title",
+      "title": "Document has a `<title>` element",
+      "score": 1
+    }
+  }
+}

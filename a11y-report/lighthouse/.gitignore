@@ -1,0 +1,7 @@
+# Generated artifacts
+*
+# Except the historical summary (committed for trend tracking)
+!latest-summary.json
+!.gitignore
+!logs/
+!logs/.gitignore

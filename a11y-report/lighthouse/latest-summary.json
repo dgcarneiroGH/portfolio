@@ -1,0 +1,95 @@
+{
+  "timestamp": "2026-08-07T10:18:40.704Z",
+  "commit": "415805b",
+  "baseUrl": "http://localhost:4200",
+  "runs": [
+    {
+      "route": "/",
+      "formFactor": "mobile",
+      "scores": {
+        "accessibility": 0.96,
+        "best-practices": 0.96,
+        "performance": 0.52,
+        "seo": 0.92
+      },
+      "status": "ok"
+    },
+    {
+      "route": "/",
+      "formFactor": "desktop",
+      "scores": {
+        "accessibility": null,
+        "best-practices": null,
+        "performance": null,
+        "seo": null
+      },
+      "status": "failed"
+    },
+    {
+      "route": "/blog",
+      "formFactor": "mobile",
+      "scores": {
+        "accessibility": null,
+        "best-practices": null,
+        "performance": null,
+        "seo": null
+      },
+      "status": "failed"
+    },
+    {
+      "route": "/blog",
+      "formFactor": "desktop",
+      "scores": {
+        "accessibility": null,
+        "best-practices": null,
+        "performance": null,
+        "seo": null
+      },
+      "status": "failed"
+    },
+    {
+      "route": "/blog/otro-articulo",
+      "formFactor": "mobile",
+      "scores": {
+        "accessibility": null,
+        "best-practices": null,
+        "performance": null,
+        "seo": null
+      },
+      "status": "failed"
+    },
+    {
+      "route": "/blog/otro-articulo",
+      "formFactor": "desktop",
+      "scores": {
+        "accessibility": null,
+        "best-practices": null,
+        "performance": null,
+        "seo": null
+      },
+      "status": "failed"
+    },
+    {
+      "route": "/no-existe",
+      "formFactor": "mobile",
+      "scores": {
+        "accessibility": null,
+        "best-practices": null,
+        "performance": null,
+        "seo": null
+      },
+      "status": "failed"
+    },
+    {
+      "route": "/no-existe",
+      "formFactor": "desktop",
+      "scores": {
+        "accessibility": null,
+        "best-practices": null,
+        "performance": null,
+        "seo": null
+      },
+      "status": "failed"
+    }
+  ]
+}

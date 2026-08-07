@@ -105,6 +105,19 @@ npm run test:ci
 # Generated in /coverage/
 ```
 
+## 🔦 Lighthouse
+
+Para ejecutar una auditoría local:
+
+1. Inicia la aplicación en una terminal:
+   ```bash
+   npm start
+   ```
+2. En otra terminal, ejecuta:
+   ```bash
+   npm run lh:baseline
+   ```
+
 ## ♿ Accessibility
 
 Target: **WCAG 2.2 Level AA**.
