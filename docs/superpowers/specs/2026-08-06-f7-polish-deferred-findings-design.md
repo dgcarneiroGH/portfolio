@@ -91,48 +91,54 @@ describe('Hit area (WCAG 2.5.5/2.5.8)', () => {
 
 ---
 
-### 3.2 — F7-T2: Outline visible en submit deshabilitado (H21)
+### 3.2 — F7-T2: Estado `:disabled` sin outline permanente (H21 → descartado)
 
 **Archivos:**
 - Modify: `src/app/features/contact/components/contact-form/contact-form.component.scss` (líneas 146-151, dentro del bloque `.submit-btn`).
 - Modify: `src/app/features/reviews/components/reviews-form/reviews-form.component.scss` (líneas 233-238).
-- Modify: `src/app/features/contact/components/contact-form/contact-form.component.spec.ts` (nuevo spec).
-- Modify: `src/app/features/reviews/components/reviews-form/reviews-form.component.spec.ts` (nuevo spec).
+- Modify: `src/app/features/contact/components/contact-form/contact-form.component.spec.ts` (spec invertido: verifica ausencia).
+- Modify: `src/app/features/reviews/components/reviews-form/reviews-form.component.spec.ts` (spec invertido: verifica ausencia).
 
-**Cambio SCSS (idéntico en ambos archivos).** Añadir **dentro** del bloque `&:disabled { ... }` existente:
+**Cambio SCSS (idéntico en ambos archivos).** No se añade nada. El bloque `&:disabled { … }` queda con sus 4 indicadores visuales existentes (background rgba, color rgba, cursor: not-allowed, transform: none) y **sin** `outline`:
 
 ```scss
 &:disabled {
-  /* …propiedades existentes… */
-  outline: 2px solid palette.$accent-blue;
-  outline-offset: 2px;
+  background: rgba(palette.$accent-yellow, 0.4);
+  color: rgba(palette.$background-gradient-start, 0.6);
+  cursor: not-allowed;
+  transform: none;
 }
 ```
 
-**Justificación.** El estado `:disabled` no exige contraste WCAG, pero el indicador de foco global definido en `src/styles/styles.scss` usa un box-shadow que el estado disabled podría enmascarar visualmente al perder contraste de fondo. Añadir un `outline` sólido azul explícito dentro del bloque `&:disabled` garantiza un indicador visible siempre que el botón esté deshabilitado.
+**Justificación (revisión 2026-08-07).** El hallazgo original H21 fue un falso positivo:
 
-> **Nota (decisión 2026-08-06 durante implementación):** La regla original propuesta `&:disabled:focus-visible` resulta ser **dead code** en navegadores estándar (Chrome, Firefox, Safari): los botones `disabled` no son enfocables, así que `:focus-visible` nunca se cumple. Por tanto, la regla se mueve al bloque `&:disabled` (sin focus), que sí se aplica visualmente y satisface el espíritu del hallazgo H21.
+1. **HTML impide el foco en `disabled`.** Un `<button disabled>` no es focuseable por especificación (Tab lo salta en Chrome, Firefox, Safari). Por tanto, **WCAG 2.4.7 (Focus Appearance) no aplica**: la regla exige indicador visible "cuando un elemento recibe foco", y un botón disabled no puede recibirlo.
+2. **No hay foco que mostrar.** La preocupación original — "el box-shadow del foco global podría enmascararse al deshabilitar" — es irrelevante: no hay foco que mantener porque el botón no es keyboard-operable.
+3. **El outline permanente era ruido visual.** Un `outline: 2px solid blue` siempre presente sobre un botón grisáceo se lee como "seleccionado/activo" y compite con el indicador de foco de los elementos vecinos (botones habilitados del mismo grupo), induciendo a error.
+4. **El estado disabled ya tiene 4 señales visuales explícitas:** `background` rgba (fondo lavado), `color` rgba (texto lavado), `cursor: not-allowed` (cursor indica no-clickable), `transform: none` (sin escala de `:active`). Es información suficiente y convencional.
 
-**Spec nuevo (uno por archivo):**
+**Reversión aplicada (2026-08-07).** La primera implementación añadió `outline: 2px solid palette.$accent-blue` + `outline-offset: 2px` dentro de `&:disabled` porque la regla original `&:disabled:focus-visible` resultaba ser dead code (botones disabled no son enfocables). Esa decisión quedó registrada en `docs/a11y-backlog.md` §F7-T2/T3 como "outline azul 2px sólido añadido dentro del bloque `&:disabled`". En revisión posterior con el usuario, se concluyó que la decisión original estaba mal justificada: forzar la regla a aplicarse siempre para que no fuera dead code confunde dos cosas distintas (indicador de foco vs. límite decorativo) y no aporta valor de accesibilidad. Se quita el outline de ambos SCSS y los specs se invierten para verificar **ausencia** (regression guard contra reintroducción accidental).
+
+**Specs invertidos (uno por archivo):**
 
 ```typescript
 describe('Disabled submit focus indicator (WCAG 2.4.7)', () => {
-  it('shows solid blue outline when disabled and focused', () => {
+  it('should NOT show a persistent outline when disabled (disabled buttons cannot receive focus, so a persistent outline would be visual noise)', () => {
     const btn = fixture.nativeElement.querySelector('.submit-btn') as HTMLButtonElement;
     btn.disabled = true;
-    btn.dispatchEvent(new FocusEvent('focusin'));
     fixture.detectChanges();
     const style = window.getComputedStyle(btn);
-    expect(style.outlineStyle).toBe('solid');
-    expect(style.outlineWidth).toBe('2px');
+    expect(style.outlineStyle).not.toBe('solid');
+    expect(style.outlineColor).not.toBe('rgb(41, 182, 246)');
   });
 });
 ```
 
 **Acceptance:**
 - SCSS compila sin warnings.
-- Spec pasa con `outlineStyle === 'solid'` y `outlineWidth === '2px'`.
+- Spec pasa con `outlineStyle !== 'solid'` y `outlineColor !== rgb(41, 182, 246)` (donde `rgb(41, 182, 246)` = `palette.$accent-blue = #29b6f6`).
 - No afecta al estado normal (no-disabled) del botón.
+- Si en el futuro alguien re-introduce el outline por error, el spec falla.
 
 ---
 

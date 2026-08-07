@@ -456,4 +456,33 @@ describe('PostCardComponent', () => {
       ]);
     });
   });
+
+  describe('#i18n rendering (regression: <span lang=\"en\">N8N</span>)', () => {
+    it('should render N8N_WORKFLOWS category badge as innerHTML, not as escaped literal text', () => {
+      const translateService = TestBed.inject(TranslateService);
+      translateService.setTranslation('es-ES', {
+        BLOG: {
+          FILTER: {
+            N8N_WORKFLOW: 'Flujos de <span lang="en">N8N</span>'
+          }
+        }
+      });
+      translateService.use('es-ES');
+
+      fixture.componentRef.setInput('category', PostCategoryType.N8N_WORKFLOWS);
+      fixture.componentRef.setInput('currentLocale', 'es-ES');
+      fixture.detectChanges();
+
+      const badge = fixture.nativeElement.querySelector('.category-badge__text') as HTMLElement;
+      expect(badge).not.toBeNull();
+
+      const span = badge.querySelector('span[lang="en"]');
+      expect(span).not.toBeNull();
+      expect(span?.textContent).toBe('N8N');
+
+      expect(badge.textContent.trim()).toBe('Flujos de N8N');
+      expect(badge.innerHTML).not.toContain('[innerHTML]');
+      expect(badge.innerHTML).not.toContain('&lt;span');
+    });
+  });
 });

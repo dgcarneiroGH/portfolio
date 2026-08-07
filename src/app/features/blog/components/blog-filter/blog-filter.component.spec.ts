@@ -13,7 +13,7 @@ describe('BlogFilterComponent', () => {
   beforeEach(async () => {
     const translateServiceSpy = jasmine.createSpyObj(
       'TranslateService',
-      ['get', 'instant', 'setDefaultLang', 'use'],
+      ['get', 'instant', 'setDefaultLang', 'use', 'setTranslation'],
       {
         onLangChange: of(),
         onTranslationChange: of(),
@@ -141,5 +141,18 @@ describe('BlogFilterComponent', () => {
     testButton.nativeElement.click();
 
     expect(component.selectFilter).toHaveBeenCalledWith(BLOG_FILTERS[2]);
+  });
+
+  it('should render translated HTML via [innerHTML] on inner span, not as escaped literal text (regression: N8N_WORKFLOW <span lang="en">)', () => {
+    const pills = fixture.debugElement.queryAll(
+      By.css('[data-testid="filter-pill"]')
+    );
+    pills.forEach((pill) => {
+      const innerSpan = pill.nativeElement.querySelector('span');
+      expect(innerSpan).not.toBeNull();
+      expect(innerSpan.innerHTML).toBe('translated text');
+      expect(pill.nativeElement.innerHTML).not.toContain('[innerHTML]');
+      expect(pill.nativeElement.innerHTML).not.toContain('&lt;span');
+    });
   });
 });

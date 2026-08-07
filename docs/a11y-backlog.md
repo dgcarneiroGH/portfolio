@@ -44,6 +44,10 @@ Leyenda esfuerzo: S = < 1 día; M = 1–3 días; L = > 3 días.
 - Spec compliance + code quality review: ✅ en las 7 tasks.
 - **Pendiente:** V3 (`npm run a11y:smoke` con dev server) y V4 (inspección manual de cambio de idioma es↔en). El usuario hará ambas.
 
+**Estado 2026-08-07 (revisión con el usuario):**
+- H21 reconsiderado como **falso positivo** del audit original. Se elimina el `outline` permanente del bloque `&:disabled` en contact-form y reviews-form. Ver F7-T2/F7-T3 abajo y §"Hallazgos / decisiones" para la justificación.
+- Tests: 352/352 PASS.
+
 ### F7-T1 — `H18`: Target size en `project.collapsed` ✅
 **Archivo:** `src/app/features/projects/components/project/project.component.scss` (líneas 66-67) + spec
 **Criterio:** WCAG 2.5.5 (Target Size, AA). Mínimo 24×24 CSS px.
@@ -52,21 +56,35 @@ Leyenda esfuerzo: S = < 1 día; M = 1–3 días; L = > 3 días.
 - Añadido `min-height: 44px; min-width: 24px;` dentro de `.cover-img`.
 - Spec añadido: `should cover-img button have at least 44×24 hit area when collapsed`.
 
-### F7-T2 — `H21`: Foco visible en submit deshabilitado (contact-form) ✅
+### F7-T2 — `H21`: Foco visible en submit deshabilitado (contact-form) ⚠️ DESCARTADO (H21 fue falso positivo)
 **Archivos:** `contact-form.component.scss` + `contact-form.component.spec.ts`
-**Criterio:** WCAG 2.4.7 (Focus Appearance).
+**Criterio original propuesto:** WCAG 2.4.7 (Focus Appearance).
 
-**Implementación:**
-- Outline azul 2px sólido añadido **dentro** del bloque `&:disabled` (NO en un bloque separado `&:disabled:focus-visible` — ver nota técnica abajo).
-- Spec añadido: `should show solid blue outline when disabled`.
+**Decisión final (2026-08-07):** No se aplica regla CSS. El bloque `&:disabled` queda con sus 4 indicadores visuales existentes (background rgba, color rgba, cursor: not-allowed, transform: none) y **sin** outline.
 
-**Nota técnica (2026-08-06):** El plan original proponía `&:disabled:focus-visible { outline: 2px solid …; }` como bloque separado. Esta regla resulta ser **dead code** en navegadores estándar (Chrome, Firefox, Safari): los botones `disabled` no son enfocables, así que `:focus-visible` nunca se cumple. El outline se movió al bloque `&:disabled` (sin focus) para que la regla se aplique visualmente. Esta decisión está documentada en el spec §3.2.
+**Spec final (verifica ausencia, regression guard):**
+```typescript
+it('should NOT show a persistent outline when disabled (...)', () => {
+  ...
+  expect(style.outlineStyle).not.toBe('solid');
+  expect(style.outlineColor).not.toBe('rgb(41, 182, 246)');
+});
+```
 
-### F7-T3 — `H21`: Foco visible en submit deshabilitado (reviews-form) ✅
+**Justificación del descarte:**
+1. HTML impide foco en `<button disabled>` — WCAG 2.4.7 no aplica (la regla exige indicador "cuando hay foco", y aquí no lo hay por especificación).
+2. El outline permanente sobre un botón grisáceo se lee como "seleccionado/activo" y compite con el indicador de foco de los botones vecinos.
+3. El estado disabled ya tiene 4 señales visuales explícitas y convencionales.
+
+**Historia:**
+- 2026-08-06: primera implementación añadió `outline: 2px solid palette.$accent-blue` dentro de `&:disabled` (decisión registrada como workaround de la regla `:focus-visible` que resultaba dead code).
+- 2026-08-07: en revisión con el usuario, se concluyó que la decisión original estaba mal justificada. Se quita el outline y se invierten los specs.
+
+### F7-T3 — `H21`: Foco visible en submit deshabilitado (reviews-form) ⚠️ DESCARTADO (H21 fue falso positivo)
 **Archivos:** `reviews-form.component.scss` + `reviews-form.component.spec.ts`
-**Criterio:** WCAG 2.4.7.
+**Criterio original propuesto:** WCAG 2.4.7.
 
-**Implementación:** Idéntica a F7-T2. Spec y SCSS byte-equivalentes a F7-T2 excepto el path. Verificado que T2 y T3 son consistentes en cross-task review.
+**Decisión final:** Idéntica a F7-T2. Spec y SCSS byte-equivalentes a F7-T2 excepto el path. Se elimina el outline y el spec verifica ausencia.
 
 ### F7-T4 — `H25`: Orden de foco del `<app-oscillator>` ✅
 **Archivo:** `src/app/shared/components/oscillator/oscillator.component.ts` + nuevo spec
@@ -92,6 +110,7 @@ Leyenda esfuerzo: S = < 1 día; M = 1–3 días; L = > 3 días.
 
 ### Hallazgos / decisiones a registrar en próximas iteraciones
 
+- **H21 reconsiderado (2026-08-07):** El hallazgo original del audit (que el indicador de foco del botón submit desaparecía al deshabilitarse) era un **falso positivo**. Los botones `<button disabled>` no son focuseables por especificación HTML, así que WCAG 2.4.7 no les aplica. La primera implementación añadió un outline permanente para evitar que la regla `:focus-visible` fuera dead code, pero esa decisión fue revertida tras revisión: el outline permanente es ruido visual que compite con el foco de los botones vecinos. **Lección para futuros audits:** verificar que el hallazgo aplica realmente al estado/elemento afectado antes de generar un fix. Disabled ≠ Focusable.
 - **Dictionary divergence (informational):** El diccionario de `LangTagPipe` (20+ términos: Angular, Sanity, CMS, API, N8N, OpenAI, TypeScript, GraphQL, SaaS, etc.) es más amplio que el diccionario estático de i18n (14 términos: `OpenAi`, `RabbitMq`, etc.). Es deliberado: el pipe cubre contenido mixto de Sanity (potencialmente en inglés), el estático solo lo que aparece en `es-ES.json`. Si en el futuro se añaden cadenas i18n con `TypeScript`, `GraphQL`, etc., ampliar el diccionario del JSON siguiendo el mismo patrón.
 - **Verificación manual V3/V4 (pendiente):** los tests automatizados no cubren axe-core contra bundle desplegado ni cambio de idioma en runtime. El usuario debe correr `npm run a11y:smoke` y abrir la app para verificar que no hay `<span>` literales en pantalla.
 

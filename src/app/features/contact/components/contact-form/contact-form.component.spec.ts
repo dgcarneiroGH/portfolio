@@ -331,13 +331,13 @@ describe('ContactFormComponent', () => {
   });
 
   describe('Disabled submit focus indicator (WCAG 2.4.7)', () => {
-    it('should show solid blue outline when disabled', () => {
+    it('should NOT show a persistent outline when disabled (disabled buttons cannot receive focus, so a persistent outline would be visual noise)', () => {
       const btn = fixture.nativeElement.querySelector('.submit-btn') as HTMLButtonElement;
       btn.disabled = true;
       fixture.detectChanges();
       const style = window.getComputedStyle(btn);
-      expect(style.outlineStyle).toBe('solid');
-      expect(style.outlineWidth).toBe('1.6px');
+      expect(style.outlineStyle).not.toBe('solid');
+      expect(style.outlineColor).not.toBe('rgb(41, 182, 246)');
     });
   });
 });

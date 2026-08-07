@@ -12,7 +12,7 @@
       [attr.aria-pressed]="isFilterSelected(filter)"
       (click)="selectFilter(filter)"
     >
-      {{ filter.label | translate }}
+      <span [innerHTML]="filter.label | translate"></span>
     </button>
   }
 </div>
