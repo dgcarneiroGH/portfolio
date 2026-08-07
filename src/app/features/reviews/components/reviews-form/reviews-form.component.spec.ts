@@ -281,4 +281,15 @@ describe('ReviewsFormComponent', () => {
       expect(aria!.length).toBeGreaterThan(0);
     });
   });
+
+  describe('Disabled submit focus indicator (WCAG 2.4.7)', () => {
+    it('should show solid blue outline when disabled', () => {
+      const btn = fixture.nativeElement.querySelector('.submit-btn') as HTMLButtonElement;
+      btn.disabled = true;
+      fixture.detectChanges();
+      const style = window.getComputedStyle(btn);
+      expect(style.outlineStyle).toBe('solid');
+      expect(style.outlineWidth).toBe('1.6px');
+    });
+  });
 });

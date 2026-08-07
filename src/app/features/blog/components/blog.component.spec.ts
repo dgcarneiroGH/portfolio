@@ -199,4 +199,18 @@ describe('BlogComponent', () => {
     // Call the method to ensure it doesn't throw
     expect(() => component.clearError()).not.toThrow();
   });
+
+  it('should apply LangTagPipe to Portable Text HTML before bypassSecurityTrustHtml', () => {
+    const sanitizer = mockDomSanitizer;
+    mockSanityService.portableTextToHtml.and.returnValue(
+      '<p>Angular is great</p>'
+    );
+
+    component.processedArticles();
+
+    expect(sanitizer.bypassSecurityTrustHtml).toHaveBeenCalled();
+    const lastCallArg = sanitizer.bypassSecurityTrustHtml.calls.mostRecent()
+      .args[0] as string;
+    expect(lastCallArg).toContain('<span lang="en">Angular</span>');
+  });
 });

@@ -19,6 +19,7 @@ import { PostCategoryType } from '../models/blog-filter.model';
 import { SanityService } from './../../../core/services/sanity.service';
 import { PostCardComponent } from './post-card/post-card.component';
 import { LoadingComponent } from '../../../shared/components/loading/loading.component';
+import { LangTagPipe } from '../../../shared/pipes/lang-tag.pipe';
 import { BlogFilterComponent } from './blog-filter/blog-filter.component';
 import { BodyContent } from '../../../core/models/sanity.models';
 
@@ -33,13 +34,14 @@ import { BodyContent } from '../../../core/models/sanity.models';
     LoadingComponent,
     BlogFilterComponent
   ],
-  providers: [SanityService],
+  providers: [LangTagPipe],
   templateUrl: './blog.component.html',
   styleUrls: ['./blog.component.scss']
 })
 export class BlogComponent implements OnInit, OnDestroy {
   private _sanityService = inject(SanityService);
   private _sanitizer = inject(DomSanitizer);
+  private _langTagPipe = inject(LangTagPipe);
   private _activatedRoute = inject(ActivatedRoute);
   private _langService = inject(LangService);
   private _routeSubscription?: Subscription;
@@ -136,8 +138,9 @@ export class BlogComponent implements OnInit, OnDestroy {
     const bodyContent: BodyContent =
       langCode === 'en' && article.body.en ? article.body.en : article.body.es;
 
-    const html = this._sanityService.portableTextToHtml(bodyContent);
-    const safeHtml = this._sanitizer.bypassSecurityTrustHtml(html);
+    const rawHtml = this._sanityService.portableTextToHtml(bodyContent);
+    const tagged = this._langTagPipe.transform(rawHtml);
+    const safeHtml = this._sanitizer.bypassSecurityTrustHtml(tagged);
 
     const imageUrl = article.image
       ? this._sanityService

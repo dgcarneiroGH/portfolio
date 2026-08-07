@@ -148,6 +148,8 @@ textarea {
     color: rgba(palette.$background-gradient-start, 0.6);
     cursor: not-allowed;
     transform: none;
+    outline: 2px solid palette.$accent-blue;
+    outline-offset: 2px;
   }
 }
 

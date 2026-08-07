@@ -99,16 +99,19 @@ describe('Hit area (WCAG 2.5.5/2.5.8)', () => {
 - Modify: `src/app/features/contact/components/contact-form/contact-form.component.spec.ts` (nuevo spec).
 - Modify: `src/app/features/reviews/components/reviews-form/reviews-form.component.spec.ts` (nuevo spec).
 
-**Cambio SCSS (idéntico en ambos archivos).** Añadir tras el bloque `&:disabled { ... }`:
+**Cambio SCSS (idéntico en ambos archivos).** Añadir **dentro** del bloque `&:disabled { ... }` existente:
 
 ```scss
-&:disabled:focus-visible {
+&:disabled {
+  /* …propiedades existentes… */
   outline: 2px solid palette.$accent-blue;
   outline-offset: 2px;
 }
 ```
 
-**Justificación.** El estado `:disabled` no exige contraste WCAG, pero el indicador de foco global definido en `src/styles/styles.scss` usa un box-shadow que el estado disabled podría enmascarar visualmente al perder contraste de fondo. Añadir un `outline` sólido azul explícito garantiza un indicador distinguible en el caso remoto de que el botón disabled reciba foco (poco probable con flujo normal, pero legal con `:focus-visible` residual).
+**Justificación.** El estado `:disabled` no exige contraste WCAG, pero el indicador de foco global definido en `src/styles/styles.scss` usa un box-shadow que el estado disabled podría enmascarar visualmente al perder contraste de fondo. Añadir un `outline` sólido azul explícito dentro del bloque `&:disabled` garantiza un indicador visible siempre que el botón esté deshabilitado.
+
+> **Nota (decisión 2026-08-06 durante implementación):** La regla original propuesta `&:disabled:focus-visible` resulta ser **dead code** en navegadores estándar (Chrome, Firefox, Safari): los botones `disabled` no son enfocables, así que `:focus-visible` nunca se cumple. Por tanto, la regla se mueve al bloque `&:disabled` (sin focus), que sí se aplica visualmente y satisface el espíritu del hallazgo H21.
 
 **Spec nuevo (uno por archivo):**
 

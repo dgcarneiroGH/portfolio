@@ -32,7 +32,8 @@ import { ITarget, ITendril } from '../../interfaces';
       pointer-events: none;
       z-index: 0;
     }
-  `
+  `,
+  host: { '[attr.aria-hidden]': "'true'" }
 })
 export class OscillatorComponent implements AfterViewInit, OnDestroy {
   private _zone = inject(NgZone);

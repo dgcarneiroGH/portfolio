@@ -383,6 +383,16 @@ describe('ProjectComponent', () => {
       const divButtons = fixture.nativeElement.querySelectorAll('[role="button"]:not(button)');
       expect(divButtons.length).toBe(0);
     });
+
+    it('should render description as innerHTML (not literal text)', async () => {
+      const translateService = TestBed.inject(TranslateService);
+      await firstValueFrom(translateService.use('en'));
+      fixture.componentRef.setInput('expandedIndex', 0);
+      fixture.detectChanges();
+      const desc = fixture.nativeElement.querySelector('p.description') as HTMLElement;
+      expect(desc.innerHTML).toBe('My portfolio project');
+      expect(desc.textContent).not.toContain('[innerHTML]');
+    });
   });
 
   describe('Hit area (WCAG 2.5.5/2.5.8)', () => {

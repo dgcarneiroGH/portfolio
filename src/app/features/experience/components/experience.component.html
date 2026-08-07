@@ -25,8 +25,8 @@
             >{{ e.yearRange | translate }}</time>
             <div class="discovery">
               <h2>{{ e.company }}</h2>
-              <p class="designation">{{ e.designation | translate }}</p>
-              <span>{{ e.role | translate }}</span>
+              <p class="designation" [innerHTML]="e.designation | translate"></p>
+              <span [innerHTML]="e.role | translate"></span>
             </div>
           </div>
         </li>

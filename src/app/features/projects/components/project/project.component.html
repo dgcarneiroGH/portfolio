@@ -34,9 +34,8 @@
           [class.show]="showMoreInfo()"
           [id]="'project-desc-' + index()"
           [attr.aria-labelledby]="'project-title-' + index()"
-        >
-          {{ description() | translate }}
-        </p>
+          [innerHTML]="description() | translate"
+        ></p>
 
         <app-button
           style="z-index: 0"

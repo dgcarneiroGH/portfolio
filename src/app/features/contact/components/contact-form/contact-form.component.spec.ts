@@ -1,10 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-import { of, throwError, Subject } from 'rxjs';
-import { ContactFormComponent } from './contact-form.component';
-import { ContactService } from '../../services/contact.service';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { of, Subject, throwError } from 'rxjs';
 import { ContactInquiry } from '../../interfaces/contact-inquiry.interface';
+import { ContactService } from '../../services/contact.service';
+import { ContactFormComponent } from './contact-form.component';
 
 // Mock TranslateLoader
 const mockTranslations = {
@@ -327,6 +327,17 @@ describe('ContactFormComponent', () => {
       expect(successState).toBeTruthy();
       expect(successState.getAttribute('role')).toBe('status');
       expect(successState.getAttribute('aria-live')).toBe('polite');
+    });
+  });
+
+  describe('Disabled submit focus indicator (WCAG 2.4.7)', () => {
+    it('should show solid blue outline when disabled', () => {
+      const btn = fixture.nativeElement.querySelector('.submit-btn') as HTMLButtonElement;
+      btn.disabled = true;
+      fixture.detectChanges();
+      const style = window.getComputedStyle(btn);
+      expect(style.outlineStyle).toBe('solid');
+      expect(style.outlineWidth).toBe('1.6px');
     });
   });
 });

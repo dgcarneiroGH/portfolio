@@ -209,41 +209,24 @@ describe('Disabled submit focus indicator (WCAG 2.4.7)', () => {
 npm run test:ci -- --include='**/contact-form.component.spec.ts'
 ```
 
-Resultado esperado: FAIL — `outlineStyle` es `'none'` (no hay regla `&:disabled:focus-visible`).
+Resultado esperado: FAIL — `outlineStyle` es `'none'` (el bloque `&:disabled` actual no incluye `outline`).
 
-- [ ] **Step 3: Añadir la regla CSS**
+- [ ] **Step 3: Añadir la regla CSS dentro de `&:disabled`**
 
-En `src/app/features/contact/components/contact-form/contact-form.component.scss`, tras el bloque `&:disabled { … }` (líneas 146-151), añadir:
-
-```scss
-  &:disabled:focus-visible {
-    outline: 2px solid palette.$accent-blue;
-    outline-offset: 2px;
-  }
-```
-
-El bloque `.submit-btn` modificado queda (líneas 116-156):
+En `src/app/features/contact/components/contact-form/contact-form.component.scss`, **dentro** del bloque `&:disabled { … }` (líneas 146-151), añadir dos líneas (`outline` y `outline-offset`). El bloque modificado queda:
 
 ```scss
-.submit-btn {
-  /* …propiedades base sin cambios… */
-
-  &:hover:not(:disabled) { /* …sin cambios… */ }
-  &:active:not(:disabled) { /* …sin cambios… */ }
-
   &:disabled {
     background: rgba(palette.$accent-yellow, 0.4);
     color: rgba(palette.$background-gradient-start, 0.6);
     cursor: not-allowed;
     transform: none;
-  }
-
-  &:disabled:focus-visible {
     outline: 2px solid palette.$accent-blue;
     outline-offset: 2px;
   }
-}
 ```
+
+**Nota (decisión 2026-08-06 durante implementación):** El plan original proponía `&:disabled:focus-visible` como bloque separado. Esta regla resulta ser **dead code** en navegadores estándar (Chrome, Firefox, Safari) porque los botones `disabled` no son enfocables y `:focus-visible` nunca se cumple. Se mueve el outline al bloque `&:disabled` (sin focus) para que la regla se aplique visualmente y cumpla el espíritu del hallazgo H21.
 
 - [ ] **Step 4: Ejecutar el spec para verificar que pasa**
 
@@ -297,18 +280,24 @@ describe('Disabled submit focus indicator (WCAG 2.4.7)', () => {
 npm run test:ci -- --include='**/reviews-form.component.spec.ts'
 ```
 
-Resultado esperado: FAIL — sin regla `&:disabled:focus-visible`.
+Resultado esperado: FAIL — sin `outline` en el bloque `&:disabled`.
 
-- [ ] **Step 3: Añadir la regla CSS**
+- [ ] **Step 3: Añadir la regla CSS dentro de `&:disabled`**
 
-En `src/app/features/reviews/components/reviews-form/reviews-form.component.scss`, tras el bloque `&:disabled { … }` (líneas 233-238), añadir:
+En `src/app/features/reviews/components/reviews-form/reviews-form.component.scss`, **dentro** del bloque `&:disabled { … }` (líneas 233-238), añadir dos líneas (`outline` y `outline-offset`). El bloque modificado queda:
 
 ```scss
-  &:disabled:focus-visible {
+  &:disabled {
+    background: rgba(palette.$accent-yellow, 0.4);
+    color: rgba(palette.$background-gradient-start, 0.6);
+    cursor: not-allowed;
+    transform: none;
     outline: 2px solid palette.$accent-blue;
     outline-offset: 2px;
   }
 ```
+
+**Nota:** aplica la misma decisión que en T2 (`&:disabled:focus-visible` es dead code en navegadores estándar; se aplica al bloque `&:disabled` directamente).
 
 - [ ] **Step 4: Ejecutar el spec para verificar que pasa**
 
@@ -835,15 +824,22 @@ Abrir `src/app/features/projects/components/project/project.component.html`, lí
 
 ```html
           {{ description() | translate }}
+        </p>
 ```
 
-por:
+por (moviendo `[innerHTML]` al atributo del `<p>` y self-closing):
 
 ```html
+        <p
+          class="description"
+          [class.show]="showMoreInfo()"
+          [id]="'project-desc-' + index()"
+          [attr.aria-labelledby]="'project-title-' + index()"
           [innerHTML]="description() | translate"
+        ></p>
 ```
 
-(`[innerHTML]` no necesita escape manual; Translate pipe produce string sanitizable por Angular.)
+(`[innerHTML]` no necesita escape manual; Translate pipe produce string sanitizable por Angular. **Importante:** si la migración se hiciera como simple reemplazo de `{{ … | translate }}` por `[innerHTML]="…"` **dentro** del `<p>`, el binding quedaría como textContent y Angular lo renderizaría literalmente como `[innerHTML]="…"` en pantalla, rompiendo la descripción. Hay que mover el binding al atributo del elemento.)
 
 - [ ] **Step 13: Migrar `{{ e.designation | translate }}` y `{{ e.role | translate }}` en `experience.component.html`**
 
@@ -872,6 +868,26 @@ npm run test:ci -- --include='**/project.component.spec.ts' --include='**/experi
 Resultado esperado: PASS. Los specs existentes verifican contenido textual vía `textContent` o `querySelector('p').innerText`; si algún spec asume el formato escapado, ajustar el assertion a `.innerHTML` con la cadena con `<span>` esperada.
 
 Si hay fallos, **NO** modificar el comportamiento — adaptar el spec al nuevo contrato (HTML sanitizado por Angular). Verificar caso por caso.
+
+- [ ] **Step 14.5: Añadir spec de regresión para `project.component.html`**
+
+> **Lección aprendida durante implementación 2026-08-06:** la primera versión de la migración de `project.component.html:38` puso `[innerHTML]` como textContent (no como atributo) porque la sustitución naive de `{{ … | translate }}` por `[innerHTML]="…"` dentro del `<p>` no mueve el binding. Angular renderizó literalmente `[innerHTML]="…"` en pantalla, rompiendo la descripción.
+>
+> Spec añadido al `describe('Accessibility', …)` de `project.component.spec.ts` (después del último `it` existente, antes del cierre del bloque) para prevenir regresiones de este tipo:
+
+```typescript
+    it('should render description as innerHTML (not literal text)', async () => {
+      const translateService = TestBed.inject(TranslateService);
+      await firstValueFrom(translateService.use('en'));
+      fixture.componentRef.setInput('expandedIndex', 0);
+      fixture.detectChanges();
+      const desc = fixture.nativeElement.querySelector('p.description') as HTMLElement;
+      expect(desc.innerHTML).toBe('My portfolio project');
+      expect(desc.textContent).not.toContain('[innerHTML]');
+    });
+```
+
+(`'My portfolio project'` es el valor literal del input `description` en el `beforeEach`; el `TranslatePipe` lo devuelve tal cual porque `mockTranslations` no define una key para él.)
 
 - [ ] **Step 15: ASK**
 

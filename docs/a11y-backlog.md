@@ -1,10 +1,12 @@
 # Backlog de Accesibilidad — Portfolio
 
-**Fecha:** 2026-08-04
-**Estado actual:** Fases F0–F6 completadas (ver [`docs/superpowers/plans/2026-08-04-a11y-improvements.md`](plans/2026-08-04-a11y-improvements.md)).
+**Fecha:** 2026-08-06
+**Estado actual:** Fases F0–F7 completadas. Pendiente verificación manual V3 (a11y:smoke) y V4 (inspección de cambio de idioma).
 **Documentos de referencia:**
 - [`docs/superpowers/specs/2026-08-04-a11y-audit-design.md`](specs/2026-08-04-a11y-audit-design.md) — audit completo (32 hallazgos, 6 críticos resueltos en F1).
-- [`docs/superpowers/plans/2026-08-04-a11y-improvements.md`](plans/2026-08-04-a11y-improvements.md) — plan ejecutado.
+- [`docs/superpowers/plans/2026-08-04-a11y-improvements.md`](plans/2026-08-04-a11y-improvements.md) — plan ejecutado F0–F6.
+- [`docs/superpowers/specs/2026-08-06-f7-polish-deferred-findings-design.md`](specs/2026-08-06-f7-polish-deferred-findings-design.md) — spec F7.
+- [`docs/superpowers/plans/2026-08-06-f7-polish-deferred-findings.md`](plans/2026-08-06-f7-polish-deferred-findings.md) — plan F7.
 
 > Este documento lista el trabajo de accesibilidad **que queda por hacer** para terminar
 > de cubrir WCAG 2.2 Nivel AA, reforzar AA+ donde aplique, e institucionalizar los chequeos.
@@ -16,7 +18,7 @@
 
 | # | Fase | Severidad | Esfuerzo | Bloquea conformidad AA |
 |---|---|---|---|---|
-| F7 | Polish de hallazgos diferidos del audit (H18, H21, H25 + retoques finos) | Media | S | No |
+| F7 | Polish de hallazgos diferidos del audit (H18, H21, H25 + 3.1.2) | Media | S | No (implementado; pendiente V3/V4) |
 | F8 | Cobertura completa de criterios WCAG 2.2 nuevos (2.4.11, 2.5.7, 2.5.8, etc.) | Media | M | Parcial (2.5.8 es AA, no AAA) |
 | F9 | Auditoría visual + Lighthouse + axe-core contra el bundle desplegado | Alta | M | No |
 | F10 | Testing manual con lectores de pantalla (NVDA + VoiceOver) | Alta | M | No |
@@ -29,67 +31,69 @@ Leyenda esfuerzo: S = < 1 día; M = 1–3 días; L = > 3 días.
 
 ---
 
-## F7 — Polish de hallazgos diferidos del audit
+## F7 — Polish de hallazgos diferidos del audit ✅ IMPLEMENTADO (pendiente V3/V4)
 
 **Origen:** ítems explícitamente diferidos en el self-review del plan original por
 "requerir benchmarking visual fino o cambios estructurales".
 
-### F7-T1 — `H18`: Target size en `project.collapsed`
-**Archivo:** `src/app/features/projects/components/project/project.component.scss`
+**Estado 2026-08-06:**
+- Implementación completa en working tree (`develop` branch).
+- 4 hallazgos cerrados: H18, H21, H25, WCAG 3.1.2.
+- 17 archivos tocados: 14 modificados + 3 nuevos.
+- Tests: 350/350 PASS, build de producción OK.
+- Spec compliance + code quality review: ✅ en las 7 tasks.
+- **Pendiente:** V3 (`npm run a11y:smoke` con dev server) y V4 (inspección manual de cambio de idioma es↔en). El usuario hará ambas.
+
+### F7-T1 — `H18`: Target size en `project.collapsed` ✅
+**Archivo:** `src/app/features/projects/components/project/project.component.scss` (líneas 66-67) + spec
 **Criterio:** WCAG 2.5.5 (Target Size, AA). Mínimo 24×24 CSS px.
 
-- Garantizar que el `<button class="cover-img">` colapsado (cuando `expandedIndex !== this.index()`) sigue cubriendo un área de al menos 24×24 px.
-- Si el card completo está colapsado y reducido (estilos `.collapsed`),
-  el área clicable real puede ser menor de 24×24 en viewport estrechos.
-- Revisar en breakpoints `<530px` (donde `text-container` se oculta) y verificar el
-  hit-area del cover. Si no llega a 24×24, añadir un padding interno invisible
-  o un wrapper extensible.
+**Implementación:**
+- Añadido `min-height: 44px; min-width: 24px;` dentro de `.cover-img`.
+- Spec añadido: `should cover-img button have at least 44×24 hit area when collapsed`.
 
-**Acceptance:**
-- Test: en cualquier breakpoint, `document.querySelector('button.cover-img').getBoundingClientRect()`
-  tiene width ≥ 24 y height ≥ 24.
-- Manual: en móvil, intentar tabular al cover; el `<button>` debe ser visible y clicable.
+### F7-T2 — `H21`: Foco visible en submit deshabilitado (contact-form) ✅
+**Archivos:** `contact-form.component.scss` + `contact-form.component.spec.ts`
+**Criterio:** WCAG 2.4.7 (Focus Appearance).
 
-### F7-T2 — `H21`: Foco visible en submit deshabilitado
-**Archivo:** `src/app/features/contact/components/contact-form/contact-form.component.scss`,
-`reviews-form.component.scss`
-**Criterio:** WCAG 2.4.7 (Focus Appearance). El indicador no debe depender solo del color
-ni desaparecer en estado disabled.
+**Implementación:**
+- Outline azul 2px sólido añadido **dentro** del bloque `&:disabled` (NO en un bloque separado `&:disabled:focus-visible` — ver nota técnica abajo).
+- Spec añadido: `should show solid blue outline when disabled`.
 
-- Estado actual: `<button class="submit-btn" disabled>` reduce contraste del texto
-  (`color: rgba($background-gradient-start, 0.6)`) y elimina `box-shadow` de foco global.
-- El estado disabled no exige contraste WCAG, pero si el usuario recibe foco en ese
-  estado (poco probable pero posible con `:focus-visible` residual), debe ver un indicador.
-- Añadir fallback: `.submit-btn:disabled:focus-visible { outline: 2px dashed ... }`.
+**Nota técnica (2026-08-06):** El plan original proponía `&:disabled:focus-visible { outline: 2px solid …; }` como bloque separado. Esta regla resulta ser **dead code** en navegadores estándar (Chrome, Firefox, Safari): los botones `disabled` no son enfocables, así que `:focus-visible` nunca se cumple. El outline se movió al bloque `&:disabled` (sin focus) para que la regla se aplique visualmente. Esta decisión está documentada en el spec §3.2.
 
-**Acceptance:**
-- Spec: `it('shows focus outline on disabled submit when focused', () => { ... })`.
+### F7-T3 — `H21`: Foco visible en submit deshabilitado (reviews-form) ✅
+**Archivos:** `reviews-form.component.scss` + `reviews-form.component.spec.ts`
+**Criterio:** WCAG 2.4.7.
 
-### F7-T3 — `H25`: Orden de foco del `<app-oscillator>`
-**Archivos:** `src/app/features/contact/components/contact.component.html:36`,
-`src/app/features/home/components/home.component.html:37`
+**Implementación:** Idéntica a F7-T2. Spec y SCSS byte-equivalentes a F7-T2 excepto el path. Verificado que T2 y T3 son consistentes en cross-task review.
+
+### F7-T4 — `H25`: Orden de foco del `<app-oscillator>` ✅
+**Archivo:** `src/app/shared/components/oscillator/oscillator.component.ts` + nuevo spec
 **Criterio:** WCAG 2.4.3 (Focus Order).
 
-- Los `<app-oscillator>` están colocados fuera del flujo normal con `style="top: 0"` / `bottom: 0"`.
-  No son interactivos (es un canvas decorativo). Verificar que el orden DOM coincide con el visual.
-- Si alguna versión futura acepta focus (o tiene `tabindex`), garantizar `tabindex="-1"`.
-- Añadir `aria-hidden="true"` al `<app-oscillator>` host element por si acaso tiene cualquier
-  descendiente focusable.
+**Implementación:**
+- Añadido `host: { '[attr.aria-hidden]': "'true'" }` al decorator de `OscillatorComponent`.
+- Crea spec nuevo: `oscillator.component.spec.ts` con 2 tests (host aria-hidden + canvas no focuseable).
+- Los call sites (`contact.component.html:32` y `home.component.html:37`) NO se tocaron — el atributo se propaga automáticamente.
 
-**Acceptance:**
-- Spec: `it('app-oscillator is aria-hidden', () => { ... })`.
-
-### F7-T4 — Atributo `lang` dinámico en secciones con texto no traducido
-**Archivos:** varios templates pueden tener secciones que mezclan idiomas al cambiar idioma global.
+### F7-T5 — Atributo `lang` dinámico (WCAG 3.1.2) ✅
+**Archivos:** `src/assets/i18n/es-ES.json` (10 strings), `src/app/shared/pipes/lang-tag.pipe.ts` (nuevo), `src/app/shared/pipes/lang-tag.pipe.spec.ts` (nuevo), `src/app/features/blog/components/blog.component.ts`, `src/app/features/projects/components/project/project.component.html`, `src/app/features/experience/components/experience.component.html`
 **Criterio:** WCAG 3.1.2 (Language of Parts).
 
-- Auditar todos los `[innerHTML]` (blog.component.ts), textos hardcoded y `<title>` por si incluyen
-  términos en otro idioma. Si los hay, marcarlos con `<span lang="en">…</span>` u homologar.
-- Candidatos típicos: nombres de empresas, tecnologías (Angular, Sanity, N8N) que a veces quedan
-  como jargon en inglés dentro de un contexto español.
+**Implementación (3 componentes):**
+1. **i18n estático:** 10 strings en `es-ES.json` envuelven jerga técnica con `<span lang="en">…</span>`.
+2. **3 migraciones de template:** `{{ … | translate }}` → `[innerHTML]="… | translate"` para que las plantillas rendericen HTML. Sin esto, los `<span>` aparecerían literales.
+3. **LangTagPipe (nuevo):** tokeniza HTML, envuelve jerga en bloques de texto (preserva contenido de `<code>`, `<pre>`, `<a>`; idempotente). Aplicado en `blog.component.ts` para el contenido Portable Text de Sanity.
 
-**Acceptance:**
-- Manual: cambiar a en-US y revisar cada sección con axe-core (regla `html-has-lang` + `valid-lang`).
+**Nota técnica (2026-08-06):** La primera versión de la migración en `project.component.html:38` puso `[innerHTML]` como textContent (no como atributo) porque el simple reemplazo de `{{ … | translate }}` por `[innerHTML]="…"` dentro del `<p>` no mueve el binding. Angular renderizó literalmente `[innerHTML]="…"` en pantalla, rompiendo la descripción. El fix mueve el binding al atributo del `<p>` (con self-close `></p>`). Spec de regresión añadido en `project.component.spec.ts:387-396` para prevenir este bug. Lección documentada en el plan §Task 6 Step 14.5.
+
+**Nota técnica (2026-08-06):** La instanciación de `LangTagPipe` en `blog.component.ts` usa `inject(LangTagPipe)` + `providers: [LangTagPipe]` (NO `new LangTagPipe()` ni `imports`). La pipe no se usa en el template, solo programáticamente, así que no debe estar en `imports`. Como bonus, se removió `SanityService` de `providers` (es `providedIn: 'root'`, redundante en component providers).
+
+### Hallazgos / decisiones a registrar en próximas iteraciones
+
+- **Dictionary divergence (informational):** El diccionario de `LangTagPipe` (20+ términos: Angular, Sanity, CMS, API, N8N, OpenAI, TypeScript, GraphQL, SaaS, etc.) es más amplio que el diccionario estático de i18n (14 términos: `OpenAi`, `RabbitMq`, etc.). Es deliberado: el pipe cubre contenido mixto de Sanity (potencialmente en inglés), el estático solo lo que aparece en `es-ES.json`. Si en el futuro se añaden cadenas i18n con `TypeScript`, `GraphQL`, etc., ampliar el diccionario del JSON siguiendo el mismo patrón.
+- **Verificación manual V3/V4 (pendiente):** los tests automatizados no cubren axe-core contra bundle desplegado ni cambio de idioma en runtime. El usuario debe correr `npm run a11y:smoke` y abrir la app para verificar que no hay `<span>` literales en pantalla.
 
 ---
 
@@ -324,17 +328,15 @@ strings hardcoded en componentes.
 
 ## Notas finales
 
-- **H21** del audit original: el plan se completó, pero quedó como pendiente para F7.
-  Si quieres hacerlo ya, puedo abrirlo como fix inmediato.
-- **F6-T2** (smoke `@axe-core/cli`) ya existe como script; F9 lo lleva a ejecución real.
-- **F11-T3** (axe por componente en unit) compite con el coste de mantener esos tests;
- 权衡 frente a un smoke más exhaustivo en CI.
+- **Regla AGENTS.md (2026-08-06):** el usuario comitea manualmente. El agente no debe ejecutar `git add`/`commit`/`push` ni siquiera si el usuario responde "sí" a un ASK. Documentado en `AGENTS.md`.
+- **F11-T3** (axe por componente en unit) compite con el coste de mantener esos tests;权衡 frente a un smoke más exhaustivo en CI.
 
 Cuando vuelvas a atacar este backlog, decide por dónde empezar.
-Recomendación por impacto/esfuerzo:
+Recomendación por impacto/esfuerzo (post-F7):
 1. **F9-T1** (Lighthouse baselines) — datos para decidir qué fases son realmente necesarias.
 2. **F10-T1/F10-T2** (NVDA + VoiceOver) — descubre issues que axe no coge.
 3. **F11-T2** (CI gate) — automatiza para no retroceder.
-4. **F7 / F8** — polish + criterios 2.2 nuevos.
+4. **F8** — polish + criterios 2.2 nuevos (2.4.11, 2.5.7, 2.5.8).
+5. **F11-T1** (Husky pre-commit lint:a11y) — quick win, alta cobertura.
 
-Fecha de última actualización: 2026-08-04.
+Fecha de última actualización: 2026-08-06.
