@@ -1,0 +1,99 @@
+name: a11y
+
+on:
+  push:
+    branches: [develop]
+  pull_request:
+    branches: [develop, main]
+  workflow_dispatch:
+
+concurrency:
+  group: a11y-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Unit tests (Karma)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Karma tests
+        run: npm run test:ci
+
+      - name: Run script tests
+        run: npm run test:scripts
+
+  audit:
+    name: A11y + Lighthouse audit
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build production bundle
+        run: npm run build:prod
+
+      - name: Start static server
+        id: server
+        run: |
+          nohup npm run serve:dist > server.log 2>&1 &
+          echo $! > server.pid
+          for i in {1..30}; do
+            if curl -sf http://127.0.0.1:4200/ > /dev/null; then
+              echo "Server up after ${i}s"
+              break
+            fi
+            sleep 1
+          done
+          if ! curl -sf http://127.0.0.1:4200/ > /dev/null; then
+            echo "::error::Server failed to start within 30s"
+            cat server.log
+            exit 1
+          fi
+
+      - name: Run axe-core smoke
+        run: npm run a11y:smoke
+
+      - name: Run Lighthouse baseline
+        run: npm run lh:baseline
+
+      - name: Enforce Lighthouse thresholds
+        run: npm run lh:check
+
+      - name: Upload a11y-report artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: a11y-report-${{ github.event.pull_request.number || github.sha }}
+          path: a11y-report/
+          retention-days: 14
+          if-no-files-found: error
+
+      - name: Stop static server
+        if: always()
+        run: |
+          if [ -f server.pid ]; then
+            kill "$(cat server.pid)" 2>/dev/null || true
+            rm -f server.pid
+          fi

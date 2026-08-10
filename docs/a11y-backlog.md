@@ -20,9 +20,9 @@
 |---|---|---|---|---|
 | F7 | Polish de hallazgos diferidos del audit (H18, H21, H25 + 3.1.2) | Media | S | No (implementado; pendiente V3/V4) |
 | F8 | Cobertura completa de criterios WCAG 2.2 nuevos (2.4.11, 2.5.7, 2.5.8, etc.) | Media | M | Parcial (2.5.8 es AA, no AAA) |
-| F9 | Auditoría visual + Lighthouse + axe-core contra el bundle desplegado | Alta | M | No |
+| F9-T1 | Lighthouse baseline (8 runs × 4 rutas × 2 form factors) | Media | S | No (informativo) |
 | F10 | Testing manual con lectores de pantalla (NVDA + VoiceOver) | Alta | M | No |
-| F11 | CI/CD gates de accesibilidad (GitHub Actions / Husky) | Alta | M | No |
+| F11-T2 | CI gate en GitHub Actions (test + a11y:smoke + lh:baseline + lh:check) | Alta | M | No |
 | F12 | Backend / contenido CMS: guía de a11y para editores en Sanity | Media | S | Parcial (1.1.1) |
 | F13 | Performance & a11y: presupuestos, monitoreo, dashboards | Media | M | No |
 | F14 | i18n parity audit + soporte RTL si se añaden idiomas RTL | Baja | M | No |
@@ -189,12 +189,49 @@ semicumplen pueden quedar ilegibles.
 
 ## F9 — Auditoría visual + Lighthouse contra el bundle desplegado
 
-### F9-T1 — Lighthouse runs manuales sobre `/`, `/blog`, `/blog/:slug`, `/no-existe`
-**Output esperado:** `lighthouse --output=json --output-path=...` por ruta.
+### F9-T1 — Lighthouse baseline ✅ IMPLEMENTADO
 
-- Capturar baseline.
-- Auditar manual con la app desplegada en Netlify o local.
-- Categorías críticas: Accessibility (target ≥95), Best Practices (≥90), Performance (≥80 mobile).
+**Estado 2026-08-07:**
+- Scripts: `scripts/lighthouse-baseline.mjs` (orquestador), `scripts/lh-runner.mjs` (runner programático, ver nota abajo), `scripts/serve-dist.mjs`, `scripts/lighthouse-baseline.spec.mjs` (11 tests).
+- Scripts npm: `lh:baseline`, `serve:dist`, `test:scripts`.
+- `.gitignore` en `a11y-report/lighthouse/` (artefactos ignorados, `latest-summary.json` commiteable).
+- `docs/a11y-lighthouse.md` con guía de uso, thresholds y baseline inicial.
+- `a11y-report/lighthouse/latest-summary.json` con 8 runs + `timestamp` + `commit`.
+
+**Baseline inicial 2026-08-07 (commit `9043f21`):**
+
+| Ruta | Form | a11y | bp | perf | seo |
+|---|---|---|---|---|---|
+| / | mobile | 0.96 | 0.93 | 0.52 | 1.00 |
+| / | desktop | 0.96 | 0.96 | 1.00 | 1.00 |
+| /blog | mobile | 0.96 | 0.93 | 0.53 | 1.00 |
+| /blog | desktop | 0.96 | 0.96 | 1.00 | 1.00 |
+| /blog/otro-articulo | mobile | 0.96 | 0.93 | 0.54 | 1.00 |
+| /blog/otro-articulo | desktop | 0.96 | 0.96 | 1.00 | 1.00 |
+| /no-existe | mobile | 0.96 | 0.93 | 0.54 | 1.00 |
+| /no-existe | desktop | 0.96 | 0.96 | 1.00 | 1.00 |
+
+**Diagnóstico rápido:**
+- ✅ a11y ≥ 0.95 en todas las rutas (F0–F7 han dado resultado).
+- ✅ best-practices ≥ 0.90 en todas las rutas.
+- ⚠️ **perf mobile 0.52–0.54 (umbral 0.80)** — baseline conocido. Hipótesis:
+  bundle ~130 kB, falta `width/height` en imágenes Sanity (CLS), animación del
+  `<app-oscillator>`. Se considera para F13 (Performance budgets) o fase ad-hoc.
+- ✅ perf desktop 1.00 en todas.
+- ✅ seo 1.00 en todas.
+
+**Runner programático (2026-08-07):** bug en `lighthouse@12.8.2/cli/run.js` causa
+`EPERM` en cleanup de `chrome-launcher` temp dir en Windows. Runs desktop
+fallaban con unhandled rejection antes de escribir el report. Solución: nuevo
+`scripts/lh-runner.mjs` usa `chrome-launcher` + `lighthouse` API programática
+con try/catch alrededor de `chrome.kill()`. En Linux el CLI original funciona
+bien y se podría revertir. Documentado en `docs/a11y-lighthouse.md` §"Runner
+programático".
+
+**Pendiente (F9 completo):**
+- F9-T2 (axe-core smoke en CI).
+- F9-T3 (web-vitals en runtime).
+- F11-T4 (CI gate con asserts duros; reusará `latest-summary.json` como histórico).
 
 ### F9-T2 — axe-core smoke sobre las 4 rutas
 **Script:** `npm run a11y:smoke` (ya creado en F6-T2).
@@ -246,14 +283,37 @@ Añadir script que corra sobre los archivos modificados:
 ```
 Y enlazarlo en `.husky/pre-commit`.
 
-### F11-T2 — GitHub Actions: build + tests + a11y:smoke
-Workflow `.github/workflows/a11y.yml`:
-- `npm ci`
-- `npm run test:ci`
-- `npm run build:prod`
-- Arrancar `npm start` en background, esperar, `npm run a11y:smoke`.
-- Subir reporte como artifact.
-- Bloquear merge si hay violations críticas.
+### F11-T2 — GitHub Actions: build + tests + a11y + Lighthouse ✅ IMPLEMENTADO
+
+**Estado 2026-08-07:**
+- Workflow: `.github/workflows/a11y.yml` con 2 jobs (`test` + `audit`).
+- Script de threshold check: `scripts/lh-check.mjs` + 12 tests (`scripts/lh-check.spec.mjs`).
+- Script npm: `npm run lh:check` añadido.
+- `docs/a11y-ci.md` con guía de uso y activación de branch protection.
+- Triggers: push a `develop`, PR a `develop`/`main`, manual dispatch.
+- Concurrencia: cancela runs previos en la misma PR.
+- Artefactos: `a11y-report/` subido en cada run (incluso fallidos), 14 días de retención.
+
+**Pipeline:**
+1. `test`: `npm ci` + `npm run test:ci` (Karma) + `npm run test:scripts` (Node).
+2. `audit` (depende de `test`): `npm run build:prod` + `serve:dist` en background + `a11y:smoke` + `lh:baseline` + `lh:check`.
+3. Si cualquier step falla → bloquea merge (cuando el usuario active branch protection con `audit` como required check).
+
+**Thresholds (`scripts/lh-check.mjs`):**
+- `accessibility ≥ 0.95` (baseline 0.96).
+- `best-practices ≥ 0.90` (baseline 0.93/0.96).
+- `performance mobile ≥ 0.50` (baseline 0.52–0.54; tight, sube cuando F13 arregle perf).
+- `performance desktop ≥ 0.90` (baseline 1.00).
+- `seo ≥ 0.90` (baseline 1.00).
+
+**Pendiente (acción manual del usuario):**
+- Activar `audit` como required check en GitHub Settings → Branches para `develop` y `main`.
+- Una PR de prueba debe correr primero para que GitHub descubra el check.
+
+**Limitaciones documentadas:**
+- Solo Node 20, sin matrix.
+- No usa `@lhci/cli` (F11-T4 lo reemplazará con asserts declarativos).
+- Linux runner (CI); Windows local usa `lh-runner.mjs` por bug EPERM de chrome-launcher.
 
 ### F11-T3 — axe-core en CI por componente (no solo smoke)
 Configurar `jest-axe` style matcher también para los tests existentes,

@@ -15,8 +15,9 @@
     "lint": "ng lint",
     "a11y:smoke": "node scripts/a11y-smoke.mjs",
     "serve:dist": "node scripts/serve-dist.mjs",
+    "test:scripts": "node --test \"scripts/**/*.spec.mjs\"",
     "lh:baseline": "node scripts/lighthouse-baseline.mjs",
-    "test:scripts": "node --test scripts/lighthouse-baseline.spec.mjs"
+    "lh:check": "node scripts/lh-check.mjs"
   },
   "private": true,
   "dependencies": {

@@ -81,6 +81,9 @@ export async function probe(baseUrl) {
 }
 
 function buildLighthouseArgs(url, formFactor, outPath) {
+  // Kept for backward compatibility / debug (run individual lighthouse CLI command).
+  // The orchestrator actually uses lh-runner.mjs to avoid a Windows-only EPERM bug
+  // in the lighthouse CLI's chrome cleanup. See scripts/lh-runner.mjs header.
   return [
     'lighthouse',
     url,
@@ -97,9 +100,14 @@ function buildLighthouseArgs(url, formFactor, outPath) {
 
 export function runLighthouse({ url, formFactor, outPath, logPath, verbose }) {
   return new Promise((resolveRun) => {
-    const args = buildLighthouseArgs(url, formFactor, outPath);
+    const args = [
+      'scripts/lh-runner.mjs',
+      '--url', url,
+      '--out', outPath,
+      '--form', formFactor,
+    ];
     const logStream = createWriteStream(logPath, { flags: 'w' });
-    const child = spawn(NPX_CMD, args, {
+    const child = spawn('node', args, {
       stdio: ['ignore', 'pipe', 'pipe'],
       shell: process.platform === 'win32',
     });
@@ -186,51 +194,68 @@ export async function main() {
         verbose: opts.verbose,
       });
 
-      if (!result.ok) {
-        process.stdout.write(`✗ (${result.error ?? `exit ${result.code}`})\n`);
-        runs.push({
-          route,
-          formFactor,
-          scores: { accessibility: null, 'best-practices': null, performance: null, seo: null },
-          status: 'failed',
-        });
-        continue;
-      }
-
       const jsonPath = `${outPath}.report.json`;
-      if (!existsSync(jsonPath)) {
-        process.stdout.write(`✗ (missing ${jsonPath})\n`);
-        runs.push({
-          route,
-          formFactor,
-          scores: { accessibility: null, 'best-practices': null, performance: null, seo: null },
-          status: 'failed',
-        });
+
+      if (result.ok && existsSync(jsonPath)) {
+        let json;
+        try {
+          json = JSON.parse(await readFile(jsonPath, 'utf8'));
+        } catch {
+          process.stdout.write(`✗ (invalid JSON: ${logPath})\n`);
+          runs.push({
+            route,
+            formFactor,
+            scores: { accessibility: null, 'best-practices': null, performance: null, seo: null },
+            status: 'failed',
+          });
+          continue;
+        }
+        const scoresObj = {
+          accessibility: pickScore(json, 'accessibility'),
+          'best-practices': pickScore(json, 'best-practices'),
+          performance: pickScore(json, 'performance'),
+          seo: pickScore(json, 'seo'),
+        };
+        process.stdout.write(`✓ a11y=${scoresObj.accessibility.toFixed(2)}\n`);
+        okCount++;
+        runs.push({ route, formFactor, scores: scoresObj, status: 'ok' });
         continue;
       }
 
-      let json;
-      try {
-        json = JSON.parse(await readFile(jsonPath, 'utf8'));
-      } catch {
-        process.stdout.write(`✗ (invalid JSON: ${logPath})\n`);
-        runs.push({
-          route,
-          formFactor,
-          scores: { accessibility: null, 'best-practices': null, performance: null, seo: null },
-          status: 'failed',
-        });
+      if (existsSync(jsonPath)) {
+        let json;
+        try {
+          json = JSON.parse(await readFile(jsonPath, 'utf8'));
+        } catch {
+          process.stdout.write(`✗ (invalid JSON: ${logPath})\n`);
+          runs.push({
+            route,
+            formFactor,
+            scores: { accessibility: null, 'best-practices': null, performance: null, seo: null },
+            status: 'failed',
+          });
+          continue;
+        }
+        const scoresObj = {
+          accessibility: pickScore(json, 'accessibility'),
+          'best-practices': pickScore(json, 'best-practices'),
+          performance: pickScore(json, 'performance'),
+          seo: pickScore(json, 'seo'),
+        };
+        const cleanupHint = /EPERM/.test(result.stderr ?? '') ? 'cleanup' : `exit ${result.code}`;
+        process.stdout.write(`✓ a11y=${scoresObj.accessibility.toFixed(2)} (recovered from ${cleanupHint})\n`);
+        okCount++;
+        runs.push({ route, formFactor, scores: scoresObj, status: 'ok' });
         continue;
       }
-      const scoresObj = {
-        accessibility: pickScore(json, 'accessibility'),
-        'best-practices': pickScore(json, 'best-practices'),
-        performance: pickScore(json, 'performance'),
-        seo: pickScore(json, 'seo'),
-      };
-      process.stdout.write(`✓ a11y=${scoresObj.accessibility.toFixed(2)}\n`);
-      okCount++;
-      runs.push({ route, formFactor, scores: scoresObj, status: 'ok' });
+
+      process.stdout.write(`✗ (${result.error ?? `exit ${result.code}`})\n`);
+      runs.push({
+        route,
+        formFactor,
+        scores: { accessibility: null, 'best-practices': null, performance: null, seo: null },
+        status: 'failed',
+      });
     }
   }
 

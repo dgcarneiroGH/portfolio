@@ -1,0 +1,51 @@
+{
+  "timestamp": "2026-08-07T11:35:59.202Z",
+  "commit": "9043f21",
+  "baseUrl": "http://localhost:4200",
+  "runs": [
+    {
+      "route": "/",
+      "formFactor": "mobile",
+      "scores": {
+        "accessibility": 0.94,
+        "best-practices": 0.93,
+        "performance": 0.52,
+        "seo": 1
+      },
+      "status": "ok"
+    },
+    {
+      "route": "/",
+      "formFactor": "desktop",
+      "scores": {
+        "accessibility": 0.96,
+        "best-practices": 0.96,
+        "performance": 0.85,
+        "seo": 1
+      },
+      "status": "ok"
+    },
+    {
+      "route": "/blog",
+      "formFactor": "mobile",
+      "scores": {
+        "accessibility": 0.96,
+        "best-practices": 0.93,
+        "performance": 0.45,
+        "seo": 1
+      },
+      "status": "ok"
+    },
+    {
+      "route": "/blog",
+      "formFactor": "desktop",
+      "scores": {
+        "accessibility": 0.96,
+        "best-practices": 0.96,
+        "performance": 1,
+        "seo": 0.85
+      },
+      "status": "ok"
+    }
+  ]
+}
