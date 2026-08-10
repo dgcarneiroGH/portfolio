@@ -15,7 +15,7 @@ mkdirSync('a11y-report', { recursive: true });
 let totalViolations = 0;
 
 for (const route of ROUTES) {
-  const url = `${BASE}${route}`;
+  const url = route === '/' ? `${BASE}/` : `${BASE}/#${route}`;
   console.log(`\nAuditing ${url}`);
   try {
     const out = execSync(`node "${cliPath}" --url "${url}" --exit`, {

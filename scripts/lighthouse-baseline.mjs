@@ -181,8 +181,7 @@ export async function main() {
     for (const formFactor of forms) {
       i++;
       const slug = slugify(route);
-      const hashRoute = route === '/' ? '/' : `#${route}`;
-      const url = `${BASE_URL}/${hashRoute}`;
+      const url = route === '/' ? `${BASE_URL}/` : `${BASE_URL}/#${route}`;
       const outPath = resolve(`${OUTPUT_DIR}/${formFactor}-${slug}`);
       const logPath = resolve(`${LOGS_DIR}/${formFactor}-${slug}.log`);
       process.stdout.write(`[${i}/${total}] ${formFactor.padEnd(7)} ${route} ... `);

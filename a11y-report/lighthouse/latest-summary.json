@@ -1,6 +1,6 @@
 {
-  "timestamp": "2026-08-10T15:15:06.634Z",
-  "commit": "2a555cc",
+  "timestamp": "2026-08-10T15:41:36.193Z",
+  "commit": "4ce5fdc",
   "baseUrl": "http://localhost:4200",
   "runs": [
     {
@@ -9,7 +9,7 @@
       "scores": {
         "accessibility": 0.96,
         "best-practices": 0.93,
-        "performance": 0.66,
+        "performance": 0.61,
         "seo": 0.92
       },
       "status": "ok"
@@ -20,7 +20,7 @@
       "scores": {
         "accessibility": 0.96,
         "best-practices": 0.93,
-        "performance": 0.98,
+        "performance": 0.99,
         "seo": 0.92
       },
       "status": "ok"
@@ -31,7 +31,7 @@
       "scores": {
         "accessibility": 0.98,
         "best-practices": 0.96,
-        "performance": 0.67,
+        "performance": 0.64,
         "seo": 0.92
       },
       "status": "ok"
@@ -75,7 +75,7 @@
       "scores": {
         "accessibility": 0.98,
         "best-practices": 0.96,
-        "performance": 0.74,
+        "performance": 0.58,
         "seo": 0.92
       },
       "status": "ok"
