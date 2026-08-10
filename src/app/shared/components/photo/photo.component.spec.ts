@@ -15,7 +15,7 @@ describe('PhotoComponent', () => {
     fixture = TestBed.createComponent(PhotoComponent);
     component = fixture.componentInstance;
 
-    fixture.componentRef.setInput('imgSrc', '/assets/images/profile.jpg');
+    fixture.componentRef.setInput('imgBase', 'me_1');
     fixture.componentRef.setInput('altText', 'Diego Carneiro profile photo');
     fixture.detectChanges();
   });

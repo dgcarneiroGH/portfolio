@@ -1,8 +1,6 @@
 <div
   class="photo-container"
-  [ngStyle]="{
-    'background-image': 'url(' + imgSrc() + ')'
-  }"
+  [class]="photoClass()"
   [style.--animation-delay]="animationDelay()"
   role="img"
   [attr.aria-label]="altText()"

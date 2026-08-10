@@ -1,5 +1,7 @@
 @use "/src/styles/palette" as palette;
 
+$photo-bases: "me_1", "me_2", "me_3", "me_4";
+
 .photo-container {
   width: 30rem;
   aspect-ratio: 16/9;
@@ -12,6 +14,16 @@
   overflow: hidden;
 
   clip-path: ellipse(85% 63% at 14% 62%);
+}
+
+@each $base in $photo-bases {
+  .photo-#{$base} {
+    background-image: url("/assets/images/photos/#{$base}-480.jpeg");
+    background-image: image-set(
+      url("/assets/images/photos/#{$base}-480.jpeg") type("image/jpeg") 1x,
+      url("/assets/images/photos/#{$base}-960.jpeg") type("image/jpeg") 2x
+    );
+  }
 }
 
 .photo-container::after {

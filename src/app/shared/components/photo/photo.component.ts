@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, input, signal, OnInit } from '@angular/core';
+import { Component, computed, input, signal, OnInit } from '@angular/core';
 
 @Component({
   standalone: true,
@@ -9,8 +9,10 @@ import { Component, input, signal, OnInit } from '@angular/core';
   styleUrl: './photo.component.scss'
 })
 export class PhotoComponent implements OnInit {
-  imgSrc = input.required<string>();
+  imgBase = input.required<string>();
   altText = input.required<string>();
+
+  photoClass = computed(() => `photo-${this.imgBase()}`);
 
   animationDelay = signal('0s');
 
