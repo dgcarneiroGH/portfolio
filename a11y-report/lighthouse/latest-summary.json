@@ -1,6 +1,6 @@
 {
-  "timestamp": "2026-08-07T11:35:59.202Z",
-  "commit": "9043f21",
+  "timestamp": "2026-08-10T11:55:48.481Z",
+  "commit": "21dfff1",
   "baseUrl": "http://localhost:4200",
   "runs": [
     {
@@ -9,8 +9,8 @@
       "scores": {
         "accessibility": 0.96,
         "best-practices": 0.93,
-        "performance": 0.52,
-        "seo": 1
+        "performance": 0.29,
+        "seo": 0.92
       },
       "status": "ok"
     },
@@ -19,9 +19,9 @@
       "formFactor": "desktop",
       "scores": {
         "accessibility": 0.96,
-        "best-practices": 0.96,
-        "performance": 1,
-        "seo": 1
+        "best-practices": 0.93,
+        "performance": 0.99,
+        "seo": 0.92
       },
       "status": "ok"
     },
@@ -29,10 +29,10 @@
       "route": "/blog",
       "formFactor": "mobile",
       "scores": {
-        "accessibility": 0.96,
-        "best-practices": 0.93,
-        "performance": 0.53,
-        "seo": 1
+        "accessibility": 0.98,
+        "best-practices": 0.96,
+        "performance": 0.66,
+        "seo": 0.92
       },
       "status": "ok"
     },
@@ -40,10 +40,10 @@
       "route": "/blog",
       "formFactor": "desktop",
       "scores": {
-        "accessibility": 0.96,
+        "accessibility": 0.98,
         "best-practices": 0.96,
-        "performance": 1,
-        "seo": 1
+        "performance": 0.99,
+        "seo": 0.92
       },
       "status": "ok"
     },
@@ -51,10 +51,10 @@
       "route": "/blog/otro-articulo",
       "formFactor": "mobile",
       "scores": {
-        "accessibility": 0.96,
-        "best-practices": 0.93,
-        "performance": 0.54,
-        "seo": 1
+        "accessibility": 0.98,
+        "best-practices": 0.96,
+        "performance": 0.63,
+        "seo": 0.92
       },
       "status": "ok"
     },
@@ -62,10 +62,10 @@
       "route": "/blog/otro-articulo",
       "formFactor": "desktop",
       "scores": {
-        "accessibility": 0.96,
+        "accessibility": 0.98,
         "best-practices": 0.96,
-        "performance": 1,
-        "seo": 1
+        "performance": 0.95,
+        "seo": 0.92
       },
       "status": "ok"
     },
@@ -73,10 +73,10 @@
       "route": "/no-existe",
       "formFactor": "mobile",
       "scores": {
-        "accessibility": 0.96,
-        "best-practices": 0.93,
-        "performance": 0.54,
-        "seo": 1
+        "accessibility": 0.98,
+        "best-practices": 0.96,
+        "performance": 0.58,
+        "seo": 0.92
       },
       "status": "ok"
     },
@@ -84,10 +84,10 @@
       "route": "/no-existe",
       "formFactor": "desktop",
       "scores": {
-        "accessibility": 0.96,
+        "accessibility": 0.98,
         "best-practices": 0.96,
         "performance": 1,
-        "seo": 1
+        "seo": 0.92
       },
       "status": "ok"
     }
