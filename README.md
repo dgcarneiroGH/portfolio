@@ -14,7 +14,7 @@ Professional web portfolio developed with Angular 21.2.4 and Netlify Functions, 
 
 ## 📋 Requirements
 
-- **Node.js** 22.x or higher
+- **Node.js** 20.x or higher (CI runs on Node 20; use `nvm use` with the included `.nvmrc`)
 - **npm** 10.x or higher
 - **Netlify CLI** (optional, for serverless functions)
 
@@ -107,15 +107,23 @@ npm run test:ci
 
 ## 🔦 Lighthouse
 
+> ⚠️ **Importante:** Lighthouse se ejecuta contra la **build de producción**,
+> NO contra el dev server. Medir contra `npm start` (Vite dev server) infla el
+> bundle 20-25× y los scores de performance no son representativos.
+>
+> El probe de `lh:baseline` detecta y rechaza automáticamente el dev server.
+
 Para ejecutar una auditoría local:
 
-1. Inicia la aplicación en una terminal:
+1. En una terminal, compila y sirve la build de producción:
    ```bash
-   npm start
+   npm run build:prod
+   npm run serve:dist
    ```
 2. En otra terminal, ejecuta:
    ```bash
    npm run lh:baseline
+   npm run lh:check
    ```
 
 ## ♿ Accessibility

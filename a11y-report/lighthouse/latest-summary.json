@@ -1,6 +1,6 @@
 {
-  "timestamp": "2026-08-10T15:41:36.193Z",
-  "commit": "4ce5fdc",
+  "timestamp": "2026-08-11T09:05:55.297Z",
+  "commit": "602a4f7",
   "baseUrl": "http://localhost:4200",
   "runs": [
     {
@@ -9,8 +9,8 @@
       "scores": {
         "accessibility": 0.96,
         "best-practices": 0.93,
-        "performance": 0.61,
-        "seo": 0.92
+        "performance": 0.27,
+        "seo": 1
       },
       "status": "ok"
     },
@@ -19,75 +19,75 @@
       "formFactor": "desktop",
       "scores": {
         "accessibility": 0.96,
-        "best-practices": 0.93,
-        "performance": 0.99,
-        "seo": 0.92
-      },
-      "status": "ok"
-    },
-    {
-      "route": "/blog",
-      "formFactor": "mobile",
-      "scores": {
-        "accessibility": 0.98,
-        "best-practices": 0.96,
-        "performance": 0.64,
-        "seo": 0.92
-      },
-      "status": "ok"
-    },
-    {
-      "route": "/blog",
-      "formFactor": "desktop",
-      "scores": {
-        "accessibility": 0.98,
-        "best-practices": 0.96,
-        "performance": 0.98,
-        "seo": 0.92
-      },
-      "status": "ok"
-    },
-    {
-      "route": "/blog/otro-articulo",
-      "formFactor": "mobile",
-      "scores": {
-        "accessibility": 0.98,
-        "best-practices": 0.96,
-        "performance": 0.66,
-        "seo": 0.92
-      },
-      "status": "ok"
-    },
-    {
-      "route": "/blog/otro-articulo",
-      "formFactor": "desktop",
-      "scores": {
-        "accessibility": 0.98,
-        "best-practices": 0.96,
-        "performance": 0.95,
-        "seo": 0.92
-      },
-      "status": "ok"
-    },
-    {
-      "route": "/no-existe",
-      "formFactor": "mobile",
-      "scores": {
-        "accessibility": 0.98,
-        "best-practices": 0.96,
-        "performance": 0.58,
-        "seo": 0.92
-      },
-      "status": "ok"
-    },
-    {
-      "route": "/no-existe",
-      "formFactor": "desktop",
-      "scores": {
-        "accessibility": 0.98,
         "best-practices": 0.96,
         "performance": 1,
-        "seo": 0.92
+        "seo": 1
+      },
+      "status": "ok"
+    },
+    {
+      "route": "/blog",
+      "formFactor": "mobile",
+      "scores": {
+        "accessibility": 0.98,
+        "best-practices": 1,
+        "performance": 0.55,
+        "seo": 1
+      },
+      "status": "ok"
+    },
+    {
+      "route": "/blog",
+      "formFactor": "desktop",
+      "scores": {
+        "accessibility": 0.98,
+        "best-practices": 1,
+        "performance": 0.97,
+        "seo": 1
+      },
+      "status": "ok"
+    },
+    {
+      "route": "/blog/otro-articulo",
+      "formFactor": "mobile",
+      "scores": {
+        "accessibility": 0.98,
+        "best-practices": 1,
+        "performance": 0.54,
+        "seo": 1
+      },
+      "status": "ok"
+    },
+    {
+      "route": "/blog/otro-articulo",
+      "formFactor": "desktop",
+      "scores": {
+        "accessibility": 0.98,
+        "best-practices": 1,
+        "performance": 0.94,
+        "seo": 1
+      },
+      "status": "ok"
+    },
+    {
+      "route": "/no-existe",
+      "formFactor": "mobile",
+      "scores": {
+        "accessibility": 0.98,
+        "best-practices": 1,
+        "performance": 0.56,
+        "seo": 1
+      },
+      "status": "ok"
+    },
+    {
+      "route": "/no-existe",
+      "formFactor": "desktop",
+      "scores": {
+        "accessibility": 0.98,
+        "best-practices": 1,
+        "performance": 1,
+        "seo": 1
       },
       "status": "ok"
     }

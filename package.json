@@ -20,6 +20,10 @@
     "lh:check": "node scripts/lh-check.mjs"
   },
   "private": true,
+  "engines": {
+    "node": ">=20 <23",
+    "npm": ">=10"
+  },
   "dependencies": {
     "@angular/animations": "^21.2.4",
     "@angular/common": "^21.2.4",

@@ -74,10 +74,40 @@ export async function probe(baseUrl) {
     const r = await fetch(`${baseUrl}/`, {
       signal: AbortSignal.timeout(PROBE_TIMEOUT_MS),
     });
-    return r.ok || r.status === 304;
+    if (!(r.ok || r.status === 304)) return false;
+    const indexHtml = await r.text();
+    const dev = detectDevServer(indexHtml);
+    if (dev.isDevServer) {
+      process.stderr.write(
+        `\n✗ El servidor en ${baseUrl} parece ser un dev server de Vite/Angular (${dev.reason}).\n` +
+        `  Lighthouse se debe ejecutar contra la build de producción.\n` +
+        `  Ejecuta: npm run build:prod && npm run serve:dist\n`
+      );
+      return false;
+    }
+    return true;
   } catch {
     return false;
   }
+}
+
+const DEV_PATTERNS = [
+  { name: '@vite/client', re: /@vite\/client/ },
+  { name: '@fs (Vite filesystem)', re: /\/@fs\// },
+  { name: 'main.js sin hash', re: /<script[^>]+src=["']main\.js["']/ },
+  { name: '/@vite/', re: /\/@vite\// },
+];
+
+export function detectDevServer(indexHtml) {
+  if (typeof indexHtml !== 'string' || indexHtml.length === 0) {
+    return { isDevServer: false, reason: null };
+  }
+  for (const { name, re } of DEV_PATTERNS) {
+    if (re.test(indexHtml)) {
+      return { isDevServer: true, reason: name };
+    }
+  }
+  return { isDevServer: false, reason: null };
 }
 
 function buildLighthouseArgs(url, formFactor, outPath) {
