@@ -1,5 +1,48 @@
 @use "_palette" as palette;
 
+// #region Self-hosted fonts (latin subset, previamente inlineadas por Angular desde Google Fonts)
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/assets/fonts/inter-400.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/assets/fonts/inter-700.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Space Grotesk";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/assets/fonts/space-grotesk-400.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Space Grotesk";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/assets/fonts/space-grotesk-700.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+// #endregion
+
 // #region Accessibility & Focus
 :root {
   --font-headings: "Space Grotesk", sans-serif;
@@ -8,16 +51,16 @@
   --focus-bg: rgba(0, 95, 204, 0.1);
 
   /* Accessible color system */
-  --color-success: palette.$accent-green;
-  --color-warning: palette.$accent-yellow;
-  --color-error: palette.$text-red;
-  --color-info: palette.$accent-blue;
+  --color-success: #{palette.$accent-green};
+  --color-warning: #{palette.$accent-yellow};
+  --color-error: #{palette.$text-red};
+  --color-info: #{palette.$accent-blue};
 
   /* High contrast alternatives */
-  --color-success-high: palette.$accent-green-high;
-  --color-warning-high: palette.$accent-yellow-high;
-  --color-error-high: palette.$text-red-high;
-  --color-info-high: palette.$accent-blue-high;
+  --color-success-high: #{palette.$accent-green-high};
+  --color-warning-high: #{palette.$accent-yellow-high};
+  --color-error-high: #{palette.$text-red-high};
+  --color-info-high: #{palette.$accent-blue-high};
 
   /* Pattern backgrounds for colorblind users */
   --pattern-success: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNCIgaGVpZ2h0PSI0IiB2aWV3Qm94PSIwIDAgNCA0IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxjaXJjbGUgY3g9IjIiIGN5PSIyIiByPSIwLjUiIGZpbGw9IiMyZWNjNzEiIG9wYWNpdHk9IjAuNCIvPjwvc3ZnPg==");

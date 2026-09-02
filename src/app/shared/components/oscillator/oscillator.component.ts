@@ -51,9 +51,13 @@ export class OscillatorComponent implements AfterViewInit, OnDestroy {
 
   private _ctx!: CanvasRenderingContext2D;
   private _animationFrameId?: number;
+  private _observer?: IntersectionObserver;
   private _oscillatorStartTime = 0;
   private _firstMouseMove = false;
   private _tendrils: ITendril[] = [];
+  // Centro del target cacheado: recalcular getBoundingClientRect en cada
+  // frame provoca forced reflow (insight ForcedReflow). Solo cambia con resize.
+  private _initialCenter: ITarget = { x: 0, y: 0 };
   private _settings = {
     friction: 0.5,
     trails: 20,
@@ -73,12 +77,24 @@ export class OscillatorComponent implements AfterViewInit, OnDestroy {
       this._resizeCanvas();
       this._initOscillator();
       window.addEventListener('resize', this._resizeCanvas);
+      // Pausa el bucle rAF cuando el canvas sale del viewport (ahorro de
+      // CPU/batería durante el scroll; se reanuda al volver).
+      this._observer = new IntersectionObserver(
+        (entries) => {
+          const visible = entries.some((e) => e.isIntersecting);
+          this._running.set(visible);
+          if (visible && !this._animationFrameId) this._loop();
+        },
+        { threshold: 0 }
+      );
+      this._observer.observe(canvas.nativeElement);
     });
   }
 
   ngOnDestroy(): void {
     this._running.set(false);
     cancelAnimationFrame(this._animationFrameId ?? 0);
+    this._observer?.disconnect();
     window.removeEventListener('resize', this._resizeCanvas);
 
     document.removeEventListener('mousemove', this._onFirstMouseMove);
@@ -92,9 +108,10 @@ export class OscillatorComponent implements AfterViewInit, OnDestroy {
     const canvas = this.canvasRef();
     canvas.nativeElement.width = window.innerWidth;
     canvas.nativeElement.height = window.innerHeight;
+    this._initialCenter = this._computeInitialTargetCenter();
   };
 
-  private _getInitialTargetCenter(): ITarget {
+  private _computeInitialTargetCenter(): ITarget {
     const targetId = this.initialTargetId();
     if (targetId) {
       const el = document.getElementById(targetId);
@@ -122,8 +139,8 @@ export class OscillatorComponent implements AfterViewInit, OnDestroy {
     this._oscillatorStartTime = Date.now();
     this._firstMouseMove = false;
     this._tendrils = [];
-    const initial = this._getInitialTargetCenter();
-    this._target = { x: initial.x, y: initial.y };
+    this._initialCenter = this._computeInitialTargetCenter();
+    this._target = { x: this._initialCenter.x, y: this._initialCenter.y };
     for (let i = 0; i < this._settings.trails; i++) {
       this._tendrils.push(
         new Tendril({
@@ -204,10 +221,11 @@ export class OscillatorComponent implements AfterViewInit, OnDestroy {
     // Animate _target until user move the _mouse
     if (!this._firstMouseMove) {
       const elapsed = Date.now() - this._oscillatorStartTime;
-      const initial = this._getInitialTargetCenter();
       const theta = Math.PI + (elapsed / 5000) * 2 * Math.PI;
-      this._target.x = initial.x + initial.rx! * Math.cos(theta);
-      this._target.y = initial.y + initial.ry! * Math.sin(theta);
+      this._target.x =
+        this._initialCenter.x + this._initialCenter.rx! * Math.cos(theta);
+      this._target.y =
+        this._initialCenter.y + this._initialCenter.ry! * Math.sin(theta);
     } else {
       // Smoothing towards mouse position
       this._target.x += (this._mouse.x - this._target.x) * 0.2;
@@ -218,7 +236,11 @@ export class OscillatorComponent implements AfterViewInit, OnDestroy {
       tendril.update!(this._target);
       tendril.draw!(ctx);
     }
-    this._animationFrameId = requestAnimationFrame(this._loop);
+    if (this._running()) {
+      this._animationFrameId = requestAnimationFrame(this._loop);
+    } else {
+      this._animationFrameId = undefined;
+    }
   };
 
   private _randomIntFromInterval(min: number, max: number) {

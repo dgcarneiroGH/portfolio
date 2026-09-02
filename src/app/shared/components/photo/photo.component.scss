@@ -18,10 +18,10 @@ $photo-bases: "me_1", "me_2", "me_3", "me_4";
 
 @each $base in $photo-bases {
   .photo-#{$base} {
-    background-image: url("/assets/images/photos/#{$base}-480.jpeg");
+    background-image: url("/assets/images/photos/#{$base}-480.avif");
     background-image: image-set(
-      url("/assets/images/photos/#{$base}-480.jpeg") type("image/jpeg") 1x,
-      url("/assets/images/photos/#{$base}-960.jpeg") type("image/jpeg") 2x
+      url("/assets/images/photos/#{$base}-480.avif") type("image/avif") 1x,
+      url("/assets/images/photos/#{$base}-960.avif") type("image/avif") 2x
     );
   }
 }

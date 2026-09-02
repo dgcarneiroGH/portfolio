@@ -8,7 +8,7 @@
           target="_blank"
           [attr.title]="cert.name"
         >
-          <img [src]="cert.iconSrc" [alt]="cert.name" />
+          <img [src]="cert.iconSrc" [alt]="cert.name" width="400" height="400" />
         </a>
       </div>
     }
@@ -17,12 +17,28 @@
       <img
         id="nomacoda"
         class="picture nomacoda-img"
-        src="assets/images/nomacoda/nomacoda_full_transparent.avif"
+        src="assets/images/nomacoda/nomacoda_full_transparent-768.avif"
+        srcset="
+          assets/images/nomacoda/nomacoda_full_transparent-512.avif 512w,
+          assets/images/nomacoda/nomacoda_full_transparent-768.avif 768w
+        "
+        sizes="(max-width: 768px) 90vw, 768px"
+        width="768"
+        height="768"
+        decoding="async"
         [alt]="'HOME.NOMACODA_LOGO' | translate"
       />
       <img
         class="background-img"
-        src="assets/images/nomacoda/nomacoda_background.avif"
+        src="assets/images/nomacoda/nomacoda_background-768.avif"
+        srcset="
+          assets/images/nomacoda/nomacoda_background-512.avif 512w,
+          assets/images/nomacoda/nomacoda_background-768.avif 768w
+        "
+        sizes="(max-width: 768px) 90vw, 512px"
+        width="768"
+        height="768"
+        decoding="async"
         alt=""
       />
     </div>
@@ -39,7 +55,15 @@
 <img
   id="mountains"
   class="mountains"
-  src="assets/images/mountains.avif"
+  src="assets/images/mountains-1440.avif"
+  srcset="
+    assets/images/mountains-768.avif   768w,
+    assets/images/mountains-1440.avif 1440w
+  "
+  sizes="100vw"
+  width="1440"
+  height="960"
   alt=""
   fetchpriority="high"
+  decoding="async"
 />

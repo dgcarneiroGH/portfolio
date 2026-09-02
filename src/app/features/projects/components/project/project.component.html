@@ -17,10 +17,8 @@
       type="button"
     >
       <img
-        #coverImage
         class="cover-img-el"
         [src]="coverImgSrc() + '.avif'"
-        (load)="onImageLoad(coverImage)"
         [alt]="altKey() | translate"
       />
     </button>

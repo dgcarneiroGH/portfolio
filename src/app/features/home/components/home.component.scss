@@ -39,6 +39,8 @@
 
       img {
         width: 100%;
+        /* El atributo height da la meta de ratio; el CSS manda en el tamaño */
+        height: auto;
         transition: transform 0.3s, filter 0.3s ease-in-out;
         filter: drop-shadow(2px 2px 4px rgba(255, 255, 255, 0.6));
       }
@@ -62,6 +64,8 @@
 
     img {
       width: 100%;
+      /* Los atributos width/height aportan el ratio; el CSS manda en el tamaño */
+      height: auto;
     }
 
     .background-img {
@@ -87,12 +91,16 @@
     p {
       font-size: 1.2rem;
       font-style: italic;
+      /* Reserva espacio hasta que blast-vanilla genera los spans (evita CLS) */
+      min-height: 1.5em;
     }
 
     h1 {
       width: 80%;
       font-size: 4rem;
       margin: 0;
+      /* Reserva espacio hasta que blast-vanilla genera los spans (evita CLS) */
+      min-height: 2.4em;
     }
   }
 }

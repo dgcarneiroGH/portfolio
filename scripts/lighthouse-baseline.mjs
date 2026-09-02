@@ -8,7 +8,9 @@ import { createWriteStream } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { writeSummary } from './lighthouse-summary.mjs';
 
-const BASE_URL = process.env.LIGHTHOUSE_BASE_URL ?? 'http://localhost:4200';
+// 127.0.0.1 en vez de localhost: serve-dist bindea solo IPv4 y la resolución
+// de localhost a ::1 penaliza ~300ms por conexión en el Lighthouse.
+const BASE_URL = process.env.LIGHTHOUSE_BASE_URL ?? 'http://127.0.0.1:4200';
 const ROUTES = ['/', '/blog', '/blog/otro-articulo', '/no-existe'];
 const FORM_FACTORS = ['mobile', 'desktop'];
 const OUTPUT_DIR = 'a11y-report/lighthouse';

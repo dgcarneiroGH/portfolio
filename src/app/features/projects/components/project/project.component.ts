@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
-import { Color, getColorSync, getPaletteSync } from 'colorthief';
+import { PROJECT_PALETTES } from '../../constants/project-palettes';
 
 @Component({
   standalone: true,
@@ -32,20 +32,18 @@ export class ProjectComponent implements OnInit {
 
   expandRequest = output<number>();
 
-  dominantColor: Color | null = null;
-
-  palette = signal<Color[] | null>(null);
+  palette = signal<[string, string] | null>(null);
   animationDelay = signal('0s');
 
   dynamicGradient = computed(() => {
     const palette = this.palette();
     if (!palette || palette.length <= 1) return '';
-    return `linear-gradient(135deg, ${palette[0].hex()}, ${palette[1].hex()})`;
+    return `linear-gradient(135deg, ${palette[0]}, ${palette[1]})`;
   });
 
   btnColor = computed(() => {
     const palette = this.palette();
-    return palette && palette[1] ? `${palette[1].hex()}` : '41,182,246';
+    return palette && palette[1] ? palette[1] : '41,182,246';
   });
 
   showMoreInfo = computed(() => {
@@ -61,11 +59,7 @@ export class ProjectComponent implements OnInit {
   ngOnInit(): void {
     const randomDelay = `${Math.random() * 5}s`;
     this.animationDelay.set(randomDelay);
-  }
-
-  onImageLoad(imageElement: HTMLImageElement) {
-    this.dominantColor = getColorSync(imageElement);
-    this.palette.set(getPaletteSync(imageElement, { colorCount: 2 }));
+    this.palette.set(PROJECT_PALETTES[this.coverImgSrc()] ?? null);
   }
 
   toggleMoreInfo() {

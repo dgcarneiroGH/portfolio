@@ -17,7 +17,10 @@
     "serve:dist": "node scripts/serve-dist.mjs",
     "test:scripts": "node scripts/run-specs.mjs",
     "lh:baseline": "node scripts/lighthouse-baseline.mjs",
-    "lh:check": "node scripts/lh-check.mjs"
+    "lh:check": "node scripts/lh-check.mjs",
+    "assets:optimize": "node scripts/optimize-images.mjs",
+    "assets:palettes": "node scripts/generate-palettes.mjs",
+    "postbuild:prod": "node scripts/compress-dist.mjs"
   },
   "private": true,
   "engines": {
@@ -39,8 +42,6 @@
     "@sanity/client": "^7.12.1",
     "@sanity/image-url": "^1.2.0",
     "blast-vanilla": "^2.1.6",
-    "colorthief": "^3.3.1",
-    "flag-icons": "^7.5.0",
     "gh-pages": "^6.2.0",
     "rxjs": "~7.8.1",
     "tslib": "^2.8.1"
@@ -63,6 +64,7 @@
     "axe-core": "^4.12.1",
     "baseline-browser-mapping": "^2.9.14",
     "eslint": "^9.39.4",
+    "flag-icons": "^7.5.0",
     "http-server": "^14.1.1",
     "husky": "^9.1.7",
     "jasmine-axe": "^1.1.0",

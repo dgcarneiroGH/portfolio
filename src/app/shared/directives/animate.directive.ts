@@ -2,6 +2,8 @@ import {
   AfterViewInit,
   Directive,
   ElementRef,
+  Injector,
+  afterNextRender,
   inject,
   Input,
   Renderer2
@@ -17,6 +19,7 @@ export class AnimateDirective implements AfterViewInit {
   private readonly el = inject(ElementRef<HTMLElement>);
   private readonly renderer = inject(Renderer2);
   private readonly translate = inject(TranslateService);
+  private readonly injector = inject(Injector);
 
   @Input('appAnimate') animationDelay!: number;
   @Input() translationKey!: string;
@@ -25,14 +28,21 @@ export class AnimateDirective implements AfterViewInit {
     const element = this.el.nativeElement;
     if (!element) return;
 
-    if (this._prefersReducedMotion()) {
-      this.translate.get(this.translationKey!).subscribe((text) => {
-        if (text) element.textContent = text;
-      });
-      return;
-    }
+    // Difiere la animación al siguiente render para no bloquear el primer
+    // paint (mejora FCP/LCP).
+    afterNextRender(
+      () => {
+        if (this._prefersReducedMotion()) {
+          this.translate.get(this.translationKey!).subscribe((text) => {
+            if (text) element.textContent = text;
+          });
+          return;
+        }
 
-    this._initializeText(element);
+        this._initializeText(element);
+      },
+      { injector: this.injector }
+    );
   }
 
   private _initializeText(element: HTMLElement): void {

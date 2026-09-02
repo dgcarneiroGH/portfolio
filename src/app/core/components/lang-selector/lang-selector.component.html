@@ -18,17 +18,27 @@
     type="button"
   >
     <div class="selected-language">
-      <span class="fi" [class]="currentLanguage()?.icon"></span>
+      <img
+        class="flag-icon"
+        [src]="'assets/images/flags/' + currentLanguage()?.flag + '.avif'"
+        width="24"
+        height="18"
+        alt=""
+      />
       {{ currentLanguage()?.label }}
     </div>
     @if (showOptions()) {
       <img
         src="assets/images/icons/material-icons/arrow_up.svg"
+        width="24"
+        height="24"
         [alt]="'COMMON.COLLAPSE_MENU' | translate"
       />
     } @else {
       <img
         src="assets/images/icons/material-icons/arrow_down.svg"
+        width="24"
+        height="24"
         [alt]="'COMMON.EXPAND_MENU' | translate"
       />
     }
@@ -53,7 +63,13 @@
         [attr.aria-label]="lang.label"
         role="option"
       >
-        <span class="fi" [class]="lang.icon"></span>
+        <img
+          class="flag-icon"
+          [src]="'assets/images/flags/' + lang.flag + '.avif'"
+          width="24"
+          height="18"
+          alt=""
+        />
         {{ lang.label }}
       </li>
     }

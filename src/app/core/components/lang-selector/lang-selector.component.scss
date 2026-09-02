@@ -20,6 +20,12 @@
     font-size: 1rem;
   }
 
+  .flag-icon {
+    display: inline-block;
+    vertical-align: -0.2em;
+    border-radius: 0.15em;
+  }
+
   .container-header:hover,
   .container-header.active {
     opacity: 0.5;

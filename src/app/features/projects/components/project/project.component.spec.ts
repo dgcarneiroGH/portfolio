@@ -67,9 +67,8 @@ describe('ProjectComponent', () => {
       expect(parseFloat(delay)).toBeLessThanOrEqual(5);
     });
 
-    it('should initialize with null palette and dominant color', () => {
+    it('should initialize with null palette', () => {
       expect(component.palette()).toBeNull();
-      expect(component.dominantColor).toBeNull();
     });
   });
 
@@ -100,21 +99,13 @@ describe('ProjectComponent', () => {
       });
 
       it('should return empty string when palette has only one color', () => {
-        // Mock Color objects with hex() method
-        const mockColor = {
-          hex: jasmine.createSpy().and.returnValue('#ff0000')
-        };
-        component.palette.set([mockColor as any]);
+        component.palette.set(['#ff0000'] as any);
 
         expect(component.dynamicGradient()).toBe('');
       });
 
       it('should return gradient string when palette has two colors', () => {
-        const mockColors = [
-          { hex: jasmine.createSpy().and.returnValue('#ff0000') },
-          { hex: jasmine.createSpy().and.returnValue('#00ff00') }
-        ];
-        component.palette.set(mockColors as any);
+        component.palette.set(['#ff0000', '#00ff00']);
 
         const gradient = component.dynamicGradient();
         expect(gradient).toContain('linear-gradient(135deg, #ff0000, #00ff00)');
@@ -127,11 +118,7 @@ describe('ProjectComponent', () => {
       });
 
       it('should return second color when palette exists', () => {
-        const mockColors = [
-          { hex: jasmine.createSpy().and.returnValue('#ff0000') },
-          { hex: jasmine.createSpy().and.returnValue('#00ff00') }
-        ];
-        component.palette.set(mockColors as any);
+        component.palette.set(['#ff0000', '#00ff00']);
 
         expect(component.btnColor()).toBe('#00ff00');
       });
@@ -267,19 +254,6 @@ describe('ProjectComponent', () => {
         component.handleMoreInfoClick();
 
         expect(component.toggleMoreInfo).not.toHaveBeenCalled();
-      });
-    });
-
-    describe('onImageLoad', () => {
-      it('should set dominantColor and palette from image', () => {
-        // Test that the method exists and can be called
-        const mockImg = document.createElement('img');
-
-        const spy = spyOn(component, 'onImageLoad').and.stub();
-
-        component.onImageLoad(mockImg);
-
-        expect(spy).toHaveBeenCalledWith(mockImg);
       });
     });
   });
