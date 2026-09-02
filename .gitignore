@@ -52,3 +52,7 @@ Thumbs.db
 
 # Local Netlify folder
 .netlify
+
+# Generated Lighthouse / axe-core reports
+lth-perf.json
+a11y-report_*.json
