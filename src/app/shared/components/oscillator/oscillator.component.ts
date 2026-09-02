@@ -198,7 +198,13 @@ export class OscillatorComponent implements AfterViewInit, OnDestroy {
   };
 
   private _loop = () => {
-    if (!this._running()) return;
+    if (!this._running()) {
+      // Al pausar hay que limpiar el ID: si queda el ID de un frame ya
+      // consumido, la reanudación del observer (`!this._animationFrameId`)
+      // nunca vuelve a disparar el bucle.
+      this._animationFrameId = undefined;
+      return;
+    }
 
     const ctx = this._ctx;
     ctx.globalCompositeOperation = 'source-over';
