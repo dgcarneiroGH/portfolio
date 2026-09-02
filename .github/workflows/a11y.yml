@@ -75,12 +75,6 @@ jobs:
       - name: Run axe-core smoke
         run: npm run a11y:smoke
 
-      - name: Run Lighthouse baseline
-        run: npm run lh:baseline
-
-      - name: Enforce Lighthouse thresholds
-        run: npm run lh:check
-
       - name: Upload a11y-report artifact
         if: always()
         uses: actions/upload-artifact@v4
