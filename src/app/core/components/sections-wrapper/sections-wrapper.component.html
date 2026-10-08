@@ -19,7 +19,7 @@
     />
   </div>
 
-  <div class="slider-wrapper">
+  <div class="slider-wrapper" id="contacto" tabindex="-1">
     @if (activeSlide() === 0) {
       <app-contact [navigate]="() => goToSlide(1)"></app-contact>
     } @else if (activeSlide() === 1) {
@@ -27,24 +27,4 @@
     }
   </div>
 
-  <a id="blog" class="blog-btn" routerLink="/blog">
-    <img
-      src="assets/images/icons/blog_signal.avif"
-      width="598"
-      height="682"
-      [alt]="'COMMON.NAV_BLOG' | translate"
-    />
-  </a>
-
-  <footer>
-    <span>Crafted by Nomacoda ©{{ actualYear() }}. Inspired by nature</span>
-    <img
-      src="assets/images/icons/tree.svg"
-      width="20"
-      height="20"
-      style="vertical-align: middle; margin-left: 0.3em"
-      alt=""
-      loading="lazy"
-    />
-  </footer>
 </div>

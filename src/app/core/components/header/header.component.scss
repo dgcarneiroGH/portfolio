@@ -1,0 +1,245 @@
+@use "/src/styles/palette" as palette;
+@use "/src/styles/fonts" as fonts;
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 4;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 48px;
+  background: rgba(palette.$azure-deep, 0.7);
+  border-bottom: 1px solid rgba(palette.$azure-border, 0.4);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+// #region Brand
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 4px;
+  border-radius: 12px;
+}
+
+.brand-logo {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  padding: 1.5px;
+  background: linear-gradient(
+    135deg,
+    palette.$green-soft 0%,
+    palette.$accent-sky 50%,
+    palette.$background-gradient-end 100%
+  );
+  border-radius: 12px;
+  box-shadow:
+    0 4px 6px -4px rgba(palette.$accent-cyan, 0.2),
+    0 10px 15px -3px rgba(palette.$accent-cyan, 0.2);
+  display: flex;
+}
+
+.brand-logo-inner {
+  flex: 1 1 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: palette.$surface-brand;
+  border-radius: 10px;
+  color: palette.$green-soft;
+  font-family: fonts.$mono;
+  font-size: 14px;
+  font-weight: 900;
+  line-height: 20px;
+  letter-spacing: 0.7px;
+  text-align: center;
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.brand-name {
+  color: palette.$text-primary;
+  font-family: fonts.$heading;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 28px;
+}
+
+.brand-subtitle {
+  color: palette.$text-secondary;
+  font-family: fonts.$mono;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 15px;
+  letter-spacing: 0.5px;
+}
+// #endregion
+
+// #region Nav
+.header-nav {
+  ul {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  a {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+  }
+
+  .nav-index {
+    color: palette.$accent-blue;
+    font-family: fonts.$mono;
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 16px;
+  }
+
+  .nav-label {
+    color: palette.$text-secondary;
+    font-family: fonts.$mono;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 16px;
+    letter-spacing: 0.3px;
+    transition: color 0.2s ease;
+  }
+
+  a:hover .nav-label,
+  a:focus-visible .nav-label {
+    color: palette.$text-primary;
+  }
+}
+// #endregion
+
+// #region Actions
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.status-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  background: rgba(palette.$surface-pill, 0.8);
+  box-shadow: 0 2px 4px 1px rgba(0, 0, 0, 0.05) inset;
+  border-radius: 9999px;
+  outline: 1px solid rgba(palette.$green-soft, 0.25);
+  outline-offset: -1px;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    outline-color 0.2s ease;
+
+  &:hover {
+    background: rgba(palette.$azure-border, 0.45);
+  }
+
+  &.status-pill--unavailable {
+    outline-color: rgba(palette.$text-red, 0.3);
+
+    .status-dot {
+      background: palette.$text-red;
+      box-shadow: 0 0 6px 1px rgba(palette.$text-red, 0.4);
+    }
+
+    .status-text {
+      color: palette.$text-red;
+    }
+  }
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  background: palette.$accent-green;
+  border-radius: 9999px;
+  box-shadow: 0 0 6px 1px rgba(palette.$accent-green, 0.4);
+}
+
+.status-text {
+  color: palette.$green-soft;
+  font-family: fonts.$mono;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 16px;
+}
+// #endregion
+
+// #region Lang selector integration
+.header-lang {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  background: palette.$surface-pill;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  border-radius: 9999px;
+  outline: 1px solid rgba(palette.$green-soft, 0.3);
+  outline-offset: -1px;
+  transition:
+    background 0.2s ease,
+    outline-color 0.2s ease,
+    box-shadow 0.2s ease;
+
+  &:hover {
+    background: rgba(palette.$azure-border, 0.45);
+  }
+
+  &:has(.container-header.active) {
+    background: rgba(palette.$azure-border, 0.6);
+    outline-color: rgba(palette.$green-soft, 0.55);
+    box-shadow:
+      0 1px 2px rgba(0, 0, 0, 0.05),
+      0 0 10px 1px rgba(palette.$accent-green, 0.25);
+  }
+}
+// #endregion
+
+// #region Responsive
+@media screen and (max-width: 1280px) {
+  .header {
+    padding: 16px 24px 16px 64px;
+  }
+
+  .header-nav ul {
+    gap: 20px;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .header-nav {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .brand-subtitle {
+    display: none;
+  }
+
+  .status-pill {
+    display: none;
+  }
+}
+
+// #endregion

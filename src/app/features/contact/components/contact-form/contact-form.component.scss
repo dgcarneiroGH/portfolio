@@ -1,4 +1,5 @@
 @use "/src/styles/palette" as palette;
+@use "/src/styles/fonts" as fonts;
 @use "sass:color";
 
 form {
@@ -10,7 +11,7 @@ form {
 }
 
 label {
-  font-family: 'Inter', sans-serif;
+  font-family: fonts.$body;
   font-size: 0.875rem;
   color: palette.$text-primary;
 }
@@ -36,7 +37,7 @@ input,
 textarea {
   width: 100%;
   padding: 1rem;
-  font-family: 'Inter', sans-serif;
+  font-family: fonts.$body;
   font-size: 0.9375rem;
   color: palette.$text-primary;
   background: rgba(palette.$text-primary, 0.05); // Pure white is better for glassmorphism glare, but if strict, use palette.$text-primary
@@ -82,7 +83,7 @@ textarea {
   display: flex;
   align-items: center;
   gap: 0.375rem;
-  font-family: 'Inter', sans-serif;
+  font-family: fonts.$body;
   font-size: 0.75rem;
   color: palette.$text-red;
   animation: slideDown 0.2s ease;
@@ -106,7 +107,7 @@ textarea {
 }
 
 .form-error {
-  font-family: 'Inter', sans-serif;
+  font-family: fonts.$body;
   font-size: 0.8125rem;
   color: palette.$text-red;
   text-align: center;
@@ -120,7 +121,7 @@ textarea {
   gap: 0.5rem;
   width: 100%;
   padding: 1rem;
-  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  font-family: fonts.$heading;
   font-size: 0.9375rem;
   font-weight: 700;
   color: palette.$background-gradient-start;
@@ -194,7 +195,7 @@ textarea {
 }
 
 .success-title {
-  font-family: 'Inter', sans-serif;
+  font-family: fonts.$body;
   font-size: 1.25rem;
   font-weight: 700;
   color: palette.$text-primary;

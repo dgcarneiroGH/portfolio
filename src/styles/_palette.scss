@@ -3,6 +3,13 @@ $background-gradient-start: #0f3254;
 $background-gradient-end: #115f51;
 $surface-sidebar: #f6f8fa;
 
+// Surfaces & overlays (header/footer)
+$azure-deep: #000f21;
+$azure-border: #143658;
+$surface-pill: #081a2c;
+$surface-brand: #001429;
+$green-soft: #8ed4c2;
+
 // Text
 $text-primary: #f0f4f8;
 $text-secondary: #a0bbd8;
@@ -13,8 +20,38 @@ $accent-yellow: #ffa726;
 $accent-blue: #29b6f6;
 $accent-green:#2ecc71;
 
+// Accents extended
+$accent-cyan: #06b6d2;
+$accent-sky: #00a9e8;
+$accent-blue-light: #90caf9;
+$focus-blue: #005fcc;
+
+// Blog button (ámbar/marrón)
+$amber-glow: #ffb961;
+$amber-outline: #784a00;
+$amber-text: #fcd34d;
+$amber-dot: #fbbf24;
+$brown-btn-start: #2c1a0e;
+$brown-btn-mid: #462c16;
+$brown-btn-end: #201308;
+
+// Accessible messages (fondo suave + texto de alto contraste)
+$accessible-success: $accent-green;
+$accessible-error: $text-red;
+$accessible-warning: $accent-yellow;
+$accessible-info: $accent-blue;
+$msg-success-bg: #28a745;
+$msg-error-bg: #dc3545;
+$msg-warning-bg: #ffc107;
+$msg-info-bg: #17a2b8;
+$msg-warning-text: #856404;
+$msg-info-text: #0c5460;
+
+// Neutrals
+$neutral-900: #1c1c1c;
+
 // High contrast alternatives
 $accent-green-high: #1e8449;
 $accent-yellow-high: #e67e22;
-$text-red-high: #d32f2f;        // WCAG AAA alternative for high-contrast mode
+$text-red-high: #d32f2f;
 $accent-blue-high: #1a5276;

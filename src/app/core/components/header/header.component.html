@@ -1,0 +1,58 @@
+<header class="header">
+  <div class="brand">
+    <div class="brand-logo" aria-hidden="true">
+      <span class="brand-logo-inner">NC</span>
+    </div>
+    <div class="brand-text">
+      <span class="brand-name">NOMACODA</span>
+      <span class="brand-subtitle">{{ 'HEADER.BRAND_SUBTITLE' | translate }}</span>
+    </div>
+  </div>
+
+  <nav
+    class="header-nav"
+    [attr.aria-label]="'HEADER.NAV_ARIA' | translate"
+  >
+    <ul>
+      <li>
+        <a href="#sobre-mi">
+          <span class="nav-index" aria-hidden="true">01.</span>
+          <span class="nav-label">{{ 'HEADER.NAV_ABOUT' | translate }}</span>
+        </a>
+      </li>
+      <li>
+        <a href="#casos-exito">
+          <span class="nav-index" aria-hidden="true">02.</span>
+          <span class="nav-label">{{ 'HEADER.NAV_CASES' | translate }}</span>
+        </a>
+      </li>
+      <li>
+        <a href="#opiniones">
+          <span class="nav-index" aria-hidden="true">03.</span>
+          <span class="nav-label">{{ 'HEADER.NAV_REVIEWS' | translate }}</span>
+        </a>
+      </li>
+      <li>
+        <a href="#contacto">
+          <span class="nav-index" aria-hidden="true">04.</span>
+          <span class="nav-label">{{ 'HEADER.NAV_CONTACT' | translate }}</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="header-actions">
+    <a
+      class="status-pill"
+      [class.status-pill--unavailable]="!isAvailable()"
+      href="#contacto"
+      [attr.aria-label]="(statusKey() | translate) + ' — ' + ('HEADER.STATUS_LINK_ARIA' | translate)"
+    >
+      <span class="status-dot" aria-hidden="true"></span>
+      <span class="status-text">{{ statusKey() | translate }}</span>
+    </a>
+    <div class="header-lang">
+      <app-lang-selector />
+    </div>
+  </div>
+</header>

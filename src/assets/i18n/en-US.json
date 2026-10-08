@@ -1,6 +1,9 @@
 {
   "COMMON": {
     "NAV_BLOG": "Go to blog",
+    "NAV_PORTFOLIO": "Go to portfolio",
+    "BLOG_BTN": "BLOG",
+    "PORTFOLIO_BTN": "PORTFOLIO",
     "NAV_HOME": "Go to home",
     "EXPAND_MENU": "Expand language menu",
     "COLLAPSE_MENU": "Collapse language menu",
@@ -31,6 +34,17 @@
     "REVIEW_MESSAGE_PLACEHOLDER": "Write your review...",
     "SUBMIT_BUTTON": "Send",
     "SUBMIT_LOADING": "Sending..."
+  },
+  "HEADER": {
+    "STATUS_AVAILABLE": "Available",
+    "STATUS_UNAVAILABLE": "Not available",
+    "STATUS_LINK_ARIA": "Go to the contact section",
+    "NAV_ARIA": "Main navigation",
+    "NAV_ABOUT": "About me",
+    "NAV_CASES": "Success stories",
+    "NAV_REVIEWS": "Reviews",
+    "NAV_CONTACT": "Contact",
+    "BRAND_SUBTITLE": "FRONT-END | N8N DEVELOPER & DAW TEACHER"
   },
   "HOME": {
     "HELLO": "Hello, I'm Nomacoda",
@@ -104,7 +118,7 @@
     "TITLE": "Blog",
     "FILTER": {
       "FILTER_GROUP": "Filter articles by category",
-    "ALL": "All",
+      "ALL": "All",
       "CODER4CHANGE": "Coders4Change",
       "MINDFUL_CODE": "Mindful Code",
       "N8N_WORKFLOW": "N8N Workflows",

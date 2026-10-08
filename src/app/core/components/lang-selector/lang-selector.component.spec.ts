@@ -379,6 +379,14 @@ describe('LangSelectorComponent', () => {
       const btn = fixture.debugElement.query(By.css('button'));
       expect(btn).toBeTruthy();
     });
+
+    it('should wrap the selected language text in a .lang-label span', () => {
+      const label = fixture.nativeElement.querySelector(
+        '.selected-language .lang-label'
+      ) as HTMLElement | null;
+      expect(label).toBeTruthy();
+      expect(label?.textContent?.trim()).toBe('ESP');
+    });
   });
 
   describe('ARIA pattern (WAI-ARIA listbox)', () => {

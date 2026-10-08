@@ -30,7 +30,7 @@ app-reviews-form {
   &:hover {
     .campfire-fire {
       transform: scaleY(1.2);
-      filter: url("#heat-wave") drop-shadow(0 0 22px rgba(255, 167, 38, 0.95));
+      filter: url("#heat-wave") drop-shadow(0 0 22px rgba(palette.$accent-yellow, 0.95));
     }
   }
 
@@ -41,7 +41,7 @@ app-reviews-form {
     transition:
       transform 2s ease,
       filter 0.3s ease;
-    filter: url("#heat-wave") drop-shadow(0 0 12px rgba(255, 167, 38, 0.6));
+    filter: url("#heat-wave") drop-shadow(0 0 12px rgba(palette.$accent-yellow, 0.6));
   }
 
   .campfire-character {

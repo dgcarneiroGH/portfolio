@@ -41,7 +41,7 @@ describe('AppComponent', () => {
         AppComponent,
         `
 <a class="skip-link" href="#blog" [attr.aria-label]="'COMMON.SKIP_TO_BLOG' | translate">{{ 'COMMON.SKIP_TO_BLOG' | translate }}</a>
-<header class="header"><app-lang-selector></app-lang-selector></header>
+<app-header />
 <app-sidebar />
 <main id="main-content" class="inner-body">
   <router-outlet #outlet="outlet"></router-outlet>

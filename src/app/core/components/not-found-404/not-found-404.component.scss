@@ -1,3 +1,5 @@
+@use "/src/styles/palette" as palette;
+
 .error-container {
   position: fixed;
   top: 0;
@@ -7,7 +9,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #1c1c1c;
+  background-color: palette.$neutral-900;
   z-index: 1;
 }
 

@@ -3,7 +3,8 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { NavigationEnd, NavigationStart, Router, RouterOutlet } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { filter, map, pairwise, startWith } from 'rxjs';
-import { LangSelectorComponent } from './core/components/lang-selector/lang-selector.component';
+import { FooterComponent } from './core/components/footer/footer.component';
+import { HeaderComponent } from './core/components/header/header.component';
 import { SidebarComponent } from './core/components/sidebar/sidebar.component';
 import { LangService } from './core/services/lang.service';
 
@@ -21,9 +22,10 @@ function routeIndex(url: string): number {
   styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
+    HeaderComponent,
+    FooterComponent,
     SidebarComponent,
     RouterOutlet,    
-    LangSelectorComponent,
     TranslateModule
   ],
 })

@@ -1,0 +1,120 @@
+@use "/src/styles/palette" as palette;
+@use "/src/styles/fonts" as fonts;
+
+.footer-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 4;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 48px;
+  background: rgba(palette.$azure-deep, 0.8);
+  border-top: 1px solid rgba(palette.$azure-border, 0.5);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.footer-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.copyright {
+  color: palette.$green-soft;
+  font-family: fonts.$mono;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+}
+
+.separator {
+  color: palette.$azure-border;
+  font-family: fonts.$mono;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+}
+
+.tagline {
+  color: rgba(palette.$text-secondary, 0.8);
+  font-family: fonts.$mono;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+}
+
+.blog-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: linear-gradient(
+    167deg,
+    palette.$brown-btn-start 0%,
+    palette.$brown-btn-mid 50%,
+    palette.$brown-btn-end 100%
+  );
+  box-shadow:
+    0 0 12px rgba(palette.$amber-glow, 0.25),
+    0 6px 18px rgba(0, 0, 0, 0.6);
+  border-radius: 6px;
+  outline: 1px solid palette.$amber-outline;
+  outline-offset: -1px;
+  text-decoration: none;
+  transition: filter 0.2s ease;
+
+  &:hover,
+  &:focus-visible {
+    filter: brightness(1.12);
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 1px;
+    border-radius: inherit;
+    background: repeating-linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0) 0 12%,
+      rgba(0, 0, 0, 0.15) 12% 13%
+    );
+    pointer-events: none;
+  }
+}
+
+.blog-btn-dot {
+  width: 8px;
+  height: 8px;
+  background: palette.$amber-dot;
+  border-radius: 9999px;
+}
+
+.blog-btn-label {
+  color: palette.$amber-text;
+  font-family: fonts.$mono;
+  font-size: 14px;
+  font-weight: 900;
+  line-height: 20px;
+  letter-spacing: 1.4px;
+  white-space: nowrap;
+}
+
+//#region Responsive
+@media screen and (max-width: 1280px) {
+  .footer-bar {
+    padding: 16px 24px 16px 64px;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .separator,
+  .tagline {
+    display: none;
+  }
+}
+//#endregion

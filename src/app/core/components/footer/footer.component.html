@@ -1,0 +1,25 @@
+<footer class="footer-bar">
+  <div class="footer-meta">
+    <span class="copyright">&copy; {{ actualYear }} Nomacoda</span>
+    <span class="separator" aria-hidden="true">&bull;</span>
+    <span class="tagline">Crafted by Nomacoda, inspired by nature</span>
+  </div>
+
+  <a
+    id="blog"
+    class="blog-btn"
+    [routerLink]="isBlogRoute() ? '/' : '/blog'"
+    [attr.aria-label]="
+      isBlogRoute()
+        ? ('COMMON.NAV_PORTFOLIO' | translate)
+        : ('COMMON.NAV_BLOG' | translate)
+    "
+  >
+    <span class="blog-btn-dot" aria-hidden="true"></span>
+    <span class="blog-btn-label">{{
+      isBlogRoute()
+        ? ('COMMON.PORTFOLIO_BTN' | translate)
+        : ('COMMON.BLOG_BTN' | translate)
+    }}</span>
+  </a>
+</footer>

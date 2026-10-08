@@ -1,6 +1,9 @@
 {
   "COMMON": {
     "NAV_BLOG": "Ir al blog",
+    "NAV_PORTFOLIO": "Ir al portafolio",
+    "BLOG_BTN": "BLOG",
+    "PORTFOLIO_BTN": "PORTAFOLIO",
     "NAV_HOME": "Ir al inicio",
     "EXPAND_MENU": "Expandir menú de idiomas",
     "COLLAPSE_MENU": "Contraer menú de idiomas",
@@ -31,6 +34,17 @@
     "REVIEW_MESSAGE_PLACEHOLDER": "Escribe tu reseña...",
     "SUBMIT_BUTTON": "Enviar",
     "SUBMIT_LOADING": "Enviando..."
+  },
+  "HEADER": {
+    "STATUS_AVAILABLE": "Disponible",
+    "STATUS_UNAVAILABLE": "No disponible",
+    "STATUS_LINK_ARIA": "Ir a la sección de contacto",
+    "NAV_ARIA": "Navegación principal",
+    "NAV_ABOUT": "Sobre mí",
+    "NAV_CASES": "Casos de éxito",
+    "NAV_REVIEWS": "Opiniones",
+    "NAV_CONTACT": "Contacto",
+    "BRAND_SUBTITLE": "FRONT-END | DESARROLLADOR N8N Y PROFESOR DAW"
   },
   "HOME": {
     "HELLO": "Hola, soy Nomacoda",
