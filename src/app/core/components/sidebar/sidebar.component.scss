@@ -1,104 +1,261 @@
-.sidebar {
+@use "/src/styles/palette" as palette;
+
+.dock {
   position: fixed;
   left: 0;
-  top: 0;
-  width: 3rem;
-  height: 100vh;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 5;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-
-  z-index: 5;
+  padding: 8px;
+  background: rgba(palette.$surface-dock, 0.75);
+  box-shadow:
+    inset 0 1px 1px 1px rgba(255, 255, 255, 0.08),
+    0 12px 40px rgba(palette.$surface-dock, 0.6);
+  border-radius: 16px;
+  outline: 1px solid rgba(palette.$accent-blue, 0.2);
+  outline-offset: -1px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
-.waves-container {
-  position: fixed;
-  top: 0;
-  height: 100vh;
-  width: 7rem;
-  overflow: hidden;
-  z-index: -1;
+.dock__toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background: rgba(palette.$cyan-glow, 0.1);
+  }
+
+  // Mismo anillo explícito que los items: el glow de :hover no pisa el foco visible
+  &:focus-visible {
+    box-shadow:
+      0 0 0 2px palette.$background-gradient-start,
+      0 0 0 4px palette.$accent-blue;
+  }
 }
 
-.waves {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) rotate(90deg);
-  width: 110vh;
-  height: 15%;
+// Celda apilada: píldora y "+" ocupan la misma zona y se morfean entre sí
+.dock__glyph {
+  display: grid;
+  place-items: center;
 }
 
-.sidebar-content {
-  ul {
-    display: flex;
-    flex-direction: column;
-    margin: 0;
-    margin-top: 1rem;
-    padding: 0;
-    list-style: none;
+// Easing de muelle: overshoot suave → sensación orgánica
+$ease-organic: cubic-bezier(0.34, 1.56, 0.64, 1);
+$morph-duration: 0.45s;
 
+.dock__pill,
+.dock__plus {
+  grid-area: 1 / 1;
+  transition:
+    opacity $morph-duration $ease-organic,
+    transform $morph-duration $ease-organic,
+    visibility 0s linear 0s;
+}
+
+// Abierto: píldora vertical (indicador de agarre)
+.dock__pill {
+  width: 4px;
+  height: 12px;
+  border-radius: 9999px;
+  background: palette.$cyan-glow;
+  box-shadow: 0 0 8px rgba(palette.$cyan-glow, 0.8);
+}
+
+// Cerrado: cruz "+" dibujada con dos barras
+.dock__plus {
+  position: relative;
+  width: 16px;
+  height: 16px;
+  opacity: 0;
+  transform: scale(0.3) rotate(-135deg);
+  visibility: hidden;
+  
+  transition:
+    opacity $morph-duration $ease-organic,
+    transform $morph-duration $ease-organic,
+    visibility 0s linear $morph-duration;
+
+  &::before,
+  &::after {
+    content: '';
     position: absolute;
-    top: 0;
-
-    li {
-      margin: 10px 0;
-    }
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    border-radius: 9999px;
+    background: palette.$cyan-glow;
+    box-shadow: 0 0 8px rgba(palette.$cyan-glow, 0.8);
   }
 
-  img {
-    width: 1.5rem;
-    cursor: pointer;
-    transition: transform 0.2s;
+  &::before {
+    width: 16px;
+    height: 2px;
   }
 
-  img:hover {
-    transform: scale(1.5);
-  }
-}
-
-.parallax > use {
-  animation: move-forever 25s cubic-bezier(0.55, 0.5, 0.45, 0.5) infinite;
-}
-
-.parallax > use:nth-child(1) {
-  animation-delay: -2s;
-  animation-duration: 7s;
-}
-
-.parallax > use:nth-child(2) {
-  animation-delay: -3s;
-  animation-duration: 10s;
-}
-
-.parallax > use:nth-child(3) {
-  animation-delay: -4s;
-  animation-duration: 13s;
-}
-
-.parallax > use:nth-child(4) {
-  animation-delay: -5s;
-  animation-duration: 20s;
-}
-
-@keyframes move-forever {
-  0% {
-    transform: translate3d(-90px, 0, 0);
-  }
-  100% {
-    transform: translate3d(85px, 0, 0);
+  &::after {
+    width: 2px;
+    height: 16px;
   }
 }
 
-//#region Responsive
-@media screen and (max-width: 720px) {
-  .waves {
-    height: 10%;
+.dock--closed {
+  .dock__pill {
+    opacity: 0;
+    transform: scale(0.3) rotate(90deg);
+    visibility: hidden;
+    transition:
+      opacity $morph-duration $ease-organic,
+      transform $morph-duration $ease-organic,
+      visibility 0s linear $morph-duration;
   }
 
-  .sidebar-content ul {
-    left: 1rem;
+  .dock__plus {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+    visibility: visible;
+    transition:
+      opacity $morph-duration $ease-organic,
+      transform $morph-duration $ease-organic,
+      visibility 0s linear 0s;
   }
 }
-//#endregion
+
+.dock__panel {
+  display: grid;
+  grid-template-rows: 1fr;
+  transition: grid-template-rows 0.35s ease;
+}
+
+.dock__panel-inner {
+  min-height: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-items: center;
+  visibility: visible;
+  opacity: 1;
+  transition:
+    opacity 0.35s ease,
+    visibility 0s linear 0s;
+}
+
+.dock--closed {
+  .dock__panel {
+    grid-template-rows: 0fr;
+  }
+
+  .dock__panel-inner {
+    visibility: hidden;
+    opacity: 0;
+    // visibility se oculta al terminar la transición (no antes)
+    transition:
+      opacity 0.35s ease,
+      visibility 0s linear 0.35s;
+  }
+}
+
+.dock__list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dock__item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  color: var(--dock-icon);
+  transition:
+    background-color 0.2s ease,
+    box-shadow 0.2s ease;
+
+  &:hover {
+    background: color-mix(in srgb, var(--dock-icon) 15%, transparent);
+    box-shadow: 0 0 12px color-mix(in srgb, var(--dock-icon) 35%, transparent);
+  }
+
+  // Ring explícito: evita que el glow de :hover pise el foco visible global
+  &:focus-visible {
+    box-shadow:
+      0 0 0 2px palette.$background-gradient-start,
+      0 0 0 4px palette.$accent-blue;
+  }
+}
+
+.dock__item--linkedin {
+  --dock-icon: #{palette.$accent-azure};
+}
+
+.dock__item--instagram {
+  --dock-icon: #{palette.$accent-rose};
+}
+
+.dock__item--github {
+  --dock-icon: #{palette.$neutral-100};
+}
+
+.dock__item--cv {
+  --dock-icon: #{palette.$accent-red-soft};
+}
+
+.dock__item--email {
+  --dock-icon: #{palette.$amber-glow};
+}
+
+.dock__item--whatsapp {
+  --dock-icon: #{palette.$accent-green};
+}
+
+.dock__icon {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+.dock__status {
+  padding-top: 4px;
+}
+
+// Mismo color cian que la píldora superior
+.dock__status-dot {
+  display: block;
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  background: palette.$cyan-glow;
+  box-shadow: 0 0 8px rgba(palette.$cyan-glow, 0.8);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dock__toggle,
+  .dock__panel,
+  .dock__panel-inner,
+  .dock__pill,
+  .dock__plus,
+  .dock--closed .dock__pill,
+  .dock--closed .dock__plus,
+  .dock--closed .dock__panel-inner {
+    transition: none;
+  }
+}

@@ -10,6 +10,8 @@
     "LANGUAGE_SELECTOR": "Language selector",
     "LOADING": "Loading...",
     "SOCIAL_NAV": "Social media and contact",
+    "DOCK_OPEN": "Expand social media panel",
+    "DOCK_CLOSE": "Collapse social media panel",
     "AVAILABLE_LANGUAGES": "Available languages",
     "SKIP_TO_MAIN": "Skip to main content",
     "SKIP_TO_BLOG": "Skip to blog",
