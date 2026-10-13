@@ -5,11 +5,20 @@ export const routes: Routes = [
     path: '',
     loadComponent: () =>
       import(
-        './core/components/sections-wrapper/sections-wrapper.component'
-      ).then((m) => m.SectionsWrapperComponent),
+        './features/home/components/home.component'
+      ).then((m) => m.HomeComponent),
     data: { animation: 'Home', titleKey: 'ROUTE.PORTFOLIO' },
     pathMatch: 'full'
   },
+  // {
+  //   path: '',
+  //   loadComponent: () =>
+  //     import(
+  //       './core/components/sections-wrapper/sections-wrapper.component'
+  //     ).then((m) => m.SectionsWrapperComponent),
+  //   data: { animation: 'Home', titleKey: 'ROUTE.PORTFOLIO' },
+  //   pathMatch: 'full'
+  // },
   {
     path: 'blog',
     loadComponent: () =>

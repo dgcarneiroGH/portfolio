@@ -51,7 +51,22 @@
   "HOME": {
     "HELLO": "Hello, I'm Nomacoda",
     "DESCRIPTION": "Passionate about <br>Front-end development <br>and web design.",
-    "NOMACODA_LOGO": "Nomacoda - Portfolio logo"
+    "NOMACODA_LOGO": "Nomacoda - Portfolio logo",
+    "TITLE": "Passionate about",
+    "TITLE_HIGHLIGHT": "building solutions",
+    "SUBTITLE": "that scale without friction.",
+    "PARAGRAPH": "<span lang=\"en\">Frontend</span> developer specialized in <span lang=\"en\">Angular</span>, designer of automation architectures with <strong><span lang=\"en\">N8N</span></strong> and specialized tutoring to successfully pass the <strong>DAW</strong> or <strong>DAM</strong> Final Degree Project.",
+    "SKILLS_LABEL": "Skills",
+    "SKILLS": {
+      "ANGULAR": "Angular",
+      "N8N": "<span lang=\"en\">N8N Automations</span>",
+      "TYPESCRIPT": "<span lang=\"en\">TypeScript</span>",
+      "NODE": "<span lang=\"en\">Node / APIs</span>",
+      "DAW": "DAW Tutoring"
+    },
+    "CTA_CONTACT": "Start a Conversation",
+    "CODE_WINDOW_ARIA": "Code window: Nomacoda developer configuration with the Angular specialist and N8N architect profile, compiled successfully",
+    "CHARACTER_ALT": "Nomacoda character meditating with a laptop"
   },
   "ABOUT": {
     "ABOUT_ME": "About me",

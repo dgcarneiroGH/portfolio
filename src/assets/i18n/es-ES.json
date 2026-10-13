@@ -51,7 +51,22 @@
   "HOME": {
     "HELLO": "Hola, soy Nomacoda",
     "DESCRIPTION": "Apasionado del <br>desarrollo Front-end <br>y el diseño web.",
-    "NOMACODA_LOGO": "Nomacoda - Logo del portafolio"
+    "NOMACODA_LOGO": "Nomacoda - Logo del portafolio",
+    "TITLE": "Apasionado del",
+    "TITLE_HIGHLIGHT": "desarrollo de soluciones",
+    "SUBTITLE": "que escalan sin fricción.",
+    "PARAGRAPH": "Desarrollo <span lang=\"en\">frontend</span> especializado en <strong><span lang=\"en\">Angular</span></strong>, diseño de arquitecturas de automatización con <strong><span lang=\"en\">N8N</span></strong> y tutorías para superar con éxito el Proyecto de Fin de Ciclo <strong>DAW</strong> o <strong>DAM</strong>.",
+    "SKILLS_LABEL": "Habilidades",
+    "SKILLS": {
+      "ANGULAR": "Angular",
+      "N8N": "<span lang=\"en\">N8N Automations</span>",
+      "TYPESCRIPT": "<span lang=\"en\">TypeScript</span>",
+      "NODE": "<span lang=\"en\">Node / APIs</span>",
+      "DAW": "Tutoría DAW"
+    },
+    "CTA_CONTACT": "Iniciar Conversación",
+    "CODE_WINDOW_ARIA": "Ventana de código: configuración de desarrollador de Nomacoda con el perfil de especialista Angular y arquitecto N8N, compilado con éxito",
+    "CHARACTER_ALT": "Personaje de Nomacoda meditando con un portátil"
   },
   "ABOUT": {
     "ABOUT_ME": "Sobre mí",
@@ -120,7 +135,7 @@
     "TITLE": "Blog",
     "FILTER": {
       "FILTER_GROUP": "Filtrar artículos por categoría",
-    "ALL": "Todos",
+      "ALL": "Todos",
       "CODER4CHANGE": "Coders4Change",
       "MINDFUL_CODE": "Mindful Code",
       "N8N_WORKFLOW": "Flujos de <span lang=\"en\">N8N</span>",

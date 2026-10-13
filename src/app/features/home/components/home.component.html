@@ -1,69 +1,68 @@
-<section>
-  <div class="section-container">
-    @for (cert of certs(); track cert.name) {
-      <div class="certs-container">
-        <a
-          class="cert-img"
-          [href]="cert.url"
-          target="_blank"
-          [attr.title]="cert.name"
-        >
-          <img [src]="cert.iconSrc" [alt]="cert.name" width="400" height="400" />
+<section class="home">
+  <div class="home-content">
+    <div class="intro">
+      <h1 class="home-title">
+        {{ "HOME.TITLE" | translate }}
+        <span class="home-title-highlight">{{ "HOME.TITLE_HIGHLIGHT" | translate }}</span>
+      </h1>
+      <p class="home-subtitle">{{ "HOME.SUBTITLE" | translate }}</p>
+      <p
+        class="home-description"
+        [innerHTML]="'HOME.PARAGRAPH' | translate"
+      ></p>
+
+      <app-skills class="home-skills" />
+
+      <div class="home-cta">
+        <a class="cta cta--primary" href="#contacto">
+          <svg
+            class="cta-icon"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path
+              d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"
+              fill="currentColor"
+            />
+          </svg>
+          <span>{{ "HOME.CTA_CONTACT" | translate }}</span>
         </a>
       </div>
-    }
+    </div>
 
-    <div class="img-container">
+    <div class="showcase">
+      <app-code-window />
+
       <img
-        id="nomacoda"
-        class="picture nomacoda-img"
+        class="character"
         src="assets/images/nomacoda/nomacoda_full_transparent-768.avif"
         srcset="
           assets/images/nomacoda/nomacoda_full_transparent-512.avif 512w,
           assets/images/nomacoda/nomacoda_full_transparent-768.avif 768w
         "
-        sizes="(max-width: 768px) 90vw, 768px"
+        sizes="(max-width: 768px) 60vw, 320px"
         width="768"
         height="768"
         decoding="async"
-        [alt]="'HOME.NOMACODA_LOGO' | translate"
+        [attr.alt]="'HOME.CHARACTER_ALT' | translate"
       />
-      <img
-        class="background-img"
-        src="assets/images/nomacoda/nomacoda_background-768.avif"
-        srcset="
-          assets/images/nomacoda/nomacoda_background-512.avif 512w,
-          assets/images/nomacoda/nomacoda_background-768.avif 768w
-        "
-        sizes="(max-width: 768px) 90vw, 512px"
-        width="768"
-        height="768"
-        decoding="async"
-        alt=""
-      />
-    </div>
-    <div class="text-container">
-      <p [appAnimate]="3300" translationKey="HOME.HELLO">
-        {{ "HOME.HELLO" | translate }}
-      </p>
-      <h1 [appAnimate]="3300" translationKey="HOME.DESCRIPTION"></h1>
     </div>
   </div>
-</section>
-<app-oscillator initialTargetId="nomacoda" style="top: 0"></app-oscillator>
 
-<img
-  id="mountains"
-  class="mountains"
-  src="assets/images/mountains-1440.avif"
-  srcset="
-    assets/images/mountains-768.avif   768w,
-    assets/images/mountains-1440.avif 1440w
-  "
-  sizes="100vw"
-  width="1440"
-  height="960"
-  alt=""
-  fetchpriority="high"
-  decoding="async"
-/>
+  <img
+    class="home-mountains"
+    src="assets/images/mountains-1440.avif"
+    srcset="
+      assets/images/mountains-768.avif   768w,
+      assets/images/mountains-1440.avif 1440w
+    "
+    sizes="100vw"
+    width="1440"
+    height="960"
+    alt=""
+    fetchpriority="high"
+    decoding="async"
+  />
+</section>

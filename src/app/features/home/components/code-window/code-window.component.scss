@@ -1,0 +1,129 @@
+@use "/src/styles/palette" as palette;
+@use "/src/styles/fonts" as fonts;
+
+:host {
+  display: block;
+  width: 100%;
+  max-width: 560px;
+}
+
+.code-window {
+  width: 100%;
+  background: palette.$surface-brand;
+  border: 1px solid palette.$azure-border;
+  border-radius: 0.75rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  font-family: fonts.$mono;
+  overflow: hidden;
+}
+
+.code-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 0.9rem;
+  border-bottom: 1px solid palette.$azure-border;
+  background: rgba(0, 0, 0, 0.2);
+  font-size: 0.75rem;
+}
+
+.code-dots {
+  display: inline-flex;
+  gap: 0.4rem;
+}
+
+.code-dot {
+  width: 0.65rem;
+  height: 0.65rem;
+  border-radius: 50%;
+
+  &--red {
+    background: palette.$accent-red-soft;
+  }
+
+  &--yellow {
+    background: palette.$accent-yellow;
+  }
+
+  &--green {
+    background: palette.$accent-green;
+  }
+}
+
+.code-title {
+  color: palette.$text-secondary;
+}
+
+.code-prompt {
+  color: palette.$accent-azure;
+}
+
+.code-badge {
+  margin-left: auto;
+  padding: 0.15rem 0.5rem;
+  border: 1px solid palette.$azure-border;
+  border-radius: 0.4rem;
+  background: rgba(palette.$azure-deep, 0.6);
+  color: palette.$accent-azure;
+  font-size: 0.7rem;
+}
+
+.code-body {
+  margin: 0;
+  padding: 0.9rem 1.1rem;
+  font-size: 0.75rem;
+  line-height: 1.55;
+  color: palette.$neutral-100;
+  overflow-x: auto;
+}
+
+.tok-comment {
+  color: palette.$code-comment;
+}
+
+.tok-keyword {
+  color: palette.$code-keyword;
+}
+
+.tok-type {
+  color: palette.$accent-blue-light;
+}
+
+.tok-property {
+  color: palette.$accent-azure;
+}
+
+.tok-string {
+  color: palette.$code-string;
+}
+
+.tok-function {
+  color: palette.$green-soft;
+}
+
+.code-status {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.5rem 1.1rem;
+  border-top: 1px solid palette.$azure-border;
+  font-size: 0.7rem;
+}
+
+.code-status-ok {
+  color: palette.$accent-green;
+}
+
+.code-status-meta {
+  color: palette.$text-secondary;
+  white-space: nowrap;
+}
+
+.code-socket {
+  padding: 0 1.1rem 0.6rem;
+  font-size: 0.7rem;
+  color: palette.$code-comment;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
