@@ -3,7 +3,7 @@
 
   <div class="cave-components">
     <app-about></app-about>
-    <app-projects></app-projects>
+    <!-- <app-projects-old></app-projects-old> -->
     <app-experience></app-experience>
     <img
       class="stalactites"
@@ -19,7 +19,7 @@
     />
   </div>
 
-  <div class="slider-wrapper" id="contacto" tabindex="-1">
+  <div class="slider-wrapper" id="contact" tabindex="-1">
     @if (activeSlide() === 0) {
       <app-contact [navigate]="() => goToSlide(1)"></app-contact>
     } @else if (activeSlide() === 1) {

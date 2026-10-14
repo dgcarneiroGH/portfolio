@@ -24,6 +24,26 @@
   gap: 14px;
   padding: 4px;
   border-radius: 12px;
+  text-decoration: none;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+
+  &:hover .brand-logo {
+    box-shadow:
+      0 4px 6px -4px rgba(palette.$accent-cyan, 0.2),
+      0 10px 15px -3px rgba(palette.$accent-cyan, 0.2),
+      0 0 12px rgba(palette.$accent-yellow, 0.45);
+  }
+
+  &:focus-visible {
+    outline: 2px solid palette.$focus-blue;
+    outline-offset: 2px;
+  }
 }
 
 .brand-logo {
@@ -123,6 +143,14 @@
   a:hover .nav-label,
   a:focus-visible .nav-label {
     color: palette.$text-primary;
+  }
+
+  a.is-active .nav-label {
+    color: palette.$text-primary;
+  }
+
+  a.is-active .nav-index {
+    color: palette.$accent-yellow;
   }
 }
 // #endregion

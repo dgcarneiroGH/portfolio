@@ -1,7 +1,16 @@
-<div
-  class="photo-container"
-  [class]="photoClass()"
-  [style.--animation-delay]="animationDelay()"
-  role="img"
-  [attr.aria-label]="altText()"
-></div>
+<figure
+  class="photo"
+  [class.photo--amber]="accent() === 'amber'"
+  [class.photo--blue]="accent() === 'blue'"
+>
+  <img
+    [src]="src480()"
+    [srcset]="srcset()"
+    sizes="(max-width: 980px) calc(92vw - 5rem), 440px"
+    [alt]="altText()"
+    width="480"
+    height="288"
+    loading="lazy"
+    decoding="async"
+  />
+</figure>

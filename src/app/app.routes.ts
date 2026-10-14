@@ -10,15 +10,38 @@ export const routes: Routes = [
     data: { animation: 'Home', titleKey: 'ROUTE.PORTFOLIO' },
     pathMatch: 'full'
   },
-  // {
-  //   path: '',
-  //   loadComponent: () =>
-  //     import(
-  //       './core/components/sections-wrapper/sections-wrapper.component'
-  //     ).then((m) => m.SectionsWrapperComponent),
-  //   data: { animation: 'Home', titleKey: 'ROUTE.PORTFOLIO' },
-  //   pathMatch: 'full'
-  // },
+  {
+    path: 'about-me',
+    loadComponent: () =>
+      import('./features/about/components/about.component').then(
+        (m) => m.AboutComponent
+      ),
+    data: { animation: 'About', titleKey: 'ROUTE.ABOUT' }
+  },
+  {
+    path: 'reviews',
+    loadComponent: () =>
+      import('./features/reviews/components/reviews.component').then(
+        (m) => m.ReviewsComponent
+      ),
+    data: { animation: 'Reviews', titleKey: 'ROUTE.REVIEWS' }
+  },
+  {
+    path: 'contact',
+    loadComponent: () =>
+      import('./features/contact/components/contact.component').then(
+        (m) => m.ContactComponent
+      ),
+    data: { animation: 'Contact', titleKey: 'ROUTE.CONTACT' }
+  },
+  {
+    path: 'success-cases',
+    loadComponent: () =>
+      import(
+        './features/success-cases/components/success-cases/success-cases.component'
+      ).then((m) => m.SuccessCasesComponent),
+    data: { animation: 'SuccessCases', titleKey: 'ROUTE.SUCCESS_CASES' }
+  },
   {
     path: 'blog',
     loadComponent: () =>

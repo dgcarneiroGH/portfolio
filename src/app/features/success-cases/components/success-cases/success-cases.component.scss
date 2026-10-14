@@ -1,0 +1,57 @@
+@use "src/styles/_palette" as palette;
+
+.success-cases {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: radial-gradient(
+    ellipse 99% 113% at 70% 20%,
+    palette.$background-gradient-end 0%,
+    palette.$surface-brand 40%,
+    palette.$azure-deep 90%
+  );
+  overflow: hidden;
+}
+
+.section-container {
+  width: min(85rem, 100%);
+  padding: 8rem 2rem 6rem;
+  z-index: 1;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  justify-items: center;
+  align-items: start;
+}
+
+.section-header {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  text-align: center;
+  padding-top: 2rem;
+}
+
+.case-card {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+//#region Responsive
+@media screen and (max-width: 1300px) {
+  .section-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 930px) {
+  .section-container {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+//#endregion

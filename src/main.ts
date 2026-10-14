@@ -13,7 +13,13 @@ import {
 } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { bootstrapApplication } from '@angular/platform-browser';
-import { provideRouter, withHashLocation, withViewTransitions, TitleStrategy } from '@angular/router';
+import {
+  provideRouter,
+  withHashLocation,
+  withInMemoryScrolling,
+  withViewTransitions,
+  TitleStrategy
+} from '@angular/router';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AppComponent } from './app/app.component';
@@ -55,7 +61,12 @@ registerLocaleData(localeEn, 'en-US');
 bootstrapApplication(AppComponent, {
   providers: [
     provideZonelessChangeDetection(),
-    provideRouter(routes, withHashLocation(), withViewTransitions()),
+    provideRouter(
+      routes,
+      withHashLocation(),
+      withViewTransitions(),
+      withInMemoryScrolling({ scrollPositionRestoration: 'top' })
+    ),
     provideHttpClient(withInterceptorsFromDi()),
     { provide: TitleStrategy, useClass: A11yTitleStrategy },
     importProvidersFrom(

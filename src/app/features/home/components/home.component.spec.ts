@@ -1,5 +1,6 @@
 import { provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { HomeComponent } from './home.component';
@@ -18,7 +19,7 @@ describe('HomeComponent', () => {
           loader: { provide: TranslateLoader, useValue: mockLoader }
         })
       ],
-      providers: [provideZonelessChangeDetection()]
+      providers: [provideZonelessChangeDetection(), provideRouter([])]
     }).compileComponents();
 
     fixture = TestBed.createComponent(HomeComponent);
@@ -32,18 +33,17 @@ describe('HomeComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should render the primary CTA as a link to the contact section', () => {
+  it('should render the primary CTA as a link to the contact route', () => {
     const compiled = fixture.nativeElement as HTMLElement;
     const cta = compiled.querySelector<HTMLAnchorElement>('a.cta--primary');
 
-    expect(cta?.getAttribute('href')).toBe('#contacto');
+    expect(cta?.getAttribute('href')).toBe('/contact');
   });
 
-  it('should render the secondary CTA as a button without action', () => {
+  it('should not render a secondary CTA (single CTA design)', () => {
     const compiled = fixture.nativeElement as HTMLElement;
-    const cta = compiled.querySelector<HTMLButtonElement>('button.cta--secondary');
 
-    expect(cta).toBeTruthy();
+    expect(compiled.querySelector('button.cta--secondary')).toBe(null);
   });
 
   it('should render the skills section', () => {

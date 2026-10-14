@@ -15,7 +15,7 @@ describe('PhotoComponent', () => {
     fixture = TestBed.createComponent(PhotoComponent);
     component = fixture.componentInstance;
 
-    fixture.componentRef.setInput('imgBase', 'me_1');
+    fixture.componentRef.setInput('imgBase', 'me_reflection');
     fixture.componentRef.setInput('altText', 'Diego Carneiro profile photo');
     fixture.detectChanges();
   });
@@ -28,30 +28,40 @@ describe('PhotoComponent', () => {
     });
   });
 
-  describe('#animationDelay (signal)', () => {
-    it('should set a css-format time string on ngOnInit', () => {
-      // ngOnInit already called via detectChanges
-      expect(component.animationDelay()).toMatch(/^\d+(\.\d+)?s$/);
-    });
-
-    it('should be within a 0-3 second range', () => {
-      const seconds = parseFloat(component.animationDelay());
-      expect(seconds).toBeGreaterThanOrEqual(0);
-      expect(seconds).toBeLessThan(3);
+  describe('srcset', () => {
+    it('should build srcset from imgBase with 480w and 960w variants', () => {
+      expect(component.srcset()).toBe(
+        'assets/images/photos/me_reflection-480.avif 480w, assets/images/photos/me_reflection-960.avif 960w'
+      );
     });
   });
 
-  describe('accessibility — image alt text', () => {
-    it('should render an img element with the provided altText', () => {
+  describe('accessibility — figure semantics', () => {
+    it('should render a figure with an img carrying the provided altText', () => {
       const img = fixture.nativeElement.querySelector(
         'img'
-      ) as HTMLImageElement | null;
-      if (img) {
-        expect(img.alt).toBe('Diego Carneiro profile photo');
-      } else {
-        // Template may use ngSrc (NgOptimizedImage) or other rendering — skip DOM check
-        expect(component).toBeTruthy();
-      }
+      ) as HTMLImageElement;
+      expect(img).toBeTruthy();
+      expect(img.alt).toBe('Diego Carneiro profile photo');
+    });
+  });
+
+  describe('accent variants', () => {
+    it('should default to neutral accent (no amber or blue class)', () => {
+      expect(fixture.nativeElement.querySelector('.photo--amber')).toBe(null);
+      expect(fixture.nativeElement.querySelector('.photo--blue')).toBe(null);
+    });
+
+    it('should apply the amber class when accent is amber', () => {
+      fixture.componentRef.setInput('accent', 'amber');
+      fixture.detectChanges();
+      expect(fixture.nativeElement.querySelector('.photo--amber')).toBeTruthy();
+    });
+
+    it('should apply the blue class when accent is blue', () => {
+      fixture.componentRef.setInput('accent', 'blue');
+      fixture.detectChanges();
+      expect(fixture.nativeElement.querySelector('.photo--blue')).toBeTruthy();
     });
   });
 });

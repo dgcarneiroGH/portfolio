@@ -7,7 +7,7 @@ import { SectionsWrapperComponent } from './sections-wrapper.component';
 import { ExperienceComponent } from '../../../features/experience/components/experience.component';
 import { HomeComponent } from '../../../features/home/components/home.component';
 import { AboutComponent } from '../../../features/about/components/about.component';
-import { ProjectsComponent } from '../../../features/projects/components/projects.component';
+import { ProjectsOldComponent } from '../../../features/projects-old/components/projects-old.component';
 import { ReviewsComponent } from '../../../features/reviews/components/reviews.component';
 import { ContactComponent } from '../../../features/contact/components/contact.component';
 
@@ -43,7 +43,7 @@ describe('SectionsWrapperComponent', () => {
             ContactComponent,
             HomeComponent,
             AboutComponent,
-            ProjectsComponent,
+            ProjectsOldComponent,
             ReviewsComponent
           ]
         }

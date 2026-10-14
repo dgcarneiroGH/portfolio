@@ -37,17 +37,21 @@ const JOBS = [
       { w: 768, out: 'src/assets/images/nomacoda/nomacoda_background-768.avif' }
     ]
   },
-  // T4 — fotos About: base me_N-480/-960 jpeg → AVIF (misma resolución)
-  ...[1, 2, 3, 4].flatMap((n) => [
-    {
-      in: `src/assets/images/photos/me_${n}-480.jpeg`,
-      outs: [{ w: 480, out: `src/assets/images/photos/me_${n}-480.avif` }]
-    },
-    {
-      in: `src/assets/images/photos/me_${n}-960.jpeg`,
-      outs: [{ w: 960, out: `src/assets/images/photos/me_${n}-960.avif` }]
-    }
-  ])
+  // T4 — fotos About: base {base}-480/-960 jpeg → AVIF (misma resolución).
+  // Debe coincidir con los imgBase de about.component.html; las variantes
+  // JPEG 480/960 las genera antes generate-responsive-images.mjs.
+  ...['me_professional', 'me_reflection', 'me_music', 'me_laugh'].flatMap(
+    (base) => [
+      {
+        in: `src/assets/images/photos/${base}-480.jpeg`,
+        outs: [{ w: 480, out: `src/assets/images/photos/${base}-480.avif` }]
+      },
+      {
+        in: `src/assets/images/photos/${base}-960.jpeg`,
+        outs: [{ w: 960, out: `src/assets/images/photos/${base}-960.avif` }]
+      }
+    ]
+  )
 ];
 
 // Banderas del lang-selector: los SVG de flag-icons pesan ~79 KB pero se

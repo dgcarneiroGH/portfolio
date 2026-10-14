@@ -1,0 +1,171 @@
+@use "src/styles/_palette" as palette;
+@use "src/styles/_fonts" as fonts;
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes panelIn {
+  from {
+    opacity: 0;
+    transform: scale(0.92) translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.detail-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background: rgba(palette.$azure-deep, 0.85);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  animation: fadeIn 0.25s ease-out;
+}
+
+.detail-panel {
+  position: relative;
+  width: min(32rem, 100%);
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  background: rgba(palette.$surface-brand, 0.95);
+  border-radius: 1rem;
+  // Neutro translúcido — excepción documentada en AGENTS.md
+  outline: 1px solid rgba(255, 255, 255, 0.05);
+  outline-offset: -1px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  animation: panelIn 0.25s ease-out;
+
+  &:focus-visible {
+    outline: 2px solid palette.$focus-blue;
+    outline-offset: 2px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .detail-overlay,
+  .detail-panel {
+    animation: none;
+  }
+}
+
+.detail-close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(palette.$azure-border, 0.45);
+  color: palette.$text-primary;
+  border: none;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+
+  &:hover,
+  &:focus-visible {
+    background: rgba(palette.$azure-border, 0.7);
+  }
+
+  &:focus-visible {
+    outline: 2px solid palette.$focus-blue;
+    outline-offset: 2px;
+  }
+}
+
+.detail-cover {
+  width: 100%;
+  height: 12rem;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  background: var(
+    --dynamic-gradient,
+    linear-gradient(
+      135deg,
+      palette.$background-gradient-start 0%,
+      palette.$background-gradient-end 100%
+    )
+  );
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+}
+
+.detail-title {
+  margin: 0;
+  color: palette.$text-primary;
+  font-family: fonts.$heading;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 2rem;
+}
+
+.detail-year {
+  margin: 0;
+  color: palette.$text-secondary;
+  font-family: fonts.$mono;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+
+.detail-label {
+  color: palette.$accent-azure;
+}
+
+.detail-description {
+  margin: 0;
+  color: palette.$text-secondary;
+  font-family: fonts.$body;
+  font-size: 0.9375rem;
+  line-height: 1.7;
+}
+
+.detail-description + .detail-description {
+  margin-top: 0.75rem;
+}
+
+.detail-techs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.detail-link {
+  color: palette.$accent-blue;
+  font-family: fonts.$mono;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: underline;
+
+  &:focus-visible {
+    outline: 2px solid palette.$focus-blue;
+    outline-offset: 2px;
+  }
+}

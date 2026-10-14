@@ -1,17 +1,28 @@
 import { provideZonelessChangeDetection, signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { axe } from 'jasmine-axe';
+import { provideRouter } from '@angular/router';
 import {
-  TranslateLoader,
-  TranslateModule,
-  TranslateService
+    TranslateLoader,
+    TranslateModule,
+    TranslateService
 } from '@ngx-translate/core';
+import { axe } from 'jasmine-axe';
 import { firstValueFrom, of } from 'rxjs';
 import { LangService } from '../../services/lang.service';
 import { HeaderComponent } from './header.component';
 
-const mockLoader = { getTranslation: () => of({}) };
+const mockLoader = {
+  getTranslation: () =>
+    of({
+      HEADER: {
+        NAV_ARIA: 'Principal'
+      },
+      COMMON: {
+        NAV_HOME: 'Ir al inicio'
+      }
+    })
+};
 
 function buildLangServiceStub(lang = 'es-ES'): Partial<LangService> {
   return {
@@ -34,9 +45,14 @@ describe('HeaderComponent', () => {
       ],
       providers: [
         provideZonelessChangeDetection(),
+        provideRouter([]),
         { provide: LangService, useValue: buildLangServiceStub('es-ES') }
       ]
     }).compileComponents();
+
+    const translate = TestBed.inject(TranslateService);
+    translate.setDefaultLang('es-ES');
+    await firstValueFrom(translate.use('es-ES'));
 
     fixture = TestBed.createComponent(HeaderComponent);
     component = fixture.componentInstance;
@@ -76,6 +92,13 @@ describe('HeaderComponent', () => {
       const logo = fixture.nativeElement.querySelector('.brand-logo');
       expect(logo.getAttribute('aria-hidden')).toBe('true');
     });
+
+    it('should render the brand as a link to home with an accessible name', () => {
+      const brand = fixture.debugElement.query(By.css('a.brand'));
+      expect(brand).toBeTruthy();
+      expect(brand.nativeElement.getAttribute('href')).toBe('/');
+      expect(brand.nativeElement.getAttribute('aria-label')).toBe('Ir al inicio');
+    });
   });
 
   describe('lang selector integration', () => {
@@ -92,7 +115,7 @@ describe('HeaderComponent', () => {
       HEADER: {
         STATUS_AVAILABLE: 'Disponible',
         STATUS_UNAVAILABLE: 'No disponible',
-        STATUS_LINK_ARIA: 'Ir a la sección de contacto'
+        STATUS_LINK_ARIA: 'Ir a la sección de contact'
       }
     };
 
@@ -104,10 +127,10 @@ describe('HeaderComponent', () => {
       fixture.detectChanges();
     });
 
-    it('should render the status as a link to #contacto', () => {
+    it('should render the status as a link to the contact route', () => {
       const pill = fixture.debugElement.query(By.css('a.status-pill'));
       expect(pill).toBeTruthy();
-      expect(pill.nativeElement.getAttribute('href')).toBe('#contacto');
+      expect(pill.nativeElement.getAttribute('href')).toBe('/contact');
     });
 
     it('should render the translated available status by default', () => {
@@ -132,7 +155,7 @@ describe('HeaderComponent', () => {
     it('should expose a descriptive accessible name for the link', () => {
       const pill = fixture.debugElement.query(By.css('a.status-pill'));
       expect(pill.nativeElement.getAttribute('aria-label')).toBe(
-        'Disponible — Ir a la sección de contacto'
+        'Disponible — Ir a la sección de contact'
       );
     });
   });

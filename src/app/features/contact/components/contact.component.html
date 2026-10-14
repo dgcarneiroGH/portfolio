@@ -1,14 +1,14 @@
 <section class="slider-slide">
   <div class="section-container">
-    <h2
+    <!-- <h2
       [appAnimate]="animationDelay()"
       [translationKey]="'CONTACT.NOW_WE_KNOW'"
-    ></h2>
+    ></h2> -->
     <button
       type="button"
       class="nomacoda-animation-wrapper btn-reset"
       [attr.aria-label]="'CONTACT.GO_TO_REVIEWS' | translate"
-      (click)="navigate()"
+      (click)="goToReviews()"
     >
       <img
         src="assets/images/nomacoda/nomacoda_climber1.avif"
@@ -24,9 +24,9 @@
       />
     </button>
 
-    <p [appAnimate]="animationDelay()" [translationKey]="'CONTACT.TALK'"></p>
+    <!-- <p [appAnimate]="animationDelay()" [translationKey]="'CONTACT.TALK'"></p> -->
 
     <app-contact-form></app-contact-form>
   </div>
 </section>
-<app-oscillator style="bottom: 0"></app-oscillator>
+<!-- <app-oscillator style="bottom: 0"></app-oscillator> -->

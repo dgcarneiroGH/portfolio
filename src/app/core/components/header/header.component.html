@@ -1,5 +1,5 @@
 <header class="header">
-  <div class="brand">
+  <a class="brand" routerLink="/" [attr.aria-label]="'COMMON.NAV_HOME' | translate">
     <div class="brand-logo" aria-hidden="true">
       <span class="brand-logo-inner">NC</span>
     </div>
@@ -7,7 +7,7 @@
       <span class="brand-name">NOMACODA</span>
       <span class="brand-subtitle">{{ 'HEADER.BRAND_SUBTITLE' | translate }}</span>
     </div>
-  </div>
+  </a>
 
   <nav
     class="header-nav"
@@ -15,25 +15,25 @@
   >
     <ul>
       <li>
-        <a href="#sobre-mi">
+        <a routerLink="/about-me" routerLinkActive="is-active">
           <span class="nav-index" aria-hidden="true">01.</span>
           <span class="nav-label">{{ 'HEADER.NAV_ABOUT' | translate }}</span>
         </a>
       </li>
       <li>
-        <a href="#casos-exito">
+        <a routerLink="/success-cases" routerLinkActive="is-active">
           <span class="nav-index" aria-hidden="true">02.</span>
           <span class="nav-label">{{ 'HEADER.NAV_CASES' | translate }}</span>
         </a>
       </li>
       <li>
-        <a href="#opiniones">
+        <a routerLink="/reviews" routerLinkActive="is-active">
           <span class="nav-index" aria-hidden="true">03.</span>
           <span class="nav-label">{{ 'HEADER.NAV_REVIEWS' | translate }}</span>
         </a>
       </li>
       <li>
-        <a href="#contacto">
+        <a routerLink="/contact" routerLinkActive="is-active">
           <span class="nav-index" aria-hidden="true">04.</span>
           <span class="nav-label">{{ 'HEADER.NAV_CONTACT' | translate }}</span>
         </a>
@@ -45,7 +45,7 @@
     <a
       class="status-pill"
       [class.status-pill--unavailable]="!isAvailable()"
-      href="#contacto"
+      routerLink="/contact"
       [attr.aria-label]="(statusKey() | translate) + ' — ' + ('HEADER.STATUS_LINK_ARIA' | translate)"
     >
       <span class="status-dot" aria-hidden="true"></span>

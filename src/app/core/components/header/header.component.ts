@@ -1,11 +1,12 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { LangSelectorComponent } from '../lang-selector/lang-selector.component';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [LangSelectorComponent, TranslateModule],
+  imports: [LangSelectorComponent, RouterLink, RouterLinkActive, TranslateModule],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

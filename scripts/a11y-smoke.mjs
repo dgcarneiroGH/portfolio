@@ -5,7 +5,15 @@ import { mkdirSync, writeFileSync } from 'node:fs';
 import { createRequire } from 'node:module';
 
 const BASE = process.env.A11Y_BASE_URL ?? 'http://localhost:4200';
-const ROUTES = ['/', '/blog', '/blog/no-existe', '/esta-ruta-no-existe'];
+const ROUTES = [
+  '/',
+  '/about-me',
+  '/success-cases',
+  '/reviews',
+  '/contact',
+  '/blog',
+  '/esta-ruta-no-existe'
+];
 
 const require = createRequire(import.meta.url);
 const cliPath = require.resolve('@axe-core/cli');
@@ -15,7 +23,7 @@ mkdirSync('a11y-report', { recursive: true });
 let totalViolations = 0;
 
 for (const route of ROUTES) {
-  const url = route === '/' ? `${BASE}/` : `${BASE}/#${route}`;
+  const url = `${BASE}${route}`;
   console.log(`\nAuditing ${url}`);
   try {
     const out = execSync(`node "${cliPath}" --url "${url}" --exit`, {

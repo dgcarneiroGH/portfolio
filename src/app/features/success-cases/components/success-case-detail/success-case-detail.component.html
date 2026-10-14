@@ -1,0 +1,61 @@
+<div class="detail-overlay" (click)="onBackdropClick($event)">
+  <div
+    #panel
+    class="detail-panel"
+    role="dialog"
+    aria-modal="true"
+    tabindex="-1"
+    [attr.aria-labelledby]="'case-detail-title'"
+    [style.--dynamic-gradient]="gradient()"
+  >
+    <button
+      class="detail-close"
+      type="button"
+      (click)="closed.emit()"
+      [attr.aria-label]="'SUCCESS_CASES.CLOSE' | translate"
+    >
+      ✕
+    </button>
+
+    <div class="detail-cover">
+      <img
+        [src]="successCase().coverImgSrc + '.avif'"
+        [alt]="successCase().altKey | translate"
+      />
+    </div>
+
+    <h3 class="detail-title" id="case-detail-title">{{ successCase().name }}</h3>
+
+    <p class="detail-year">
+      <span class="detail-label">{{ 'SUCCESS_CASES.DETAIL_YEAR' | translate }}:</span>
+      {{ successCase().year }}
+    </p>
+
+    <p class="detail-description">
+      <strong>{{ 'SUCCESS_CASES.PROBLEM_LABEL' | translate }}</strong>&nbsp;
+      <span [innerHTML]="successCase().problem | translate"></span>
+    </p>
+
+    <p class="detail-description">
+      <strong>{{ 'SUCCESS_CASES.SOLUTION_LABEL' | translate }}</strong>&nbsp;
+      <span [innerHTML]="successCase().solution | translate"></span>
+    </p>
+
+    <ul class="detail-techs" [attr.aria-label]="'SUCCESS_CASES.DETAIL_TECH' | translate">
+      @for (tech of successCase().technologies; track tech) {
+        <li app-tech-pill [label]="tech"></li>
+      }
+    </ul>
+
+    @if (successCase().url) {
+      <a
+        class="detail-link"
+        [href]="successCase().url"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {{ 'SUCCESS_CASES.VIEW_PROJECT' | translate: { name: successCase().name } }}
+      </a>
+    }
+  </div>
+</div>
