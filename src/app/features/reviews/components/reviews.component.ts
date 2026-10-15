@@ -1,34 +1,28 @@
-import { CommonModule } from '@angular/common';
-import { Component, inject, Input, signal, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
+import { REVIEWS } from '../constants/reviews.const';
+import { Review } from '../interfaces/review.interface';
+import { ReviewCardComponent } from './review-card/review-card.component';
 import { ReviewsFormComponent } from './reviews-form/reviews-form.component';
 
 @Component({
   selector: 'app-reviews',
   standalone: true,
-  imports: [
-    CommonModule,
-    TranslateModule,
-    ReviewsFormComponent    
-  ],
+  imports: [TranslateModule, ReviewCardComponent, ReviewsFormComponent],
   templateUrl: './reviews.component.html',
-  styleUrls: ['./reviews.component.scss']
+  styleUrl: './reviews.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ReviewsComponent {
-  @Input() navigate?: () => void;
-  @ViewChild(ReviewsFormComponent) reviewsForm!: ReviewsFormComponent;
+  reviews = input<Review[]>(REVIEWS);
 
-  private _router = inject(Router);
+  view = signal<'list' | 'form'>('list');
 
-  private _animationDelay = signal(3000);
-  animationDelay = this._animationDelay.asReadonly();
+  openForm(): void {
+    this.view.set('form');
+  }
 
-  goBack(): void {
-    if (this.navigate) {
-      this.navigate();
-    } else {
-      this._router.navigate(['/contact']);
-    }
+  backToList(): void {
+    this.view.set('list');
   }
 }

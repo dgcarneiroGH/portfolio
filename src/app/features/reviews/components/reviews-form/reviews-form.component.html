@@ -12,158 +12,196 @@
         stroke-linecap="round"
         stroke-linejoin="round"
         aria-hidden="true"
+        focusable="false"
       >
         <polyline points="20 6 9 17 4 12" />
       </svg>
     </div>
     <p class="success-title">{{ "REVIEWS.FORM_SUCCESS" | translate }}</p>
+    <p class="success-subtext">
+      {{ "REVIEWS.FORM_SUCCESS_SUBTEXT" | translate }}
+      <svg
+        class="wink-icon"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <circle cx="12" cy="12" r="10" />
+        <path d="M8 14s1.5 2 4 2 4-2 4-2" />
+        <line x1="9" x2="9.01" y1="9" y2="9" />
+        <line x1="14" x2="16" y1="9" y2="9" />
+      </svg>
+    </p>
+    <button
+      type="button"
+      class="back-btn"
+      (click)="backToReviews()"
+    >
+      {{ "REVIEWS.BACK_TO_REVIEWS" | translate }}
+    </button>
   </div>
 } @else {
-<form [formGroup]="form" (ngSubmit)="submit()" novalidate>
-  <!-- Name and Email Row -->
-  <div class="name-email-row">
-    <!-- Name -->
-    <div class="field-group">
-      <label for="reviews-fullName">{{ "FORM.NAME_PLACEHOLDER" | translate }}</label>
-      <input
-        id="reviews-fullName"
-        formControlName="fullName"
-        type="text"
-        [class.input-error]="invalid('fullName')"
-        [attr.aria-invalid]="invalid('fullName') ? 'true' : null"
-        [attr.aria-describedby]="
-          invalid('fullName') ? 'reviews-fullName-error' : null
-        "
-        autocomplete="name"
-      />
-      @if (invalid('fullName')) {
-        <div id="reviews-fullName-error" class="error-message" role="alert">
-          {{ "FORM.NAME_ERROR" | translate }}
-        </div>
-      }
+  <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+    <!-- Name and Email Row -->
+    <div class="name-email-row">
+      <!-- Name -->
+      <div class="field-group">
+        <label for="reviews-fullName">{{ "FORM.NAME_PLACEHOLDER" | translate }}</label>
+        <input
+          id="reviews-fullName"
+          formControlName="fullName"
+          type="text"
+          autocomplete="name"
+        />
+      </div>
+
+      <!-- Email -->
+      <div class="field-group">
+        <label for="reviews-email">
+          {{ "FORM.EMAIL_ARIA" | translate }}
+          <span class="required-mark" aria-hidden="true">*</span>
+        </label>
+        <input
+          id="reviews-email"
+          formControlName="email"
+          type="email"
+          autocomplete="email"
+          required
+          aria-required="true"
+          [class.input-error]="invalid('email')"
+          [attr.aria-invalid]="invalid('email') ? 'true' : null"
+          [attr.aria-describedby]="invalid('email') ? 'reviews-email-error' : null"
+        />
+        @if (invalid("email")) {
+          <div id="reviews-email-error" class="error-message" role="alert">
+            <svg
+              class="error-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path
+                d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"
+              />
+              <line x1="12" y1="9" x2="12" y2="13" />
+              <line x1="12" y1="17" x2="12.01" y2="17" />
+            </svg>
+            {{ "FORM.EMAIL_REQUIRED_ERROR" | translate }}
+          </div>
+        }
+      </div>
     </div>
 
-    <!-- Email -->
+    <!-- Rating Group -->
+    <fieldset class="field-group rating-group">
+      <legend class="rating-label">
+        {{ "REVIEWS.RATING_LABEL" | translate }}
+        <span class="required-mark" aria-hidden="true">*</span>
+      </legend>
+      <div
+        class="stars-row"
+        (mouseleave)="clearHovered()"
+        [class.input-error]="invalid('rating')"
+        role="radiogroup"
+        aria-required="true"
+        [attr.aria-label]="'REVIEWS.RATING_LABEL' | translate"
+        [attr.aria-describedby]="invalid('rating') ? 'reviews-rating-error' : null"
+      >
+        @for (star of stars; track star) {
+          <button
+            type="button"
+            role="radio"
+            class="star-btn"
+            [class.active]="currentRating >= star"
+            [class.lit]="hoveredRating() >= star || currentRating >= star"
+            [attr.aria-checked]="currentRating === star"
+            [attr.aria-label]="'REVIEWS.STAR_ARIA' | translate: { count: star }"
+            (mouseenter)="setHovered(star)"
+            (click)="setRating(star)"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-star"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <polygon
+                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+              />
+            </svg>
+          </button>
+        }
+      </div>
+      @if (invalid("rating")) {
+        <div id="reviews-rating-error" class="error-message" role="alert">
+          {{ "FORM.REQUIRED_ERROR" | translate }}
+        </div>
+      }
+    </fieldset>
+
+    <!-- Message -->
     <div class="field-group">
-      <label for="reviews-email">{{ "FORM.EMAIL_ARIA" | translate }}</label>
-      <input
-        id="reviews-email"
-        formControlName="email"
-        type="email"
-        [class.input-error]="invalid('email')"
-        [attr.aria-invalid]="invalid('email') ? 'true' : null"
-        [attr.aria-describedby]="
-          invalid('email') ? 'reviews-email-error' : null
-        "
-        autocomplete="email"
+      <label for="reviews-message">
+        {{ "FORM.REVIEW_MESSAGE_PLACEHOLDER" | translate }}
+        <span class="required-mark" aria-hidden="true">*</span>
+      </label>
+      <textarea
+        id="reviews-message"
+        formControlName="message"
+        rows="5"
         required
-      />
-      @if (invalid("email")) {
-        <div id="reviews-email-error" class="error-message" role="alert">
-          <svg
-            class="error-icon"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            aria-hidden="true"
-          >
-            <path
-              d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"
-            />
-            <line x1="12" y1="9" x2="12" y2="13" />
-            <line x1="12" y1="17" x2="12.01" y2="17" />
-          </svg>
-          {{ "FORM.EMAIL_REQUIRED_ERROR" | translate }}
+        aria-required="true"
+        [class.input-error]="invalid('message')"
+        [attr.aria-invalid]="invalid('message') ? 'true' : null"
+        [attr.aria-describedby]="invalid('message') ? 'reviews-message-error' : null"
+      ></textarea>
+      @if (invalid("message")) {
+        <div id="reviews-message-error" class="error-message" role="alert">
+          {{ "FORM.REQUIRED_ERROR" | translate }}
         </div>
       }
     </div>
-  </div>
 
-  <!-- Rating Group -->
-  <fieldset class="field-group rating-group">
-    <legend class="rating-label">{{ "REVIEWS.RATING_LABEL" | translate }}</legend>
-    <div
-      class="stars-row"
-      (mouseleave)="clearHovered()"
-      [class.input-error]="invalid('rating')"
-      role="radiogroup"
-      [attr.aria-describedby]="
-        invalid('rating') ? 'reviews-rating-error' : null
-      "
+    <!-- Submit -->
+    <button
+      type="submit"
+      class="submit-btn"
+      [disabled]="form.invalid || formStatus().loading"
+      [class.loading]="formStatus().loading"
+      [attr.aria-label]="'FORM.SUBMIT_BUTTON' | translate"
     >
-      @for (star of stars; track star) {
-        <button
-          type="button"
-          role="radio"
-          class="star-btn"
-          [class.active]="currentRating >= star"
-          [class.lit]="hoveredRating() >= star || currentRating >= star"
-          [attr.aria-checked]="currentRating === star"
-          [attr.aria-label]="'REVIEWS.STAR_ARIA' | translate: { count: star }"
-          (mouseenter)="setHovered(star)"
-          (click)="setRating(star)"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="lucide lucide-star"
-            aria-hidden="true"
-          >
-            <polygon
-              points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
-            />
-          </svg>
-        </button>
+      @if (formStatus().loading) {
+        <span class="btn-spinner" aria-hidden="true"></span>
+        {{ "FORM.SUBMIT_LOADING" | translate }}
+      } @else {
+        {{ "FORM.SUBMIT_BUTTON" | translate }}
       }
-    </div>
-    @if (invalid("rating")) {
-      <div id="reviews-rating-error" class="error-message" role="alert">
-        {{ "FORM.REQUIRED_ERROR" | translate }}
+    </button>
+
+    @if (formStatus().error) {
+      <div class="form-error" role="alert">
+        {{ formStatus().error! | translate }}
       </div>
     }
-  </fieldset>
-
-  <!-- Message -->
-  <div class="field-group">
-    <label for="reviews-message">{{ "FORM.REVIEW_MESSAGE_PLACEHOLDER" | translate }}</label>
-    <textarea
-      id="reviews-message"
-      formControlName="message"
-      rows="5"
-    ></textarea>
-  </div>
-
-  <!-- Submit -->
-  <button
-    type="submit"
-    class="submit-btn"
-    [disabled]="form.invalid || formStatus().loading"
-    [class.loading]="formStatus().loading"
-    [attr.aria-label]="'FORM.SUBMIT_BUTTON' | translate"
-  >
-    @if (formStatus().loading) {
-      <span class="btn-spinner" aria-hidden="true"></span>
-      {{ "FORM.SUBMIT_LOADING" | translate }}
-    } @else {
-      {{ "FORM.SUBMIT_BUTTON" | translate }}
-    }
-  </button>
-
-  @if (formStatus().error) {
-    <div class="form-error" role="alert">
-      {{ formStatus().error! | translate }}
-    </div>
-  }
-</form>
+  </form>
 }

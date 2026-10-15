@@ -4,7 +4,8 @@
   "version": "1.4.1",
   "scripts": {
     "start": "ng serve",
-    "dev": "npx --yes netlify-cli dev",
+    "dev": "npx --yes netlify-cli@latest dev",
+    "functions": "npx --yes netlify-cli@latest functions:serve --port 8888",
     "build": "ng build --base-href",
     "build:prod": "ng build --configuration production",
     "test": "ng test",

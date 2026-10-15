@@ -162,11 +162,17 @@
   },
   "REVIEWS": {
     "FORM_SUCCESS": "¡Gracias por tu reseña!",
+    "FORM_SUCCESS_SUBTEXT": "Un comité de expertos la revisará antes de publicarla",
     "GO_BACK": "Volver",
     "TITLE": "¿Ya me conoces?",
     "SUBTITLE": "Déjame una reseña, ¡me encantaría saber tu opinión!",
     "RATING_LABEL": "Valoración",
-    "STAR_ARIA": "{{count}} estrellas"
+    "STAR_ARIA": "{{count}} estrellas",
+    "RATING_ARIA": "Valoración: {{count}} de 5 estrellas",
+    "LEAVE_REVIEW": "Dejar reseña",
+    "ADD_REVIEW": "Añadir reseña",
+    "EMPTY_TITLE": "Aún no existen reseñas, sé tú el primero",
+    "BACK_TO_REVIEWS": "Volver a las reseñas"
   },
   "ERROR_404": {
     "TITLE": "¡Vaya! Parece que esa ruta no existe",

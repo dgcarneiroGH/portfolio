@@ -162,11 +162,17 @@
   },
   "REVIEWS": {
     "FORM_SUCCESS": "Thank you for your review!",
+    "FORM_SUCCESS_SUBTEXT": "A committee of experts will review it before publishing",
     "GO_BACK": "Go back",
     "TITLE": "Do you already know me?",
     "SUBTITLE": "Leave me a review, I'd love to hear your opinion!",
     "RATING_LABEL": "Rating",
-    "STAR_ARIA": "{{count}} stars"
+    "STAR_ARIA": "{{count}} stars",
+    "RATING_ARIA": "Rating: {{count}} out of 5 stars",
+    "LEAVE_REVIEW": "Leave a review",
+    "ADD_REVIEW": "Add a review",
+    "EMPTY_TITLE": "There are no reviews yet, be the first one",
+    "BACK_TO_REVIEWS": "Back to reviews"
   },
   "ERROR_404": {
     "TITLE": "Oops! It seems that path doesn't exist",

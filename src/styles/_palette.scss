@@ -10,15 +10,20 @@ $surface-pill: #081a2c;
 $surface-brand: #001429;
 $green-soft: #8ed4c2;
 
+// Reviews section (diseño reviews 2026-10)
+$surface-card: #00213e;
+$surface-action: #052b4d;
+$green-mint: #aaf0de;
+
 // Text
 $text-primary: #f0f4f8;
 $text-secondary: #a0bbd8;
-$text-red: #ff8a80;            // WCAG AA on $background-gradient-start (was #d9534f, 2.6:1)
+$text-red: #ff8a80;
 
 // Accents
 $accent-yellow: #ffa726;
 $accent-blue: #29b6f6;
-$accent-green:#2ecc71;
+$accent-green: #2ecc71;
 
 // Accents extended
 $accent-cyan: #06b6d2;
@@ -27,12 +32,12 @@ $accent-blue-light: #90caf9;
 $focus-blue: #005fcc;
 
 // Sidebar dock (vidrio del dock social — diseño 2026-10)
-$surface-dock: #041424;        
-$cyan-glow: #00f2fe;           
-$accent-azure: #81cfff;        
-$accent-rose: #f472b6;         
-$neutral-100: #e2e8f0;         
-$accent-red-soft: #fb7185;     
+$surface-dock: #041424;
+$cyan-glow: #00f2fe;
+$accent-azure: #81cfff;
+$accent-rose: #f472b6;
+$neutral-100: #e2e8f0;
+$accent-red-soft: #fb7185;
 
 // Blog button (ámbar/marrón)
 $amber-glow: #ffb961;
@@ -44,9 +49,9 @@ $brown-btn-mid: #462c16;
 $brown-btn-end: #201308;
 
 // Home code window (mock home-redesign 2026-10) — sintaxis del snippet
-$code-comment: #6f9484;         
-$code-keyword: #c792ea;         
-$code-string: #ffab70;          
+$code-comment: #6f9484;
+$code-keyword: #c792ea;
+$code-string: #ffab70;
 
 // Accessible messages (fondo suave + texto de alto contraste)
 $accessible-success: $accent-green;

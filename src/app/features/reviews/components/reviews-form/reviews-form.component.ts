@@ -1,5 +1,4 @@
-import { CommonModule } from '@angular/common';
-import { Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, output, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { ReviewInquiry } from '../../interfaces/review-inquiry.interface';
@@ -14,29 +13,33 @@ interface FormStatus {
 @Component({
   selector: 'app-reviews-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, TranslateModule],
+  providers:[ReviewsService],
+  imports: [ReactiveFormsModule, TranslateModule],
   templateUrl: './reviews-form.component.html',
-  styleUrls: ['./reviews-form.component.scss']
+  styleUrl: './reviews-form.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ReviewsFormComponent {
   private fb = inject(FormBuilder);
   private reviewsService = inject(ReviewsService);
+
+  finished = output<void>();
 
   formStatus = signal<FormStatus>({ loading: false });
 
   stars = [1, 2, 3, 4, 5];
   hoveredRating = signal(0);
 
+  form = this.fb.nonNullable.group({
+    fullName: [''],
+    email: ['', [Validators.required, Validators.email]],
+    message: ['', [Validators.required]],
+    rating: [0, [Validators.required, Validators.min(1), Validators.max(5)]]
+  });
+
   get currentRating(): number {
     return this.form.get('rating')?.value || 0;
   }
-
-  form = this.fb.group({
-    fullName: [''],
-    email: ['', [Validators.required, Validators.email]],
-    message: [''],
-    rating: [0, [Validators.min(1), Validators.max(5)]]
-  });
 
   setRating(rating: number): void {
     const clampedRating = Math.max(1, Math.min(5, rating));
@@ -51,6 +54,11 @@ export class ReviewsFormComponent {
 
   clearHovered(): void {
     this.hoveredRating.set(0);
+  }
+
+  backToReviews(): void {
+    this.formStatus.set({ loading: false });
+    this.finished.emit();
   }
 
   submit(): void {
@@ -73,7 +81,7 @@ export class ReviewsFormComponent {
           loading: false,
           success: 'REVIEWS.FORM_SUCCESS'
         });
-        this.form.reset({ rating: 0 });
+        this.form.reset({ fullName: '', email: '', message: '', rating: 0 });
         this.hoveredRating.set(0);
       },
       error: () => {

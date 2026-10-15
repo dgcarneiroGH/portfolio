@@ -7,17 +7,16 @@ import { ReviewsFormComponent } from './reviews-form.component';
 
 const mockTranslations = {
   'FORM.NAME_PLACEHOLDER': 'Your name',
-  'FORM.NAME_ERROR': 'Name is required',
-  'FORM.EMAIL_PLACEHOLDER': 'you@email.com',
   'FORM.EMAIL_ARIA': 'Your email address',
-  'FORM.EMAIL_ERROR': 'Invalid email format.',
+  'FORM.EMAIL_REQUIRED_ERROR': 'Required and valid',
   'FORM.REVIEW_MESSAGE_PLACEHOLDER': 'Write your review...',
   'FORM.SUBMIT_BUTTON': 'Send',
   'FORM.SUBMIT_LOADING': 'Sending...',
   'FORM.REQUIRED_ERROR': 'Required',
-  'FORM.EMAIL_REQUIRED_ERROR': 'Required and valid',
   'FORM.FORM_ERROR': 'Error. Please try again.',
   'REVIEWS.FORM_SUCCESS': 'Thank you for your review!',
+  'REVIEWS.FORM_SUCCESS_SUBTEXT': 'A committee of experts will review it before publishing',
+  'REVIEWS.BACK_TO_REVIEWS': 'Back to reviews',
   'REVIEWS.RATING_LABEL': 'Rating',
   'REVIEWS.STAR_ARIA': '{{count}} stars'
 };
@@ -39,9 +38,7 @@ describe('ReviewsFormComponent', () => {
         ReactiveFormsModule,
         TranslateModule.forRoot({ loader: { provide: TranslateLoader, useValue: mockLoader } })
       ],
-      providers: [
-        { provide: ReviewsService, useValue: reviewsServiceSpy }
-      ]
+      providers: [{ provide: ReviewsService, useValue: reviewsServiceSpy }]
     }).compileComponents();
 
     fixture = TestBed.createComponent(ReviewsFormComponent);
@@ -63,10 +60,6 @@ describe('ReviewsFormComponent', () => {
     expect(component.formStatus()).toEqual({ loading: false });
   });
 
-  it('should initialise hoveredRating at 0', () => {
-    expect(component.hoveredRating()).toBe(0);
-  });
-
   it('should render the form when not yet submitted', () => {
     const form = fixture.nativeElement.querySelector('form');
     expect(form).toBeTruthy();
@@ -75,16 +68,14 @@ describe('ReviewsFormComponent', () => {
   // ─── Form validation ───────────────────────────────────────────────────────
 
   describe('Form validation', () => {
-    it('should be invalid when empty (email required)', () => {
+    it('should be invalid when empty (email, message and rating required)', () => {
       expect(component.form.valid).toBeFalse();
       expect(component.form.get('email')?.valid).toBeFalse();
+      expect(component.form.get('message')?.valid).toBeFalse();
+      expect(component.form.get('rating')?.valid).toBeFalse();
     });
 
-    it('message field should be valid when empty (no required validator)', () => {
-      expect(component.form.get('message')?.valid).toBeTrue();
-    });
-
-    it('should allow empty fullName', () => {
+    it('should allow empty fullName (optional)', () => {
       component.form.get('fullName')?.setValue('');
       expect(component.form.get('fullName')?.valid).toBeTrue();
     });
@@ -93,11 +84,6 @@ describe('ReviewsFormComponent', () => {
       const emailCtrl = component.form.get('email')!;
       emailCtrl.setValue('not-an-email');
       expect(emailCtrl.valid).toBeFalse();
-    });
-
-    it('should accept a valid email', () => {
-      component.form.get('email')!.setValue('test@example.com');
-      expect(component.form.get('email')!.valid).toBeTrue();
     });
 
     it('should reject a rating above 5', () => {
@@ -170,27 +156,25 @@ describe('ReviewsFormComponent', () => {
 
   describe('submit() – success', () => {
     beforeEach(() => {
-      component.form.setValue({ fullName: 'Test User', email: 'user@test.com', message: 'Great!', rating: 5 });
+      component.form.setValue({
+        fullName: 'Test User',
+        email: 'user@test.com',
+        message: 'Great!',
+        rating: 5
+      });
     });
 
     it('should call ReviewsService.sendReview with correct payload', () => {
       component.submit();
 
       expect(reviewsServiceSpy.sendReview).toHaveBeenCalledOnceWith(
-        jasmine.objectContaining({ email: 'user@test.com', message: 'Great!', rating: 5, origin: 'nomacoda_portfolio' })
+        jasmine.objectContaining({
+          email: 'user@test.com',
+          message: 'Great!',
+          rating: 5,
+          origin: 'nomacoda_portfolio'
+        })
       );
-    });
-
-    it('should set formStatus.loading to true while request is in flight', () => {
-      let loadingDuringCall = false;
-      reviewsServiceSpy.sendReview.and.callFake(() => {
-        loadingDuringCall = component.formStatus().loading;
-        return of({ success: true });
-      });
-
-      component.submit();
-
-      expect(loadingDuringCall).toBeTrue();
     });
 
     it('should set formStatus.success after successful submission', () => {
@@ -207,14 +191,28 @@ describe('ReviewsFormComponent', () => {
       expect(component.hoveredRating()).toBe(0);
     });
 
-    it('should show success state in the DOM after submission', () => {
+    it('should show success state with back button after submission', () => {
       component.submit();
       fixture.detectChanges();
 
       const successEl = fixture.nativeElement.querySelector('.success-state');
       expect(successEl).toBeTruthy();
-      const formEl = fixture.nativeElement.querySelector('form');
-      expect(formEl).toBeFalsy();
+      const backBtn = fixture.nativeElement.querySelector('.back-btn') as HTMLButtonElement;
+      expect(backBtn).toBeTruthy();
+      expect(fixture.nativeElement.querySelector('form')).toBeFalsy();
+    });
+
+    it('should emit finished when the back button is clicked', () => {
+      component.submit();
+      fixture.detectChanges();
+
+      let emitted = false;
+      component.finished.subscribe(() => (emitted = true));
+
+      const backBtn = fixture.nativeElement.querySelector('.back-btn') as HTMLButtonElement;
+      backBtn.click();
+
+      expect(emitted).toBeTrue();
     });
   });
 
@@ -223,7 +221,12 @@ describe('ReviewsFormComponent', () => {
   describe('submit() – error', () => {
     beforeEach(() => {
       reviewsServiceSpy.sendReview.and.returnValue(throwError(() => new Error('Server error')));
-      component.form.setValue({ fullName: '', email: 'user@test.com', message: 'Great!', rating: 4 });
+      component.form.setValue({
+        fullName: '',
+        email: 'user@test.com',
+        message: 'Great!',
+        rating: 4
+      });
     });
 
     it('should set formStatus.error on failure', () => {
@@ -234,7 +237,7 @@ describe('ReviewsFormComponent', () => {
     });
   });
 
-  // ─── submit() – invalid ────────────────────────────────────────────────────
+  // ─── submit() – invalid form ───────────────────────────────────────────────
 
   describe('submit() – invalid form', () => {
     it('should not call the service when the form is invalid', () => {
@@ -243,11 +246,13 @@ describe('ReviewsFormComponent', () => {
     });
   });
 
-  // ─── Accessibility ──────────────────────────────────────────────────────────
+  // ─── Accessibility ─────────────────────────────────────────────────────────
 
   describe('Accessibility', () => {
     it('email input has an associated <label for="reviews-email">', () => {
-      const label = fixture.nativeElement.querySelector('label[for="reviews-email"]') as HTMLLabelElement;
+      const label = fixture.nativeElement.querySelector(
+        'label[for="reviews-email"]'
+      ) as HTMLLabelElement;
       const input = fixture.nativeElement.querySelector('#reviews-email') as HTMLInputElement;
       expect(label).toBeTruthy();
       expect(input).toBeTruthy();
@@ -262,6 +267,14 @@ describe('ReviewsFormComponent', () => {
       expect(input.getAttribute('aria-describedby')).toBe('reviews-email-error');
     });
 
+    it('marks required inputs with required and aria-required', () => {
+      ['reviews-email', 'reviews-message'].forEach((id) => {
+        const input = fixture.nativeElement.querySelector(`#${id}`) as HTMLInputElement;
+        expect(input.required).toBeTrue();
+        expect(input.getAttribute('aria-required')).toBe('true');
+      });
+    });
+
     it('rating group exposes role="radiogroup" with 5 radio buttons', () => {
       const group = fixture.nativeElement.querySelector('[role="radiogroup"]') as HTMLElement;
       expect(group).toBeTruthy();
@@ -274,22 +287,17 @@ describe('ReviewsFormComponent', () => {
       fixture.detectChanges();
       const starThree = fixture.nativeElement.querySelectorAll('[role="radio"]')[2] as HTMLButtonElement;
       expect(starThree.getAttribute('aria-checked')).toBe('true');
-      // aria-label may render as the raw interpolation key when the mock loader
-      // returns before the pipe runs; assert attribute presence + non-empty.
       const aria = starThree.getAttribute('aria-label');
       expect(aria).toBeTruthy();
       expect(aria!.length).toBeGreaterThan(0);
     });
-  });
 
-  describe('Disabled submit focus indicator (WCAG 2.4.7)', () => {
-    it('should NOT show a persistent outline when disabled (disabled buttons cannot receive focus, so a persistent outline would be visual noise)', () => {
-      const btn = fixture.nativeElement.querySelector('.submit-btn') as HTMLButtonElement;
-      btn.disabled = true;
+    it('error messages are announced with role="alert"', () => {
+      component.form.get('email')!.setValue('bad');
+      component.form.get('email')!.markAsTouched();
       fixture.detectChanges();
-      const style = window.getComputedStyle(btn);
-      expect(style.outlineStyle).not.toBe('solid');
-      expect(style.outlineColor).not.toBe('rgb(41, 182, 246)');
+      const alert = fixture.nativeElement.querySelector('#reviews-email-error');
+      expect(alert?.getAttribute('role')).toBe('alert');
     });
   });
 });

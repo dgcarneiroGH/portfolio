@@ -1,145 +1,113 @@
-@use "/src/styles/palette" as palette;
+@use "src/styles/_palette" as palette;
+@use "src/styles/_fonts" as fonts;
 
-section {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 4rem 2rem;
+.reviews {
   position: relative;
-  z-index: 1;
+  width: 100%;
   min-height: 100vh;
-  width: 100vw;
-}
-
-app-reviews-form {
-  z-index: 2;
-}
-
-.nomacoda-campfire {
-  position: absolute;
-  left: 2rem;
-  bottom: 3rem;
-  width: 20rem;
   display: flex;
-  flex-direction: row;
-  align-items: flex-end;
-  justify-content: space-around;
-  cursor: pointer;
-  transition: transform 0.3s ease;
-
-  &:hover {
-    .campfire-fire {
-      transform: scaleY(1.2);
-      filter: url("#heat-wave") drop-shadow(0 0 22px rgba(palette.$accent-yellow, 0.95));
-    }
-  }
-
-  .campfire-fire {
-    display: block;
-    width: 50%;
-    transform-origin: bottom center;
-    transition:
-      transform 2s ease,
-      filter 0.3s ease;
-    filter: url("#heat-wave") drop-shadow(0 0 12px rgba(palette.$accent-yellow, 0.6));
-  }
-
-  .campfire-character {
-    display: block;
-    width: 50%;
-  }
-}
-
-.section-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   flex-direction: column;
-  flex: 1 0 0%;
+  align-items: center;
+  background: radial-gradient(ellipse 99% 113% at 70% 20%,
+      palette.$background-gradient-end 0%,
+      palette.$surface-brand 40%,
+      palette.$azure-deep 90%);
+  overflow: hidden;
+}
+
+.reviews-container {
+  width: min(74.5rem, 100%);
+  padding: 4rem 2rem 7.5rem;
   z-index: 1;
+}
 
-  h1 {
-    font-size: 3rem;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-    text-align: center;
-    color: palette.$text-primary;
+.reviews-header {
+  display: flex;
+  justify-content: flex-end;
+  padding-bottom: 0.75rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid rgba(palette.$text-primary, 0.12);
+}
 
-    @media (max-width: 768px) {
-      font-size: 2.25rem;
-    }
+.leave-review-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1rem;
+  background: rgba(palette.$surface-action, 0.8);
+  border: none;
+  border-radius: 9999px;
+  outline: 1px solid rgba(palette.$text-primary, 0.12);
+  outline-offset: -1px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  color: palette.$text-primary;
+  font-family: fonts.$body;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  cursor: pointer;
+  transition: filter 0.2s ease;
+
+  &:hover,
+  &:focus-visible {
+    filter: brightness(1.2);
   }
 
-  .subtitle {
-    @media (max-width: 768px) {
-      display: none;
-    }
+  &:focus-visible {
+    outline: 2px solid palette.$focus-blue;
+    outline-offset: 2px;
+  }
+
+  .btn-icon {
+    width: 1.125rem;
+    height: 1.125rem;
+    color: palette.$green-soft;
   }
 }
 
-.loading-state,
-.success-state {
+.reviews-grid {
+  columns: 3;
+  column-gap: 1rem;
+
+  .review-cell {
+    break-inside: avoid;
+    margin-bottom: 1rem;
+  }
+}
+
+.reviews-empty {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  min-height: 400px;
-  animation: fadeIn 0.3s ease;
-}
+  gap: 2rem;
+  padding: 6rem 1rem;
+  text-align: center;
 
-.success-state {
-  color: palette.$accent-green;
-
-  svg {
-    margin-bottom: 1rem;
-    color: palette.$accent-green;
-  }
-
-  p {
-    font-size: 1.25rem;
-    font-weight: 500;
+  .empty-title {
+    margin: 0;
+    font-family: fonts.$heading;
+    font-size: 1.5rem;
+    font-weight: 700;
     color: palette.$text-primary;
   }
-}
 
-.spinner {
-  animation: rotate 2s linear infinite;
-  width: 50px;
-  height: 50px;
-
-  & .path {
-    stroke: palette.$accent-blue;
-    stroke-linecap: round;
-    animation: dash 1.5s ease-in-out infinite;
+  .empty-cta {
+    padding: 1rem 2rem;
+    font-size: 1.125rem;
+    line-height: 1.75rem;
   }
 }
 
-@keyframes rotate {
-  100% {
-    transform: rotate(360deg);
+//#region Responsive
+@media screen and (max-width: 1300px) {
+  .reviews-grid {
+    columns: 2;
   }
 }
 
-@keyframes dash {
-  0% {
-    stroke-dasharray: 1, 150;
-    stroke-dashoffset: 0;
-  }
-  50% {
-    stroke-dasharray: 90, 150;
-    stroke-dashoffset: -35;
-  }
-  100% {
-    stroke-dasharray: 90, 150;
-    stroke-dashoffset: -124;
+@media screen and (max-width: 930px) {
+  .reviews-grid {
+    columns: 1;
   }
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
+//#endregion

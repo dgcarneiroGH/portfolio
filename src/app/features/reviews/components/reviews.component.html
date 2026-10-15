@@ -1,59 +1,64 @@
-<section id="reviews" class="slider-slide">
-  <svg width="0" height="0" style="position: absolute" aria-hidden="true">
-    <filter id="heat-wave" x="-20%" y="-20%" width="140%" height="140%">
-      <!-- Animated turbulence for living heat shimmer -->
-      <feTurbulence
-        type="fractalNoise"
-        baseFrequency="0.012 0.04"
-        numOctaves="3"
-        seed="2"
-        result="warp"
-      >
-        <animate
-          attributeName="baseFrequency"
-          values="0.012 0.04; 0.018 0.06; 0.012 0.04"
-          dur="3s"
-          repeatCount="indefinite"
-        />
-      </feTurbulence>
-      <feDisplacementMap
-        xChannelSelector="R"
-        yChannelSelector="G"
-        scale="6"
-        in="SourceGraphic"
-        in2="warp"
-      />
-    </filter>
-  </svg>
-  <button
-    type="button"
-    class="nomacoda-campfire btn-reset"
-    (click)="goBack()"
-    [attr.aria-label]="'REVIEWS.GO_BACK' | translate"
-  >
-    <!-- Fire image: heat-wave distortion + glow animation -->
-    <img
-      src="assets/images/campfire.avif"
-      alt=""
-      aria-hidden="true"
-      class="campfire-fire"
-    />
-    <!-- Character image: no filter -->
-    <img
-      src="assets/images/nomacoda/nomacoda_campfire.avif"
-      alt=""
-      aria-hidden="true"
-      class="campfire-character"
-    />
-  </button>
-  <div class="section-container">
-    <!-- <h1>{{ "REVIEWS.TITLE" | translate }}</h1> -->
-    <h2 [appAnimate]="animationDelay()" translationKey="REVIEWS.TITLE"></h2>
-    <p
-      class="subtitle"
-      [appAnimate]="animationDelay()"
-      translationKey="REVIEWS.SUBTITLE"
-    ></p>
-    <app-reviews-form></app-reviews-form>
+<section id="reviews" class="reviews">
+  <h2 class="sr-only">{{ "ROUTE.REVIEWS" | translate }}</h2>
+
+  <div class="reviews-container">
+    @if (view() === "list") {
+      <header class="reviews-header">
+        <button
+          type="button"
+          class="leave-review-btn"
+          (click)="openForm()"
+        >
+          <svg
+            class="btn-icon"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <polygon
+              points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+            />
+          </svg>
+          <span>{{ "REVIEWS.LEAVE_REVIEW" | translate }}</span>
+        </button>
+      </header>
+
+      @if (reviews().length > 0) {
+        <div class="reviews-grid">
+          @for (review of reviews(); track $index) {
+            <div class="review-cell">
+              <app-review-card [review]="review"></app-review-card>
+            </div>
+          }
+        </div>
+      } @else {
+        <div class="reviews-empty">
+          <p class="empty-title">{{ "REVIEWS.EMPTY_TITLE" | translate }}</p>
+          <button
+            type="button"
+            class="leave-review-btn empty-cta"
+            (click)="openForm()"
+          >
+            <svg
+              class="btn-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <polygon
+                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+              />
+            </svg>
+            <span>{{ "REVIEWS.ADD_REVIEW" | translate }}</span>
+          </button>
+        </div>
+      }
+    } @else {
+      <app-reviews-form (finished)="backToList()"></app-reviews-form>
+    }
   </div>
 </section>
