@@ -8,20 +8,20 @@ import { ContactFormComponent } from './contact-form.component';
 
 // Mock TranslateLoader
 const mockTranslations = {
-  'CONTACT.FORM_SUCCESS': 'Message sent successfully',
+  'CONTACT.FORM_NAME': 'Name',
+  'CONTACT.FORM_EMAIL': 'Email',
+  'CONTACT.FORM_MESSAGE': 'Message',
+  'CONTACT.NAME_PLACEHOLDER': 'Your name or company',
+  'CONTACT.MESSAGE_PLACEHOLDER': 'Write your message or question here...',
+  'CONTACT.SUBMIT_BUTTON': 'Send message',
+  'CONTACT.RESPONSE_INTRO': 'Guaranteed response within',
+  'CONTACT.RESPONSE_TIME': '< 24 business hours',
+  'CONTACT.FORM_SUCCESS': 'Message sent successfully!',
   'CONTACT.FORM_ERROR': 'Error sending message',
-  'CONTACT.NAME_PLACEHOLDER': 'Full Name',
-  'CONTACT.EMAIL_PLACEHOLDER': 'Email',
-  'CONTACT.MESSAGE_PLACEHOLDER': 'Message',
-  'CONTACT.SUBMIT_BUTTON': 'Send Message',
-  'CONTACT.SUBMIT_LOADING': 'Sending...',
-  'FORM.NAME_PLACEHOLDER': 'Your name',
+  'FORM.EMAIL_PLACEHOLDER': 'you@email.com',
   'FORM.NAME_ERROR': 'Name is required',
-  'FORM.EMAIL_ARIA': 'Your email address',
   'FORM.EMAIL_ERROR': 'Invalid email format.',
-  'FORM.MESSAGE_ARIA': 'Your message',
   'FORM.MESSAGE_ERROR': 'Message is required',
-  'FORM.SUBMIT_BUTTON': 'Send',
   'FORM.SUBMIT_LOADING': 'Sending...'
 };
 
@@ -54,6 +54,12 @@ describe('ContactFormComponent', () => {
       ],
       providers: [{ provide: ContactService, useValue: contactServiceSpy }]
     }).compileComponents();
+
+    // El componente declara providers:[ContactService], que sombrearía el
+    // provider del TestBed: overrideProvider lo sustituye en todos los niveles.
+    TestBed.overrideProvider(ContactService, {
+      useValue: contactServiceSpy
+    });
 
     fixture = TestBed.createComponent(ContactFormComponent);
     component = fixture.componentInstance;
@@ -266,6 +272,16 @@ describe('ContactFormComponent', () => {
       expect(messageInput).toBeTruthy();
     });
 
+    it('should mark required fields with aria-required', () => {
+      const nameInput = fixture.nativeElement.querySelector('#contact-fullName') as HTMLInputElement;
+      const emailInput = fixture.nativeElement.querySelector('#contact-email') as HTMLInputElement;
+      const messageInput = fixture.nativeElement.querySelector('#contact-message') as HTMLTextAreaElement;
+
+      expect(nameInput.getAttribute('aria-required')).toBe('true');
+      expect(emailInput.getAttribute('aria-required')).toBe('true');
+      expect(messageInput.getAttribute('aria-required')).toBe('true');
+    });
+
     it('shows error messages with proper ARIA attributes and connects them via aria-describedby', () => {
       component.form.get('fullName')?.setValue('Jo'); // invalid (minlength)
       component.form.get('fullName')?.markAsTouched();
@@ -280,13 +296,13 @@ describe('ContactFormComponent', () => {
       expect(errorMessage.getAttribute('role')).toBe('alert');
     });
 
-    it('should have proper button attributes', () => {
+    it('should have an accessible name from its visible text', () => {
       const submitButton = fixture.nativeElement.querySelector(
         '[type="submit"]'
       ) as HTMLButtonElement;
 
       expect(submitButton).toBeTruthy();
-      expect(submitButton.getAttribute('aria-label')).toBeTruthy();
+      expect((submitButton.textContent || '').trim().length).toBeGreaterThan(0);
     });
 
     it('should disable submit button when form is invalid', () => {

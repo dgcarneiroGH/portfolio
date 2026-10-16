@@ -1,29 +1,47 @@
-@use "/src/styles/palette" as palette;
-@use "/src/styles/fonts" as fonts;
+@use "src/styles/_palette" as palette;
+@use "src/styles/_fonts" as fonts;
 @use "sass:color";
+
+// Tarjeta de cristal del formulario (diseño contact 2026-10)
+:host {
+  display: block;
+  width: 100%;
+  max-width: 42rem; // 672px
+  padding: 2.5rem; // 40px
+  background: rgba(palette.$surface-card, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 2rem;
+  outline: 1px solid rgba(palette.$text-primary, 0.12);
+  outline-offset: -1px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+
+  @media (max-height: 950px) {
+    padding: 2rem;
+  }
+
+  @media (min-width: 721px) and (max-height: 730px),
+    (max-width: 720px) and (max-height: 840px) {
+    padding: 1.5rem;
+  }
+
+  @media screen and (max-width: 720px) {
+    padding: 1.5rem;
+  }
+}
 
 form {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-  margin-top: 1rem;
-  width: 40vw;
-}
+  gap: 1.5rem; // 24px
 
-label {
-  font-family: fonts.$body;
-  font-size: 0.875rem;
-  color: palette.$text-primary;
-}
+  @media (max-height: 950px) {
+    gap: 1rem;
+  }
 
-.name-email-row {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
-
-  @media (max-width: 1531px) {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
+  @media (min-width: 721px) and (max-height: 730px),
+    (max-width: 720px) and (max-height: 840px) {
+    gap: 0.75rem;
   }
 }
 
@@ -33,52 +51,103 @@ label {
   gap: 0.5rem;
 }
 
-input,
+.field-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.field-label,
+.required-mark {
+  font-family: fonts.$mono;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  letter-spacing: 0.025rem;
+  text-transform: uppercase;
+
+  @media (min-width: 721px) and (max-height: 730px),
+    (max-width: 720px) and (max-height: 840px) {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+}
+
+.field-label {
+  color: palette.$text-primary;
+}
+
+.required-mark {
+  color: palette.$amber-glow;
+}
+
+input[type="text"],
+input[type="email"],
 textarea {
   width: 100%;
-  padding: 1rem;
+  padding: 0.8125rem 1rem 0.875rem; // 13px / 16px / 14px
   font-family: fonts.$body;
-  font-size: 0.9375rem;
+  font-size: 1rem;
+  line-height: 1.5rem;
   color: palette.$text-primary;
-  background: rgba(palette.$text-primary, 0.05); // Pure white is better for glassmorphism glare, but if strict, use palette.$text-primary
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(palette.$text-primary, 0.1);
-  border-radius: 12px;
+  background: rgba(palette.$azure-deep, 0.9);
+  border: 1px solid rgba(palette.$text-primary, 0.12);
+  border-radius: 0;
   outline: none;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
   transition:
     border-color 0.2s ease,
-    background 0.2s ease,
-    box-shadow 0.2s ease;
+    background 0.2s ease;
   box-sizing: border-box;
   resize: none;
 
-  &::placeholder {
-    color: rgba(palette.$text-primary, 0.75);
+  @media (min-width: 721px) and (max-height: 730px),
+    (max-width: 720px) and (max-height: 840px) {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
   }
 
-  &:focus {
-    border-color: palette.$accent-blue;
-    background: rgba(palette.$text-primary, 0.03);
-    box-shadow: 0 0 0 3px rgba(palette.$accent-blue, 0.15);
+  &::placeholder {
+    color: rgba(palette.$text-secondary, 0.4);
+  }
+
+  &:focus-visible {
+    outline: 2px solid palette.$focus-blue;
+    outline-offset: 2px;
+    border-color: palette.$green-soft;
   }
 
   &.input-error {
     border-color: palette.$text-red;
     background: rgba(palette.$text-red, 0.06);
 
-    &:focus {
+    &:focus-visible {
       border-color: palette.$text-red;
-      box-shadow: 0 0 0 3px rgba(palette.$text-red, 0.15);
     }
   }
 }
 
 textarea {
-  min-height: 140px;
+  min-height: 9.5rem;
   line-height: 1.5;
+
+  @media (max-height: 950px) {
+    min-height: 0;
+    height: 7rem;
+  }
+
+  @media (min-width: 721px) and (max-height: 730px),
+    (max-width: 720px) and (max-height: 840px) {
+    height: 5.5rem;
+  }
+
+  @media (min-width: 721px) and (max-height: 560px),
+    (max-width: 720px) and (max-height: 648px) {
+    height: 4.5rem;
+  }
 }
 
+/* Error Messages */
 .error-message {
   display: flex;
   align-items: center;
@@ -100,9 +169,122 @@ textarea {
     opacity: 0;
     transform: translateY(-4px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+// Pie del formulario: nota de respuesta + botón de envío
+.form-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 0.5rem; // 8px
+
+  // Pantallas bajas: sin aire extra
+  @media (max-height: 950px) {
+    padding-top: 0;
+  }
+
+  @media screen and (max-width: 640px) {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+.response-note {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  font-family: fonts.$body;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  color: palette.$text-secondary;
+
+  .status-dot {
+    flex-shrink: 0;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: palette.$accent-green;
+  }
+
+  .response-time {
+    color: palette.$green-soft;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+}
+
+.submit-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+  padding: 0.75rem 2.5rem;
+  font-family: fonts.$heading;
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.025rem;
+  color: palette.$amber-ink;
+  background: palette.$amber-glow;
+  border: none;
+  border-radius: 9999px;
+  cursor: pointer;
+  box-shadow:
+    0 8px 10px -6px rgba(0, 0, 0, 0.1),
+    0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  transition:
+    transform 0.18s ease,
+    background 0.18s ease,
+    box-shadow 0.18s ease;
+
+  &:hover:not(:disabled) {
+    transform: scale(1.02);
+    background: color.adjust(palette.$amber-glow, $lightness: 5%);
+    box-shadow: 0 4px 20px rgba(palette.$amber-glow, 0.35);
+  }
+
+  &:active:not(:disabled) {
+    transform: scale(0.99);
+  }
+
+  &:focus-visible {
+    outline: 2px solid palette.$focus-blue;
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .btn-icon {
+    width: 1.125rem;
+    height: 1.125rem;
+  }
+}
+
+.btn-spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(palette.$amber-ink, 0.3);
+  border-top-color: palette.$amber-ink;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
   }
 }
 
@@ -112,58 +294,6 @@ textarea {
   color: palette.$text-red;
   text-align: center;
   padding: 0.5rem 0;
-}
-
-.submit-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  width: 100%;
-  padding: 1rem;
-  font-family: fonts.$heading;
-  font-size: 0.9375rem;
-  font-weight: 700;
-  color: palette.$background-gradient-start;
-  background: palette.$accent-yellow;
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
-  transition:
-    transform 0.18s ease,
-    background 0.18s ease,
-    box-shadow 0.18s ease;
-
-  &:hover:not(:disabled) {
-    transform: scale(1.02);
-    background: color.adjust(palette.$accent-yellow, $lightness: 5%);
-    box-shadow: 0 4px 20px rgba(palette.$accent-yellow, 0.35);
-  }
-
-  &:active:not(:disabled) {
-    transform: scale(0.99);
-  }
-
-  &:disabled {
-    background: rgba(palette.$accent-yellow, 0.4);
-    color: rgba(palette.$background-gradient-start, 0.6);
-    cursor: not-allowed;
-    transform: none;
-  }
-}
-
-.btn-spinner {
-  display: inline-block;
-  width: 16px;
-  height: 16px;
-  border: 2px solid rgba(palette.$background-gradient-start, 0.3);
-  border-top-color: palette.$background-gradient-start;
-  border-radius: 50%;
-  animation: spin 0.7s linear infinite;
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
 }
 
 .success-state {
@@ -184,13 +314,12 @@ textarea {
   width: 80px;
   height: 80px;
   border-radius: 50%;
-  background: rgba(palette.$accent-yellow, 0.15);
+  background: rgba(palette.$green-soft, 0.15);
 
   .success-icon {
     width: 40px;
     height: 40px;
-    color: palette.$accent-yellow;
-    stroke: palette.$accent-yellow;
+    stroke: palette.$green-soft;
   }
 }
 
@@ -202,12 +331,14 @@ textarea {
   margin: 0;
 }
 
-@keyframes bounce {
-  0%, 80%, 100% { transform: scale(1); }
-  40%           { transform: scale(1.3); }
-}
-
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(8px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

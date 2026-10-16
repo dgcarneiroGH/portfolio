@@ -1,76 +1,195 @@
-@use "/src/styles/palette" as palette;
+@use "src/styles/_palette" as palette;
+@use "src/styles/_fonts" as fonts;
 
-section {
+.contact {
+  position: relative;
+  width: 100%;
   min-height: 100vh;
-  width: 100vw;
+
+  @supports (min-height: 100svh) {
+    min-height: 100svh;
+  }
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: radial-gradient(ellipse 99% 113% at 70% 20%,
+    palette.$background-gradient-end 0%,
+    palette.$surface-brand 40%,
+    palette.$azure-deep 90%);
   overflow: hidden;
 }
 
-.section-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  flex: 1 0 0%;
+.contact-container {
+  position: relative;
   z-index: 1;
+  width: min(85rem, 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 3rem;
+  padding: 0 2rem 6rem 2rem;
+}
 
-  h1 {
-    padding-top: 1rem;
-    font-size: 3rem;
+// Blobs de luz (puramente decorativos)
+.glow {
+  position: absolute;
+  z-index: 0;
+  border-radius: 50%;
+  pointer-events: none;
+
+  &--mint {
+    top: -8rem; // -128px
+    left: 21.25rem; // 340px
+    width: 26.25rem; // 420px
+    height: 26.25rem;
+    background: rgba(palette.$green-soft, 0.1);
+    box-shadow: 8.75rem 8.75rem 8.75rem rgba(palette.$green-soft, 0.1);
+    filter: blur(4.375rem); // 70px
   }
 
-  .nomacoda-animation-wrapper {
-    position: absolute;
-    width: 21rem;
-    min-width: 44px;
-    min-height: 44px;
-    top: 0;
-    right: 5rem;
-    transform-origin: 50% 0%;
-    z-index: -1;
-    cursor: pointer;
+  &--azure {
+    top: 27.1rem; // 433.5px
+    left: 52.5rem; // 840px
+    width: 30rem; // 480px
+    height: 30rem;
+    background: rgba(palette.$accent-sky, 0.1);
+    box-shadow: 10rem 10rem 10rem rgba(palette.$accent-sky, 0.1);
+    filter: blur(5rem); // 80px
+  }
 
-    img {
-      width: 100%;
-      position: absolute;
-      top: 0;
-      left: 0;
-      display: block;
-      transition: opacity 0.2s ease-in-out;
-    }
-
-    .img-hover {
-      opacity: 0;
-    }
-
-    &:hover {
-      .img-base {
-        opacity: 0;
-      }
-      .img-hover {
-        opacity: 1;
-      }
-    }
+  &--amber {
+    top: 36.44rem; // 583px
+    left: 28.33rem; // 453.33px
+    width: 23.75rem; // 380px
+    height: 23.75rem;
+    background: rgba(palette.$amber-glow, 0.1);
+    box-shadow: 9.375rem 9.375rem 9.375rem rgba(palette.$amber-glow, 0.1);
+    filter: blur(4.6875rem); // 75px
   }
 }
 
+// Intro: titular a dos líneas + descripción
+.contact-intro {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  max-width: 48rem;
+  text-align: center;
+}
+
+.intro-title {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  font-family: fonts.$body;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.25rem;
+
+  .intro-lead {
+    color: palette.$text-primary;
+  }
+
+  .intro-cta {
+    color: palette.$green-soft;
+  }
+}
+
+.intro-description {
+  margin: 0;
+  max-width: 42rem;
+  font-family: fonts.$body;
+  font-size: 1rem;
+  line-height: 1.625rem;
+  color: palette.$text-secondary;
+}
+
+.form-slot {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
 //#region Responsive
-@media (pointer: coarse) and (hover: none) {
-  .section-container {
-    .nomacoda-img-wrapper {
-      display: none;
-    }
+@media screen and (max-height: 950px) {
+  .contact-container {
+    padding-top: 0;
+    padding-bottom: 1.25rem;
+    gap: 1.5rem;
+  }
+}
+
+@media screen and (min-width: 721px) and (max-height: 730px),
+screen and (max-width: 720px) and (max-height: 840px) {
+  .contact-container {
+    gap: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  .contact-intro {
+    gap: 0.5rem;
+  }
+
+  .intro-description {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
+
+@media screen and (min-width: 721px) and (max-height: 560px),
+screen and (max-width: 720px) and (max-height: 648px) {
+  .contact-intro {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
   }
 }
 
 @media screen and (max-width: 720px) {
-  .section-container {
-    h1 {
-      display: none;
-    }
 
-    p {
-      font-size: 2rem;
+  .contact {
+    padding-left: 0;
+  }
+
+  .contact-container {
+    padding: 1.25rem 1.25rem;
+
+    .glow {
+      &--mint {
+        left: -30%;
+      }
+
+      &--azure {
+        top: 45%;
+        left: 55%;
+        width: 24rem;
+        height: 24rem;
+      }
+
+      &--amber {
+        top: 70%;
+        left: -10%;
+        width: 20rem;
+        height: 20rem;
+      }
     }
   }
 }

@@ -1,32 +1,20 @@
-<section class="slider-slide">
-  <div class="section-container">
-    <!-- <h2
-      [appAnimate]="animationDelay()"
-      [translationKey]="'CONTACT.NOW_WE_KNOW'"
-    ></h2> -->
-    <button
-      type="button"
-      class="nomacoda-animation-wrapper btn-reset"
-      [attr.aria-label]="'CONTACT.GO_TO_REVIEWS' | translate"
-      (click)="goToReviews()"
-    >
-      <img
-        src="assets/images/nomacoda/nomacoda_climber1.avif"
-        class="img-base"
-        alt=""
-        aria-hidden="true"
-      />
-      <img
-        src="assets/images/nomacoda/nomacoda_climber2.avif"
-        class="img-hover"
-        alt=""
-        aria-hidden="true"
-      />
-    </button>
+<section class="contact">
+  <div class="contact-container">
+    <!-- Blobs de luz decorativos -->
+    <div class="glow glow--mint" aria-hidden="true"></div>
+    <div class="glow glow--azure" aria-hidden="true"></div>
+    <div class="glow glow--amber" aria-hidden="true"></div>
 
-    <!-- <p [appAnimate]="animationDelay()" [translationKey]="'CONTACT.TALK'"></p> -->
+    <header class="contact-intro">
+      <h1 class="intro-title">
+        <span class="intro-lead">{{ "CONTACT.NOW_WE_KNOW" | translate }}</span>
+        <span class="intro-cta">{{ "CONTACT.TALK" | translate }}</span>
+      </h1>
+      <p class="intro-description">{{ "CONTACT.DESCRIPTION" | translate }}</p>
+    </header>
 
-    <app-contact-form></app-contact-form>
+    <div class="form-slot">
+      <app-contact-form></app-contact-form>
+    </div>
   </div>
 </section>
-<!-- <app-oscillator style="bottom: 0"></app-oscillator> -->

@@ -133,9 +133,20 @@
     "VIEW_PROJECT": "View project {{name}}"
   },
   "CONTACT": {
-    "NOW_WE_KNOW": "Now that you know me . . .",
+    "NOW_WE_KNOW": "Now that you know me...",
     "TALK": "Shall we talk?",
-    "GO_TO_REVIEWS": "Go to reviews"
+    "GO_TO_REVIEWS": "Go to reviews",
+    "DESCRIPTION": "Tell me about your project, Angular or N8N challenges, or your technical mentoring needs. I'll be happy to get back to you.",
+    "FORM_NAME": "Name",
+    "FORM_EMAIL": "Email",
+    "FORM_MESSAGE": "Message",
+    "NAME_PLACEHOLDER": "Your name or company",
+    "MESSAGE_PLACEHOLDER": "Write your message or question here...",
+    "SUBMIT_BUTTON": "Send message",
+    "RESPONSE_INTRO": "Guaranteed response within",
+    "RESPONSE_TIME": "< 24 business hours",
+    "FORM_SUCCESS": "Message sent successfully!",
+    "FORM_ERROR": "Error sending message. Please try again later."
   },
   "SIDEBAR": {
     "CV_URL": "https://drive.google.com/file/d/16_HnY7__FQIomt2ZLJQp5FXLXHcSi5Bn/view?usp=sharing"
