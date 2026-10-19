@@ -1,103 +1,216 @@
 @use "/src/styles/palette" as palette;
+@use "src/styles/_fonts" as fonts;
 
 .post-card {
-  position: relative;
-  margin: 1.5rem auto;
-  padding: 1.5rem 2rem;
-  height: 100%;
+  --card-accent: #{palette.$accent-blue};
 
-  min-height: 35vh;
+  position: relative;
+  width: 100%;
+  min-height: 20rem; // Tarjeta compacta: en el listado vive en un grid de 2 columnas
 
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-
   overflow: hidden;
 
-  background: palette.$background-gradient-start;
-  border-radius: 16px;
+  border-radius: 2rem;
+  background: rgba(palette.$surface-card, 0.6);
+  outline: 1px solid rgba(palette.$text-primary, 0.12);
+  outline-offset: -1px;
+  backdrop-filter: blur(12px);
+  box-shadow:
+    0 8px 10px -6px rgba(0, 0, 0, 0.1),
+    0 20px 25px -5px rgba(0, 0, 0, 0.1);
 
-  box-shadow: 0 8px 24px rgba(255, 255, 255, 0.08);
-
-  &__bg {
-    position: absolute;
-    inset: 1rem;
-    background-size: cover;
-    background-position: center;
-    border-radius: 12px;
-    z-index: 0;
+  &--news {
+    --card-accent: #{palette.$accent-blue};
   }
 
-  &__overlay {
-    position: absolute;
-    inset: 1rem;
-    background: rgba(palette.$background-gradient-start, 0.8);
-    border-radius: 12px;
-    z-index: 0;
+  &--coders4change,
+  &--mindful-code {
+    --card-accent: #{palette.$green-soft};
   }
 
+  &--n8n-workflows {
+    --card-accent: #{palette.$accent-yellow};
+  }
+
+  &--default {
+    --card-accent: #{palette.$accent-blue-light};
+  }
+
+  // Imagen a pantalla completa: cubre toda la tarjeta como fondo
+  &__media {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+
+  &__image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.2;
+  }
+
+  // Capa azul oscura sobre la imagen (abajo hacia arriba)
+  &__media-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(0deg,
+        palette.$surface-pill 0%,
+        rgba(palette.$surface-card, 0.9) 50%,
+        rgba(palette.$surface-card, 0.4) 100%);
+  }
+
+  // Contenido superpuesto sobre la imagen
   &__content {
     position: relative;
     z-index: 1;
-    flex-grow: 1;
+    flex: 1 1 auto;
+
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    padding: 1.5rem;
   }
 
-  .post-card-header {
-    &__meta {
-      display: flex;
-      justify-content: flex-end;
-      align-items: flex-end;
-      flex-direction: column;
-    }
-
-    .category-badge {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      padding: 2px 5px 2px 5px;
-      border-radius: 4px;
-      background: rgba(palette.$accent-blue, 0.1);
-
-      &__line {
-        width: 2px;
-        height: 14px;
-        border-radius: 2px;
-        background: palette.$accent-blue;
-      }
-
-      &__text {
-        color: color-mix(in srgb, palette.$accent-blue 85%, white 15%);
-        font-size: 10px;
-        font-weight: 500;
-        letter-spacing: 0.3px;
-        text-transform: uppercase;
-      }
-    }
-
-    &__date {
-      margin-top: 0.5rem;
-      color: palette.$text-secondary;
-      font-style: italic;
-      text-align: right;
-    }
-
-    &__title {
-      color: palette.$accent-yellow;
-      margin: 0 0 0.75rem 0;
-      text-align: center;
-      font-size: 2rem;
-    }
-  }
-
-  .excerpt {
-    text-align: center;
-  }
-
-  .post-footer {
+  &__header {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: flex-start;
   }
+
+  &__meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  // Chip de categoría de la tarjeta destacada
+  &__badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.125rem 0.5rem;
+    background: palette.$surface-action;
+    border-radius: 1rem;
+    outline: 1px solid rgba(palette.$accent-blue, 0.25);
+    outline-offset: -1px;
+  }
+
+  &__badge-text {
+    color: palette.$accent-blue;
+    font-family: fonts.$mono;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.5rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  // Punto + label de categoría (resto de tarjetas)
+  &__category {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+  }
+
+  &__category-dot {
+    width: 0.375rem;
+    height: 0.75rem;
+    background: var(--card-accent);
+    border-radius: 9999px;
+  }
+
+  &__category-text {
+    color: var(--card-accent);
+    font-family: fonts.$mono;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.5rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  &__date {
+    margin: 0;
+    color: rgba(palette.$text-secondary, 0.8);
+    font-family: fonts.$body;
+    font-size: 1rem;
+    font-style: italic;
+    font-weight: 300;
+    line-height: 1.5rem;
+  }
+
+  &__title {
+    margin: 1rem 0 0;
+    color: palette.$amber-glow;
+    font-family: fonts.$heading;
+    font-size: 1rem;
+    font-weight: 800;
+    line-height: 1.375rem;
+  }
+
+  &__excerpt {
+    margin: 1rem 0 0;
+    color: palette.$text-secondary;
+    font-family: fonts.$body;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.625rem;
+  }
+
+  &__footer {
+    display: flex;
+    padding-top: 1.5rem;
+  }
+
+  // CTA "Artículo completo"
+  &__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 2rem;
+
+    background: rgba(palette.$surface-action, 0.6);
+    color: palette.$amber-glow;
+    border: none;
+    border-radius: 9999px;
+    outline: 2px solid rgba(palette.$accent-yellow, 0.7);
+    outline-offset: -2px;
+    box-shadow: 0 0 15px rgba(palette.$accent-yellow, 0.15);
+
+    font-family: fonts.$heading;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5rem;
+    cursor: pointer;
+
+    transition:
+      filter 0.2s ease,
+      box-shadow 0.2s ease;
+
+    &:hover {
+      filter: brightness(1.15);
+      box-shadow: 0 0 20px rgba(palette.$accent-yellow, 0.3);
+    }
+
+    &:focus-visible {
+      outline: 2px solid palette.$focus-blue;
+      outline-offset: 2px;
+    }
+  }
+
+  &__cta-arrow {
+    color: palette.$accent-yellow;
+    flex-shrink: 0;
+  }
+}
+
+// La tarjeta destacada (diseño v1) deja ver algo más su imagen
+.post-card--featured .post-card__image {
+  opacity: 0.25;
 }

@@ -1,4 +1,4 @@
-<section>
+<section class="blog">
   <!-- Loading state -->
   @if (loading()) {
     <div class="loading-container">
@@ -20,33 +20,55 @@
   <!-- Dashboard -->
   @if (!loading() && !hasError()) {
     @let viewModel = vm();
-    @if (!viewModel.hasSlug) {
-      <header>
-        <h1>{{ "BLOG.TITLE" | translate }}</h1>
-      </header>
-    }
-    <div class="section-container">
-      @if (viewModel.posts && !viewModel.hasSlug) {
-        <app-blog-filter (filterChange)="onFilterChange($event)" />
-        <div class="blog-cards-container">
-          @for (post of viewModel.posts; track post.id) {
-            <app-post-card
-              [currentLocale]="viewModel.currentLocale"
-              [title]="post.title"
-              [date]="post.publishedAt"
-              [image]="post.image"
-              [excerpt]="post.excerpt"
-              [slug]="post.slug"
-              [category]="post.category"
-            />
-          } @empty {
-            <p>{{ "BLOG.NO_POSTS" | translate }}</p>
-          }
-        </div>
-      }
 
-      <!-- Post -->
-      @if (viewModel.hasSlug && viewModel.selectedPost; as post) {
+    @if (!viewModel.hasSlug) {
+      <div class="blog-list">
+        <div class="blog-list__container">
+          <div
+            class="blog-list__glow blog-list__glow--green"
+            aria-hidden="true"
+          ></div>
+          <div
+            class="blog-list__glow blog-list__glow--orange"
+            aria-hidden="true"
+          ></div>
+
+          <header class="blog-hero">
+            <h1 class="blog-hero__title">{{ "BLOG.TITLE" | translate }}</h1>
+            <p
+              class="blog-hero__subtitle"
+              [innerHTML]="'BLOG.SUBTITLE' | translate"
+            ></p>
+
+            <div class="blog-hero__filters">
+              <app-blog-filter (filterChange)="onFilterChange($event)" />
+            </div>
+          </header>
+
+          <div class="blog-cards-container">
+            @for (post of viewModel.posts; track post.id) {
+              <app-post-card
+                [featured]="$first"
+                [currentLocale]="viewModel.currentLocale"
+                [title]="post.title"
+                [date]="post.publishedAt"
+                [image]="post.image"
+                [excerpt]="post.excerpt"
+                [slug]="post.slug"
+                [category]="post.category"
+              />
+            } @empty {
+              <p>{{ "BLOG.NO_POSTS" | translate }}</p>
+            }
+          </div>
+        </div>
+      </div>
+    }
+
+    <!-- Post -->
+    <!-- Vista de artículo pendiente de rediseño: se conserva el markup anterior -->
+    @if (viewModel.hasSlug && viewModel.selectedPost; as post) {
+      <div class="section-container">
         <div class="blog-post">
           <header class="blog-post__header">
             <a
@@ -77,10 +99,12 @@
           }
           <div class="blog-post__content" [innerHTML]="post.body"></div>
         </div>
-      }
+      </div>
+    }
 
-      <!-- Unknown post -->
-      @if (viewModel.hasSlug && !viewModel.selectedPost) {
+    <!-- Unknown post -->
+    @if (viewModel.hasSlug && !viewModel.selectedPost) {
+      <div class="section-container">
         <div class="blog-post blog-post--not-found">
           <a
             class="blog-post__header__back-btn"
@@ -104,7 +128,7 @@
             {{ "ERROR_404.BODY" | translate }}
           </p>
         </div>
-      }
-    </div>
+      </div>
+    }
   }
 </section>

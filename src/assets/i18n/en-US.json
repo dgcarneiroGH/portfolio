@@ -162,6 +162,7 @@
     "NO_POSTS": "No articles available",
     "RETRY": "Retry",
     "TITLE": "Blog",
+    "SUBTITLE": "Thoughts at altitude, automation with <span lang=\"en\">n8n</span>, artificial intelligence and code with direct social impact.",
     "FILTER": {
       "FILTER_GROUP": "Filter articles by category",
       "ALL": "All",

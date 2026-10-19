@@ -2,6 +2,9 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { signal } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import localeEs from '@angular/common/locales/es';
+import localeEn from '@angular/common/locales/en';
 import { of } from 'rxjs';
 import { BlogComponent } from './blog.component';
 import { SanityService } from '../../../core/services/sanity.service';
@@ -9,6 +12,10 @@ import { LangService } from '../../../core/services/lang.service';
 import { PostCategoryType } from '../models/blog-filter.model';
 import { Post } from '../models/post.model';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+
+// Register locales for tests (post-card usa DatePipe con locale explícito)
+registerLocaleData(localeEs, 'es-ES');
+registerLocaleData(localeEn, 'en-US');
 
 describe('BlogComponent', () => {
   let component: BlogComponent;
@@ -193,7 +200,7 @@ describe('BlogComponent', () => {
   });
 
   it('should have clearError method available', () => {
-    // Test that the method exists and can be called
+    // Test the method exists and can be called
     expect(typeof component.clearError).toBe('function');
 
     // Call the method to ensure it doesn't throw
@@ -212,5 +219,38 @@ describe('BlogComponent', () => {
     const lastCallArg = sanitizer.bypassSecurityTrustHtml.calls.mostRecent()
       .args[0] as string;
     expect(lastCallArg).toContain('<span lang="en">Angular</span>');
+  });
+
+  describe('#template rendering', () => {
+    it('should render one post-card per post, marking only the first as featured', () => {
+      fixture.detectChanges();
+
+      const cards = fixture.nativeElement.querySelectorAll('app-post-card');
+      expect(cards.length).toBe(mockPosts.length);
+
+      const firstCardRoot = cards[0].querySelector('.post-card');
+      expect(firstCardRoot.classList.contains('post-card--featured')).toBe(
+        true
+      );
+
+      const secondCardRoot = cards[1].querySelector('.post-card');
+      expect(secondCardRoot.classList.contains('post-card--featured')).toBe(
+        false
+      );
+    });
+
+    it('should render the hero title, the subtitle and the filter group', () => {
+      fixture.detectChanges();
+
+      expect(
+        fixture.nativeElement.querySelector('.blog-hero__title')
+      ).not.toBeNull();
+      expect(
+        fixture.nativeElement.querySelector('.blog-hero__subtitle')
+      ).not.toBeNull();
+      expect(
+        fixture.nativeElement.querySelector('app-blog-filter')
+      ).not.toBeNull();
+    });
   });
 });

@@ -1,5 +1,137 @@
 @use "/src/styles/palette" as palette;
+@use "src/styles/_fonts" as fonts;
 
+.blog {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+
+  @supports (min-height: 100svh) {
+    min-height: 100svh;
+  }
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  background: radial-gradient(ellipse 99% 113% at 70% 20%,
+    palette.$background-gradient-end 0%,
+    palette.$surface-blog-mid 40%,
+    palette.$azure-deep 90%);
+  overflow: hidden;
+}
+
+//#region Listado
+.blog-list {
+  position: relative;
+  width: 100%;
+  padding: 4rem 0 5rem;
+
+  &__container {
+    position: relative;
+    z-index: 1;
+    width: min(85rem, 100%);
+    margin-inline: auto;
+    padding: 0 2.5rem 4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  // Halos difuminados decorativos
+  &__glow {
+    position: absolute;
+    border-radius: 9999px;
+    pointer-events: none;
+
+    &--green {
+      width: 40.625rem;
+      height: 20rem;
+      left: 26%;
+      top: 2.5rem;
+      filter: blur(55px);
+      background: linear-gradient(180deg,
+          rgba(palette.$green-soft, 0.1) 0%,
+          rgba(palette.$background-gradient-end, 0.15) 50%,
+          rgba(palette.$background-gradient-end, 0) 100%);
+    }
+
+    &--orange {
+      width: 23.75rem;
+      height: 23.75rem;
+      left: 68.5%;
+      top: 12rem;
+      filter: blur(60px);
+      background: rgba(palette.$accent-yellow, 0.05);
+    }
+  }
+}
+
+.blog-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4rem 0 1.5rem;
+
+  &__title {
+    margin: 0;
+    color: palette.$text-primary;
+    font-family: fonts.$heading;
+    font-size: clamp(2.75rem, 2rem + 3.5vw, 4.25rem);
+    font-weight: 800;
+    line-height: 1.5;
+    text-align: center;
+    text-shadow:
+      0 4px 3px rgba(0, 0, 0, 0.07),
+      0 2px 2px rgba(0, 0, 0, 0.06);
+  }
+
+  &__subtitle {
+    max-width: 45.75rem;
+    margin: 0.5rem 0 0;
+    color: palette.$text-secondary;
+    font-family: fonts.$body;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.625rem;
+    text-align: center;
+
+    span {
+      color: palette.$accent-blue;
+      font-weight: 600;
+    }
+  }
+
+  &__filters {
+    width: 100%;
+    max-width: 56rem;
+    margin-top: 2.5rem;
+    display: flex;
+    justify-content: center;
+  }
+}
+
+
+.blog-cards-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  width: 100%;
+
+  p {
+    grid-column: 1 / -1;
+    padding: 1rem;
+    text-align: center;
+    color: palette.$text-secondary;
+    font-family: fonts.$body;
+    font-size: 1rem;
+    line-height: 1.625rem;
+  }
+}
+
+//#endregion
+
+//#region Vista de artículo 
 .section-container {
   min-height: 100vh;
   width: 80%;
@@ -10,23 +142,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
-  .blog-cards-container {
-    max-width: 80vw;
-    padding: 2rem;
-
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-
-    p {
-      padding: 1rem;
-      text-align: justify;
-      font-size: 1.5rem;
-      line-height: 2rem;
-      margin-bottom: 1.5rem;
-    }
-  }
 
   .blog-post {
     width: 100%;
@@ -56,8 +171,7 @@
         perspective: 700px;
         opacity: 0;
         transform: translateX(24px);
-        animation: blog-back-slide-in 400ms cubic-bezier(0.22, 1, 0.36, 1) 120ms
-          forwards;
+        animation: blog-back-slide-in 400ms cubic-bezier(0.22, 1, 0.36, 1) 120ms forwards;
         transition:
           transform 0.2s ease,
           opacity 0.2s ease;
@@ -105,6 +219,8 @@
       line-height: 1.75rem;
       font-size: 1.05rem;
 
+      // ::ng-deep: el HTML del cuerpo viene de Sanity ([innerHTML]) y no es
+      // DOM controlable por un componente propio — excepción documentada.
       ::ng-deep p {
         margin-bottom: 2rem;
       }
@@ -135,62 +251,30 @@
     opacity: 0;
     transform: translateX(24px);
   }
+
   100% {
     opacity: 1;
     transform: translateX(0);
   }
 }
 
-.portfolio-btn {
-  position: fixed;
-  bottom: 0;
-  right: 0;
-
-  height: 12vh;
-  z-index: 3;
-  perspective: 700px;
-  margin: 1rem;
-
-  img {
-    height: 100%;
-    margin: auto;
-    filter: drop-shadow(2px 2px 4px rgba(255, 255, 255, 0.6));
-    transform-origin: bottom center;
-    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-
-  &:hover {
-    img {
-      transform: rotateX(12deg) rotateY(-16deg);
-      filter: none;
-    }
-  }
-}
+//#endregion
 
 //#region Responsive
 @media screen and (max-width: 980px) {
   .section-container {
     width: 90%;
+  }
 
-    .blog-cards-container {
-      grid-template-columns: 1fr;
-    }
-
-    .blog-article {
-      padding: 1.5rem;
-      gap: 1rem;
-    }
+  .blog-cards-container {
+    grid-template-columns: 1fr;
   }
 }
 
 @media screen and (max-width: 520px) {
-  .section-container .blog-content p {
-    font-size: 1.2rem;
-    line-height: 1.8rem;
-  }
-
-  .section-container .blog-article {
+  .section-container .blog-post {
     padding: 1rem;
   }
 }
+
 //#endregion

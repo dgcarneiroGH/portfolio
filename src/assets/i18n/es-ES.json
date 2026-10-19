@@ -162,6 +162,7 @@
     "NO_POSTS": "No hay artículos disponibles",
     "RETRY": "Reintentar",
     "TITLE": "Blog",
+    "SUBTITLE": "Pensamientos de altura, automatización con <span lang=\"en\">n8n</span>, inteligencia artificial y código con impacto social directo.",
     "FILTER": {
       "FILTER_GROUP": "Filtrar artículos por categoría",
       "ALL": "Todos",

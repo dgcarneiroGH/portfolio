@@ -9,7 +9,6 @@ import { PostCardComponent } from './post-card.component';
 import { BLOG_FILTERS } from '../../constants/blog-filter.constants';
 import { PostCategoryType } from '../../models/blog-filter.model';
 import { SanityImage } from '../../../../core/models/sanity.models';
-import { ButtonComponent } from '../../../../shared/components/button/button.component';
 
 // Register locales for tests
 registerLocaleData(localeEs, 'es-ES');
@@ -43,7 +42,7 @@ describe('PostCardComponent', () => {
     } as any);
 
     await TestBed.configureTestingModule({
-      imports: [PostCardComponent, ButtonComponent, TranslateModule.forRoot()],
+      imports: [PostCardComponent, TranslateModule.forRoot()],
       providers: [
         { provide: Router, useValue: mockRouter },
         { provide: SanityService, useValue: mockSanityService },
@@ -134,6 +133,22 @@ describe('PostCardComponent', () => {
       expect(component.image).toBeUndefined();
       expect(component.category).toBeUndefined();
     });
+
+    it('should default featured to false', () => {
+      fixture.detectChanges();
+
+      expect(component.featured).toBe(false);
+      expect(
+        fixture.nativeElement.querySelector('.post-card--featured')
+      ).toBeNull();
+    });
+
+    it('should accept and store featured input', () => {
+      fixture.componentRef.setInput('featured', true);
+      fixture.detectChanges();
+
+      expect(component.featured).toBe(true);
+    });
   });
 
   describe('#categoryLabel getter', () => {
@@ -196,6 +211,44 @@ describe('PostCardComponent', () => {
       fixture.detectChanges();
 
       expect(component.categoryLabel).toBeNull();
+    });
+  });
+
+  describe('#themeClass getter', () => {
+    it('should map NEWS to the news theme', () => {
+      fixture.componentRef.setInput('category', PostCategoryType.NEWS);
+      fixture.detectChanges();
+
+      expect(component.themeClass).toBe('post-card--news');
+    });
+
+    it('should map CODERS4CHANGE to the coders4change theme', () => {
+      fixture.componentRef.setInput('category', PostCategoryType.CODERS4CHANGE);
+      fixture.detectChanges();
+
+      expect(component.themeClass).toBe('post-card--coders4change');
+    });
+
+    it('should map MINDFUL_CODE to the mindful-code theme', () => {
+      fixture.componentRef.setInput('category', PostCategoryType.MINDFUL_CODE);
+      fixture.detectChanges();
+
+      expect(component.themeClass).toBe('post-card--mindful-code');
+    });
+
+    it('should map N8N_WORKFLOWS to the n8n-workflows theme', () => {
+      fixture.componentRef.setInput('category', PostCategoryType.N8N_WORKFLOWS);
+      fixture.detectChanges();
+
+      expect(component.themeClass).toBe('post-card--n8n-workflows');
+    });
+
+    it('should fall back to the default theme for unknown or missing categories', () => {
+      fixture.componentRef.setInput('category', 'UNKNOWN_CATEGORY' as any);
+      expect(component.themeClass).toBe('post-card--default');
+
+      fixture.componentRef.setInput('category', undefined);
+      expect(component.themeClass).toBe('post-card--default');
     });
   });
 
@@ -457,8 +510,63 @@ describe('PostCardComponent', () => {
     });
   });
 
-  describe('#i18n rendering (regression: <span lang=\"en\">N8N</span>)', () => {
-    it('should render N8N_WORKFLOWS category badge as innerHTML, not as escaped literal text', () => {
+  describe('#template rendering', () => {
+    it('should render the featured badge instead of the dot category when featured is true', () => {
+      fixture.componentRef.setInput('category', PostCategoryType.NEWS);
+      fixture.componentRef.setInput('featured', true);
+      fixture.detectChanges();
+
+      const root = fixture.nativeElement.querySelector('.post-card');
+      expect(root).not.toBeNull();
+      expect(root.classList.contains('post-card--featured')).toBe(true);
+      expect(
+        fixture.nativeElement.querySelector('.post-card__badge')
+      ).not.toBeNull();
+      expect(
+        fixture.nativeElement.querySelector('.post-card__category')
+      ).toBeNull();
+    });
+
+    it('should render the dot category and not the badge when featured is false', () => {
+      fixture.componentRef.setInput('category', PostCategoryType.NEWS);
+      fixture.componentRef.setInput('featured', false);
+      fixture.detectChanges();
+
+      expect(
+        fixture.nativeElement.querySelector('.post-card__category')
+      ).not.toBeNull();
+      expect(
+        fixture.nativeElement.querySelector('.post-card__badge')
+      ).toBeNull();
+    });
+
+    it('should apply the theme class of the current category to the card root', () => {
+      fixture.componentRef.setInput('category', PostCategoryType.N8N_WORKFLOWS);
+      fixture.detectChanges();
+
+      const root = fixture.nativeElement.querySelector('.post-card');
+      expect(root.classList.contains('post-card--n8n-workflows')).toBe(true);
+    });
+
+    it('should navigate when the CTA button is clicked', () => {
+      fixture.componentRef.setInput('slug', 'cta-click-post');
+      fixture.detectChanges();
+
+      const cta = fixture.nativeElement.querySelector(
+        '.post-card__cta'
+      ) as HTMLButtonElement;
+      expect(cta).not.toBeNull();
+
+      cta.click();
+
+      expect(mockRouter.navigate).toHaveBeenCalledWith([
+        '/blog/cta-click-post'
+      ]);
+    });
+  });
+
+  describe('#i18n rendering (regression: <span lang="en">N8N</span>)', () => {
+    it('should render N8N_WORKFLOWS category label as innerHTML, not as escaped literal text', () => {
       const translateService = TestBed.inject(TranslateService);
       translateService.setTranslation('es-ES', {
         BLOG: {
@@ -473,16 +581,45 @@ describe('PostCardComponent', () => {
       fixture.componentRef.setInput('currentLocale', 'es-ES');
       fixture.detectChanges();
 
-      const badge = fixture.nativeElement.querySelector('.category-badge__text') as HTMLElement;
+      const label = fixture.nativeElement.querySelector(
+        '.post-card__category-text'
+      ) as HTMLElement;
+      expect(label).not.toBeNull();
+
+      const span = label.querySelector('span[lang="en"]');
+      expect(span).not.toBeNull();
+      expect(span?.textContent).toBe('N8N');
+
+      expect(label.textContent?.trim()).toBe('Flujos de N8N');
+      expect(label.innerHTML).not.toContain('[innerHTML]');
+      expect(label.innerHTML).not.toContain('&lt;span');
+    });
+
+    it('should render the featured badge label as innerHTML as well', () => {
+      const translateService = TestBed.inject(TranslateService);
+      translateService.setTranslation('es-ES', {
+        BLOG: {
+          FILTER: {
+            N8N_WORKFLOW: 'Flujos de <span lang="en">N8N</span>'
+          }
+        }
+      });
+      translateService.use('es-ES');
+
+      fixture.componentRef.setInput('category', PostCategoryType.N8N_WORKFLOWS);
+      fixture.componentRef.setInput('featured', true);
+      fixture.componentRef.setInput('currentLocale', 'es-ES');
+      fixture.detectChanges();
+
+      const badge = fixture.nativeElement.querySelector(
+        '.post-card__badge-text'
+      ) as HTMLElement;
       expect(badge).not.toBeNull();
 
       const span = badge.querySelector('span[lang="en"]');
       expect(span).not.toBeNull();
       expect(span?.textContent).toBe('N8N');
-
-      expect(badge.textContent.trim()).toBe('Flujos de N8N');
-      expect(badge.innerHTML).not.toContain('[innerHTML]');
-      expect(badge.innerHTML).not.toContain('&lt;span');
+      expect(badge.textContent?.trim()).toBe('Flujos de N8N');
     });
   });
 });
