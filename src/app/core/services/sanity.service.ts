@@ -150,7 +150,8 @@ export class SanityService {
         "slug": slug.current, 
         image, 
         publishedAt,
-        "category": category._ref
+        "category": category._ref,
+        "usefulCount": coalesce(usefulCount, 0)
       }`;
 
       const rawPosts = await this.fetch<any[]>(query);
@@ -173,7 +174,8 @@ export class SanityService {
         },
         image: post.image || undefined,
         category: this._categories().find(({ id }) => id === post.category)
-          ?.value
+          ?.value,
+        usefulCount: post.usefulCount ?? 0
       }));
 
       this._posts.set(posts);

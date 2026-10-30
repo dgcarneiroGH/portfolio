@@ -14,4 +14,5 @@ export interface Post {
   body: MultilangBody;
   image?: SanityImage;
   category?: PostCategoryType;
+  usefulCount: number;
 }

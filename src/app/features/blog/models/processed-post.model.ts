@@ -11,4 +11,5 @@ export interface ProcessedPost {
   imageUrl: string;
   image?: SanityImage;
   category?: string;
+  usefulCount: number;
 }

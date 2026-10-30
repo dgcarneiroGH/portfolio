@@ -154,6 +154,21 @@
   "BLOG": {
     "BACK_TO_BLOG_ARIA": "Back to the blog articles list",
     "BACK_TO_BLOG": "Back to blog list",
+    "ARTICLE": {
+      "BACK": "Back to blog",
+      "USEFUL": "I FOUND THIS USEFUL",
+      "SHARE": "Share:",
+      "SHARE_LINKEDIN_ARIA": "Share on LinkedIn",
+      "PREV": "Previous Article",
+      "NEXT": "Next Article",
+      "PUBLISHED_ON": "Published: {{date}}",
+      "AUTHOR_NAME": "Nomacoda // Diego",
+      "AUTHOR_ROLE": "DEV.LEAD & ARCHITECT",
+      "AUTHOR_BIO": "Frontend Developer & Automations with social purpose. Exploring intersections between high-altitude code, serene design and healthcare impact.",
+      "AUTHOR_CTA": "Connect & Collaborate",
+      "AUTHOR_PHOTO_ALT": "Photo of Diego (Nomacoda)",
+      "NAV_ARIA": "Article navigation"
+    },
     "CLEAR_ERROR": "Dismiss error",
     "ERROR": "Error loading articles",
     "FULL_POST_ARIA": "Read the full article",

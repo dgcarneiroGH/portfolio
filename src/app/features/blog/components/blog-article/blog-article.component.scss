@@ -1,0 +1,478 @@
+@use "/src/styles/palette" as palette;
+@use "src/styles/_fonts" as fonts;
+
+// Tarjeta exterior del artículo
+.article {
+  width: 100%;
+  padding: 2.5rem 2.5rem 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  background-color: rgba(palette.$surface-card, 0.75);
+  backdrop-filter: blur(12px);
+  border-radius: 2rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+
+  &__header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    row-gap: 0.5rem;
+    width: 100%;
+
+    // Botón de volver — pill del diseño (diseño artículo 2026-10)
+    &__back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      align-self: flex-start;
+      padding: 0.5rem 1rem;
+
+      background-color: rgba(palette.$surface-action, 0.8);
+      border-radius: 999px;
+      box-shadow:
+        0 2px 4px -2px rgba(0, 0, 0, 0.1),
+        0 4px 6px -1px rgba(0, 0, 0, 0.1);
+
+      color: palette.$green-soft;
+      text-decoration: none;
+
+      opacity: 0;
+      transform: translateX(24px);
+      animation: article-back-slide-in 400ms cubic-bezier(0.22, 1, 0.36, 1)
+        120ms forwards;
+      transition: background-color 0.18s ease;
+
+      &:hover {
+        background-color: rgba(palette.$surface-action, 0.95);
+      }
+
+      // La flecha acompaña el gesto de "volver"
+      &:hover &-icon {
+        transform: translateX(-2px);
+      }
+
+      &-icon {
+        width: 1.25rem;
+        height: 1.25rem;
+        flex-shrink: 0;
+        transition: transform 0.2s ease;
+      }
+
+      &-label {
+        color: palette.$green-soft;
+        font-family: fonts.$body;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5rem;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        white-space: nowrap;
+      }
+    }
+
+    &__date {
+      margin: 0;
+      color: palette.$text-secondary;
+      font-family: fonts.$mono;
+      font-style: italic;
+      text-align: end;
+    }
+  }
+
+  &__title {
+    margin: 0;
+    color: palette.$accent-yellow;
+    font-family: fonts.$heading;
+    font-weight: 700;
+    font-size: clamp(2rem, 1.2rem + 2.5vw, 2.75rem);
+    text-align: center;
+  }
+
+  &__figure {
+    position: relative;
+    margin: 0;
+    padding: 1rem;
+    background-color: rgba(palette.$surface-blog-mid, 0.9);
+    border-radius: 2rem;
+    overflow: hidden;
+
+    // Halo decorativo tras la imagen
+    &__glow {
+      position: absolute;
+      top: -40%;
+      left: 10%;
+      width: 80%;
+      height: 90%;
+      border-radius: 9999px;
+      pointer-events: none;
+      background: rgba(palette.$green-soft, 0.1);
+      filter: blur(32px);
+    }
+  }
+
+  &__image {
+    position: relative;
+    display: block;
+    width: 100%;
+    aspect-ratio: 672 / 366;
+    object-fit: cover;
+    border-radius: 1rem;
+    background-color: palette.$surface-pill;
+  }
+
+  &__body {
+    counter-reset: article-section;
+
+    // ::ng-deep: el HTML del cuerpo viene de Sanity ([innerHTML]) y no es
+    // DOM controlable por un componente propio — excepción documentada.
+    ::ng-deep {
+      h2 {
+        color: palette.$green-soft;
+        font-family: fonts.$mono;
+        font-weight: 700;
+        text-transform: uppercase;
+
+        &::before {
+          counter-increment: article-section;
+          content: "0" counter(article-section) " //";
+          color: palette.$accent-yellow;
+        }
+      }
+
+      h3 {
+        color: palette.$text-primary;
+        font-family: fonts.$heading;
+        font-weight: 700;
+        font-size: 1.25rem;
+      }
+
+      p {
+        color: palette.$text-secondary;
+        font-family: fonts.$body;
+        line-height: 1.625;
+        margin-bottom: 1.5rem;
+      }
+
+      strong {
+        color: palette.$text-primary;
+        font-weight: 700;
+      }
+
+      figure,
+      img {
+        max-width: 100%;
+        border-radius: 1rem;
+      }
+
+      a {
+        color: palette.$accent-blue;
+        text-decoration: underline;
+      }
+    }
+  }
+
+  // Barra de acciones: útil + compartir (diseño artículo 2026-10)
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    width: 100%;
+    padding: 1rem;
+
+    background-color: rgba(palette.$surface-blog-mid, 0.8);
+    backdrop-filter: blur(6px);
+    border-radius: 999px;
+  }
+
+  &__useful {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.625rem 1.25rem;
+
+    background-color: rgba(palette.$background-gradient-end, 0.4);
+    color: palette.$green-soft;
+    border: 2px solid transparent;
+    border-radius: 999px;
+
+    font-family: fonts.$body;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+
+    transition:
+      background 0.18s ease,
+      border-color 0.18s ease,
+      color 0.18s ease;
+
+    &:hover:not(&--marked) {
+      background-color: rgba(palette.$background-gradient-end, 0.55);
+    }
+
+    // Estado marcado: borde verde de confirmación
+    &--marked {
+      border-color: palette.$accent-green;
+    }
+
+    &__count {
+      min-width: 1.75rem;
+      padding: 0.125rem 0.5rem;
+
+      background-color: palette.$surface-pill;
+      color: palette.$accent-blue;
+      border-radius: 999px;
+
+      font-family: fonts.$mono;
+      font-size: 0.875rem;
+      font-weight: 700;
+      text-align: center;
+    }
+  }
+
+  &__share {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    &__label {
+      color: rgba(palette.$text-secondary, 0.8);
+      font-family: fonts.$mono;
+      font-size: 0.875rem;
+    }
+  }
+
+  &__share-linkedin {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    text-decoration: none; // ancla interactiva: el diseño no muestra subrayado
+
+    color: palette.$accent-blue;
+    border-radius: 999px;
+
+    transition:
+      background 0.18s ease,
+      color 0.18s ease;
+
+    &:hover {
+      background-color: rgba(palette.$accent-blue, 0.12);
+      color: palette.$accent-blue-light;
+    }
+
+    svg {
+      width: 1.25rem;
+      height: 1.25rem;
+    }
+  }
+
+  // Tarjeta de autor (diseño artículo 2026-10)
+  &__author {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    padding: 1.5rem;
+
+    background-color: rgba(palette.$surface-action, 0.4);
+    border-radius: 2rem;
+
+    &__header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    &__avatar {
+      position: relative;
+      flex-shrink: 0;
+      width: 4rem;
+      height: 4rem;
+
+      background-color: palette.$surface-pill;
+      border-radius: 9999px;
+    }
+
+    &__photo {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 9999px;
+    }
+
+    // Punto de estado decorativo en la esquina del avatar
+    &__dot {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      width: 1rem;
+      height: 1rem;
+
+      background-color: palette.$accent-green;
+      border: 2px solid palette.$surface-blog-mid;
+      border-radius: 9999px;
+    }
+
+    &__name {
+      margin: 0;
+
+      color: palette.$text-primary;
+      font-family: fonts.$heading;
+      font-size: 1.125rem;
+      font-weight: 700;
+    }
+
+    &__role {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+
+      background-color: rgba(palette.$background-gradient-end, 0.3);
+      color: palette.$green-soft;
+      border-radius: 999px;
+
+      font-family: fonts.$mono;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+    }
+
+    &__bio {
+      margin: 0;
+
+      color: palette.$text-secondary;
+      font-family: fonts.$body;
+      line-height: 1.625;
+    }
+
+    &__cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      align-self: flex-start;
+      text-decoration: none; // ancla interactiva: el diseño no muestra subrayado
+
+      color: palette.$accent-blue;
+      font-family: fonts.$body;
+      font-weight: 700;
+
+      transition: color 0.18s ease;
+
+      &:hover {
+        color: palette.$accent-blue-light;
+      }
+
+      svg {
+        width: 1rem;
+        height: 1rem;
+      }
+    }
+  }
+
+  // Navegación anterior/siguiente (diseño artículo 2026-10)
+  &__nav {
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+
+    // El color del modificador hereda a flecha y etiqueta; título y fecha
+    // sobrescriben con su propio color
+    &__link {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex: 1;
+      padding: 1.5rem;
+      text-decoration: none; // ancla interactiva: el diseño no muestra subrayado
+
+      background-color: rgba(palette.$surface-blog-mid, 0.7);
+      border: 2px solid transparent;
+      border-radius: 2rem;
+
+      transition: border-color 0.18s ease;
+
+      &:hover {
+        border-color: palette.$azure-border;
+      }
+    }
+
+    &__link--prev {
+      color: palette.$green-soft;
+    }
+
+    // Espejo de la tarjeta previa: contenido pegado al borde derecho
+    &__link--next {
+      justify-content: flex-end;
+      color: palette.$accent-yellow;
+      text-align: right;
+    }
+
+    &__text {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      min-width: 0;
+    }
+
+    &__label {
+      font-family: fonts.$mono;
+      font-size: 0.8125rem;
+      font-weight: 700;
+    }
+
+    &__title {
+      color: palette.$text-primary;
+      font-family: fonts.$heading;
+      font-weight: 700;
+    }
+
+    &__date {
+      color: rgba(palette.$text-secondary, 0.7);
+      font-family: fonts.$mono;
+      font-size: 0.875rem;
+    }
+
+    &__arrow {
+      flex-shrink: 0;
+    }
+  }
+}
+
+@keyframes article-back-slide-in {
+  0% {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+//#region Responsive
+@media screen and (max-width: 980px) {
+  .article {
+    padding: 1.5rem;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .article {
+    padding: 1.25rem;
+  }
+
+  .article__figure__glow {
+    display: none;
+  }
+
+  // Apilar las tarjetas de navegación en pantallas estrechas
+  .article__nav {
+    flex-direction: column;
+  }
+}
+//#endregion

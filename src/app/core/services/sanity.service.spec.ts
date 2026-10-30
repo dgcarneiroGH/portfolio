@@ -352,6 +352,67 @@ describe('SanityService', () => {
         (service as any).client = originalClient;
       }
     });
+
+    it('should default usefulCount to 0 when the raw post lacks it', async () => {
+      const mockPosts = [
+        {
+          _id: 'post1',
+          titleES: 'Test Title',
+          titleEN: 'Test Title EN',
+          excerptES: 'Test excerpt',
+          bodyES: [],
+          slug: 'test-post',
+          publishedAt: '2024-01-01T00:00:00Z',
+          category: 'test-cat'
+        }
+      ];
+
+      const mockClient = jasmine.createSpyObj('client', ['fetch']);
+      mockClient.fetch.and.returnValue(Promise.resolve(mockPosts));
+
+      spyOn(service, 'loadCategories').and.returnValue(Promise.resolve());
+
+      const originalClient = (service as any).client;
+      (service as any).client = mockClient;
+
+      try {
+        await service.loadPosts();
+        expect(service.posts()[0].usefulCount).toBe(0);
+      } finally {
+        (service as any).client = originalClient;
+      }
+    });
+
+    it('should map usefulCount from the raw post when present', async () => {
+      const mockPosts = [
+        {
+          _id: 'post1',
+          titleES: 'Test Title',
+          titleEN: 'Test Title EN',
+          excerptES: 'Test excerpt',
+          bodyES: [],
+          slug: 'test-post',
+          publishedAt: '2024-01-01T00:00:00Z',
+          category: 'test-cat',
+          usefulCount: 148
+        }
+      ];
+
+      const mockClient = jasmine.createSpyObj('client', ['fetch']);
+      mockClient.fetch.and.returnValue(Promise.resolve(mockPosts));
+
+      spyOn(service, 'loadCategories').and.returnValue(Promise.resolve());
+
+      const originalClient = (service as any).client;
+      (service as any).client = mockClient;
+
+      try {
+        await service.loadPosts();
+        expect(service.posts()[0].usefulCount).toBe(148);
+      } finally {
+        (service as any).client = originalClient;
+      }
+    });
   });
 
   describe('#refreshPosts method', () => {

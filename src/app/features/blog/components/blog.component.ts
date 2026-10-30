@@ -20,6 +20,7 @@ import { BlogViewModel } from '../models/blog-view-model.model';
 import { Post } from '../models/post.model';
 import { ProcessedPost } from '../models/processed-post.model';
 import { SanityService } from './../../../core/services/sanity.service';
+import { BlogArticleComponent } from './blog-article/blog-article.component';
 import { BlogFilterComponent } from './blog-filter/blog-filter.component';
 import { PostCardComponent } from './post-card/post-card.component';
 
@@ -32,7 +33,8 @@ import { PostCardComponent } from './post-card/post-card.component';
     RouterModule,
     PostCardComponent,
     LoadingComponent,
-    BlogFilterComponent
+    BlogFilterComponent,
+    BlogArticleComponent
   ],
   providers: [LangTagPipe],
   templateUrl: './blog.component.html',
@@ -79,11 +81,25 @@ export class BlogComponent implements OnInit, OnDestroy {
     );
   });
 
+  // Artículos adyacentes al seleccionado en el listado (desc por
+  // publishedAt): next = el más nuevo (i-1), previous = el más viejo (i+1);
+  // null en los bordes del listado.
+  adjacentPosts = computed(() => {
+    const arr = this.processedArticles();
+    const i = arr.findIndex((a) => a.slug === this._currentSlug());
+    return {
+      previous: i >= 0 && i < arr.length - 1 ? arr[i + 1] : null,
+      next: i > 0 ? arr[i - 1] : null
+    };
+  });
+
   vm = computed(
     (): BlogViewModel => ({
       posts: this.filteredPosts(),
       hasSlug: !!this._currentSlug(),
       selectedPost: this.selectedPost(),
+      previousPost: this.adjacentPosts().previous,
+      nextPost: this.adjacentPosts().next,
       currentLocale: this.currentLang()
     })
   );
@@ -145,8 +161,8 @@ export class BlogComponent implements OnInit, OnDestroy {
     const imageUrl = article.image
       ? this._sanityService
           .imageBuilder(article.image)
-          .width(600)
-          .height(400)
+          .width(1200)
+          .height(655)
           .url()
       : '';
 
@@ -159,7 +175,8 @@ export class BlogComponent implements OnInit, OnDestroy {
       body: safeHtml,
       imageUrl,
       image: article.image,
-      category: article.category
+      category: article.category,
+      usefulCount: article.usefulCount
     };
   }
 }

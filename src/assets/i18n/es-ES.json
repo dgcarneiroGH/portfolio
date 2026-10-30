@@ -154,6 +154,21 @@
   "BLOG": {
     "BACK_TO_BLOG_ARIA": "Volver a la lista de artículos del blog",
     "BACK_TO_BLOG": "Volver a la lista del blog",
+    "ARTICLE": {
+      "BACK": "Volver al blog",
+      "USEFUL": "ME RESULTÓ ÚTIL",
+      "SHARE": "Compartir:",
+      "SHARE_LINKEDIN_ARIA": "Compartir en LinkedIn",
+      "PREV": "Artículo Anterior",
+      "NEXT": "Siguiente Artículo",
+      "PUBLISHED_ON": "Publicado: {{date}}",
+      "AUTHOR_NAME": "Nomacoda // Diego",
+      "AUTHOR_ROLE": "DEV.LEAD & ARCHITECT",
+      "AUTHOR_BIO": "Desarrollador Frontend & Automatizaciones con propósito social. Explorando intersecciones entre código de alta montaña, diseño sereno e impacto biosanitario.",
+      "AUTHOR_CTA": "Conectar & Colaborar",
+      "AUTHOR_PHOTO_ALT": "Foto de Diego (Nomacoda)",
+      "NAV_ARIA": "Navegación entre artículos"
+    },
     "CLEAR_ERROR": "Cerrar error",
     "ERROR": "Error al cargar los artículos",
     "FULL_POST_ARIA": "Leer el artículo completo",

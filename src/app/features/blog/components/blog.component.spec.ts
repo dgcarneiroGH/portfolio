@@ -1,14 +1,21 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ActivatedRoute } from '@angular/router';
-import { DomSanitizer } from '@angular/platform-browser';
+import { By, DomSanitizer } from '@angular/platform-browser';
+import {
+  ActivatedRoute,
+  convertToParamMap,
+  ParamMap,
+  provideRouter
+} from '@angular/router';
 import { signal } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
 import localeEn from '@angular/common/locales/en';
-import { of } from 'rxjs';
+import { BehaviorSubject, of } from 'rxjs';
 import { BlogComponent } from './blog.component';
+import { BlogArticleComponent } from './blog-article/blog-article.component';
 import { SanityService } from '../../../core/services/sanity.service';
 import { LangService } from '../../../core/services/lang.service';
+import { UsefulService } from '../services/useful.service';
 import { PostCategoryType } from '../models/blog-filter.model';
 import { Post } from '../models/post.model';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
@@ -22,7 +29,10 @@ describe('BlogComponent', () => {
   let fixture: ComponentFixture<BlogComponent>;
   let mockSanityService: jasmine.SpyObj<SanityService>;
   let mockDomSanitizer: jasmine.SpyObj<DomSanitizer>;
+  let paramMapSubject: BehaviorSubject<ParamMap>;
 
+  // Disposición de publishedAt para el contrato de adyacentes (desc):
+  // post-2 (más nuevo) > post-1 (medio) > post-3 (más viejo).
   const mockPosts: Post[] = [
     {
       id: '1',
@@ -31,7 +41,8 @@ describe('BlogComponent', () => {
       title: { es: 'Post 1 ES', en: 'Post 1 EN' },
       excerpt: { es: 'Excerpt 1 ES', en: 'Excerpt 1 EN' },
       body: { es: [], en: [] },
-      category: PostCategoryType.NEWS
+      category: PostCategoryType.NEWS,
+      usefulCount: 12
     },
     {
       id: '2',
@@ -40,16 +51,18 @@ describe('BlogComponent', () => {
       title: { es: 'Post 2 ES', en: 'Post 2 EN' },
       excerpt: { es: 'Excerpt 2 ES', en: 'Excerpt 2 EN' },
       body: { es: [], en: [] },
-      category: PostCategoryType.MINDFUL_CODE
+      category: PostCategoryType.MINDFUL_CODE,
+      usefulCount: 5
     },
     {
       id: '3',
       slug: 'post-3',
-      publishedAt: new Date('2023-01-03'),
+      publishedAt: new Date('2022-12-31'),
       title: { es: 'Post 3 ES', en: 'Post 3 EN' },
       excerpt: { es: 'Excerpt 3 ES', en: 'Excerpt 3 EN' },
       body: { es: [], en: [] },
-      category: PostCategoryType.NEWS
+      category: PostCategoryType.NEWS,
+      usefulCount: 0
     }
   ];
 
@@ -83,8 +96,12 @@ describe('BlogComponent', () => {
       'bypassSecurityTrustHtml'
     ]);
 
+    // BehaviorSubject para poder simular navegaciones (cambios de slug) en
+    // pleno test; ngOnInit se suscribe tras el await de loadPosts.
+    paramMapSubject = new BehaviorSubject(convertToParamMap({}));
+
     const activatedRouteSpy = {
-      paramMap: of(new Map([['slug', null]]))
+      paramMap: paramMapSubject.asObservable()
     };
 
     const translateServiceSpy = jasmine.createSpyObj(
@@ -100,16 +117,30 @@ describe('BlogComponent', () => {
     translateServiceSpy.get.and.returnValue(of('translated text'));
     translateServiceSpy.instant.and.returnValue('translated text');
 
+    // RouterLink (app-blog-article) necesita Router; ActivatedRoute se
+    // sobrescribe después para que el componente reciba el fake del paramMap.
     await TestBed.configureTestingModule({
       imports: [BlogComponent, TranslateModule.forRoot()],
       providers: [
+        provideRouter([]),
         { provide: SanityService, useValue: sanityServiceSpy },
         { provide: LangService, useValue: langServiceSpy },
         { provide: DomSanitizer, useValue: domSanitizerSpy },
         { provide: ActivatedRoute, useValue: activatedRouteSpy },
         { provide: TranslateService, useValue: translateServiceSpy }
       ]
-    }).compileComponents();
+    });
+
+    // app-blog-article declara UsefulService en sus providers: la
+    // sobrescritura debe registrarse antes de compilar para que inyecte el
+    // spy y no el service real (que dependería de HttpClient aquí).
+    TestBed.overrideProvider(UsefulService, {
+      useValue: jasmine.createSpyObj<UsefulService>('UsefulService', [
+        'markUseful'
+      ])
+    });
+
+    await TestBed.compileComponents();
 
     mockSanityService = TestBed.inject(
       SanityService
@@ -251,6 +282,64 @@ describe('BlogComponent', () => {
       expect(
         fixture.nativeElement.querySelector('app-blog-filter')
       ).not.toBeNull();
+    });
+  });
+
+  describe('#article view (app-blog-article)', () => {
+    // ngOnInit es async (awaits loadPosts) y la suscripción al paramMap
+    // ocurre un microtask después del primer detectChanges: el primer
+    // render aún es el listado y el segundo ya pinta el artículo.
+    const showArticle = async (slug: string): Promise<void> => {
+      paramMapSubject.next(convertToParamMap({ slug }));
+      fixture.detectChanges(); // dispara ngOnInit
+      await Promise.resolve(); // resuelve el await de loadPosts → suscripción
+      fixture.detectChanges(); // re-render con el slug activo
+    };
+
+    const renderedArticle = (): BlogArticleComponent =>
+      fixture.debugElement.query(By.directive(BlogArticleComponent))!
+        .componentInstance as BlogArticleComponent;
+
+    it('should delegate the article view to app-blog-article with the adjacent posts of the selected slug', async () => {
+      await showArticle('post-1');
+
+      const el = fixture.nativeElement as HTMLElement;
+      expect(el.querySelector('app-blog-article')).not.toBeNull();
+      // La vista inline antigua (`.blog-post`) ya no debe renderizarse.
+      expect(el.querySelector('.blog-post')).toBeNull();
+
+      const article = renderedArticle();
+      expect(article.post().slug).toBe('post-1');
+      // Orden desc por publishedAt: post-2 (más nuevo) / post-1 / post-3 (más viejo)
+      expect(article.next()?.slug).toBe('post-2');
+      expect(article.previous()?.slug).toBe('post-3');
+    });
+
+    it('should pass null as the next post when the selected post is the newest', async () => {
+      await showArticle('post-2');
+
+      const article = renderedArticle();
+      expect(article.post().slug).toBe('post-2');
+      expect(article.next()).toBeNull();
+      expect(article.previous()?.slug).toBe('post-1');
+    });
+
+    it('should pass null as the previous post when the selected post is the oldest', async () => {
+      await showArticle('post-3');
+
+      const article = renderedArticle();
+      expect(article.post().slug).toBe('post-3');
+      expect(article.previous()).toBeNull();
+      // El siguiente del más viejo es el inmediatamente más nuevo (post-1).
+      expect(article.next()?.slug).toBe('post-1');
+    });
+
+    it('should keep the not-found block when the slug matches no post', async () => {
+      await showArticle('unknown-slug');
+
+      const el = fixture.nativeElement as HTMLElement;
+      expect(el.querySelector('.blog-post--not-found')).not.toBeNull();
+      expect(el.querySelector('app-blog-article')).toBeNull();
     });
   });
 });
