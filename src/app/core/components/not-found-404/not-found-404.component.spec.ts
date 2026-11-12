@@ -32,4 +32,11 @@ describe('NotFound404Component', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should visually hide the title using the global sr-only class', () => {
+    fixture.detectChanges();
+    const h1 = fixture.nativeElement.querySelector('h1');
+    expect(h1).toBeTruthy();
+    expect(h1.classList.contains('sr-only')).toBeTrue();
+  });
 });

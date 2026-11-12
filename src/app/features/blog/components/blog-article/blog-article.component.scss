@@ -171,6 +171,18 @@
         color: palette.$accent-blue;
         text-decoration: underline;
       }
+
+      // Bloques de código del CMS: scroll horizontal contenido dentro de la
+      // tarjeta si el CMS emite líneas largas (auditoría responsive M2).
+      pre {
+        max-width: 100%;
+        overflow-x: auto;
+      }
+
+      pre code {
+        display: block;
+        white-space: pre;
+      }
     }
   }
 

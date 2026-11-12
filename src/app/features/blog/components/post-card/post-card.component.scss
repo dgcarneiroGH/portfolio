@@ -84,6 +84,7 @@
 
   &__meta {
     display: flex;
+    flex-wrap: wrap; // en tracks estrechos (<361px) la fecha envuelve bajo la categoría
     justify-content: space-between;
     align-items: center;
     gap: 1rem;

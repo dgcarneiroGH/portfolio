@@ -15,8 +15,9 @@
 
 .loading-composite {
   position: relative;
-  width: 400px;
-  height: 400px;
+  // Fluida: en <400px se reduce en vez de recortarse (auditoría responsive M1).
+  width: min(400px, 100%);
+  aspect-ratio: 1;
 }
 
 .loading-spin,

@@ -96,4 +96,9 @@
   .lang-label {
     display: none;
   }
+
+  // Target táctil ≥44px (auditoría responsive M3)
+  .container-header {
+    min-height: 44px;
+  }
 }

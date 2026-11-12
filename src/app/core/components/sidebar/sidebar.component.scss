@@ -259,3 +259,12 @@ $morph-duration: 0.45s;
     transition: none;
   }
 }
+
+// Target táctil ≥44px en móvil (auditoría responsive M3)
+@media screen and (max-width: 640px) {
+  .dock__toggle,
+  .dock__item {
+    width: 44px;
+    height: 44px;
+  }
+}

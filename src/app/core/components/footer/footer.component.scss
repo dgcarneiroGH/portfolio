@@ -116,5 +116,10 @@
   .tagline {
     display: none;
   }
+
+  // Target táctil ≥44px (auditoría responsive M3)
+  .blog-btn {
+    min-height: 44px;
+  }
 }
 //#endregion

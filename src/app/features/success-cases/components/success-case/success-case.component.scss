@@ -101,3 +101,11 @@
     outline-offset: 2px;
   }
 }
+
+// Target táctil ≥44px en móvil (auditoría responsive M3)
+@media screen and (max-width: 640px) {
+  .info-btn {
+    min-height: 44px;
+    padding-block: 0.75rem;
+  }
+}

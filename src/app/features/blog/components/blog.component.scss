@@ -240,7 +240,10 @@
   }
 
   .blog-cards-container {
-    grid-template-columns: 1fr;
+    // minmax(0,1fr) permite encoger el track por debajo del min-content de la
+    // tarjeta: con 1fr plano, en <361px el track crece hasta el min-content
+    // (~217px) y las tarjetas se recortan fuera del viewport (auditoría responsive A2).
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 

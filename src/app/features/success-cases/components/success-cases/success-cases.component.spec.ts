@@ -1,5 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { provideZonelessChangeDetection } from '@angular/core';
+import {
+  Component,
+  provideZonelessChangeDetection
+} from '@angular/core';
+import { Router, provideRouter } from '@angular/router';
 import {
   TranslateLoader,
   TranslateModule,
@@ -8,6 +12,13 @@ import {
 import { firstValueFrom, of } from 'rxjs';
 import { By } from '@angular/platform-browser';
 import { SuccessCasesComponent } from './success-cases.component';
+
+@Component({
+  selector: 'dummy-route',
+  standalone: true,
+  template: ''
+})
+class DummyRouteComponent {}
 
 const mockLoader = {
   getTranslation: () =>
@@ -46,7 +57,10 @@ describe('SuccessCasesComponent', () => {
         SuccessCasesComponent,
         TranslateModule.forRoot({ loader: { provide: TranslateLoader, useValue: mockLoader } })
       ],
-      providers: [provideZonelessChangeDetection()]
+      providers: [
+        provideZonelessChangeDetection(),
+        provideRouter([{ path: '**', component: DummyRouteComponent }])
+      ]
     }).compileComponents();
 
     const translate = TestBed.inject(TranslateService);
@@ -83,6 +97,19 @@ describe('SuccessCasesComponent', () => {
     expect(closeBtn).toBeTruthy();
     closeBtn.click();
     fixture.detectChanges();
+    expect(fixture.nativeElement.querySelector('app-success-case-detail')).toBeFalsy();
+  });
+
+  it('should close the modal when the route changes', async () => {
+    fixture.detectChanges();
+    fixture.debugElement.query(By.css('app-success-case .info-btn')).nativeElement.click();
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelector('app-success-case-detail')).toBeTruthy();
+
+    const router = TestBed.inject(Router);
+    await router.navigateByUrl('/otra-seccion');
+    fixture.detectChanges();
+
     expect(fixture.nativeElement.querySelector('app-success-case-detail')).toBeFalsy();
   });
 });

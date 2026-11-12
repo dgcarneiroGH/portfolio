@@ -321,3 +321,12 @@ textarea {
     transform: translateY(0);
   }
 }
+
+// Target táctil ≥44px sin alterar el layout: el padding crece el área de
+// toque y el margen negativo compensa el espacio visual (auditoría responsive M3)
+@media screen and (max-width: 640px) {
+  .rating-group .stars-row .star-btn {
+    padding: 0.625rem;
+    margin: -0.625rem;
+  }
+}
