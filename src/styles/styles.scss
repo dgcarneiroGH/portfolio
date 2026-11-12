@@ -666,6 +666,20 @@ p .blast:hover {
   }
 }
 
+// One-pager routes (identical DOM): instant swap via a CSS class on <html>
+// instead of ViewTransition.skipTransition() — that call rejects
+// transition.ready with a DOMException that Angular logs via console.error
+// in dev mode. Re-evaluated on every navigation, so the slide/fade rules
+// above still apply to non-instant transitions (one-pager ↔ blog / 404).
+:root.vt-instant {
+  &::view-transition-group(*),
+  &::view-transition-old(*),
+  &::view-transition-new(*) {
+    animation: none !important;
+    mix-blend-mode: normal;
+  }
+}
+
 // Respect reduced motion — fall back to a simple fade
 @media (prefers-reduced-motion: reduce) {
 

@@ -69,10 +69,11 @@ bootstrapApplication(AppComponent, {
       routes,
       withHashLocation(),
       withViewTransitions({
-        onViewTransitionCreated: ({ transition, from, to }) => {
-          if (shouldSkipViewTransition(from, to)) {
-            transition.skipTransition();
-          }
+        onViewTransitionCreated: ({ from, to }) => {
+          document.documentElement.classList.toggle(
+            'vt-instant',
+            shouldSkipViewTransition(from, to)
+          );
         }
       }),
       withInMemoryScrolling({ scrollPositionRestoration: 'disabled' })
