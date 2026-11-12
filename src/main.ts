@@ -11,22 +11,25 @@ import {
   importProvidersFrom,
   provideZonelessChangeDetection
 } from '@angular/core';
-import { Observable, of } from 'rxjs';
 import { bootstrapApplication } from '@angular/platform-browser';
 import {
   provideRouter,
+  RouteReuseStrategy,
+  TitleStrategy,
   withHashLocation,
   withInMemoryScrolling,
-  withViewTransitions,
-  TitleStrategy
+  withViewTransitions
 } from '@angular/router';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { Observable, of } from 'rxjs';
 import { AppComponent } from './app/app.component';
 import { routes } from './app/app.routes';
-import { environment } from './environments/environment';
 import { A11yTitleStrategy } from './app/core/services/a11y-title-strategy';
+import { OnePagerReuseStrategy } from './app/core/services/one-pager-reuse.strategy';
+import { shouldSkipViewTransition } from './app/core/services/view-transition-skip';
 import esEs from './assets/i18n/es-ES.json';
+import { environment } from './environments/environment';
 
 if (environment.production) {
   enableProdMode();
@@ -61,11 +64,18 @@ registerLocaleData(localeEn, 'en-US');
 bootstrapApplication(AppComponent, {
   providers: [
     provideZonelessChangeDetection(),
+    { provide: RouteReuseStrategy, useClass: OnePagerReuseStrategy },
     provideRouter(
       routes,
       withHashLocation(),
-      withViewTransitions(),
-      withInMemoryScrolling({ scrollPositionRestoration: 'top' })
+      withViewTransitions({
+        onViewTransitionCreated: ({ transition, from, to }) => {
+          if (shouldSkipViewTransition(from, to)) {
+            transition.skipTransition();
+          }
+        }
+      }),
+      withInMemoryScrolling({ scrollPositionRestoration: 'disabled' })
     ),
     provideHttpClient(withInterceptorsFromDi()),
     { provide: TitleStrategy, useClass: A11yTitleStrategy },

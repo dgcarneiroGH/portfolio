@@ -7,12 +7,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: radial-gradient(
-    ellipse 99% 113% at 70% 20%,
-    palette.$background-gradient-end 0%,
-    palette.$surface-brand 40%,
-    palette.$azure-deep 90%
-  );
+  background: radial-gradient(ellipse 99% 113% at 70% 20%,
+      rgba(palette.$background-gradient-end, 0.55) 0%,
+      rgba(palette.$surface-brand, 0.4) 40%,
+      transparent 80%);
   overflow: hidden;
 }
 
@@ -54,4 +52,5 @@
     grid-template-columns: repeat(1, 1fr);
   }
 }
+
 //#endregion

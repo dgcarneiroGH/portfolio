@@ -1,61 +1,61 @@
 import { Routes } from '@angular/router';
-
 export const routes: Routes = [
   {
     path: '',
     loadComponent: () =>
       import(
-        './features/home/components/home.component'
-      ).then((m) => m.HomeComponent),
-    data: { animation: 'Home', titleKey: 'ROUTE.PORTFOLIO' },
+        './features/sections/components/sections-page/sections-page.component'
+      ).then((m) => m.SectionsPageComponent),
+    data: { section: 'home', onePager: true, animation: 'Home', titleKey: 'ROUTE.PORTFOLIO' },
     pathMatch: 'full'
   },
   {
     path: 'about-me',
     loadComponent: () =>
-      import('./features/about/components/about.component').then(
-        (m) => m.AboutComponent
-      ),
-    data: { animation: 'About', titleKey: 'ROUTE.ABOUT' }
+      import(
+        './features/sections/components/sections-page/sections-page.component'
+      ).then((m) => m.SectionsPageComponent),
+    data: { section: 'about-me', onePager: true, animation: 'About', titleKey: 'ROUTE.ABOUT' }
   },
   {
     path: 'reviews',
     loadComponent: () =>
-      import('./features/reviews/components/reviews.component').then(
-        (m) => m.ReviewsComponent
-      ),
-    data: { animation: 'Reviews', titleKey: 'ROUTE.REVIEWS' }
+      import(
+        './features/sections/components/sections-page/sections-page.component'
+      ).then((m) => m.SectionsPageComponent),
+    data: { section: 'reviews', onePager: true, animation: 'Reviews', titleKey: 'ROUTE.REVIEWS' }
   },
   {
     path: 'contact',
     loadComponent: () =>
-      import('./features/contact/components/contact.component').then(
-        (m) => m.ContactComponent
-      ),
-    data: { animation: 'Contact', titleKey: 'ROUTE.CONTACT' }
+      import(
+        './features/sections/components/sections-page/sections-page.component'
+      ).then((m) => m.SectionsPageComponent),
+    data: { section: 'contact', onePager: true, animation: 'Contact', titleKey: 'ROUTE.CONTACT' }
   },
   {
     path: 'success-cases',
     loadComponent: () =>
       import(
-        './features/success-cases/components/success-cases/success-cases.component'
-      ).then((m) => m.SuccessCasesComponent),
-    data: { animation: 'SuccessCases', titleKey: 'ROUTE.SUCCESS_CASES' }
+        './features/sections/components/sections-page/sections-page.component'
+      ).then((m) => m.SectionsPageComponent),
+    data: {
+      section: 'success-cases',
+      onePager: true,
+      animation: 'SuccessCases',
+      titleKey: 'ROUTE.SUCCESS_CASES'
+    }
   },
   {
     path: 'blog',
     loadComponent: () =>
-      import('./features/blog/components/blog.component').then(
-        (m) => m.BlogComponent
-      ),
+      import('./features/blog/components/blog.component').then((m) => m.BlogComponent),
     data: { animation: 'Blog', titleKey: 'ROUTE.BLOG' }
   },
   {
     path: 'blog/:slug',
     loadComponent: () =>
-      import('./features/blog/components/blog.component').then(
-        (m) => m.BlogComponent
-      ),
+      import('./features/blog/components/blog.component').then((m) => m.BlogComponent),
     data: { titleKey: 'ROUTE.BLOG_POST' }
   },
   {

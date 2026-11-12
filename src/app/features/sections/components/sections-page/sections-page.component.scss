@@ -1,0 +1,70 @@
+@use "src/styles/_palette" as palette;
+
+/**
+ * One-pager: los envoltorios de sección son <div> con id (ver plantilla) y
+ * heredan el flujo en bloque; cada feature dentro aporta su propio fondo
+ * translúcido (gradientes radiales con alpha) sobre la base compartida del
+ * body. Sus paddings ya compensan el header fijo (padding-top global de
+ * section en styles.scss) y el footer fijo (padding-bottom de contact).
+ *
+ * Franjas de costura (::before/::after): cada sección emerge de la base
+ * compartida y se disuelve en ella. La franja REPLICa la receta exacta del
+ * gradiente del body (linear 90deg con los mismos tokens — alinea píxel a
+ * píxel porque el wrapper es full-bleed) y la revela con una máscara
+ * vertical, así que no hay que adivinar colores de costura. Si se cambia el
+ * fondo del body en styles.scss, actualizar esta réplica.
+ *
+ * Las franjas velan suavemente el contenido dentro de la banda (efecto de
+ * capítulo que se apaga); pointer-events: none las mantiene decorativas.
+ * Ajuste por costura: --seam-fade (16vh en home, para disolver las montañas).
+ */
+.sections-page {
+  display: block;
+}
+
+.sections-page__section {
+  position: relative;
+  --seam-fade: 10vh;
+}
+
+.sections-page__section::before,
+.sections-page__section::after {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  z-index: 3;
+  pointer-events: none;
+  background: linear-gradient(90deg,
+    palette.$background-gradient-start 0%,
+    palette.$background-gradient-end 100%);
+}
+
+// Entra desde la base compartida (opaca arriba, se desvanece hacia abajo)
+.sections-page__section::before {
+  top: 0;
+  height: var(--seam-fade);
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
+}
+
+// Se disuelve hacia la base compartida (transparente arriba, opaca abajo)
+.sections-page__section::after {
+  bottom: 0;
+  height: var(--seam-fade);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, black 100%);
+}
+
+// Solo hay costura ENTRE secciones: sin franja sobre la primera ni bajo la última
+.sections-page__section:first-child::before {
+  content: none;
+}
+
+.sections-page__section:last-child::after {
+  content: none;
+}
+
+// Costura más larga sobre las montañas de home
+#home {
+  --seam-fade: 16vh;
+}

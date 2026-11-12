@@ -22,7 +22,6 @@ describe('ReviewsComponent', () => {
   let component: ReviewsComponent;
   let fixture: ComponentFixture<ReviewsComponent>;
   let reviewsServiceSpy: jasmine.SpyObj<ReviewsService>;
-
   beforeEach(async () => {
     reviewsServiceSpy = jasmine.createSpyObj('ReviewsService', ['sendReview']);
     reviewsServiceSpy.sendReview.and.returnValue(of({ success: true }));
@@ -46,6 +45,14 @@ describe('ReviewsComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('la section raíz no lleva id: el ancla lo pone el envoltorio del one-pager', () => {
+    // El sections-page envuelve cada feature en <div id="...">; un id aquí
+    // duplicaría el ancla en el documento (HTML inválido, axe duplicate-id).
+    const rootSection = fixture.nativeElement.querySelector('section.reviews');
+    expect(rootSection).toBeTruthy();
+    expect(rootSection.id).toBe('');
   });
 
   it('should render a review card per review by default', () => {
