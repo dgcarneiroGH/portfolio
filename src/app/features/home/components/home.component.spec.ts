@@ -52,9 +52,10 @@ describe('HomeComponent', () => {
     expect(compiled.querySelector('app-skills')).toBeTruthy();
   });
 
-  it('should render the code window component', () => {
+  it('should render the interactive hero code window component', () => {
     const compiled = fixture.nativeElement as HTMLElement;
 
     expect(compiled.querySelector('app-code-window')).toBeTruthy();
+    expect(compiled.querySelector('app-code-window')).toBe(null);
   });
 });

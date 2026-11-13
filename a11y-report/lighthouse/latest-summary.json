@@ -1,15 +1,15 @@
 {
-  "timestamp": "2026-09-02T06:49:50.656Z",
-  "commit": "3181dc8",
+  "timestamp": "2026-11-13T09:10:53.333Z",
+  "commit": "6f8c49b",
   "baseUrl": "http://127.0.0.1:4200",
   "runs": [
     {
       "route": "/",
       "formFactor": "mobile",
       "scores": {
-        "accessibility": 0.96,
-        "best-practices": 0.93,
-        "performance": 0.68,
+        "accessibility": 1,
+        "best-practices": 0.96,
+        "performance": 0.86,
         "seo": 0.92
       },
       "status": "ok"
@@ -18,8 +18,8 @@
       "route": "/",
       "formFactor": "desktop",
       "scores": {
-        "accessibility": 0.96,
-        "best-practices": 0.93,
+        "accessibility": 1,
+        "best-practices": 0.96,
         "performance": 1,
         "seo": 0.92
       },
@@ -29,9 +29,9 @@
       "route": "/blog",
       "formFactor": "mobile",
       "scores": {
-        "accessibility": 0.98,
+        "accessibility": 1,
         "best-practices": 0.96,
-        "performance": 0.87,
+        "performance": 0.88,
         "seo": 0.92
       },
       "status": "ok"
@@ -40,9 +40,9 @@
       "route": "/blog",
       "formFactor": "desktop",
       "scores": {
-        "accessibility": 0.94,
+        "accessibility": 0.96,
         "best-practices": 0.96,
-        "performance": 0.75,
+        "performance": 1,
         "seo": 0.92
       },
       "status": "ok"
@@ -51,9 +51,9 @@
       "route": "/blog/otro-articulo",
       "formFactor": "mobile",
       "scores": {
-        "accessibility": 0.98,
+        "accessibility": 1,
         "best-practices": 0.96,
-        "performance": 0.88,
+        "performance": 0.87,
         "seo": 0.92
       },
       "status": "ok"
@@ -62,9 +62,9 @@
       "route": "/blog/otro-articulo",
       "formFactor": "desktop",
       "scores": {
-        "accessibility": 0.94,
+        "accessibility": 0.96,
         "best-practices": 0.96,
-        "performance": 0.75,
+        "performance": 1,
         "seo": 0.92
       },
       "status": "ok"
@@ -73,7 +73,7 @@
       "route": "/no-existe",
       "formFactor": "mobile",
       "scores": {
-        "accessibility": 0.98,
+        "accessibility": 1,
         "best-practices": 1,
         "performance": 0.9,
         "seo": 0.92
@@ -84,7 +84,7 @@
       "route": "/no-existe",
       "formFactor": "desktop",
       "scores": {
-        "accessibility": 0.98,
+        "accessibility": 1,
         "best-practices": 1,
         "performance": 1,
         "seo": 0.92

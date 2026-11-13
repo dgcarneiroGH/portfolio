@@ -58,9 +58,21 @@ $amber-ink: #472a00;
 $amber-dark: #2b1700;
 
 // Home code window (mock home-redesign 2026-10) — sintaxis del snippet
-$code-comment: #6f9484;
-$code-keyword: #c792ea;
+// (2026-11: re-mapeo a la ventana viva del hero; $code-comment sube a
+// slate-400 #94a3b8 porque #6f9484/#64748b quedan <4.5:1 sobre el panel)
+$code-comment: #94a3b8;
+// prefers-contrast: more → comment a contraste AA reforzado
+$code-comment-strong: #cbd5e1;
+$code-keyword: #00bfa5;
 $code-string: #ffab70;
+$code-teal: #00bfa5;
+
+// Hero code window (2026-11) — superficies del panel y dots de chrome macOS
+$surface-code-deep: #071018;
+$surface-code: #0b1622;
+$mac-dot-red: #ff5f57;
+$mac-dot-yellow: #febc2e;
+$mac-dot-green: #28c840;
 
 // Accessible messages (fondo suave + texto de alto contraste)
 $accessible-success: $accent-green;

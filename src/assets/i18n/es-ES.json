@@ -65,7 +65,11 @@
       "DAW": "Tutoría DAW / DAM"
     },
     "CTA_CONTACT": "Iniciar Conversación",
-    "CODE_WINDOW_ARIA": "Ventana de código: configuración de desarrollador de Nomacoda con el perfil de especialista Angular y arquitecto N8N, compilado con éxito",
+    "CODE_WINDOW_ARIA": "Fragmento de configuración TypeScript del perfil de Nomacoda: desarrollador front-end Angular, automatizaciones n8n y tutorías DAW/DAM",
+    "CODE_HINT_STACK": "Angular 21 · Sanity · Supabase · Hugo",
+    "CODE_HINT_AUTOMATION": "n8n: workflows que ahorran horas cada semana",
+    "CODE_HINT_TUTORING": "Tutorías para aprobar el fin de ciclo DAW/DAM",
+    "CODE_HINT_STATUS": "Disponible para proyectos y mentoría",
     "CHARACTER_ALT": "Personaje de Nomacoda meditando con un portátil"
   },
   "ABOUT": {
