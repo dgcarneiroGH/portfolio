@@ -8,7 +8,6 @@ import { of } from 'rxjs';
 describe('BlogFilterComponent', () => {
   let component: BlogFilterComponent;
   let fixture: ComponentFixture<BlogFilterComponent>;
-  let translateService: jasmine.SpyObj<TranslateService>;
 
   beforeEach(async () => {
     const translateServiceSpy = jasmine.createSpyObj(
@@ -28,10 +27,6 @@ describe('BlogFilterComponent', () => {
       imports: [BlogFilterComponent, TranslateModule.forRoot()],
       providers: [{ provide: TranslateService, useValue: translateServiceSpy }]
     }).compileComponents();
-
-    translateService = TestBed.inject(
-      TranslateService
-    ) as jasmine.SpyObj<TranslateService>;
     fixture = TestBed.createComponent(BlogFilterComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -154,5 +149,38 @@ describe('BlogFilterComponent', () => {
       expect(pill.nativeElement.innerHTML).not.toContain('[innerHTML]');
       expect(pill.nativeElement.innerHTML).not.toContain('&lt;span');
     });
+  });
+});
+
+describe('BlogFilterComponent (a11y: nombre accesible del grupo de filtros)', () => {
+  let fixture: ComponentFixture<BlogFilterComponent>;
+
+  beforeEach(async () => {
+    TestBed.resetTestingModule();
+    await TestBed.configureTestingModule({
+      imports: [BlogFilterComponent, TranslateModule.forRoot()],
+      providers: [TranslateService]
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(BlogFilterComponent);
+  });
+
+  afterEach(() => {
+    fixture.destroy();
+  });
+
+  it('should label the filter group with the BLOG.FILTER.FILTER_GROUP translation', () => {
+    const translateService = TestBed.inject(TranslateService);
+    translateService.setTranslation('es-ES', {
+      BLOG: { FILTER: { FILTER_GROUP: 'Filtrar artículos por categoría' } }
+    });
+    translateService.use('es-ES');
+
+    fixture.detectChanges();
+
+    const group = fixture.nativeElement.querySelector('.filter-container');
+    expect(group.getAttribute('aria-label')).toBe(
+      'Filtrar artículos por categoría'
+    );
   });
 });

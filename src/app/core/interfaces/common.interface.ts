@@ -18,3 +18,9 @@ export interface DynamicScripts {
   name: string;
   src: string;
 }
+
+/** Respuesta estándar de las Netlify functions del portfolio ({ success, data }). */
+export interface SubmitResponse {
+  success: boolean;
+  data?: unknown;
+}

@@ -1,0 +1,81 @@
+<div class="hcw" role="img" [attr.aria-label]="'HOME.CODE_WINDOW_ARIA' | translate">
+  <div class="hcw__chrome" aria-hidden="true">
+    <span class="hcw__dots">
+      <span class="hcw__dot hcw__dot--red"></span>
+      <span class="hcw__dot hcw__dot--yellow"></span>
+      <span class="hcw__dot hcw__dot--green"></span>
+    </span>
+    <span class="hcw__title">
+      <span class="hcw__prompt">&gt;_</span> developer.config.ts
+    </span>
+    <span class="hcw__badge">TypeScript ~5.9</span>
+  </div>
+
+  <div class="hcw__body" aria-hidden="true">
+    <div class="hcw__code" #codeRegion (scroll)="onCodeScroll()">
+      @for (line of lines; track line.id) {
+        <div
+          class="hcw__row"
+          [class.is-active]="$index === activeLine()"
+          [class.is-hovered]="$index === hoveredLine()"
+          (pointerenter)="onLineEnter($index, $event)"
+          (pointerleave)="onLineLeave()"
+          (pointerdown)="onLineTap($index, $event)"
+        >
+          <span class="hcw__num">{{ $index + 1 }}</span>
+          <span class="hcw__line" [style.--indent]="line.indent">
+            @for (tok of visibleTokens($index); track $index) {
+              <span [class]="'tok-' + tok.kind">{{ tok.text }}</span>
+            }
+          </span>
+        </div>
+      }
+      <!-- Caret único fuera del flujo: se mueve con transform (los shifts por
+           transform no cuentan para CLS) siguiendo el final del texto visible. -->
+      <span
+        class="hcw__caret"
+        [class.is-off]="caretOff()"
+        [class.is-dying]="caretDying()"
+        [style.transform]="caretTransform()"
+      >▌</span>
+    </div>
+    <div
+      class="hcw__fade hcw__fade--top"
+      [class.is-on]="scrollFades().top"
+      aria-hidden="true"
+    ></div>
+    <div
+      class="hcw__fade hcw__fade--bottom"
+      [class.is-on]="scrollFades().bottom"
+      aria-hidden="true"
+    ></div>
+  </div>
+
+  <div class="hcw__status" [class.is-compiling]="state() === 'compiling'" aria-hidden="true">
+    <span class="hcw__status-lead">
+      @if (state() === 'compiling') {
+        <span class="hcw__status-busy">⧗ Compiling…</span>
+      } @else {
+        <span class="hcw__status-ok">✓ Compiled successfully in {{ compileMs() }}ms</span>
+      }
+    </span>
+    <span class="hcw__metrics">MEM: {{ memMb() }} MB · CPU: {{ cpuPct() }}%</span>
+  </div>
+
+  <div class="hcw__log" aria-hidden="true">
+    <span class="hcw__log-text" [class.is-hidden]="logHidden()">
+      {{ logMessages[logIndex()] }}
+    </span>
+  </div>
+
+  <div
+    class="hcw__tooltip"
+    [class.is-visible]="tooltipVisible()"
+    [style.top.px]="tooltipTop()"
+    aria-hidden="true"
+  >
+    @if (tooltipKey(); as key) {
+      {{ key | translate }}
+    }
+  </div>
+</div>

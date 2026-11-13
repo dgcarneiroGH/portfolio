@@ -2,8 +2,6 @@
 
 **Fecha de creación:** 2026-08-07
 **Origen:** F11-T2 del [`docs/a11y-backlog.md`](a11y-backlog.md).
-**Spec de referencia:**
-[`docs/superpowers/specs/2026-08-07-f11-t2-ci-gate-design.md`](../superpowers/specs/2026-08-07-f11-t2-ci-gate-design.md).
 
 Este workflow automatiza la auditoría de accesibilidad en cada PR a `develop` /
 `main` y bloquea el merge si hay regresiones de axe-core o de Lighthouse.

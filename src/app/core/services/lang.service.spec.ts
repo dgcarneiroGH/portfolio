@@ -69,7 +69,6 @@ describe('LangService', () => {
       const service = setup('es-ES');
       service.setLanguage('en-US');
 
-      // Wait a short time for async operations to complete
       await new Promise((resolve) => setTimeout(resolve, 50));
 
       expect(localStorage.getItem('language')).toBe('en-US');

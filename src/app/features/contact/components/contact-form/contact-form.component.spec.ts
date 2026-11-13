@@ -8,20 +8,20 @@ import { ContactFormComponent } from './contact-form.component';
 
 // Mock TranslateLoader
 const mockTranslations = {
-  'CONTACT.FORM_SUCCESS': 'Message sent successfully',
+  'CONTACT.FORM_NAME': 'Name',
+  'CONTACT.FORM_EMAIL': 'Email',
+  'CONTACT.FORM_MESSAGE': 'Message',
+  'CONTACT.NAME_PLACEHOLDER': 'Your name or company',
+  'CONTACT.MESSAGE_PLACEHOLDER': 'Write your message or question here...',
+  'CONTACT.SUBMIT_BUTTON': 'Send message',
+  'CONTACT.RESPONSE_INTRO': 'Guaranteed response within',
+  'CONTACT.RESPONSE_TIME': '< 24 business hours',
+  'CONTACT.FORM_SUCCESS': 'Message sent successfully!',
   'CONTACT.FORM_ERROR': 'Error sending message',
-  'CONTACT.NAME_PLACEHOLDER': 'Full Name',
-  'CONTACT.EMAIL_PLACEHOLDER': 'Email',
-  'CONTACT.MESSAGE_PLACEHOLDER': 'Message',
-  'CONTACT.SUBMIT_BUTTON': 'Send Message',
-  'CONTACT.SUBMIT_LOADING': 'Sending...',
-  'FORM.NAME_PLACEHOLDER': 'Your name',
+  'FORM.EMAIL_PLACEHOLDER': 'you@email.com',
   'FORM.NAME_ERROR': 'Name is required',
-  'FORM.EMAIL_ARIA': 'Your email address',
   'FORM.EMAIL_ERROR': 'Invalid email format.',
-  'FORM.MESSAGE_ARIA': 'Your message',
   'FORM.MESSAGE_ERROR': 'Message is required',
-  'FORM.SUBMIT_BUTTON': 'Send',
   'FORM.SUBMIT_LOADING': 'Sending...'
 };
 
@@ -55,6 +55,12 @@ describe('ContactFormComponent', () => {
       providers: [{ provide: ContactService, useValue: contactServiceSpy }]
     }).compileComponents();
 
+    // El componente declara providers:[ContactService], que sombrearía el
+    // provider del TestBed: overrideProvider lo sustituye en todos los niveles.
+    TestBed.overrideProvider(ContactService, {
+      useValue: contactServiceSpy
+    });
+
     fixture = TestBed.createComponent(ContactFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -79,15 +85,12 @@ describe('ContactFormComponent', () => {
     it('should validate fullName field', () => {
       const fullNameControl = component.form.get('fullName');
 
-      // Empty name
       fullNameControl?.setValue('');
       expect(fullNameControl?.hasError('required')).toBeTrue();
 
-      // Too short name
       fullNameControl?.setValue('Jo');
       expect(fullNameControl?.hasError('minlength')).toBeTrue();
 
-      // Valid name
       fullNameControl?.setValue('John Doe');
       expect(fullNameControl?.valid).toBeTrue();
     });
@@ -95,15 +98,12 @@ describe('ContactFormComponent', () => {
     it('should validate email field', () => {
       const emailControl = component.form.get('email');
 
-      // Empty email
       emailControl?.setValue('');
       expect(emailControl?.hasError('required')).toBeTrue();
 
-      // Invalid email format
       emailControl?.setValue('invalid-email');
       expect(emailControl?.hasError('email')).toBeTrue();
 
-      // Valid email
       emailControl?.setValue('john@example.com');
       expect(emailControl?.valid).toBeTrue();
     });
@@ -111,15 +111,12 @@ describe('ContactFormComponent', () => {
     it('should validate message field', () => {
       const messageControl = component.form.get('message');
 
-      // Empty message
       messageControl?.setValue('');
       expect(messageControl?.hasError('required')).toBeTrue();
 
-      // Too short message
       messageControl?.setValue('short');
       expect(messageControl?.hasError('minlength')).toBeTrue();
 
-      // Valid message
       messageControl?.setValue(
         'This is a valid message with enough characters'
       );
@@ -127,25 +124,20 @@ describe('ContactFormComponent', () => {
     });
 
     it('should return validation status correctly via invalid method', () => {
-      // Initially, fields are not touched, so invalid should return false
       expect(component.invalid('fullName')).toBeFalsy();
       expect(component.invalid('email')).toBeFalsy();
       expect(component.invalid('message')).toBeFalsy();
 
-      // Mark fields as touched
       component.form.get('fullName')?.markAsTouched();
       component.form.get('email')?.markAsTouched();
       component.form.get('message')?.markAsTouched();
 
-      // Now invalid should return true for empty fields
       expect(component.invalid('fullName')).toBeTruthy();
       expect(component.invalid('email')).toBeTruthy();
       expect(component.invalid('message')).toBeTruthy();
 
-      // Fill with valid data
       component.form.patchValue(validFormData);
 
-      // Now invalid should return false
       expect(component.invalid('fullName')).toBeFalsy();
       expect(component.invalid('email')).toBeFalsy();
       expect(component.invalid('message')).toBeFalsy();
@@ -155,9 +147,9 @@ describe('ContactFormComponent', () => {
   describe('Form Submission', () => {
     it('should not submit when form is invalid', () => {
       component.form.patchValue({
-        fullName: 'Jo', // too short
-        email: 'invalid-email', // invalid format
-        message: 'short' // too short
+        fullName: 'Jo',
+        email: 'invalid-email',
+        message: 'short'
       });
 
       component.submit();
@@ -176,15 +168,12 @@ describe('ContactFormComponent', () => {
       component.form.patchValue(validFormData);
       component.submit();
 
-      // Initially should be loading
       expect(component.formStatus().loading).toBeTrue();
       expect(component.formStatus().success).toBeUndefined();
 
-      // Complete the request
       responseSubject.next({ success: true });
       responseSubject.complete();
 
-      // Now should be success and not loading
       expect(component.formStatus().loading).toBeFalse();
       expect(component.formStatus().success).toBe('CONTACT.FORM_SUCCESS');
     });
@@ -204,7 +193,6 @@ describe('ContactFormComponent', () => {
         jasmine.objectContaining(expectedInquiry)
       );
 
-      // Also verify that creationDate was set
       const actualCall = contactServiceSpy.sendInquiry.calls.mostRecent()
         .args[0] as ContactInquiry;
       expect(actualCall.creationDate).toBeDefined();
@@ -220,7 +208,7 @@ describe('ContactFormComponent', () => {
       expect(component.formStatus().success).toBe('CONTACT.FORM_SUCCESS');
       expect(component.formStatus().loading).toBeFalse();
       expect(component.formStatus().error).toBeUndefined();
-      expect(component.form.pristine).toBeTrue(); // Form should be reset
+      expect(component.form.pristine).toBeTrue();
     });
 
     it('should handle submission error', () => {
@@ -245,17 +233,29 @@ describe('ContactFormComponent', () => {
     });
 
     it('should have <label for=> for every input', () => {
-      const nameLabel = fixture.nativeElement.querySelector('label[for="contact-fullName"]') as HTMLLabelElement;
-      const emailLabel = fixture.nativeElement.querySelector('label[for="contact-email"]') as HTMLLabelElement;
-      const messageLabel = fixture.nativeElement.querySelector('label[for="contact-message"]') as HTMLLabelElement;
+      const nameLabel = fixture.nativeElement.querySelector(
+        'label[for="contact-fullName"]'
+      ) as HTMLLabelElement;
+      const emailLabel = fixture.nativeElement.querySelector(
+        'label[for="contact-email"]'
+      ) as HTMLLabelElement;
+      const messageLabel = fixture.nativeElement.querySelector(
+        'label[for="contact-message"]'
+      ) as HTMLLabelElement;
 
       expect(nameLabel).toBeTruthy();
       expect(emailLabel).toBeTruthy();
       expect(messageLabel).toBeTruthy();
 
-      const nameInput = fixture.nativeElement.querySelector('#contact-fullName') as HTMLInputElement;
-      const emailInput = fixture.nativeElement.querySelector('#contact-email') as HTMLInputElement;
-      const messageInput = fixture.nativeElement.querySelector('#contact-message') as HTMLTextAreaElement;
+      const nameInput = fixture.nativeElement.querySelector(
+        '#contact-fullName'
+      ) as HTMLInputElement;
+      const emailInput = fixture.nativeElement.querySelector(
+        '#contact-email'
+      ) as HTMLInputElement;
+      const messageInput = fixture.nativeElement.querySelector(
+        '#contact-message'
+      ) as HTMLTextAreaElement;
 
       expect(nameInput).toBeTruthy();
       expect(nameInput.getAttribute('autocomplete')).toBe('name');
@@ -266,27 +266,49 @@ describe('ContactFormComponent', () => {
       expect(messageInput).toBeTruthy();
     });
 
+    it('should mark required fields with aria-required', () => {
+      const nameInput = fixture.nativeElement.querySelector(
+        '#contact-fullName'
+      ) as HTMLInputElement;
+      const emailInput = fixture.nativeElement.querySelector(
+        '#contact-email'
+      ) as HTMLInputElement;
+      const messageInput = fixture.nativeElement.querySelector(
+        '#contact-message'
+      ) as HTMLTextAreaElement;
+
+      expect(nameInput.getAttribute('aria-required')).toBe('true');
+      expect(emailInput.getAttribute('aria-required')).toBe('true');
+      expect(messageInput.getAttribute('aria-required')).toBe('true');
+    });
+
     it('shows error messages with proper ARIA attributes and connects them via aria-describedby', () => {
-      component.form.get('fullName')?.setValue('Jo'); // invalid (minlength)
+      component.form.get('fullName')?.setValue('Jo');
       component.form.get('fullName')?.markAsTouched();
       fixture.detectChanges();
 
-      const nameInput = fixture.nativeElement.querySelector('#contact-fullName') as HTMLInputElement;
+      const nameInput = fixture.nativeElement.querySelector(
+        '#contact-fullName'
+      ) as HTMLInputElement;
       expect(nameInput.getAttribute('aria-invalid')).toBe('true');
-      expect(nameInput.getAttribute('aria-describedby')).toBe('contact-fullName-error');
+      expect(nameInput.getAttribute('aria-describedby')).toBe(
+        'contact-fullName-error'
+      );
 
-      const errorMessage = fixture.nativeElement.querySelector('#contact-fullName-error');
+      const errorMessage = fixture.nativeElement.querySelector(
+        '#contact-fullName-error'
+      );
       expect(errorMessage).toBeTruthy();
       expect(errorMessage.getAttribute('role')).toBe('alert');
     });
 
-    it('should have proper button attributes', () => {
+    it('should have an accessible name from its visible text', () => {
       const submitButton = fixture.nativeElement.querySelector(
         '[type="submit"]'
       ) as HTMLButtonElement;
 
       expect(submitButton).toBeTruthy();
-      expect(submitButton.getAttribute('aria-label')).toBeTruthy();
+      expect((submitButton.textContent || '').trim().length).toBeGreaterThan(0);
     });
 
     it('should disable submit button when form is invalid', () => {
@@ -305,7 +327,6 @@ describe('ContactFormComponent', () => {
       component.form.patchValue(validFormData);
       fixture.detectChanges();
 
-      // Simulate loading state
       component.formStatus.set({ loading: true });
       fixture.detectChanges();
 
@@ -332,7 +353,9 @@ describe('ContactFormComponent', () => {
 
   describe('Disabled submit focus indicator (WCAG 2.4.7)', () => {
     it('should NOT show a persistent outline when disabled (disabled buttons cannot receive focus, so a persistent outline would be visual noise)', () => {
-      const btn = fixture.nativeElement.querySelector('.submit-btn') as HTMLButtonElement;
+      const btn = fixture.nativeElement.querySelector(
+        '.submit-btn'
+      ) as HTMLButtonElement;
       btn.disabled = true;
       fixture.detectChanges();
       const style = window.getComputedStyle(btn);

@@ -1,0 +1,28 @@
+<div class="sections-page">
+  <!--
+    Envoltorios <div> (no <section>) para no heredar los estilos globales de
+    section de styles.scss (display:flex + padding 5.5rem), que ya aplican a
+    la <section> raíz de cada feature y compensan el header fijo. Los ids
+    coinciden con SECTIONS (sections.constants.ts) y son el ancla del
+    scroll-spy y de scrollIntoView.
+  -->
+  <div class="sections-page__section" id="home">
+    <app-home />
+  </div>
+
+  <div class="sections-page__section" id="about-me">
+    <app-about />
+  </div>
+
+  <div class="sections-page__section" id="success-cases">
+    <app-success-cases />
+  </div>
+
+  <div class="sections-page__section" id="reviews">
+    <app-reviews />
+  </div>
+
+  <div class="sections-page__section" id="contact">
+    <app-contact />
+  </div>
+</div>

@@ -2,9 +2,6 @@
 
 **Fecha de creación:** 2026-08-07
 **Origen:** F9-T1 del [`docs/a11y-backlog.md`](a11y-backlog.md).
-**Spec / plan de referencia:**
-[`docs/superpowers/specs/2026-08-07-f9-t1-lighthouse-baseline-design.md`](../superpowers/specs/2026-08-07-f9-t1-lighthouse-baseline-design.md),
-[`docs/superpowers/plans/2026-08-07-f9-t1-lighthouse-baseline.md`](../superpowers/plans/2026-08-07-f9-t1-lighthouse-baseline.md).
 
 Esta guía explica cómo capturar y leer el baseline de métricas Lighthouse del portfolio,
 más los ajustes específicos de este proyecto (runner programático, threshold mobile,

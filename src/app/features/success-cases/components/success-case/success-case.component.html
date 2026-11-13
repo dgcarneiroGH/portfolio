@@ -1,0 +1,31 @@
+<article class="success-case" [style.--dynamic-gradient]="gradient()">
+  <div class="case-cover">
+    <img
+      [src]="successCase().coverImgSrc + '.avif'"
+      [alt]="successCase().altKey | translate"
+      loading="lazy"
+    />
+  </div>
+
+  <div class="case-body">
+    <h3 class="case-title sr-only">{{ successCase().name }}</h3>
+
+    <ul class="case-techs" [attr.aria-label]="'SUCCESS_CASES.DETAIL_TECH' | translate">
+      @for (tech of successCase().technologies; track tech) {
+        <li app-tech-pill [label]="tech"></li>
+      }
+    </ul>
+  </div>
+
+  <div class="case-footer">
+    <button
+      class="info-btn"
+      type="button"
+      (click)="openRequest.emit(index())"
+      [attr.aria-haspopup]="'dialog'"
+      [attr.aria-label]="'SUCCESS_CASES.OPEN_DETAIL' | translate: { name: successCase().name }"
+    >
+      + info
+    </button>
+  </div>
+</article>

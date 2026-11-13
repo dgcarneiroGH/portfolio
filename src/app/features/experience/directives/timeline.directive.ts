@@ -13,7 +13,7 @@ import {
   standalone: true
 })
 export class TimelineDirective implements OnInit {
-  @Input('customClassName') className!: string;
+  @Input() className!: string;
 
   private elementRef = inject(ElementRef);
   private renderer = inject(Renderer2);

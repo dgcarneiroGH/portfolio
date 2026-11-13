@@ -45,8 +45,7 @@ cp .env.example .env
 | Command | Description |
 |---------|-------------|
 | `npm start` | Angular development server (port 4200) |
-| `npm run dev` | Server with Netlify Functions (port 8888) |
-| `npm run build` | Development build |
+| `npm run functions` | Solo Netlify Functions (port 8888) |
 | `npm run build:prod` | Optimized production build |
 | `npm test` | Run unit tests |
 | `npm run test:ci` | Tests for CI/CD |
@@ -62,23 +61,36 @@ npm start
 - **Auto-reload**: ✅
 - **Functions**: ❌
 
-### Full server (with Netlify Functions)  
+### Servidor completo (Angular + Netlify Functions) — recomendado
+
+Dos terminales:
+
 ```bash
-npm run dev
+# Terminal 1 — Angular en http://localhost:4200
+npm start
+
+# Terminal 2 — Netlify Functions en http://localhost:8888
+npm run functions
 ```
-- **URL**: http://localhost:8888
-- **Auto-reload**: ✅
-- **Functions**: ✅ (contact form)
-- **Requires**: Variables in `.env`
+
+- **Abre la app en http://localhost:4200**
+- Los endpoints apuntan a `http://localhost:8888/.netlify/functions/contact` y
+  `/reviews` (`src/environments/environment.ts`), tal como los sirve el
+  servidor de funciones.
+- **Functions**: ✅ `contact` y `reviews`
+- **Requiere**: `.env` con `PORTFOLIO_TOKEN`, `N8N_CONTACT_WEBHOOK_URL` y
+  `N8N_REVIEWS_WEBHOOK_URL` (`functions:serve` lo carga automáticamente).
+- Verificación rápida de que la función responde:
+  ```bash
+  curl -i -X OPTIONS http://localhost:8888/.netlify/functions/reviews \
+    -H "Origin: http://localhost:4200"
+  # → HTTP 200 + Access-Control-Allow-Origin: http://localhost:4200
+  ```
 
 ## 🏗️ Build and Deploy
 
 ### Local build
 ```bash
-# Development
-npm run build
-
-# Production  
 npm run build:prod
 ```
 Files are generated in `dist/portfolio/`
@@ -86,7 +98,7 @@ Files are generated in `dist/portfolio/`
 ### Deploy on Netlify
 1. **Environment variables** in Netlify Dashboard:
    - Site Settings → Environment Variables
-   - Add `PORTFOLIO_TOKEN` and `N8N_CONTACT_WEBHOOK_URL`
+   - Add `PORTFOLIO_TOKEN`, `N8N_CONTACT_WEBHOOK_URL` and `N8N_REVIEWS_WEBHOOK_URL`
 
 2. **Auto-deploy**:
    - Push to `main` → Automatic deploy
@@ -131,8 +143,8 @@ Para ejecutar una auditoría local:
 Target: **WCAG 2.2 Level AA**.
 
 Reference docs:
-- `docs/superpowers/specs/2026-08-04-a11y-audit-design.md` — full audit (32 hallazgos).
-- `docs/superpowers/plans/2026-08-04-a11y-improvements.md` — phased implementation plan.
+- The full audit (32 hallazgos) and its phased implementation plan (F0–F7, ago-2026)
+  were removed in the 2026-11-13 docs cleanup; recover them from git history if needed.
 
 ### Automated checks
 
@@ -179,7 +191,8 @@ src/
 
 netlify/
 └── functions/          # Serverless functions
-    └── contact.ts      # Secure contact API
+    ├── contact.ts      # Secure contact API
+    └── reviews.ts      # Reviews submission API
 ```
 
 ## 🔐 Security

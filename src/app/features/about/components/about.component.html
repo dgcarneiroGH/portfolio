@@ -1,51 +1,68 @@
-<section>
-  <header
-    class="section-header"
-    appParallaxHeader
-    [parallaxContent]="contentRef"
-    #headerRef
-  >
-    <h2>{{ "ABOUT.ABOUT_ME" | translate }}</h2>
-  </header>
-  <div class="section-container" #contentRef>
-    <div class="row">
-      <app-photo
-        imgBase="me_1"
-        [altText]="'ABOUT.DIEGO_PORTRAIT_1' | translate"
-      ></app-photo>
-      <p>
-        {{ "ABOUT.PARAGRAPH_1" | translate }}
-      </p>
-    </div>
+<section class="about" aria-labelledby="about-heading">
+  <h2 id="about-heading" class="sr-only">
+    {{ "ABOUT.ABOUT_ME" | translate }}
+  </h2>
 
-    <div class="row">
-      <app-photo
-        imgBase="me_2"
-        [altText]="'ABOUT.DIEGO_PORTRAIT_2' | translate"
-      ></app-photo>
-      <p>
-        {{ "ABOUT.PARAGRAPH_2" | translate }}
-      </p>
-    </div>
+  <div class="about-orbs" aria-hidden="true">
+    <span class="about-orb about-orb--1"></span>
+    <span class="about-orb about-orb--2"></span>
+  </div>
 
-    <div class="row">
+  <div class="about-grid">
+    <article class="about-card">
       <app-photo
-        imgBase="me_3"
-        [altText]="'ABOUT.DIEGO_PORTRAIT_3' | translate"
-      ></app-photo>
-      <p>
-        {{ "ABOUT.PARAGRAPH_3" | translate }}
-      </p>
-    </div>
+        imgBase="me_professional"
+        accent="blue"
+        [altText]="'ABOUT.PHOTO_ALT_PROFESSIONAL' | translate"
+        [caption]="'ABOUT.CAPTION_PROFESSIONAL' | translate"
+      />
+      <div class="about-card-body">
+        <h3 class="about-badge">{{ "ABOUT.TITLE_PURPOSE" | translate }}</h3>
+        <p class="about-text">{{ "ABOUT.PARAGRAPH_INTRO" | translate }}</p>
+      </div>
+    </article>
 
-    <div class="row">
+    <article class="about-card about-card--flip">
+      <div class="about-card-body">
+        <h3 class="about-badge about-badge--amber">
+          {{ "ABOUT.TITLE_SOCIAL_IMPACT" | translate }}
+        </h3>
+        <p class="about-text">{{ "ABOUT.PARAGRAPH_SOCIAL_IMPACT" | translate }}</p>
+      </div>
       <app-photo
-        imgBase="me_4"
-        [altText]="'ABOUT.DIEGO_PORTRAIT_4' | translate"
-      ></app-photo>
-      <p>
-        {{ "ABOUT.PARAGRAPH_4" | translate }}
-      </p>
-    </div>
+        imgBase="me_reflection"
+        accent="amber"
+        [altText]="'ABOUT.PHOTO_ALT_REFLECTION' | translate"
+        [caption]="'ABOUT.CAPTION_REFLECTION' | translate"
+      />
+    </article>
+
+    <article class="about-card">
+      <app-photo
+        imgBase="me_music"
+        accent="neutral"
+        [altText]="'ABOUT.PHOTO_ALT_MUSIC' | translate"
+        [caption]="'ABOUT.CAPTION_RHYTHM' | translate"
+      />
+      <div class="about-card-body">
+        <h3 class="about-badge about-badge--neutral">
+          {{ "ABOUT.TITLE_STRATEGY" | translate }}
+        </h3>
+        <p class="about-text">{{ "ABOUT.PARAGRAPH_STRATEGY" | translate }}</p>
+      </div>
+    </article>
+
+    <article class="about-card">
+      <div class="about-card-body">
+        <h3 class="about-badge">{{ "ABOUT.TITLE_CLIENT_PARTNER" | translate }}</h3>
+        <p class="about-text">{{ "ABOUT.PARAGRAPH_CLIENT_PARTNER" | translate }}</p>
+      </div>
+      <app-photo
+        imgBase="me_laugh"
+        accent="neutral"
+        [altText]="'ABOUT.PHOTO_ALT_COLLABORATION' | translate"
+        [caption]="'ABOUT.CAPTION_TRUST' | translate"
+      />
+    </article>
   </div>
 </section>

@@ -7,7 +7,6 @@
   NODE_VERSION = "22"
   NETLIFY_SKIP_ANGULAR_RUNTIME = "true"
 
-# Configuración para las funciones serverless
 [functions]
   node_bundler = "esbuild"
 

@@ -1,28 +1,27 @@
-import { provideHttpClient } from '@angular/common/http';
-import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { ReviewsService } from '../services/reviews.service';
+import { ReviewCardComponent } from './review-card/review-card.component';
 import { ReviewsFormComponent } from './reviews-form/reviews-form.component';
 import { ReviewsComponent } from './reviews.component';
 
 const mockLoader = {
-  getTranslation: () => of({
-    'REVIEWS.TITLE': 'Reviews',
-    'REVIEWS.FORM_SUCCESS': 'Thank you for your review!',
-    'REVIEWS.GO_BACK': 'Go back',
-    'FORM.SUBMIT_BUTTON': 'Send',
-    'FORM.SUBMIT_LOADING': 'Sending...'
-  })
+  getTranslation: () =>
+    of({
+      'ROUTE.REVIEWS': 'Opiniones',
+      'REVIEWS.LEAVE_REVIEW': 'Dejar reseña',
+      'REVIEWS.ADD_REVIEW': 'Añadir reseña',
+      'REVIEWS.EMPTY_TITLE': 'Aún no existen reseñas, sé tú el primero',
+      'REVIEWS.RATING_ARIA': '{{count}} de 5 estrellas'
+    })
 };
 
 describe('ReviewsComponent', () => {
   let component: ReviewsComponent;
   let fixture: ComponentFixture<ReviewsComponent>;
   let reviewsServiceSpy: jasmine.SpyObj<ReviewsService>;
-
   beforeEach(async () => {
     reviewsServiceSpy = jasmine.createSpyObj('ReviewsService', ['sendReview']);
     reviewsServiceSpy.sendReview.and.returnValue(of({ success: true }));
@@ -32,17 +31,11 @@ describe('ReviewsComponent', () => {
         ReviewsComponent,
         TranslateModule.forRoot({ loader: { provide: TranslateLoader, useValue: mockLoader } })
       ],
-      providers: [
-        { provide: ReviewsService, useValue: reviewsServiceSpy },
-        provideHttpClient(),
-        provideHttpClientTesting()
-      ]
+      providers: [{ provide: ReviewsService, useValue: reviewsServiceSpy }]
     }).compileComponents();
 
     fixture = TestBed.createComponent(ReviewsComponent);
     component = fixture.componentInstance;
-    // Provide the required @Input navigate function
-    component.navigate = jasmine.createSpy('navigate');
     fixture.detectChanges();
   });
 
@@ -54,64 +47,82 @@ describe('ReviewsComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should render the reviews form child component', () => {
-    const formEl = fixture.debugElement.query(By.directive(ReviewsFormComponent));
-    expect(formEl).toBeTruthy();
+  it('la section raíz no lleva id: el ancla lo pone el envoltorio del one-pager', () => {
+    // El sections-page envuelve cada feature en <div id="...">; un id aquí
+    // duplicaría el ancla en el documento (HTML inválido, axe duplicate-id).
+    const rootSection = fixture.nativeElement.querySelector('section.reviews');
+    expect(rootSection).toBeTruthy();
+    expect(rootSection.id).toBe('');
   });
 
-  it('should render the title', () => {
-    const h2 = fixture.nativeElement.querySelector('h2');
-    expect(h2).toBeTruthy();
-  });
-
-  it('should render the campfire button', () => {
-    const campfire = fixture.nativeElement.querySelector('.nomacoda-campfire');
-    expect(campfire).toBeTruthy();
-  });
-
-  it('should call navigate() when campfire button is clicked', () => {
-    const campfire = fixture.nativeElement.querySelector('.nomacoda-campfire') as HTMLElement;
-    campfire.click();
-    expect(component.navigate).toHaveBeenCalled();
-  });
-
-  it('should call navigate() on Enter key on campfire (native button activation)', () => {
-    const campfire = fixture.nativeElement.querySelector('.nomacoda-campfire') as HTMLButtonElement;
-    // Native <button> activates on Enter by triggering a click event.
-    campfire.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true }));
-    // Browser default action: keydown 'Enter' on a button → click. We dispatch it explicitly.
-    campfire.click();
-    expect(component.navigate).toHaveBeenCalled();
-  });
-
-  it('should call navigate() on Space key on campfire (native button activation)', () => {
-    const campfire = fixture.nativeElement.querySelector('.nomacoda-campfire') as HTMLButtonElement;
-    campfire.dispatchEvent(new KeyboardEvent('keydown', { key: ' ', bubbles: true }));
-    // Browser default action: keyup ' ' on a button → click. We dispatch it explicitly.
-    campfire.click();
-    expect(component.navigate).toHaveBeenCalled();
-  });
-
-  it('should show success state after form submission', async () => {
-    const formComponent = component.reviewsForm;
-
-    formComponent.form.setValue({
-      fullName: 'Test',
-      email: 'test@test.com',
-      message: 'Great!',
-      rating: 5
-    });
-    formComponent.submit();
-
-    await fixture.whenStable();
+  it('should render a review card per provided review', () => {
+    // La constante REVIEWS está vacía por defecto: el listado llega vía input.
+    fixture.componentRef.setInput('reviews', [
+      { fullName: 'Ana G.', message: 'Excelente trabajo', rating: 5 },
+      { fullName: 'Luis P.', message: 'Muy profesional', rating: 4 }
+    ]);
     fixture.detectChanges();
 
-    const successEl = fixture.nativeElement.querySelector('.success-state');
-    expect(successEl).toBeTruthy();
+    const cards = fixture.debugElement.queryAll(By.directive(ReviewCardComponent));
+    expect(cards.length).toBe(component.reviews().length);
+    expect(cards.length).toBeGreaterThan(0);
   });
 
-  it('should not show success state initially', () => {
-    const successEl = fixture.nativeElement.querySelector('.success-state');
-    expect(successEl).toBeFalsy();
+  it('should show the empty state with the big CTA when there are no reviews', () => {
+    fixture.componentRef.setInput('reviews', []);
+    fixture.detectChanges();
+
+    const emptyEl = fixture.nativeElement.querySelector('.reviews-empty');
+    expect(emptyEl).toBeTruthy();
+
+    const cards = fixture.debugElement.queryAll(By.directive(ReviewCardComponent));
+    expect(cards.length).toBe(0);
+
+    const cta = fixture.nativeElement.querySelector('.empty-cta') as HTMLButtonElement;
+    expect(cta).toBeTruthy();
+  });
+
+  it('should show the form when the header pill is clicked', () => {
+    const pill = fixture.nativeElement.querySelector('.leave-review-btn') as HTMLButtonElement;
+    pill.click();
+    fixture.detectChanges();
+
+    const formEl = fixture.debugElement.query(By.directive(ReviewsFormComponent));
+    expect(formEl).toBeTruthy();
+    expect(fixture.nativeElement.querySelector('.reviews-grid')).toBeFalsy();
+  });
+
+  it('should show the form from the empty state CTA', () => {
+    fixture.componentRef.setInput('reviews', []);
+    fixture.detectChanges();
+
+    const cta = fixture.nativeElement.querySelector('.empty-cta') as HTMLButtonElement;
+    cta.click();
+    fixture.detectChanges();
+
+    expect(fixture.debugElement.query(By.directive(ReviewsFormComponent))).toBeTruthy();
+  });
+
+  it('should return to the list view when the form emits finished', () => {
+    component.openForm();
+    fixture.detectChanges();
+
+    const formComponent = fixture.debugElement.query(
+      By.directive(ReviewsFormComponent)
+    ).componentInstance as ReviewsFormComponent;
+    formComponent.finished.emit();
+    fixture.detectChanges();
+
+    expect(fixture.debugElement.query(By.directive(ReviewsFormComponent))).toBeFalsy();
+    expect(fixture.debugElement.queryAll(By.directive(ReviewCardComponent)).length).toBe(
+      component.reviews().length
+    );
+  });
+
+  it('should hide the header pill while the form is open', () => {
+    component.openForm();
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.querySelector('.leave-review-btn')).toBeFalsy();
   });
 });

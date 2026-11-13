@@ -1,0 +1,130 @@
+@use "src/styles/_palette" as palette;
+@use "src/styles/_fonts" as fonts;
+
+:host {
+  display: block;
+  break-inside: avoid;
+}
+
+.review-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  height: 100%;
+  padding: 1.5rem;
+  background: rgba(palette.$surface-card, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 2rem;
+  outline: 1px solid rgba(palette.$text-primary, 0.12);
+  outline-offset: -1px;
+  box-shadow:
+    0 2px 4px -2px rgba(0, 0, 0, 0.1),
+    0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.name {
+  margin: 0;
+  font-family: fonts.$heading;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.5rem;
+  color: palette.$text-primary;
+}
+
+.role {
+  margin: 0;
+  font-family: fonts.$body;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  color: palette.$text-secondary;
+}
+
+.rating {
+  display: flex;
+  gap: 0.25rem;
+  margin: 0;
+
+  .star {
+    width: 1rem;
+    height: 1rem;
+    fill: rgba(palette.$accent-yellow, 0.25);
+
+    &.lit {
+      fill: palette.$accent-yellow;
+    }
+  }
+}
+
+.message {
+  margin: 0;
+  font-family: fonts.$body;
+  font-size: 1rem;
+  line-height: 1.625rem;
+  color: rgba(palette.$text-primary, 0.9);
+
+  &::before {
+    content: '\201C';
+  }
+
+  &::after {
+    content: '\201D';
+  }
+}
+
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(palette.$text-primary, 0.12);
+}
+
+.tag-chip {
+  padding: 0.125rem 0.5rem;
+  border-radius: 1rem;
+  font-family: fonts.$mono;
+  font-size: 0.625rem;
+  line-height: 0.9375rem;
+  white-space: nowrap;
+}
+
+.category {
+  font-family: fonts.$mono;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  color: rgba(palette.$text-secondary, 0.6);
+  white-space: nowrap;
+}
+
+.variant-teal .tag-chip {
+  background: rgba(palette.$background-gradient-end, 0.3);
+  color: palette.$green-soft;
+}
+
+.variant-mint .tag-chip {
+  background: rgba(palette.$background-gradient-end, 0.3);
+  color: palette.$green-mint;
+}
+
+.variant-amber .tag-chip {
+  background: palette.$background-gradient-start;
+  color: palette.$accent-yellow;
+}
+
+.variant-sky .tag-chip {
+  background: palette.$background-gradient-start;
+  color: palette.$accent-azure;
+}
+
+.variant-emerald .tag-chip {
+  background: palette.$background-gradient-start;
+  color: palette.$accent-green;
+}

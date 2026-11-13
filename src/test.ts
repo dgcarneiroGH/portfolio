@@ -11,16 +11,21 @@ import { toHaveNoViolations, toHaveLessThanXViolations } from 'jasmine-axe';
   class {
     readonly root: Element | Document | null = null;
     readonly rootMargin: string = '0px';
-    readonly thresholds: ReadonlyArray<number> = [0];
-    observe() {}
-    unobserve() {}
-    disconnect() {}
+    readonly thresholds: readonly number[] = [0];
+    observe() {
+      /* noop: stub global para ChromeHeadless, sin comportamiento */
+    }
+    unobserve() {
+      /* noop */
+    }
+    disconnect() {
+      /* noop */
+    }
     takeRecords(): IntersectionObserverEntry[] {
       return [];
     }
   };
 
-// First, initialize the Angular testing environment.
 getTestBed().initTestEnvironment(
   BrowserTestingModule,
   platformBrowserTesting()

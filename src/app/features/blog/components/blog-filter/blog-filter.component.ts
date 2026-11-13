@@ -12,9 +12,9 @@ import { TranslateModule } from '@ngx-translate/core';
 })
 export class BlogFilterComponent {
   readonly filters: BlogFilter[] = BLOG_FILTERS;
-  
+
   selectedFilter = signal<PostCategoryType | null>(null);
-  
+
   @Output() filterChange = new EventEmitter<PostCategoryType | null>();
 
   selectFilter(filter: BlogFilter): void {

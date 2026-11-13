@@ -14,6 +14,7 @@ interface FormStatus {
 @Component({
   selector: 'app-contact-form',
   standalone: true,
+  providers:[ContactService],
   imports: [CommonModule, ReactiveFormsModule, TranslateModule],
   templateUrl: './contact-form.component.html',
   styleUrls: ['./contact-form.component.scss']

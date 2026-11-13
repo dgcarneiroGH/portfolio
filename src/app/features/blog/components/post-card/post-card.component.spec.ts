@@ -5,11 +5,11 @@ import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
 import localeEn from '@angular/common/locales/en';
 import { SanityService } from '../../../../core/services/sanity.service';
+import imageUrlBuilder from '@sanity/image-url';
 import { PostCardComponent } from './post-card.component';
 import { BLOG_FILTERS } from '../../constants/blog-filter.constants';
 import { PostCategoryType } from '../../models/blog-filter.model';
 import { SanityImage } from '../../../../core/models/sanity.models';
-import { ButtonComponent } from '../../../../shared/components/button/button.component';
 
 // Register locales for tests
 registerLocaleData(localeEs, 'es-ES');
@@ -20,10 +20,8 @@ describe('PostCardComponent', () => {
   let fixture: ComponentFixture<PostCardComponent>;
   let mockRouter: jasmine.SpyObj<Router>;
   let mockSanityService: jasmine.SpyObj<SanityService>;
-  let mockImageBuilder: jasmine.SpyObj<any>;
 
   beforeEach(async () => {
-    // Create mock image builder chain
     const mockUrlMethod = jasmine
       .createSpy('url')
       .and.returnValue('https://example.com/image.jpg');
@@ -33,17 +31,15 @@ describe('PostCardComponent', () => {
     const mockWidthMethod = jasmine
       .createSpy('width')
       .and.returnValue({ height: mockHeightMethod });
-    mockImageBuilder = mockWidthMethod;
 
-    // Create service mocks
     mockRouter = jasmine.createSpyObj('Router', ['navigate']);
     mockSanityService = jasmine.createSpyObj('SanityService', ['imageBuilder']);
     mockSanityService.imageBuilder.and.returnValue({
       width: mockWidthMethod
-    } as any);
+    } as unknown as ReturnType<typeof imageUrlBuilder>);
 
     await TestBed.configureTestingModule({
-      imports: [PostCardComponent, ButtonComponent, TranslateModule.forRoot()],
+      imports: [PostCardComponent, TranslateModule.forRoot()],
       providers: [
         { provide: Router, useValue: mockRouter },
         { provide: SanityService, useValue: mockSanityService },
@@ -134,6 +130,22 @@ describe('PostCardComponent', () => {
       expect(component.image).toBeUndefined();
       expect(component.category).toBeUndefined();
     });
+
+    it('should default featured to false', () => {
+      fixture.detectChanges();
+
+      expect(component.featured).toBe(false);
+      expect(
+        fixture.nativeElement.querySelector('.post-card--featured')
+      ).toBeNull();
+    });
+
+    it('should accept and store featured input', () => {
+      fixture.componentRef.setInput('featured', true);
+      fixture.detectChanges();
+
+      expect(component.featured).toBe(true);
+    });
   });
 
   describe('#categoryLabel getter', () => {
@@ -192,10 +204,54 @@ describe('PostCardComponent', () => {
     });
 
     it('should return null for unknown category', () => {
-      fixture.componentRef.setInput('category', 'UNKNOWN_CATEGORY' as any);
+      fixture.componentRef.setInput(
+        'category',
+        'UNKNOWN_CATEGORY' as unknown as PostCategoryType
+      );
       fixture.detectChanges();
 
       expect(component.categoryLabel).toBeNull();
+    });
+  });
+
+  describe('#themeClass getter', () => {
+    it('should map NEWS to the news theme', () => {
+      fixture.componentRef.setInput('category', PostCategoryType.NEWS);
+      fixture.detectChanges();
+
+      expect(component.themeClass).toBe('post-card--news');
+    });
+
+    it('should map CODERS4CHANGE to the coders4change theme', () => {
+      fixture.componentRef.setInput('category', PostCategoryType.CODERS4CHANGE);
+      fixture.detectChanges();
+
+      expect(component.themeClass).toBe('post-card--coders4change');
+    });
+
+    it('should map MINDFUL_CODE to the mindful-code theme', () => {
+      fixture.componentRef.setInput('category', PostCategoryType.MINDFUL_CODE);
+      fixture.detectChanges();
+
+      expect(component.themeClass).toBe('post-card--mindful-code');
+    });
+
+    it('should map N8N_WORKFLOWS to the n8n-workflows theme', () => {
+      fixture.componentRef.setInput('category', PostCategoryType.N8N_WORKFLOWS);
+      fixture.detectChanges();
+
+      expect(component.themeClass).toBe('post-card--n8n-workflows');
+    });
+
+    it('should fall back to the default theme for unknown or missing categories', () => {
+      fixture.componentRef.setInput(
+        'category',
+        'UNKNOWN_CATEGORY' as unknown as PostCategoryType
+      );
+      expect(component.themeClass).toBe('post-card--default');
+
+      fixture.componentRef.setInput('category', undefined);
+      expect(component.themeClass).toBe('post-card--default');
     });
   });
 
@@ -239,7 +295,6 @@ describe('PostCardComponent', () => {
         }
       };
 
-      // Setup more detailed mock to verify the chain calls
       const mockUrl = jasmine
         .createSpy('url')
         .and.returnValue('https://example.com/image.jpg');
@@ -251,12 +306,11 @@ describe('PostCardComponent', () => {
         .and.returnValue({ height: mockHeight });
       mockSanityService.imageBuilder.and.returnValue({
         width: mockWidth
-      } as any);
+      } as unknown as ReturnType<typeof imageUrlBuilder>);
 
       fixture.componentRef.setInput('image', testImage);
       fixture.detectChanges();
 
-      // Access the getter to trigger the chain
       const url = component.bgUrl;
 
       expect(mockSanityService.imageBuilder).toHaveBeenCalledWith(testImage);
@@ -275,7 +329,6 @@ describe('PostCardComponent', () => {
         }
       };
 
-      // Mock the chain to return null
       const mockUrl = jasmine.createSpy('url').and.returnValue(null);
       const mockHeight = jasmine
         .createSpy('height')
@@ -285,7 +338,7 @@ describe('PostCardComponent', () => {
         .and.returnValue({ height: mockHeight });
       mockSanityService.imageBuilder.and.returnValue({
         width: mockWidth
-      } as any);
+      } as unknown as ReturnType<typeof imageUrlBuilder>);
 
       fixture.componentRef.setInput('image', testImage);
       fixture.detectChanges();
@@ -347,13 +400,11 @@ describe('PostCardComponent', () => {
         }
       };
 
-      // Set all inputs
       Object.entries(testData).forEach(([key, value]) => {
         fixture.componentRef.setInput(key, value);
       });
       fixture.detectChanges();
 
-      // Verify all properties are set
       expect(component.title).toBe(testData.title);
       expect(component.date).toBe(testData.date);
       expect(component.excerpt).toBe(testData.excerpt);
@@ -362,7 +413,6 @@ describe('PostCardComponent', () => {
       expect(component.category).toBe(testData.category);
       expect(component.image).toBe(testData.image);
 
-      // Verify computed properties work
       expect(component.categoryLabel).toBeTruthy();
       expect(component.bgUrl).toBe('https://example.com/image.jpg');
     });
@@ -376,24 +426,20 @@ describe('PostCardComponent', () => {
         currentLocale: 'es-ES'
       };
 
-      // Set only required inputs
       Object.entries(requiredData).forEach(([key, value]) => {
         fixture.componentRef.setInput(key, value);
       });
       fixture.detectChanges();
 
-      // Verify required properties are set
       expect(component.title).toBe(requiredData.title);
       expect(component.date).toBe(requiredData.date);
       expect(component.excerpt).toBe(requiredData.excerpt);
       expect(component.slug).toBe(requiredData.slug);
       expect(component.currentLocale).toBe(requiredData.currentLocale);
 
-      // Verify optional properties are undefined
       expect(component.category).toBeUndefined();
       expect(component.image).toBeUndefined();
 
-      // Verify computed properties handle undefined values
       expect(component.categoryLabel).toBeNull();
       expect(component.bgUrl).toBe('');
     });
@@ -457,8 +503,63 @@ describe('PostCardComponent', () => {
     });
   });
 
-  describe('#i18n rendering (regression: <span lang=\"en\">N8N</span>)', () => {
-    it('should render N8N_WORKFLOWS category badge as innerHTML, not as escaped literal text', () => {
+  describe('#template rendering', () => {
+    it('should render the featured badge instead of the dot category when featured is true', () => {
+      fixture.componentRef.setInput('category', PostCategoryType.NEWS);
+      fixture.componentRef.setInput('featured', true);
+      fixture.detectChanges();
+
+      const root = fixture.nativeElement.querySelector('.post-card');
+      expect(root).not.toBeNull();
+      expect(root.classList.contains('post-card--featured')).toBe(true);
+      expect(
+        fixture.nativeElement.querySelector('.post-card__badge')
+      ).not.toBeNull();
+      expect(
+        fixture.nativeElement.querySelector('.post-card__category')
+      ).toBeNull();
+    });
+
+    it('should render the dot category and not the badge when featured is false', () => {
+      fixture.componentRef.setInput('category', PostCategoryType.NEWS);
+      fixture.componentRef.setInput('featured', false);
+      fixture.detectChanges();
+
+      expect(
+        fixture.nativeElement.querySelector('.post-card__category')
+      ).not.toBeNull();
+      expect(
+        fixture.nativeElement.querySelector('.post-card__badge')
+      ).toBeNull();
+    });
+
+    it('should apply the theme class of the current category to the card root', () => {
+      fixture.componentRef.setInput('category', PostCategoryType.N8N_WORKFLOWS);
+      fixture.detectChanges();
+
+      const root = fixture.nativeElement.querySelector('.post-card');
+      expect(root.classList.contains('post-card--n8n-workflows')).toBe(true);
+    });
+
+    it('should navigate when the CTA button is clicked', () => {
+      fixture.componentRef.setInput('slug', 'cta-click-post');
+      fixture.detectChanges();
+
+      const cta = fixture.nativeElement.querySelector(
+        '.post-card__cta'
+      ) as HTMLButtonElement;
+      expect(cta).not.toBeNull();
+
+      cta.click();
+
+      expect(mockRouter.navigate).toHaveBeenCalledWith([
+        '/blog/cta-click-post'
+      ]);
+    });
+  });
+
+  describe('#i18n rendering (regression: <span lang="en">N8N</span>)', () => {
+    it('should render N8N_WORKFLOWS category label as innerHTML, not as escaped literal text', () => {
       const translateService = TestBed.inject(TranslateService);
       translateService.setTranslation('es-ES', {
         BLOG: {
@@ -473,16 +574,45 @@ describe('PostCardComponent', () => {
       fixture.componentRef.setInput('currentLocale', 'es-ES');
       fixture.detectChanges();
 
-      const badge = fixture.nativeElement.querySelector('.category-badge__text') as HTMLElement;
+      const label = fixture.nativeElement.querySelector(
+        '.post-card__category-text'
+      ) as HTMLElement;
+      expect(label).not.toBeNull();
+
+      const span = label.querySelector('span[lang="en"]');
+      expect(span).not.toBeNull();
+      expect(span?.textContent).toBe('N8N');
+
+      expect(label.textContent?.trim()).toBe('Flujos de N8N');
+      expect(label.innerHTML).not.toContain('[innerHTML]');
+      expect(label.innerHTML).not.toContain('&lt;span');
+    });
+
+    it('should render the featured badge label as innerHTML as well', () => {
+      const translateService = TestBed.inject(TranslateService);
+      translateService.setTranslation('es-ES', {
+        BLOG: {
+          FILTER: {
+            N8N_WORKFLOW: 'Flujos de <span lang="en">N8N</span>'
+          }
+        }
+      });
+      translateService.use('es-ES');
+
+      fixture.componentRef.setInput('category', PostCategoryType.N8N_WORKFLOWS);
+      fixture.componentRef.setInput('featured', true);
+      fixture.componentRef.setInput('currentLocale', 'es-ES');
+      fixture.detectChanges();
+
+      const badge = fixture.nativeElement.querySelector(
+        '.post-card__badge-text'
+      ) as HTMLElement;
       expect(badge).not.toBeNull();
 
       const span = badge.querySelector('span[lang="en"]');
       expect(span).not.toBeNull();
       expect(span?.textContent).toBe('N8N');
-
-      expect(badge.textContent.trim()).toBe('Flujos de N8N');
-      expect(badge.innerHTML).not.toContain('[innerHTML]');
-      expect(badge.innerHTML).not.toContain('&lt;span');
+      expect(badge.textContent?.trim()).toBe('Flujos de N8N');
     });
   });
 });

@@ -1,0 +1,19 @@
+<section class="success-cases" aria-labelledby="success-cases-title">
+  <div class="section-container">
+    @for (successCase of cases(); track successCase.name; let i = $index) {
+      <app-success-case
+        class="case-card"
+        [successCase]="successCase"
+        [index]="i"
+        (openRequest)="onOpenRequest(i)"
+      ></app-success-case>
+    }
+  </div>
+
+  @if (openCase(); as openCaseData) {
+    <app-success-case-detail
+      [successCase]="openCaseData"
+      (closed)="onClose()"
+    ></app-success-case-detail>
+  }
+</section>

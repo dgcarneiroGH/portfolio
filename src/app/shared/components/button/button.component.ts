@@ -27,7 +27,6 @@ export class ButtonComponent {
   }
 
   onKeyDown(event: KeyboardEvent): void {
-    // Handle Enter and Space as clicks
     if ((event.key === 'Enter' || event.key === ' ') && !this.disabled()) {
       event.preventDefault();
       this.onClick();

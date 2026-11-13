@@ -1,70 +1,68 @@
 @use "/src/styles/palette" as palette;
+@use "/src/styles/fonts" as fonts;
 
-$photo-bases: "me_1", "me_2", "me_3", "me_4";
+:host {
+  display: block;
+}
 
-.photo-container {
-  width: 30rem;
-  aspect-ratio: 16/9;
-  border-radius: 23% 0 41% 29%;
+.photo {
+  // En custom properties Dart Sass solo evalúa interpolación #{}: sin ella,
+  // rgba(...) se copiaría literal al CSS y el degradado no pintaría.
+  --photo-pill-border: #{rgba(palette.$text-secondary, 0.45)};
+  --photo-pill-color: #{palette.$text-primary};
+  --photo-tint: #{rgba(palette.$background-gradient-start, 0.5)};
 
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
   position: relative;
+  width: 100%;
+  margin: 0;
   overflow: hidden;
+  padding: 0.375rem;
+  border-radius: 9999px;
+  background: rgba(palette.$background-gradient-start, 0.6);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
 
-  clip-path: ellipse(85% 63% at 14% 62%);
-}
+  img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 5 / 3;
+    object-fit: cover;
+    border-radius: calc(9999px - 0.375rem);
+  }
 
-@each $base in $photo-bases {
-  .photo-#{$base} {
-    background-image: url("/assets/images/photos/#{$base}-480.avif");
-    background-image: image-set(
-      url("/assets/images/photos/#{$base}-480.avif") type("image/avif") 1x,
-      url("/assets/images/photos/#{$base}-960.avif") type("image/avif") 2x
-    );
+  // Pie de foto opcional, sobre el degradado inferior teñido por el accent
+  .photo-caption {
+    position: absolute;
+    inset-inline: 0;
+    bottom: 1.25rem;
+    z-index: 2;
+    margin: 0;
+    text-align: center;
+    font-family: fonts.$body;
+    font-size: 0.875rem;
+    line-height: 1.4;
+    color: var(--photo-pill-color);
+  }
+
+  // Degradado decorativo inferior, teñido según el accent
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0.375rem;
+    z-index: 1;
+    border-radius: calc(9999px - 0.375rem);
+    background: linear-gradient(to top, var(--photo-tint), transparent 45%);
+    pointer-events: none;
+  }
+
+  &.photo--amber {
+    --photo-pill-border: #{rgba(palette.$amber-glow, 0.55)};
+    --photo-pill-color: #{palette.$amber-text};
+    --photo-tint: #{rgba(palette.$amber-glow, 0.26)};
+  }
+
+  &.photo--blue {
+    --photo-pill-border: #{rgba(palette.$accent-blue-light, 0.45)};
+    --photo-pill-color: #{palette.$accent-blue-light};
+    --photo-tint: #{rgba(palette.$accent-blue, 0.26)};
   }
 }
-
-.photo-container::after {
-  content: "";
-  position: absolute;
-  top: -100%;
-  left: -100%;
-  width: 200%;
-  height: 200%;
-  background: linear-gradient(
-    120deg,
-    rgba($color: palette.$text-secondary, $alpha: 0.1) 30%,
-    rgba($color: palette.$text-secondary, $alpha: 0.3) 50%,
-    rgba($color: palette.$text-secondary, $alpha: 0.1) 70%
-  );
-
-  transform: rotate(30deg);
-  animation: shine 3s infinite linear;
-  animation-delay: var(--animation-delay);
-  pointer-events: none;
-}
-
-@keyframes shine {
-  0% {
-    transform: translate(-150%, -150%) rotate(30deg);
-  }
-  100% {
-    transform: translate(150%, 150%) rotate(30deg);
-  }
-}
-
-//#region Responsive
-@media screen and (max-width: 1200px) {
-  .photo-container {
-    width: 25rem;
-  }
-}
-
-@media screen and (max-width: 980px) {
-  .photo-container {
-    width: 80vw;
-  }
-}
-//#endregion

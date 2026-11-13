@@ -7,7 +7,7 @@ import { TimelineDirective } from './timeline.directive';
 @Component({
   template: `<div
     appTimeline
-    customClassName="in-view"
+    [className]="'in-view'"
     style="height:10px"
   ></div>`,
   imports: [TimelineDirective]
@@ -44,7 +44,6 @@ describe('TimelineDirective', () => {
         .query(By.directive(TimelineDirective))
         .injector.get(TimelineDirective);
 
-      // Mock getBoundingClientRect to simulate in-viewport element
       spyOn(hostEl, 'getBoundingClientRect').and.returnValue({
         top: 10,
         left: 10,
@@ -100,7 +99,6 @@ describe('TimelineDirective', () => {
         .query(By.directive(TimelineDirective))
         .injector.get(TimelineDirective);
 
-      // First add the class
       spyOn(directive, 'isElementInViewport').and.returnValue(false);
       hostEl.classList.add('in-view');
 

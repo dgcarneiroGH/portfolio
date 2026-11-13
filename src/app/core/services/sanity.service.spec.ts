@@ -2,10 +2,20 @@ import { provideZonelessChangeDetection } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { SanityService } from './sanity.service';
 
+/** Vista de los miembros private del servicio usados en tests. */
+interface SanityServiceInternals {
+  client: { fetch: (...args: unknown[]) => Promise<unknown> };
+  _error: { set: (value: string | null) => void };
+  _categories: { set: (value: unknown[]) => void };
+}
+
+function internals(service: SanityService): SanityServiceInternals {
+  return service as unknown as SanityServiceInternals;
+}
+
 describe('SanityService', () => {
   let service: SanityService;
 
-  // Create a simple mock for testing error states
   const mockErrorClient = {
     fetch: () => Promise.reject(new Error('Mock error'))
   };
@@ -58,7 +68,6 @@ describe('SanityService', () => {
     });
 
     it('should compute isReady based on loading and posts', () => {
-      // Initially should be false (no posts, loading false)
       expect(service.isReady()).toBeFalse();
     });
   });
@@ -77,20 +86,18 @@ describe('SanityService', () => {
 
   describe('#fetch method', () => {
     it('should handle fetch errors and set error state', async () => {
-      spyOn(console, 'error'); 
-      // Mock the client temporarily to simulate error
-      const originalClient = (service as any).client;
-      (service as any).client = mockErrorClient;
+      spyOn(console, 'error');
+      const originalClient = internals(service).client;
+      internals(service).client = mockErrorClient;
 
       try {
         await service.fetch('test query');
         fail('Should have thrown an error');
-      } catch (error) {
+      } catch {
         expect(service.error()).toContain('Error fetching data:');
         expect(service.hasError()).toBeTruthy();
       } finally {
-        // Restore original client
-        (service as any).client = originalClient;
+        internals(service).client = originalClient;
       }
     });
 
@@ -98,8 +105,8 @@ describe('SanityService', () => {
       const mockClient = jasmine.createSpyObj('client', ['fetch']);
       mockClient.fetch.and.returnValue(Promise.resolve({ data: 'test' }));
 
-      const originalClient = (service as any).client;
-      (service as any).client = mockClient;
+      const originalClient = internals(service).client;
+      internals(service).client = mockClient;
 
       try {
         await service.fetch('*[_type == "test"]', { param: 'value' });
@@ -107,7 +114,7 @@ describe('SanityService', () => {
           param: 'value'
         });
       } finally {
-        (service as any).client = originalClient;
+        internals(service).client = originalClient;
       }
     });
   });
@@ -163,24 +170,100 @@ describe('SanityService', () => {
       expect(typeof result).toBe('string');
     });
 
-    it('should handle blocks with links and formatting', () => {
+    it('should render external links with target and rel', () => {
+      // Los marks referencian markDefs por `_key`, no por `_type`.
       const mockBlocks = [
         {
           _type: 'block',
           children: [
             { text: 'Check out ', _type: 'span' },
-            {
-              text: 'this link',
-              _type: 'span',
-              marks: ['link'],
-              markDefs: [{ _type: 'link', href: 'https://example.com' }]
-            }
-          ]
+            { text: 'this link', _type: 'span', marks: ['l1'] }
+          ],
+          markDefs: [{ _type: 'link', _key: 'l1', href: 'https://example.com' }]
         }
       ] as never;
 
       const result = service.portableTextToHtml(mockBlocks);
-      expect(typeof result).toBe('string');
+
+      expect(result).toContain('href="https://example.com"');
+      expect(result).toContain('target="_blank"');
+      expect(result).toContain('rel="noopener noreferrer"');
+    });
+
+    it('should render internal links without target or rel', () => {
+      const mockBlocks = [
+        {
+          _type: 'block',
+          children: [{ text: 'internal', _type: 'span', marks: ['l2'] }],
+          markDefs: [{ _type: 'link', _key: 'l2', href: '/blog' }]
+        }
+      ] as never;
+
+      const result = service.portableTextToHtml(mockBlocks);
+
+      expect(result).toContain('href="/blog"');
+      expect(result).not.toContain('target="_blank"');
+      expect(result).not.toContain('rel="noopener');
+    });
+
+    it('should render headings, inline marks, lists and images', () => {
+      const fakeBuilder = {
+        width: () => ({ url: () => 'https://cdn.example.com/img-1200.png' })
+      };
+      spyOn(service, 'imageBuilder').and.returnValue(fakeBuilder as never);
+
+      const mockBlocks = [
+        {
+          _type: 'block',
+          style: 'h1',
+          children: [{ text: 'Title', _type: 'span' }]
+        },
+        {
+          _type: 'block',
+          style: 'h2',
+          children: [{ text: 'Subtitle', _type: 'span' }]
+        },
+        {
+          _type: 'block',
+          style: 'h3',
+          children: [{ text: 'Sub-sub', _type: 'span' }]
+        },
+        {
+          _type: 'block',
+          style: 'normal',
+          children: [
+            { text: 'x', _type: 'span', marks: ['strong'] },
+            { text: 'y', _type: 'span', marks: ['em'] },
+            { text: 'z', _type: 'span', marks: ['code'] }
+          ]
+        },
+        {
+          _type: 'block',
+          style: 'normal',
+          listItem: 'bullet',
+          children: [{ text: 'item uno', _type: 'span' }]
+        },
+        {
+          _type: 'block',
+          style: 'normal',
+          listItem: 'number',
+          children: [{ text: 'item dos', _type: 'span' }]
+        },
+        { _type: 'image', asset: { _ref: 'x' }, alt: 'Foto de prueba' },
+        { _type: 'image', asset: { _ref: 'y' } }
+      ] as never;
+
+      const html = service.portableTextToHtml(mockBlocks);
+
+      expect(html).toContain('<h2>Title</h2>');
+      expect(html).toContain('<h2>Subtitle</h2>');
+      expect(html).toContain('<h3>Sub-sub</h3>');
+      expect(html).toContain('<strong>x</strong><em>y</em><code>z</code>');
+      expect(html).toContain('<li>item uno</li>');
+      expect(html).toContain('<li>item dos</li>');
+      expect(html).toContain('src="https://cdn.example.com/img-1200.png"');
+      expect(html).toContain('alt="Foto de prueba"');
+      expect(html).toContain('alt=""');
     });
   });
 
@@ -194,14 +277,14 @@ describe('SanityService', () => {
         return Promise.resolve([]);
       });
 
-      const originalClient = (service as any).client;
-      (service as any).client = mockClient;
+      const originalClient = internals(service).client;
+      internals(service).client = mockClient;
 
       try {
         await service.loadCategories();
         expect(loadingDuringExecution).toBeTruthy();
       } finally {
-        (service as any).client = originalClient;
+        internals(service).client = originalClient;
       }
     });
 
@@ -209,21 +292,21 @@ describe('SanityService', () => {
       const mockClient = jasmine.createSpyObj('client', ['fetch']);
       mockClient.fetch.and.returnValue(Promise.resolve([]));
 
-      const originalClient = (service as any).client;
-      (service as any).client = mockClient;
+      const originalClient = internals(service).client;
+      internals(service).client = mockClient;
 
       try {
         await service.loadCategories();
         expect(service.loading()).toBeFalse();
       } finally {
-        (service as any).client = originalClient;
+        internals(service).client = originalClient;
       }
     });
 
     it('should handle errors and update error state', async () => {
-      spyOn(console, 'error'); 
-      const originalClient = (service as any).client;
-      (service as any).client = mockErrorClient;
+      spyOn(console, 'error');
+      const originalClient = internals(service).client;
+      internals(service).client = mockErrorClient;
 
       try {
         await service.loadCategories();
@@ -231,26 +314,25 @@ describe('SanityService', () => {
         expect(service.hasError()).toBeTruthy();
         expect(service.loading()).toBeFalse();
       } finally {
-        (service as any).client = originalClient;
+        internals(service).client = originalClient;
       }
     });
 
     it('should clear error state at start', async () => {
-      // Set initial error
-      (service as any)._error.set('Previous error');
+      internals(service)._error.set('Previous error');
       expect(service.hasError()).toBeTruthy();
 
       const mockClient = jasmine.createSpyObj('client', ['fetch']);
       mockClient.fetch.and.returnValue(Promise.resolve([]));
 
-      const originalClient = (service as any).client;
-      (service as any).client = mockClient;
+      const originalClient = internals(service).client;
+      internals(service).client = mockClient;
 
       try {
         await service.loadCategories();
         expect(service.error()).toBeNull();
       } finally {
-        (service as any).client = originalClient;
+        internals(service).client = originalClient;
       }
     });
   });
@@ -264,14 +346,14 @@ describe('SanityService', () => {
       const mockClient = jasmine.createSpyObj('client', ['fetch']);
       mockClient.fetch.and.returnValue(Promise.resolve([]));
 
-      const originalClient = (service as any).client;
-      (service as any).client = mockClient;
+      const originalClient = internals(service).client;
+      internals(service).client = mockClient;
 
       try {
         await service.loadPosts();
         expect(loadCategoriesSpy).toHaveBeenCalled();
       } finally {
-        (service as any).client = originalClient;
+        internals(service).client = originalClient;
       }
     });
 
@@ -285,23 +367,23 @@ describe('SanityService', () => {
       });
 
       spyOn(service, 'loadCategories').and.returnValue(Promise.resolve());
-      const originalClient = (service as any).client;
-      (service as any).client = mockClient;
+      const originalClient = internals(service).client;
+      internals(service).client = mockClient;
 
       try {
         await service.loadPosts();
         expect(loadingDuringExecution).toBeTruthy();
         expect(service.loading()).toBeFalse();
       } finally {
-        (service as any).client = originalClient;
+        internals(service).client = originalClient;
       }
     });
 
     it('should handle errors correctly', async () => {
-      spyOn(console, 'error'); 
+      spyOn(console, 'error');
       spyOn(service, 'loadCategories').and.returnValue(Promise.resolve());
-      const originalClient = (service as any).client;
-      (service as any).client = mockErrorClient;
+      const originalClient = internals(service).client;
+      internals(service).client = mockErrorClient;
 
       try {
         await service.loadPosts();
@@ -309,7 +391,7 @@ describe('SanityService', () => {
         expect(service.hasError()).toBeTruthy();
         expect(service.loading()).toBeFalse();
       } finally {
-        (service as any).client = originalClient;
+        internals(service).client = originalClient;
       }
     });
 
@@ -330,17 +412,15 @@ describe('SanityService', () => {
       const mockClient = jasmine.createSpyObj('client', ['fetch']);
       mockClient.fetch.and.returnValue(Promise.resolve(mockPosts));
 
-      // Mock categories to be loaded first
       spyOn(service, 'loadCategories').and.callFake(() => {
-        // Simulate categories being loaded
-        (service as any)._categories.set([
+        internals(service)._categories.set([
           { id: 'test-cat', name: { es: 'Test', en: 'Test' }, value: 'test' }
         ]);
         return Promise.resolve();
       });
 
-      const originalClient = (service as any).client;
-      (service as any).client = mockClient;
+      const originalClient = internals(service).client;
+      internals(service).client = mockClient;
 
       try {
         await service.loadPosts();
@@ -349,7 +429,99 @@ describe('SanityService', () => {
         expect(service.postsCount()).toBe(1);
         expect(service.isReady()).toBeTruthy();
       } finally {
-        (service as any).client = originalClient;
+        internals(service).client = originalClient;
+      }
+    });
+
+    it('should default usefulCount to 0 when the raw post lacks it', async () => {
+      const mockPosts = [
+        {
+          _id: 'post1',
+          titleES: 'Test Title',
+          titleEN: 'Test Title EN',
+          excerptES: 'Test excerpt',
+          bodyES: [],
+          slug: 'test-post',
+          publishedAt: '2024-01-01T00:00:00Z',
+          category: 'test-cat'
+        }
+      ];
+
+      const mockClient = jasmine.createSpyObj('client', ['fetch']);
+      mockClient.fetch.and.returnValue(Promise.resolve(mockPosts));
+
+      spyOn(service, 'loadCategories').and.returnValue(Promise.resolve());
+
+      const originalClient = internals(service).client;
+      internals(service).client = mockClient;
+
+      try {
+        await service.loadPosts();
+        expect(service.posts()[0].usefulCount).toBe(0);
+      } finally {
+        internals(service).client = originalClient;
+      }
+    });
+
+    it('should map usefulCount from the raw post when present', async () => {
+      const mockPosts = [
+        {
+          _id: 'post1',
+          titleES: 'Test Title',
+          titleEN: 'Test Title EN',
+          excerptES: 'Test excerpt',
+          bodyES: [],
+          slug: 'test-post',
+          publishedAt: '2024-01-01T00:00:00Z',
+          category: 'test-cat',
+          usefulCount: 148
+        }
+      ];
+
+      const mockClient = jasmine.createSpyObj('client', ['fetch']);
+      mockClient.fetch.and.returnValue(Promise.resolve(mockPosts));
+
+      spyOn(service, 'loadCategories').and.returnValue(Promise.resolve());
+
+      const originalClient = internals(service).client;
+      internals(service).client = mockClient;
+
+      try {
+        await service.loadPosts();
+        expect(service.posts()[0].usefulCount).toBe(148);
+      } finally {
+        internals(service).client = originalClient;
+      }
+    });
+
+    it('should apply fallbacks when the raw post lacks optional fields', async () => {
+      const mockPosts = [
+        {
+          _id: 'post-min',
+          slug: 'post-min',
+          publishedAt: '2024-01-01T00:00:00Z'
+        }
+      ];
+
+      const mockClient = jasmine.createSpyObj('client', ['fetch']);
+      mockClient.fetch.and.returnValue(Promise.resolve(mockPosts));
+      spyOn(service, 'loadCategories').and.returnValue(Promise.resolve());
+
+      const originalClient = internals(service).client;
+      internals(service).client = mockClient;
+
+      try {
+        await service.loadPosts();
+
+        const post = service.posts()[0];
+        expect(post.title).toEqual({ es: '', en: '' });
+        expect(post.excerpt).toEqual({ es: '' });
+        expect('en' in post.excerpt).toBeFalse();
+        expect(post.body).toEqual({ es: [] });
+        expect('en' in post.body).toBeFalse();
+        expect(post.image).toBeUndefined();
+      } finally {
+        internals(service).client = originalClient;
       }
     });
   });
@@ -376,10 +548,9 @@ describe('SanityService', () => {
 
   describe('#integration scenarios', () => {
     it('should maintain consistent state through error and recovery', async () => {
-      spyOn(console, 'error'); 
-      // Start with error
-      const originalClient = (service as any).client;
-      (service as any).client = mockErrorClient;
+      spyOn(console, 'error');
+      const originalClient = internals(service).client;
+      internals(service).client = mockErrorClient;
 
       try {
         await service.loadCategories();
@@ -390,21 +561,19 @@ describe('SanityService', () => {
       expect(service.hasError()).toBeTruthy();
       expect(service.loading()).toBeFalse();
 
-      // Clear error and verify recovery
       service.clearError();
       expect(service.hasError()).toBeFalse();
       expect(service.error()).toBeNull();
 
-      // Restore client for future tests
-      (service as any).client = originalClient;
+      internals(service).client = originalClient;
     });
 
     it('should handle multiple sequential operations', async () => {
       const mockClient = jasmine.createSpyObj('client', ['fetch']);
       mockClient.fetch.and.returnValue(Promise.resolve([]));
 
-      const originalClient = (service as any).client;
-      (service as any).client = mockClient;
+      const originalClient = internals(service).client;
+      internals(service).client = mockClient;
 
       try {
         await service.loadCategories();
@@ -416,7 +585,7 @@ describe('SanityService', () => {
         await service.refreshPosts();
         expect(mockClient.fetch).toHaveBeenCalled();
       } finally {
-        (service as any).client = originalClient;
+        internals(service).client = originalClient;
       }
     });
   });

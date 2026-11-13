@@ -5,7 +5,8 @@ const handler: Handler = async (event, context): Promise<HandlerResponse> => {
     'https://nomacoda.com',
     'http://localhost:4200',
     'http://localhost:4201',
-    'http://localhost:4202'
+    'http://localhost:4202',
+    'http://localhost:8888',
   ];
 
   const origin = event.headers.origin;
@@ -46,8 +47,8 @@ const handler: Handler = async (event, context): Promise<HandlerResponse> => {
   }
 
   try {
-    const portfolioToken = process.env.PORTFOLIO_TOKEN;
-    const n8nWebhookUrl = process.env.N8N_CONTACT_WEBHOOK_URL;
+    const portfolioToken = process.env.PORTFOLIO_TOKEN?.trim();
+    const n8nWebhookUrl = process.env.N8N_CONTACT_WEBHOOK_URL?.trim();
 
     if (!portfolioToken || !n8nWebhookUrl) {
       return {
@@ -71,7 +72,8 @@ const handler: Handler = async (event, context): Promise<HandlerResponse> => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'X-Portfolio-Token': portfolioToken
+        'X-Portfolio-Token': portfolioToken,
+        'Origin': allowedOrigin
       },
       body: JSON.stringify(data)
     });
@@ -102,3 +104,4 @@ const handler: Handler = async (event, context): Promise<HandlerResponse> => {
 };
 
 export { handler };
+

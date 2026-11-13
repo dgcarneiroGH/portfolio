@@ -1,0 +1,15 @@
+@use "src/styles/_palette" as palette;
+@use "src/styles/_fonts" as fonts;
+
+:host {
+  display: inline-flex;
+  padding: 0.25rem 0.625rem;
+  background: palette.$azure-border;
+  color: palette.$accent-azure;
+  font-family: fonts.$mono;
+  font-size: 0.6875rem;
+  font-weight: 400;
+  line-height: 1.5;
+  border-radius: 9999px;
+  white-space: nowrap;
+}

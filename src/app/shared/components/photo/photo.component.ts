@@ -1,22 +1,20 @@
-import { CommonModule } from '@angular/common';
-import { Component, computed, input, signal, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 
 @Component({
-  standalone: true,
   selector: 'app-photo',
-  imports: [CommonModule],
+  standalone: true,
   templateUrl: './photo.component.html',
-  styleUrl: './photo.component.scss'
+  styleUrl: './photo.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PhotoComponent implements OnInit {
+export class PhotoComponent {
   imgBase = input.required<string>();
   altText = input.required<string>();
+  caption = input<string>();
+  accent = input<'neutral' | 'amber' | 'blue'>('neutral');
 
-  photoClass = computed(() => `photo-${this.imgBase()}`);
+  src480 = computed(() => `assets/images/photos/${this.imgBase()}-480.avif`);
+  src960 = computed(() => `assets/images/photos/${this.imgBase()}-960.avif`);
 
-  animationDelay = signal('0s');
-
-  ngOnInit(): void {
-    this.animationDelay.set(`${Math.random() * 3}s`);
-  }
+  srcset = computed(() => `${this.src480()} 480w, ${this.src960()} 960w`);
 }

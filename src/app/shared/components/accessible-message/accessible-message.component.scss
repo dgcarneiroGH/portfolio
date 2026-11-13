@@ -20,7 +20,7 @@
 }
 
 .accessible-success {
-  background-color: rgba(40, 167, 69, 0.1);
+  background-color: rgba(palette.$msg-success-bg, 0.1);
   border-left-color: palette.$accessible-success;
   color: palette.$accessible-success;
 
@@ -43,7 +43,7 @@
 }
 
 .accessible-error {
-  background-color: rgba(220, 53, 69, 0.1);
+  background-color: rgba(palette.$msg-error-bg, 0.1);
   border-left-color: palette.$accessible-error;
   color: palette.$accessible-error;
 
@@ -66,9 +66,9 @@
 }
 
 .accessible-warning {
-  background-color: rgba(255, 193, 7, 0.1);
+  background-color: rgba(palette.$msg-warning-bg, 0.1);
   border-left-color: palette.$accessible-warning;
-  color: #856404; /* High contrast text */
+  color: palette.$msg-warning-text;
 
   .icon {
     color: palette.$accessible-warning;
@@ -76,9 +76,9 @@
 }
 
 .accessible-info {
-  background-color: rgba(23, 162, 184, 0.1);
+  background-color: rgba(palette.$msg-info-bg, 0.1);
   border-left-color: palette.$accessible-info;
-  color: #0c5460; /* High contrast text */
+  color: palette.$msg-info-text;
 
   .icon {
     color: palette.$accessible-info;

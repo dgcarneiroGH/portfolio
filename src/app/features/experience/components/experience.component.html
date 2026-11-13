@@ -1,8 +1,6 @@
 <section>
   <header
     class="section-header"
-    appParallaxHeader
-    [parallaxContent]="contentRef"
     #headerRef
   >
     <h2>
@@ -12,7 +10,7 @@
   <div class="section-container" #contentRef>
     <ul>
       @for (e of experience(); track e.company) {
-        <li appTimeline customClassName="in-view">
+        <li appTimeline [className]="'in-view'">
           <div>
             <time
               [attr.datetime]="

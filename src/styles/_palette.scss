@@ -1,20 +1,82 @@
-// Backgrounds
+// Palette — tokens de color. Derivadas: rgba(palette.$token, α).
+
+// Fondo global
 $background-gradient-start: #0f3254;
-$background-gradient-end: #115f51;
-$surface-sidebar: #f6f8fa;
+$background-gradient-end:   #115f51;
 
-// Text
-$text-primary: #f0f4f8;
+// Superficies (de más oscura a más clara)
+$surface-brand:     #001429;
+$surface-dock:      #041424;
+$surface-code-deep: #071018;
+$surface-pill:      #081a2c;
+$surface-code:      #0b1622;
+$surface-blog-mid:  #001c37;
+$surface-card:      #00213e;
+$surface-action:    #052b4d;
+$surface-sidebar:   #f6f8fa;
+
+// Azure (header/footer)
+$azure-deep:   #000f21;
+$azure-border: #143658;
+
+// Texto
+$text-primary:   #f0f4f8;
 $text-secondary: #a0bbd8;
-$text-red: #ff8a80;            // WCAG AA on $background-gradient-start (was #d9534f, 2.6:1)
+$text-red:       #ff8a80;
 
-// Accents
-$accent-yellow: #ffa726;
-$accent-blue: #29b6f6;
-$accent-green:#2ecc71;
+// Acentos (azules → verde → amarillo → rosa/rojo)
+$focus-blue:        #005fcc;
+$accent-blue:       #29b6f6;
+$accent-blue-light: #90caf9;
+$accent-azure:      #81cfff;
+$accent-sky:        #00a9e8;
+$accent-cyan:       #06b6d2;
+$cyan-glow:         #00f2fe;
+$accent-green:      #2ecc71;
+$accent-yellow:     #ffa726;
+$accent-rose:       #f472b6;
+$accent-red-soft:   #fb7185;
 
-// High contrast alternatives
-$accent-green-high: #1e8449;
+// Verdes suaves
+$green-soft: #8ed4c2;
+$green-mint: #aaf0de;
+
+// Ámbar y marrón (blog/footer)
+$amber-glow:      #ffb961;
+$amber-text:      #fcd34d;
+$amber-dot:       #fbbf24;
+$amber-ink:       #472a00;
+$amber-outline:   #784a00;
+$amber-dark:      #2b1700;
+$brown-btn-start: #2c1a0e;
+$brown-btn-mid:   #462c16;
+$brown-btn-end:   #201308;
+
+// Ventana de código
+$code-teal:           #00bfa5;
+$code-string:         #ffab70;
+$code-comment:        #94a3b8;
+$code-comment-strong: #cbd5e1;
+$mac-dot-green:       #28c840;
+$mac-dot-yellow:      #febc2e;
+$mac-dot-red:         #ff5f57;
+
+// Mensajes accesibles
+$accessible-success: $accent-green;
+$accessible-warning: $accent-yellow;
+$accessible-error:   $text-red;
+$accessible-info:    $accent-blue;
+$msg-success-bg:     #28a745;
+$msg-warning-bg:     #ffc107;
+$msg-error-bg:       #dc3545;
+$msg-info-bg:        #17a2b8;
+$msg-warning-text:   #856404;
+$msg-info-text:      #0c5460;
+
+// Neutros y alto contraste
+$neutral-100:        #e2e8f0;
+$neutral-900:        #1c1c1c;
+$accent-blue-high:   #1a5276;
+$accent-green-high:  #1e8449;
 $accent-yellow-high: #e67e22;
-$text-red-high: #d32f2f;        // WCAG AAA alternative for high-contrast mode
-$accent-blue-high: #1a5276;
+$text-red-high:      #d32f2f;

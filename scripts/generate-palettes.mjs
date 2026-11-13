@@ -12,8 +12,8 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import sharp from 'sharp';
 
-const CONSTANTS_PATH = 'src/app/features/projects/constants/projects.constants.ts';
-const OUTPUT_PATH = 'src/app/features/projects/constants/project-palettes.ts';
+const CONSTANTS_PATH = 'src/app/features/success-cases/constants/success-cases.constants.ts';
+const OUTPUT_PATH = 'src/app/features/success-cases/constants/success-case-palettes.ts';
 
 /** Convierte un array de píxeles [r,g,b] en un buffer RGB plano (helper de tests). */
 export function buildRgbBuffer(pixels) {
@@ -90,7 +90,7 @@ async function main() {
   const output = `// AUTO-GENERADO por scripts/generate-palettes.mjs — no editar a mano.
 // Regenerar con: node scripts/generate-palettes.mjs
 
-export const PROJECT_PALETTES: Record<string, [string, string]> = {
+export const SUCCESS_CASE_PALETTES: Record<string, [string, string]> = {
 ${entries.join(',\n')}
 };
 `;

@@ -1,35 +1,71 @@
-<article class="post-card">
-  <div
-    class="post-card__bg"
-    [style.background-image]="bgUrl ? 'url(' + bgUrl + ')' : 'none'"
-  ></div>
-  <div class="post-card__overlay"></div>
+<article
+  class="post-card"
+  [ngClass]="[themeClass, featured ? 'post-card--featured' : '']"
+>
+  <div class="post-card__media">
+    @if (bgUrl) {
+      <img class="post-card__image" [src]="bgUrl" alt="" />
+    }
+    <div class="post-card__media-overlay"></div>
+  </div>
 
   <div class="post-card__content">
-    <header class="post-card-header">
-      <div class="post-card-header__meta">
+    <header class="post-card__header">
+      <div class="post-card__meta">
         @if (categoryLabel) {
-          <div class="category-badge">
-            <span class="category-badge__line"></span>
-            <span class="category-badge__text" [innerHTML]="categoryLabel | translate"></span>
-          </div>
+          @if (featured) {
+            <span class="post-card__badge">
+              <span
+                class="post-card__badge-text"
+                [innerHTML]="categoryLabel | translate"
+              ></span>
+            </span>
+          } @else {
+            <span class="post-card__category">
+              <span class="post-card__category-dot" aria-hidden="true"></span>
+              <span
+                class="post-card__category-text"
+                [innerHTML]="categoryLabel | translate"
+              ></span>
+            </span>
+          }
         }
-        <p class="post-card-header__date">
+        <p class="post-card__date">
           {{ date | date: "longDate" : "" : currentLocale }}
         </p>
       </div>
-      <h2 class="post-card-header__title">{{ title }}</h2>
+
+      <h2 class="post-card__title">{{ title }}</h2>
+      <p class="post-card__excerpt">{{ excerpt }}</p>
     </header>
 
-    <p class="excerpt">{{ excerpt }}</p>
-
-    <footer class="post-footer">
-      <app-button
-        color="#ffa726"
-        [text]="'BLOG.FULL_POST' | translate"
-        (buttonClick)="navigateToPostDetail()"
+    <footer class="post-card__footer">
+      <button
+        class="post-card__cta"
+        type="button"
+        (click)="navigateToPostDetail()"
         [attr.aria-label]="'BLOG.FULL_POST_ARIA' | translate"
-      ></app-button>
+      >
+        <span class="post-card__cta-text">{{
+          "BLOG.FULL_POST" | translate
+        }}</span>
+        <svg
+          class="post-card__cta-arrow"
+          aria-hidden="true"
+          viewBox="0 0 14 14"
+          width="14"
+          height="14"
+          fill="none"
+        >
+          <path
+            d="M1 7h11M7.5 2.5 12 7l-4.5 4.5"
+            stroke="currentColor"
+            stroke-width="1.6"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </button>
     </footer>
   </div>
 </article>
