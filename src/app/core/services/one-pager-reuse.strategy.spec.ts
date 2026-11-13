@@ -25,17 +25,17 @@ function snap(routeConfig: object): ActivatedRouteSnapshot {
   return { routeConfig } as unknown as ActivatedRouteSnapshot;
 }
 
-@Component({ selector: 'dummy-a', template: '' })
+@Component({ selector: 'app-dummy-a', template: '' })
 class DummyA {}
 
-@Component({ selector: 'dummy-b', template: '' })
+@Component({ selector: 'app-dummy-b', template: '' })
 class DummyB {}
 
-@Component({ selector: 'dummy-blog', template: '' })
+@Component({ selector: 'app-dummy-blog', template: '' })
 class DummyBlog {}
 
 @Component({
-  selector: 'test-host',
+  selector: 'app-test-host',
   imports: [RouterOutlet],
   template: '<router-outlet />'
 })

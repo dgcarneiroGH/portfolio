@@ -1,5 +1,3 @@
-// Karma configuration file
-// https://karma-runner.github.io/latest/config/configuration-file.html
 // NOTE: In Angular 20 (@angular/build:karma builder), the Angular karma
 // adapter is injected automatically by the builder — do NOT require it here.
 
@@ -26,7 +24,16 @@ module.exports = function (config) {
       reporters: [
         { type: 'html' },
         { type: 'text-summary' }
-      ]
+      ],
+      // Umbrales mínimos: falla el run de tests si la cobertura baja de aquí.
+      check: {
+        global: {
+          statements: 80,
+          branches: 80,
+          functions: 80,
+          lines: 80
+        }
+      }
     },
     reporters: ['progress', 'kjhtml'],
     browsers: ['Chrome'],

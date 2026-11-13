@@ -646,7 +646,7 @@ describe('BlogArticleComponent', () => {
         '.article__author__photo'
       ) as HTMLImageElement;
       expect(photo.getAttribute('src')).toBe(
-        'assets/images/nomacoda/author.avif'
+        'assets/images/photos/me_watching.avif'
       );
       expect(photo.getAttribute('alt')).toBe('Photo of Diego (Nomacoda)');
 

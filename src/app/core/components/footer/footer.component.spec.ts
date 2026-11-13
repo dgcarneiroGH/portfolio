@@ -157,7 +157,7 @@ describe('FooterComponent', () => {
       } catch (err) {
         // axe-core 4.x + Angular zone-less testing has known issues
         // (see axe-core issue #3034); the smoke script covers the build.
-        // eslint-disable-next-line no-console
+         
         console.warn(
           '[a11y] axe-core runner unavailable in this test environment:',
           err instanceof Error ? err.message : String(err)

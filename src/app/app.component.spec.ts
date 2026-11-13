@@ -10,10 +10,10 @@ import { LangService } from './core/services/lang.service';
 
 const mockLoader = { getTranslation: () => of({}) };
 
-@Component({ selector: 'dummy-one-pager', template: '' })
+@Component({ selector: 'app-dummy-one-pager', template: '' })
 class DummyOnePager {}
 
-@Component({ selector: 'dummy-blog', template: '' })
+@Component({ selector: 'app-dummy-blog', template: '' })
 class DummyBlog {}
 
 const SPEC_ROUTES: Routes = [
@@ -200,7 +200,7 @@ describe('AppComponent', () => {
         // "Right-hand side of 'instanceof' is not callable" issues
         // (see axe-core issue #3034). Skip rather than block CI;
         // the smoke script `npm run a11y:smoke` covers this case against the build.
-        // eslint-disable-next-line no-console
+         
         console.warn(
           '[a11y] axe-core runner unavailable in this test environment:',
           err instanceof Error ? err.message : String(err)

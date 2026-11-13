@@ -32,7 +32,6 @@ export class LangService {
 
     this.setLanguage(langToUse);
 
-    // Effect to save in localStorage whenever the language changes
     effect(() => {
       const currentLang = this._currentLanguage();
       localStorage.setItem('language', currentLang);

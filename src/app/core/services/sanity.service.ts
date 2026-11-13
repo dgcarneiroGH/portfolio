@@ -5,7 +5,37 @@ import imageUrlBuilder from '@sanity/image-url';
 import { environment } from '../../../environments/environment';
 import { Post } from '../../features/blog/models/post.model';
 import { PostCategory } from '../../features/blog/models/category.model';
-import { BodyContent } from '../models/sanity.models';
+import { PostCategoryType } from '../../features/blog/models/blog-filter.model';
+import { BodyContent, SanityImage } from '../models/sanity.models';
+
+/** Fuente de imagen que acepta el builder de Sanity (según su API). */
+type ImageBuilderSource = Parameters<
+  ReturnType<typeof imageUrlBuilder>['image']
+>[0];
+
+/** Fila cruda de GROQ de la proyección de categorías (loadCategories). */
+interface RawCategory {
+  _id: string;
+  nameES?: string;
+  nameEN?: string;
+  value: PostCategoryType;
+}
+
+/** Fila cruda de GROQ de la proyección de posts (loadPosts). */
+interface RawPost {
+  _id: string;
+  slug: string;
+  titleES?: string;
+  titleEN?: string;
+  excerptES?: string;
+  excerptEN?: string;
+  bodyES?: BodyContent;
+  bodyEN?: BodyContent;
+  image?: SanityImage;
+  publishedAt: string;
+  category?: string;
+  usefulCount?: number;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -14,18 +44,15 @@ export class SanityService {
   private client: SanityClient;
   private builder: ReturnType<typeof imageUrlBuilder>;
 
-  // Post state management with signals
   private _posts = signal<Post[]>([]);
   private _categories = signal<PostCategory[]>([]);
   private _loading = signal(false);
   private _error = signal<string | null>(null);
 
-  // Readonly signals for public exposure
   posts = this._posts.asReadonly();
   loading = this._loading.asReadonly();
   error = this._error.asReadonly();
 
-  // Computed properties
   postsCount = computed(() => this._posts().length);
   hasError = computed(() => this._error() !== null);
   isReady = computed(() => !this._loading() && this._posts().length > 0);
@@ -42,25 +69,24 @@ export class SanityService {
     this.builder = imageUrlBuilder(this.client);
   }
 
-  async fetch<T = any>(
+  async fetch<T = unknown>(
     query: string,
     params?: Record<string, unknown>
   ): Promise<T> {
     try {
-      return await this.client.fetch<T>(query, params as any);
+      return await this.client.fetch<T>(query, params ?? {});
     } catch (error) {
       this._error.set(`Error fetching data: ${error}`);
       throw error;
     }
   }
 
-  imageBuilder(source: any) {
-    return this.builder.image(source);
+  imageBuilder(source: unknown) {
+    return this.builder.image(source as ImageBuilderSource);
   }
 
-  // Translate text to HTML
   portableTextToHtml(blocks: BodyContent): string {
-    return toHTML(blocks as any, {
+    return toHTML(blocks as unknown as Parameters<typeof toHTML>[0], {
       components: {
         marks: {
           strong: ({ children }) => `<strong>${children}</strong>`,
@@ -112,7 +138,7 @@ export class SanityService {
         value
       }`;
 
-      const rawCategories = await this.fetch<any[]>(query);
+      const rawCategories = await this.fetch<RawCategory[]>(query);
 
       const categories = rawCategories.map((category) => ({
         id: category._id,
@@ -154,7 +180,7 @@ export class SanityService {
         "usefulCount": coalesce(usefulCount, 0)
       }`;
 
-      const rawPosts = await this.fetch<any[]>(query);
+      const rawPosts = await this.fetch<RawPost[]>(query);
 
       const posts = rawPosts.map((post) => ({
         id: post._id,

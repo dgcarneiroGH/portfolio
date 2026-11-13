@@ -8,7 +8,6 @@ import { of } from 'rxjs';
 describe('BlogFilterComponent', () => {
   let component: BlogFilterComponent;
   let fixture: ComponentFixture<BlogFilterComponent>;
-  let translateService: jasmine.SpyObj<TranslateService>;
 
   beforeEach(async () => {
     const translateServiceSpy = jasmine.createSpyObj(
@@ -28,10 +27,6 @@ describe('BlogFilterComponent', () => {
       imports: [BlogFilterComponent, TranslateModule.forRoot()],
       providers: [{ provide: TranslateService, useValue: translateServiceSpy }]
     }).compileComponents();
-
-    translateService = TestBed.inject(
-      TranslateService
-    ) as jasmine.SpyObj<TranslateService>;
     fixture = TestBed.createComponent(BlogFilterComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

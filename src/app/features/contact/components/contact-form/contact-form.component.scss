@@ -6,8 +6,8 @@
 :host {
   display: block;
   width: 100%;
-  max-width: 42rem; // 672px
-  padding: 2.5rem; // 40px
+  max-width: 42rem;
+  padding: 2.5rem;
   background: rgba(palette.$surface-card, 0.75);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -33,7 +33,7 @@
 form {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem; // 24px
+  gap: 1.5rem;
 
   @media (max-height: 950px) {
     gap: 1rem;
@@ -85,7 +85,7 @@ input[type="text"],
 input[type="email"],
 textarea {
   width: 100%;
-  padding: 0.8125rem 1rem 0.875rem; // 13px / 16px / 14px
+  padding: 0.8125rem 1rem 0.875rem;
   font-family: fonts.$body;
   font-size: 1rem;
   line-height: 1.5rem;
@@ -147,7 +147,6 @@ textarea {
   }
 }
 
-/* Error Messages */
 .error-message {
   display: flex;
   align-items: center;
@@ -182,7 +181,7 @@ textarea {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  padding-top: 0.5rem; // 8px
+  padding-top: 0.5rem;
 
   // Pantallas bajas: sin aire extra
   @media (max-height: 950px) {

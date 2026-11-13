@@ -33,7 +33,7 @@ describe('ContactService', () => {
   });
 
   afterEach(() => {
-    httpMock.verify(); // ensure no unexpected requests
+    httpMock.verify();
   });
 
   it('should be created', () => {
@@ -80,7 +80,6 @@ describe('ContactService', () => {
 
       const req = httpMock.expectOne(environment.contactEndpoint);
 
-      // Verify request body is the expected object
       expect(req.request.body).toEqual(mockContactInquiry);
 
       req.flush({ success: true });

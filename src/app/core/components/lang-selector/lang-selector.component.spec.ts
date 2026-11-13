@@ -19,6 +19,24 @@ function buildLangServiceSpy(
   return spy;
 }
 
+/** Acceso tipado a `navigateOptions` (private) para poder espiarla. */
+function spyOnNavigateOptions(component: LangSelectorComponent): jasmine.Spy {
+  return spyOn(
+    component as unknown as {
+      navigateOptions: (direction: number, currentElement: HTMLElement) => void;
+    },
+    'navigateOptions'
+  );
+}
+
+/** Acceso tipado a `_focusOption` (private) para poder espiarla. */
+function spyOnFocusOption(component: LangSelectorComponent): jasmine.Spy {
+  return spyOn(
+    component as unknown as { _focusOption: (index: number) => void },
+    '_focusOption'
+  );
+}
+
 describe('LangSelectorComponent', () => {
   let component: LangSelectorComponent;
   let fixture: ComponentFixture<LangSelectorComponent>;
@@ -151,6 +169,108 @@ describe('LangSelectorComponent', () => {
       component.onKeyDown(event);
       expect(component.showOptions()).toBeFalse();
     });
+
+    it('should ignore Home when the menu is closed', () => {
+      const event = new KeyboardEvent('keydown', { key: 'Home' });
+      spyOn(event, 'preventDefault');
+      const focusSpy = spyOnFocusOption(component);
+
+      component.onKeyDown(event);
+
+      expect(event.preventDefault).not.toHaveBeenCalled();
+      expect(focusSpy).not.toHaveBeenCalled();
+    });
+
+    it('should prevent default and focus the first option on Home when open', () => {
+      component.toggleOptions(); // open first
+      const event = new KeyboardEvent('keydown', { key: 'Home' });
+      spyOn(event, 'preventDefault');
+      const focusSpy = spyOnFocusOption(component);
+
+      component.onKeyDown(event);
+
+      expect(event.preventDefault).toHaveBeenCalled();
+      expect(focusSpy).toHaveBeenCalledWith(0);
+    });
+
+    it('should ignore End when the menu is closed', () => {
+      const event = new KeyboardEvent('keydown', { key: 'End' });
+      spyOn(event, 'preventDefault');
+      const focusSpy = spyOnFocusOption(component);
+
+      component.onKeyDown(event);
+
+      expect(event.preventDefault).not.toHaveBeenCalled();
+      expect(focusSpy).not.toHaveBeenCalled();
+    });
+
+    it('should prevent default and focus the last option on End when open', () => {
+      component.toggleOptions(); // open first
+      const event = new KeyboardEvent('keydown', { key: 'End' });
+      spyOn(event, 'preventDefault');
+      const focusSpy = spyOnFocusOption(component);
+
+      component.onKeyDown(event);
+
+      expect(event.preventDefault).toHaveBeenCalled();
+      expect(focusSpy).toHaveBeenCalledWith(
+        component.filteredLanguages().length - 1
+      );
+    });
+
+    it('should jump to the option starting with the typed character (typeahead)', () => {
+      component.toggleOptions(); // open first
+      const event = new KeyboardEvent('keydown', { key: 'e' });
+      spyOn(event, 'preventDefault');
+      const focusSpy = spyOnFocusOption(component);
+
+      component.onKeyDown(event);
+
+      // 'ENG' es la única opción filtrada y empieza por 'e'
+      expect(event.preventDefault).toHaveBeenCalled();
+      expect(focusSpy).toHaveBeenCalledWith(0);
+    });
+
+    it('should ignore multi-character keys in typeahead', () => {
+      component.toggleOptions(); // open first
+      const event = new KeyboardEvent('keydown', { key: 'PageDown' });
+      const focusSpy = spyOnFocusOption(component);
+
+      component.onKeyDown(event);
+
+      expect(focusSpy).not.toHaveBeenCalled();
+    });
+
+    it('should ignore typeahead when the menu is closed', () => {
+      const event = new KeyboardEvent('keydown', { key: 'z' });
+      const focusSpy = spyOnFocusOption(component);
+
+      component.onKeyDown(event);
+
+      expect(focusSpy).not.toHaveBeenCalled();
+    });
+
+    it('should not focus anything when no option matches the typed character', () => {
+      component.toggleOptions(); // open first
+      const event = new KeyboardEvent('keydown', { key: 'z' });
+      spyOn(event, 'preventDefault');
+      const focusSpy = spyOnFocusOption(component);
+
+      component.onKeyDown(event);
+
+      expect(event.preventDefault).not.toHaveBeenCalled();
+      expect(focusSpy).not.toHaveBeenCalled();
+    });
+
+    it('should ignore whitespace keys in typeahead', () => {
+      component.toggleOptions(); // open first
+      const event = new KeyboardEvent('keydown', { key: '\t' });
+      const focusSpy = spyOnFocusOption(component);
+
+      component.onKeyDown(event);
+
+      expect(focusSpy).not.toHaveBeenCalled();
+    });
   });
 
   describe('#onLanguageKeyDown — option keyboard navigation', () => {
@@ -195,10 +315,14 @@ describe('LangSelectorComponent', () => {
       spyOn(component, 'closeOptions');
 
       // Build a minimal #triggerBtn in the rendered DOM that responds to focus().
-      const triggerBtn = fixture.nativeElement.querySelector('#triggerBtn') as HTMLButtonElement | null;
+      const triggerBtn = fixture.nativeElement.querySelector(
+        '#triggerBtn'
+      ) as HTMLButtonElement | null;
       // viewChild returns the button only after detectChanges; if missing, fall back.
       // The component uses viewChild('triggerBtn'); the existing template has #triggerBtn.
-      const focusSpy = triggerBtn ? spyOn(triggerBtn, 'focus') : jasmine.createSpy('focus');
+      const focusSpy = triggerBtn
+        ? spyOn(triggerBtn, 'focus')
+        : jasmine.createSpy('focus');
 
       const mockTarget = document.createElement('li');
       const event = Object.create(KeyboardEvent.prototype);
@@ -215,7 +339,7 @@ describe('LangSelectorComponent', () => {
     });
 
     it('should prevent default and navigate down on ArrowDown key', () => {
-      spyOn(component, 'navigateOptions' as any);
+      spyOnNavigateOptions(component);
       const mockTarget = document.createElement('li');
 
       const event = Object.create(KeyboardEvent.prototype);
@@ -230,7 +354,7 @@ describe('LangSelectorComponent', () => {
     });
 
     it('should prevent default and navigate up on ArrowUp key', () => {
-      spyOn(component, 'navigateOptions' as any);
+      spyOnNavigateOptions(component);
       const mockTarget = document.createElement('li');
 
       const event = Object.create(KeyboardEvent.prototype);
@@ -247,7 +371,7 @@ describe('LangSelectorComponent', () => {
     it('should do nothing on unhandled keys', () => {
       spyOn(component, 'selectLanguage');
       spyOn(component, 'closeOptions');
-      spyOn(component, 'navigateOptions' as any);
+      spyOnNavigateOptions(component);
 
       const event = new KeyboardEvent('keydown', { key: 'Tab' });
       spyOn(event, 'preventDefault');
@@ -273,7 +397,6 @@ describe('LangSelectorComponent', () => {
     const testLangId = 'en-US';
 
     beforeEach(() => {
-      // Create mock elements for testing
       mockTarget = document.createElement('li');
       const mockContainer = document.createElement('div');
       mockContainer.className = 'lang-selector-container';
@@ -281,7 +404,6 @@ describe('LangSelectorComponent', () => {
       mockContainer.appendChild(mockButton);
       mockContainer.appendChild(mockTarget);
 
-      // Setup DOM hierarchy
       document.body.appendChild(mockContainer);
     });
 
@@ -308,11 +430,13 @@ describe('LangSelectorComponent', () => {
     it('should close options and focus button on Escape key', () => {
       spyOn(component, 'closeOptions');
 
-      // Pull the real trigger button from the rendered template.
-      const triggerBtn = fixture.nativeElement.querySelector('button.container-header') as HTMLButtonElement | null;
-      const focusSpy = triggerBtn ? spyOn(triggerBtn, 'focus') : jasmine.createSpy('focus');
+      const triggerBtn = fixture.nativeElement.querySelector(
+        'button.container-header'
+      ) as HTMLButtonElement | null;
+      const focusSpy = triggerBtn
+        ? spyOn(triggerBtn, 'focus')
+        : jasmine.createSpy('focus');
 
-      // Create event with mockTarget as target
       const event = Object.create(KeyboardEvent.prototype);
       Object.defineProperty(event, 'key', { value: 'Escape' });
       Object.defineProperty(event, 'target', { value: mockTarget });
@@ -326,11 +450,10 @@ describe('LangSelectorComponent', () => {
     });
 
     it('should prevent default and navigate down on ArrowDown key', () => {
-      spyOn(component, 'navigateOptions' as any);
+      spyOnNavigateOptions(component);
       const event = new KeyboardEvent('keydown', { key: 'ArrowDown' });
       spyOn(event, 'preventDefault');
 
-      // Create event with mockTarget as target
       const eventWithTarget = Object.create(KeyboardEvent.prototype);
       Object.defineProperty(eventWithTarget, 'key', { value: 'ArrowDown' });
       Object.defineProperty(eventWithTarget, 'target', { value: mockTarget });
@@ -343,9 +466,8 @@ describe('LangSelectorComponent', () => {
     });
 
     it('should prevent default and navigate up on ArrowUp key', () => {
-      spyOn(component, 'navigateOptions' as any);
+      spyOnNavigateOptions(component);
 
-      // Create event with mockTarget as target
       const eventWithTarget = Object.create(KeyboardEvent.prototype);
       Object.defineProperty(eventWithTarget, 'key', { value: 'ArrowUp' });
       Object.defineProperty(eventWithTarget, 'target', { value: mockTarget });
@@ -360,7 +482,7 @@ describe('LangSelectorComponent', () => {
     it('should do nothing on unhandled keys', () => {
       spyOn(component, 'selectLanguage');
       spyOn(component, 'closeOptions');
-      spyOn(component, 'navigateOptions' as any);
+      spyOnNavigateOptions(component);
 
       const event = new KeyboardEvent('keydown', { key: 'Tab' });
       spyOn(event, 'preventDefault');
@@ -391,7 +513,9 @@ describe('LangSelectorComponent', () => {
 
   describe('ARIA pattern (WAI-ARIA listbox)', () => {
     it('trigger uses aria-haspopup="listbox" with aria-controls', () => {
-      const btn = fixture.nativeElement.querySelector('button.container-header') as HTMLButtonElement;
+      const btn = fixture.nativeElement.querySelector(
+        'button.container-header'
+      ) as HTMLButtonElement;
       expect(btn).toBeTruthy();
       expect(btn.getAttribute('aria-haspopup')).toBe('listbox');
       expect(btn.getAttribute('aria-controls')).toBe('lang-options');
@@ -399,7 +523,9 @@ describe('LangSelectorComponent', () => {
     });
 
     it('options <ul> has role=listbox and id=lang-options', () => {
-      const list = fixture.nativeElement.querySelector('#lang-options') as HTMLUListElement;
+      const list = fixture.nativeElement.querySelector(
+        '#lang-options'
+      ) as HTMLUListElement;
       expect(list).toBeTruthy();
       expect(list.getAttribute('role')).toBe('listbox');
     });

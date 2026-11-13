@@ -14,7 +14,7 @@ import { By } from '@angular/platform-browser';
 import { SuccessCasesComponent } from './success-cases.component';
 
 @Component({
-  selector: 'dummy-route',
+  selector: 'app-dummy-route',
   standalone: true,
   template: ''
 })

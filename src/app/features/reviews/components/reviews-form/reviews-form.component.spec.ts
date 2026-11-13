@@ -15,7 +15,8 @@ const mockTranslations = {
   'FORM.REQUIRED_ERROR': 'Required',
   'FORM.FORM_ERROR': 'Error. Please try again.',
   'REVIEWS.FORM_SUCCESS': 'Thank you for your review!',
-  'REVIEWS.FORM_SUCCESS_SUBTEXT': 'A committee of experts will review it before publishing',
+  'REVIEWS.FORM_SUCCESS_SUBTEXT':
+    'A committee of experts will review it before publishing',
   'REVIEWS.BACK_TO_REVIEWS': 'Back to reviews',
   'REVIEWS.RATING_LABEL': 'Rating',
   'REVIEWS.STAR_ARIA': '{{count}} stars'
@@ -32,14 +33,20 @@ describe('ReviewsFormComponent', () => {
     reviewsServiceSpy = jasmine.createSpyObj('ReviewsService', ['sendReview']);
     reviewsServiceSpy.sendReview.and.returnValue(of({ success: true }));
 
-    await TestBed.configureTestingModule({
+    TestBed.configureTestingModule({
       imports: [
         ReviewsFormComponent,
         ReactiveFormsModule,
-        TranslateModule.forRoot({ loader: { provide: TranslateLoader, useValue: mockLoader } })
-      ],
-      providers: [{ provide: ReviewsService, useValue: reviewsServiceSpy }]
-    }).compileComponents();
+        TranslateModule.forRoot({
+          loader: { provide: TranslateLoader, useValue: mockLoader }
+        })
+      ]
+    });
+    // ReviewsService se declara como provider en el propio @Component, por lo que
+    // un provider del TestBed no lo sombrea: overrideProvider sí aplica al
+    // injector del componente.
+    TestBed.overrideProvider(ReviewsService, { useValue: reviewsServiceSpy });
+    await TestBed.compileComponents();
 
     fixture = TestBed.createComponent(ReviewsFormComponent);
     component = fixture.componentInstance;
@@ -54,8 +61,6 @@ describe('ReviewsFormComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  // ─── Form initial state ────────────────────────────────────────────────────
-
   it('should initialise formStatus with loading: false', () => {
     expect(component.formStatus()).toEqual({ loading: false });
   });
@@ -64,8 +69,6 @@ describe('ReviewsFormComponent', () => {
     const form = fixture.nativeElement.querySelector('form');
     expect(form).toBeTruthy();
   });
-
-  // ─── Form validation ───────────────────────────────────────────────────────
 
   describe('Form validation', () => {
     it('should be invalid when empty (email, message and rating required)', () => {
@@ -97,8 +100,6 @@ describe('ReviewsFormComponent', () => {
     });
   });
 
-  // ─── setRating ─────────────────────────────────────────────────────────────
-
   describe('setRating', () => {
     it('should set the rating value in the form control', () => {
       component.setRating(4);
@@ -122,8 +123,6 @@ describe('ReviewsFormComponent', () => {
     });
   });
 
-  // ─── Hover ─────────────────────────────────────────────────────────────────
-
   describe('setHovered / clearHovered', () => {
     it('should update hoveredRating when a star is hovered', () => {
       component.setHovered(3);
@@ -137,8 +136,6 @@ describe('ReviewsFormComponent', () => {
     });
   });
 
-  // ─── invalid() helper ──────────────────────────────────────────────────────
-
   describe('invalid()', () => {
     it('should return undefined for a pristine control', () => {
       expect(component.invalid('email')).toBeFalsy();
@@ -151,8 +148,6 @@ describe('ReviewsFormComponent', () => {
       expect(component.invalid('email')).toBeTrue();
     });
   });
-
-  // ─── submit() – success path ───────────────────────────────────────────────
 
   describe('submit() – success', () => {
     beforeEach(() => {
@@ -197,7 +192,9 @@ describe('ReviewsFormComponent', () => {
 
       const successEl = fixture.nativeElement.querySelector('.success-state');
       expect(successEl).toBeTruthy();
-      const backBtn = fixture.nativeElement.querySelector('.back-btn') as HTMLButtonElement;
+      const backBtn = fixture.nativeElement.querySelector(
+        '.back-btn'
+      ) as HTMLButtonElement;
       expect(backBtn).toBeTruthy();
       expect(fixture.nativeElement.querySelector('form')).toBeFalsy();
     });
@@ -209,18 +206,20 @@ describe('ReviewsFormComponent', () => {
       let emitted = false;
       component.finished.subscribe(() => (emitted = true));
 
-      const backBtn = fixture.nativeElement.querySelector('.back-btn') as HTMLButtonElement;
+      const backBtn = fixture.nativeElement.querySelector(
+        '.back-btn'
+      ) as HTMLButtonElement;
       backBtn.click();
 
       expect(emitted).toBeTrue();
     });
   });
 
-  // ─── submit() – error path ─────────────────────────────────────────────────
-
   describe('submit() – error', () => {
     beforeEach(() => {
-      reviewsServiceSpy.sendReview.and.returnValue(throwError(() => new Error('Server error')));
+      reviewsServiceSpy.sendReview.and.returnValue(
+        throwError(() => new Error('Server error'))
+      );
       component.form.setValue({
         fullName: '',
         email: 'user@test.com',
@@ -237,8 +236,6 @@ describe('ReviewsFormComponent', () => {
     });
   });
 
-  // ─── submit() – invalid form ───────────────────────────────────────────────
-
   describe('submit() – invalid form', () => {
     it('should not call the service when the form is invalid', () => {
       component.submit(); // form is empty → invalid
@@ -246,14 +243,14 @@ describe('ReviewsFormComponent', () => {
     });
   });
 
-  // ─── Accessibility ─────────────────────────────────────────────────────────
-
   describe('Accessibility', () => {
     it('email input has an associated <label for="reviews-email">', () => {
       const label = fixture.nativeElement.querySelector(
         'label[for="reviews-email"]'
       ) as HTMLLabelElement;
-      const input = fixture.nativeElement.querySelector('#reviews-email') as HTMLInputElement;
+      const input = fixture.nativeElement.querySelector(
+        '#reviews-email'
+      ) as HTMLInputElement;
       expect(label).toBeTruthy();
       expect(input).toBeTruthy();
     });
@@ -262,21 +259,29 @@ describe('ReviewsFormComponent', () => {
       component.form.get('email')!.setValue('not-an-email');
       component.form.get('email')!.markAsTouched();
       fixture.detectChanges();
-      const input = fixture.nativeElement.querySelector('#reviews-email') as HTMLInputElement;
+      const input = fixture.nativeElement.querySelector(
+        '#reviews-email'
+      ) as HTMLInputElement;
       expect(input.getAttribute('aria-invalid')).toBe('true');
-      expect(input.getAttribute('aria-describedby')).toBe('reviews-email-error');
+      expect(input.getAttribute('aria-describedby')).toBe(
+        'reviews-email-error'
+      );
     });
 
     it('marks required inputs with required and aria-required', () => {
       ['reviews-email', 'reviews-message'].forEach((id) => {
-        const input = fixture.nativeElement.querySelector(`#${id}`) as HTMLInputElement;
+        const input = fixture.nativeElement.querySelector(
+          `#${id}`
+        ) as HTMLInputElement;
         expect(input.required).toBeTrue();
         expect(input.getAttribute('aria-required')).toBe('true');
       });
     });
 
     it('rating group exposes role="radiogroup" with 5 radio buttons', () => {
-      const group = fixture.nativeElement.querySelector('[role="radiogroup"]') as HTMLElement;
+      const group = fixture.nativeElement.querySelector(
+        '[role="radiogroup"]'
+      ) as HTMLElement;
       expect(group).toBeTruthy();
       const radios = fixture.nativeElement.querySelectorAll('[role="radio"]');
       expect(radios.length).toBe(5);
@@ -285,7 +290,9 @@ describe('ReviewsFormComponent', () => {
     it('rating buttons reflect aria-checked and emit a translated aria-label', () => {
       component.setRating(3);
       fixture.detectChanges();
-      const starThree = fixture.nativeElement.querySelectorAll('[role="radio"]')[2] as HTMLButtonElement;
+      const starThree = fixture.nativeElement.querySelectorAll(
+        '[role="radio"]'
+      )[2] as HTMLButtonElement;
       expect(starThree.getAttribute('aria-checked')).toBe('true');
       const aria = starThree.getAttribute('aria-label');
       expect(aria).toBeTruthy();

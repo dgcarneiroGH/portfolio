@@ -5,6 +5,7 @@ import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
 import localeEn from '@angular/common/locales/en';
 import { SanityService } from '../../../../core/services/sanity.service';
+import imageUrlBuilder from '@sanity/image-url';
 import { PostCardComponent } from './post-card.component';
 import { BLOG_FILTERS } from '../../constants/blog-filter.constants';
 import { PostCategoryType } from '../../models/blog-filter.model';
@@ -19,10 +20,8 @@ describe('PostCardComponent', () => {
   let fixture: ComponentFixture<PostCardComponent>;
   let mockRouter: jasmine.SpyObj<Router>;
   let mockSanityService: jasmine.SpyObj<SanityService>;
-  let mockImageBuilder: jasmine.SpyObj<any>;
 
   beforeEach(async () => {
-    // Create mock image builder chain
     const mockUrlMethod = jasmine
       .createSpy('url')
       .and.returnValue('https://example.com/image.jpg');
@@ -32,14 +31,12 @@ describe('PostCardComponent', () => {
     const mockWidthMethod = jasmine
       .createSpy('width')
       .and.returnValue({ height: mockHeightMethod });
-    mockImageBuilder = mockWidthMethod;
 
-    // Create service mocks
     mockRouter = jasmine.createSpyObj('Router', ['navigate']);
     mockSanityService = jasmine.createSpyObj('SanityService', ['imageBuilder']);
     mockSanityService.imageBuilder.and.returnValue({
       width: mockWidthMethod
-    } as any);
+    } as unknown as ReturnType<typeof imageUrlBuilder>);
 
     await TestBed.configureTestingModule({
       imports: [PostCardComponent, TranslateModule.forRoot()],
@@ -207,7 +204,10 @@ describe('PostCardComponent', () => {
     });
 
     it('should return null for unknown category', () => {
-      fixture.componentRef.setInput('category', 'UNKNOWN_CATEGORY' as any);
+      fixture.componentRef.setInput(
+        'category',
+        'UNKNOWN_CATEGORY' as unknown as PostCategoryType
+      );
       fixture.detectChanges();
 
       expect(component.categoryLabel).toBeNull();
@@ -244,7 +244,10 @@ describe('PostCardComponent', () => {
     });
 
     it('should fall back to the default theme for unknown or missing categories', () => {
-      fixture.componentRef.setInput('category', 'UNKNOWN_CATEGORY' as any);
+      fixture.componentRef.setInput(
+        'category',
+        'UNKNOWN_CATEGORY' as unknown as PostCategoryType
+      );
       expect(component.themeClass).toBe('post-card--default');
 
       fixture.componentRef.setInput('category', undefined);
@@ -292,7 +295,6 @@ describe('PostCardComponent', () => {
         }
       };
 
-      // Setup more detailed mock to verify the chain calls
       const mockUrl = jasmine
         .createSpy('url')
         .and.returnValue('https://example.com/image.jpg');
@@ -304,12 +306,11 @@ describe('PostCardComponent', () => {
         .and.returnValue({ height: mockHeight });
       mockSanityService.imageBuilder.and.returnValue({
         width: mockWidth
-      } as any);
+      } as unknown as ReturnType<typeof imageUrlBuilder>);
 
       fixture.componentRef.setInput('image', testImage);
       fixture.detectChanges();
 
-      // Access the getter to trigger the chain
       const url = component.bgUrl;
 
       expect(mockSanityService.imageBuilder).toHaveBeenCalledWith(testImage);
@@ -328,7 +329,6 @@ describe('PostCardComponent', () => {
         }
       };
 
-      // Mock the chain to return null
       const mockUrl = jasmine.createSpy('url').and.returnValue(null);
       const mockHeight = jasmine
         .createSpy('height')
@@ -338,7 +338,7 @@ describe('PostCardComponent', () => {
         .and.returnValue({ height: mockHeight });
       mockSanityService.imageBuilder.and.returnValue({
         width: mockWidth
-      } as any);
+      } as unknown as ReturnType<typeof imageUrlBuilder>);
 
       fixture.componentRef.setInput('image', testImage);
       fixture.detectChanges();
@@ -400,13 +400,11 @@ describe('PostCardComponent', () => {
         }
       };
 
-      // Set all inputs
       Object.entries(testData).forEach(([key, value]) => {
         fixture.componentRef.setInput(key, value);
       });
       fixture.detectChanges();
 
-      // Verify all properties are set
       expect(component.title).toBe(testData.title);
       expect(component.date).toBe(testData.date);
       expect(component.excerpt).toBe(testData.excerpt);
@@ -415,7 +413,6 @@ describe('PostCardComponent', () => {
       expect(component.category).toBe(testData.category);
       expect(component.image).toBe(testData.image);
 
-      // Verify computed properties work
       expect(component.categoryLabel).toBeTruthy();
       expect(component.bgUrl).toBe('https://example.com/image.jpg');
     });
@@ -429,24 +426,20 @@ describe('PostCardComponent', () => {
         currentLocale: 'es-ES'
       };
 
-      // Set only required inputs
       Object.entries(requiredData).forEach(([key, value]) => {
         fixture.componentRef.setInput(key, value);
       });
       fixture.detectChanges();
 
-      // Verify required properties are set
       expect(component.title).toBe(requiredData.title);
       expect(component.date).toBe(requiredData.date);
       expect(component.excerpt).toBe(requiredData.excerpt);
       expect(component.slug).toBe(requiredData.slug);
       expect(component.currentLocale).toBe(requiredData.currentLocale);
 
-      // Verify optional properties are undefined
       expect(component.category).toBeUndefined();
       expect(component.image).toBeUndefined();
 
-      // Verify computed properties handle undefined values
       expect(component.categoryLabel).toBeNull();
       expect(component.bgUrl).toBe('');
     });

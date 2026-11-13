@@ -291,7 +291,6 @@ describe('ButtonComponent', () => {
     });
 
     it('should handle state changes dynamically', () => {
-      // Start enabled
       fixture.componentRef.setInput('disabled', false);
       fixture.detectChanges();
 
@@ -301,19 +300,17 @@ describe('ButtonComponent', () => {
       component.onClick();
       expect(clickCount).toBe(1);
 
-      // Disable the button
       fixture.componentRef.setInput('disabled', true);
       fixture.detectChanges();
 
       component.onClick();
-      expect(clickCount).toBe(1); // Should remain 1
+      expect(clickCount).toBe(1);
 
-      // Enable again
       fixture.componentRef.setInput('disabled', false);
       fixture.detectChanges();
 
       component.onClick();
-      expect(clickCount).toBe(2); // Should increment
+      expect(clickCount).toBe(2);
     });
 
     it('should handle color changes dynamically', () => {

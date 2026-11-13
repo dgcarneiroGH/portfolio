@@ -98,8 +98,12 @@ class FakeIntersectionObserver {
     FakeIntersectionObserver.instances.push(this);
   }
 
-  observe(): void {}
-  unobserve(): void {}
+  observe(): void {
+    /* noop: los tests disparan el callback manualmente vía emit() */
+  }
+  unobserve(): void {
+    /* noop */
+  }
   takeRecords(): IntersectionObserverEntry[] {
     return [];
   }
@@ -843,14 +847,12 @@ describe('HeroCodeWindowComponent — E4 táctil (hover: none)', () => {
 describe('HeroCodeWindowComponent — E8 spotlight sin puntero fino', () => {
   let fixture: ComponentFixture<HeroCodeWindowComponent>;
   let clock: FakeClock;
-  let io: FakeIntersectionObserver;
 
   beforeEach(async () => {
     installFakeIO();
     clock = new FakeClock();
     const s = await setup({ clock, env: { finePointer: false } });
     fixture = s.fixture;
-    io = s.io;
     fixture.detectChanges();
   });
 

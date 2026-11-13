@@ -56,6 +56,5 @@ describe('HomeComponent', () => {
     const compiled = fixture.nativeElement as HTMLElement;
 
     expect(compiled.querySelector('app-code-window')).toBeTruthy();
-    expect(compiled.querySelector('app-code-window')).toBe(null);
   });
 });

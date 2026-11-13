@@ -5,11 +5,12 @@ import { Directive, EventEmitter, HostListener, Output } from '@angular/core';
   standalone: true
 })
 export class KeyboardActivationDirective {
-  @Output() appKeyboardActivation = new EventEmitter<KeyboardEvent>();
+  @Output() appKeyboardActivation = new EventEmitter<
+    MouseEvent | KeyboardEvent
+  >();
 
   @HostListener('keydown', ['$event'])
   onKeyDown(event: KeyboardEvent): void {
-    // Enter or Space activates the element
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
       event.stopPropagation();
@@ -20,6 +21,6 @@ export class KeyboardActivationDirective {
   @HostListener('click', ['$event'])
   onClick(event: MouseEvent): void {
     // Emit the same event for mouse clicks to unify handling
-    this.appKeyboardActivation.emit(event as any);
+    this.appKeyboardActivation.emit(event);
   }
 }

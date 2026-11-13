@@ -1,3 +1,7 @@
+<!-- El backdrop es decorativo: el cierre por teclado ya está cubierto por el
+     botón de cierre y por Esc a nivel de document (host listener del TS). No
+     se añade tabindex para no meterlo en el orden de tabulación (WCAG 2.1.2). -->
+<!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events, @angular-eslint/template/interactive-supports-focus -->
 <div class="detail-overlay" (click)="onBackdropClick($event)">
   <div
     #panel

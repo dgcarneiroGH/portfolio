@@ -97,7 +97,10 @@ describe('HeaderComponent', () => {
       const brand = fixture.debugElement.query(By.css('a.brand'));
       expect(brand).toBeTruthy();
       expect(brand.nativeElement.getAttribute('href')).toBe('/');
-      expect(brand.nativeElement.getAttribute('aria-label')).toBe('Ir al inicio');
+      // El nombre accesible es el texto visible: sin aria-label que lo contradiga
+      // (axe label-content-name-mismatch).
+      expect(brand.nativeElement.getAttribute('aria-label')).toBeNull();
+      expect(brand.nativeElement.textContent).toContain('NOMACODA');
     });
   });
 
@@ -174,7 +177,7 @@ describe('HeaderComponent', () => {
       } catch (err) {
         // axe-core 4.x + Angular zone-less testing has known issues
         // (see axe-core issue #3034); the smoke script covers the build.
-        // eslint-disable-next-line no-console
+         
         console.warn(
           '[a11y] axe-core runner unavailable in this test environment:',
           err instanceof Error ? err.message : String(err)

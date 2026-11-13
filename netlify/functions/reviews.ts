@@ -6,7 +6,7 @@ const handler: Handler = async (event, context): Promise<HandlerResponse> => {
     'http://localhost:4200',
     'http://localhost:4201',
     'http://localhost:4202',
-    'http://localhost:8888',
+    'http://localhost:8888'
   ];
 
   const origin = event.headers.origin;
@@ -60,7 +60,6 @@ const handler: Handler = async (event, context): Promise<HandlerResponse> => {
 
     const data = JSON.parse(event.body || '{}');
 
-    // Validación básica de los campos del review
     if (!data.email || !data.message) {
       return {
         statusCode: 400,
@@ -74,7 +73,7 @@ const handler: Handler = async (event, context): Promise<HandlerResponse> => {
       headers: {
         'Content-Type': 'application/json',
         'X-Portfolio-Token': portfolioToken,
-        'Origin': allowedOrigin
+        Origin: allowedOrigin
       },
       body: JSON.stringify(data)
     });
@@ -105,4 +104,3 @@ const handler: Handler = async (event, context): Promise<HandlerResponse> => {
 };
 
 export { handler };
-

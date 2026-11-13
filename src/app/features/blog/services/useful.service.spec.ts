@@ -24,7 +24,7 @@ describe('UsefulService', () => {
   });
 
   afterEach(() => {
-    httpMock.verify(); // ensure no unexpected requests
+    httpMock.verify();
   });
 
   it('should be created', () => {

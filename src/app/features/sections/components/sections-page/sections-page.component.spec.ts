@@ -47,9 +47,13 @@ class FakeIntersectionObserver {
     this.observed.push(target);
   }
 
-  unobserve(): void {}
+  unobserve(): void {
+    /* noop */
+  }
 
-  disconnect(): void {}
+  disconnect(): void {
+    /* noop */
+  }
 
   takeRecords(): IntersectionObserverEntry[] {
     return [];
@@ -65,7 +69,7 @@ class FakeIntersectionObserver {
   }
 }
 
-@Component({ selector: 'dummy-page', template: '' })
+@Component({ selector: 'app-dummy-page', template: '' })
 class DummyPage {}
 
 const TEST_ROUTES: Routes = [

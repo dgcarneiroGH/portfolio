@@ -39,7 +39,7 @@
 
 .hcw {
   // E2 · mapa de tokens del resaltado (custom properties del panel)
-  --tok-keyword: #{palette.$code-keyword};
+  --tok-keyword: #{palette.$code-teal};
   --tok-ident: #{palette.$accent-blue-light};
   --tok-string: #{palette.$code-string};
   --tok-number: #{palette.$amber-dot};

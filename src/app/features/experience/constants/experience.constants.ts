@@ -25,28 +25,4 @@ export const EXPERIENCES: Experience[] = [
     yearEnd: 2023,
     role: 'EXPERIENCE.DESCRIPTION_POSSIBLE'
   }
-  // {
-  //   company: 'Grupo Solitium',
-  //   designation: 'EXPERIENCE.TI_TECHNICIAN',
-  //   yearRange: '2021',
-  //   role: 'EXPERIENCE.DESCRIPTION_SOLITIUM'
-  // },
-  // {
-  //   company: 'Lionbridge Technologies',
-  //   designation: 'EXPERIENCE.INTERNET_ADS_ASESSOR',
-  //   yearRange: '2020 - 2021',
-  //   role: 'EXPERIENCE.DESCRIPTION_LIONBRIDGE'
-  // },
-  // {
-  //   company: 'Bosch ESP',
-  //   designation: 'EXPERIENCE.CALL_CENTER_AGENT',
-  //   yearRange: '2019 - 2020',
-  //   role: 'EXPERIENCE.DESCRIPTION_BOSCH'
-  // },
-  // {
-  //   company: 'Marine Instruments S.A.',
-  //   designation: 'EXPERIENCE.FACTORY_WORKER',
-  //   yearRange: '2013 - 2019',
-  //   role: 'EXPERIENCE.DESCRIPTION_MARINE'
-  // }
 ];

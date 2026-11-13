@@ -119,7 +119,9 @@ textarea {
       cursor: pointer;
       padding: 0;
       color: palette.$text-secondary;
-      transition: color 0.2s ease, transform 0.2s ease;
+      transition:
+        color 0.2s ease,
+        transform 0.2s ease;
 
       &.lit {
         color: palette.$accent-yellow;
@@ -135,7 +137,6 @@ textarea {
   }
 }
 
-/* Error Messages */
 .error-message {
   display: flex;
   align-items: center;

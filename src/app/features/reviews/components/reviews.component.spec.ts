@@ -55,7 +55,14 @@ describe('ReviewsComponent', () => {
     expect(rootSection.id).toBe('');
   });
 
-  it('should render a review card per review by default', () => {
+  it('should render a review card per provided review', () => {
+    // La constante REVIEWS está vacía por defecto: el listado llega vía input.
+    fixture.componentRef.setInput('reviews', [
+      { fullName: 'Ana G.', message: 'Excelente trabajo', rating: 5 },
+      { fullName: 'Luis P.', message: 'Muy profesional', rating: 4 }
+    ]);
+    fixture.detectChanges();
+
     const cards = fixture.debugElement.queryAll(By.directive(ReviewCardComponent));
     expect(cards.length).toBe(component.reviews().length);
     expect(cards.length).toBeGreaterThan(0);

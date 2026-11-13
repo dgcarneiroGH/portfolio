@@ -1,6 +1,6 @@
 {
-  "timestamp": "2026-11-13T09:10:53.333Z",
-  "commit": "6f8c49b",
+  "timestamp": "2026-11-13T16:07:48.565Z",
+  "commit": "da151aa",
   "baseUrl": "http://127.0.0.1:4200",
   "runs": [
     {
@@ -31,7 +31,7 @@
       "scores": {
         "accessibility": 1,
         "best-practices": 0.96,
-        "performance": 0.88,
+        "performance": 0.89,
         "seo": 0.92
       },
       "status": "ok"
@@ -53,7 +53,7 @@
       "scores": {
         "accessibility": 1,
         "best-practices": 0.96,
-        "performance": 0.87,
+        "performance": 0.9,
         "seo": 0.92
       },
       "status": "ok"
@@ -75,7 +75,7 @@
       "scores": {
         "accessibility": 1,
         "best-practices": 1,
-        "performance": 0.9,
+        "performance": 0.94,
         "seo": 0.92
       },
       "status": "ok"

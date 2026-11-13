@@ -23,7 +23,7 @@ export interface SanityBlock {
   _key: string;
   style?: string;
   children?: BlockChild[];
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 export interface BlockChild {

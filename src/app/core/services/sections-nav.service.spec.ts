@@ -4,7 +4,7 @@ import { TestBed } from '@angular/core/testing';
 import { Router, Routes, provideRouter } from '@angular/router';
 import { SectionsNavService } from './sections-nav.service';
 
-@Component({ selector: 'dummy-nav-page', template: '' })
+@Component({ selector: 'app-dummy-nav-page', template: '' })
 class DummyNavPage {}
 
 const NAV_ROUTES: Routes = [

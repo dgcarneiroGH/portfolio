@@ -10,8 +10,7 @@ import {
 } from '@angular/router';
 import {
   SectionId,
-  SECTIONS,
-  isSectionId
+  SECTIONS
 } from '../../features/sections/constants/sections.constants';
 
 /**

@@ -5,7 +5,7 @@ import { routes } from './app.routes';
  * sections-page con data.section (id del ancla del DOM) y onePager (marca
  * que usan el RouteReuseStrategy y el scroll-spy). Blog y 404 quedan intactos.
  */
-const SECTION_ROUTES: Array<{ path: string; section: string }> = [
+const SECTION_ROUTES: { path: string; section: string }[] = [
   { path: '', section: 'home' },
   { path: 'about-me', section: 'about-me' },
   { path: 'success-cases', section: 'success-cases' },

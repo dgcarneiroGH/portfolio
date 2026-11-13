@@ -2,11 +2,7 @@
 
 **Fecha:** 2026-08-06
 **Estado actual:** Fases F0–F7 completadas. Pendiente verificación manual V3 (a11y:smoke) y V4 (inspección de cambio de idioma).
-**Documentos de referencia:**
-- [`docs/superpowers/specs/2026-08-04-a11y-audit-design.md`](specs/2026-08-04-a11y-audit-design.md) — audit completo (32 hallazgos, 6 críticos resueltos en F1).
-- [`docs/superpowers/plans/2026-08-04-a11y-improvements.md`](plans/2026-08-04-a11y-improvements.md) — plan ejecutado F0–F6.
-- [`docs/superpowers/specs/2026-08-06-f7-polish-deferred-findings-design.md`](specs/2026-08-06-f7-polish-deferred-findings-design.md) — spec F7.
-- [`docs/superpowers/plans/2026-08-06-f7-polish-deferred-findings.md`](plans/2026-08-06-f7-polish-deferred-findings.md) — plan F7.
+**Documentos de referencia:** el audit completo y sus planes F0–F7 (ago-2026) se eliminaron en la limpieza de docs del 2026-11-13; recupéralos del historial de git si los necesitas.
 
 > Este documento lista el trabajo de accesibilidad **que queda por hacer** para terminar
 > de cubrir WCAG 2.2 Nivel AA, reforzar AA+ donde aplique, e institucionalizar los chequeos.
@@ -104,7 +100,7 @@ it('should NOT show a persistent outline when disabled (...)', () => {
 2. **3 migraciones de template:** `{{ … | translate }}` → `[innerHTML]="… | translate"` para que las plantillas rendericen HTML. Sin esto, los `<span>` aparecerían literales.
 3. **LangTagPipe (nuevo):** tokeniza HTML, envuelve jerga en bloques de texto (preserva contenido de `<code>`, `<pre>`, `<a>`; idempotente). Aplicado en `blog.component.ts` para el contenido Portable Text de Sanity.
 
-**Nota técnica (2026-08-06):** La primera versión de la migración en `project.component.html:38` puso `[innerHTML]` como textContent (no como atributo) porque el simple reemplazo de `{{ … | translate }}` por `[innerHTML]="…"` dentro del `<p>` no mueve el binding. Angular renderizó literalmente `[innerHTML]="…"` en pantalla, rompiendo la descripción. El fix mueve el binding al atributo del `<p>` (con self-close `></p>`). Spec de regresión añadido en `project.component.spec.ts:387-396` para prevenir este bug. Lección documentada en el plan §Task 6 Step 14.5.
+**Nota técnica (2026-08-06):** La primera versión de la migración en `project.component.html:38` puso `[innerHTML]` como textContent (no como atributo) porque el simple reemplazo de `{{ … | translate }}` por `[innerHTML]="…"` dentro del `<p>` no mueve el binding. Angular renderizó literalmente `[innerHTML]="…"` en pantalla, rompiendo la descripción. El fix mueve el binding al atributo del `<p>` (con self-close `></p>`). Spec de regresión añadido en `project.component.spec.ts:387-396` para prevenir este bug. Lección aprendida durante la implementación (documentada en el plan F7, eliminado en la limpieza del 2026-11-13).
 
 **Nota técnica (2026-08-06):** La instanciación de `LangTagPipe` en `blog.component.ts` usa `inject(LangTagPipe)` + `providers: [LangTagPipe]` (NO `new LangTagPipe()` ni `imports`). La pipe no se usa en el template, solo programáticamente, así que no debe estar en `imports`. Como bonus, se removió `SanityService` de `providers` (es `providedIn: 'root'`, redundante en component providers).
 

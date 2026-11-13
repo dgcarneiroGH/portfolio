@@ -46,8 +46,6 @@ cp .env.example .env
 |---------|-------------|
 | `npm start` | Angular development server (port 4200) |
 | `npm run functions` | Solo Netlify Functions (port 8888) |
-| `npm run dev` | `netlify dev` completo (port 8888) — ⚠️ roto con netlify-cli 27.12.1, ver [Development](#-development) |
-| `npm run build` | Development build |
 | `npm run build:prod` | Optimized production build |
 | `npm test` | Run unit tests |
 | `npm run test:ci` | Tests for CI/CD |
@@ -89,26 +87,10 @@ npm run functions
   # → HTTP 200 + Access-Control-Allow-Origin: http://localhost:4200
   ```
 
-> ⚠️ **`npm run dev` roto temporalmente** (netlify-cli 27.12.1, última
-> publicada): el proxy de `netlify dev` crashea con
-> `TypeError: argument string is required` en `serveRedirect` cuando una
-> petición GET sin cabecera `Content-Type` pasa por el rewrite SPA
-> `/* → /index.html` de `netlify.toml`, y el CLI muere.
-> Además, aunque funcionara, la whitelist CORS de las funciones solo permite
-> los orígenes `localhost:4200/4201/4202` y `https://nomacoda.com`, así que la
-> app servida en `8888` recibiría `403` al enviar el formulario.
-> Usa el flujo de dos terminales de arriba. Cuando se publique un
-> netlify-cli con el bug corregido, `npm run dev` volverá a ser viable solo
-> con orígenes 4200–4202.
-
 ## 🏗️ Build and Deploy
 
 ### Local build
 ```bash
-# Development
-npm run build
-
-# Production  
 npm run build:prod
 ```
 Files are generated in `dist/portfolio/`
@@ -161,8 +143,8 @@ Para ejecutar una auditoría local:
 Target: **WCAG 2.2 Level AA**.
 
 Reference docs:
-- `docs/superpowers/specs/2026-08-04-a11y-audit-design.md` — full audit (32 hallazgos).
-- `docs/superpowers/plans/2026-08-04-a11y-improvements.md` — phased implementation plan.
+- The full audit (32 hallazgos) and its phased implementation plan (F0–F7, ago-2026)
+  were removed in the 2026-11-13 docs cleanup; recover them from git history if needed.
 
 ### Automated checks
 

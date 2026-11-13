@@ -10,8 +10,6 @@ import { LangService } from './core/services/lang.service';
 import { SectionsNavService } from './core/services/sections-nav.service';
 
 /** Routes ordered by position (left → right). Index determines slide direction. */
-const ROUTE_ORDER: Record<string, number> = { '/': 0, '/blog': 1 };
-
 function routeIndex(url: string): number {
   if (url.startsWith('/blog')) return 1;
   return 0;

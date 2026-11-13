@@ -11,6 +11,7 @@ import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
 import localeEn from '@angular/common/locales/en';
 import { BehaviorSubject, of } from 'rxjs';
+import imageUrlBuilder from '@sanity/image-url';
 import { BlogComponent } from './blog.component';
 import { BlogArticleComponent } from './blog-article/blog-article.component';
 import { SanityService } from '../../../core/services/sanity.service';
@@ -149,12 +150,13 @@ describe('BlogComponent', () => {
       DomSanitizer
     ) as jasmine.SpyObj<DomSanitizer>;
 
-    // Setup all the spies to return resolved promises/values
     mockSanityService.loadPosts.and.returnValue(Promise.resolve());
     mockSanityService.refreshPosts.and.returnValue(Promise.resolve());
     mockSanityService.portableTextToHtml.and.returnValue('<p>HTML content</p>');
     mockDomSanitizer.bypassSecurityTrustHtml.and.returnValue(
-      '<p>HTML content</p>' as any
+      '<p>HTML content</p>' as unknown as ReturnType<
+        DomSanitizer['bypassSecurityTrustHtml']
+      >
     );
     mockSanityService.imageBuilder.and.returnValue({
       width: () => ({
@@ -162,7 +164,7 @@ describe('BlogComponent', () => {
           url: () => 'http://image.url'
         })
       })
-    } as any);
+    } as unknown as ReturnType<typeof imageUrlBuilder>);
 
     fixture = TestBed.createComponent(BlogComponent);
     component = fixture.componentInstance;
@@ -178,24 +180,19 @@ describe('BlogComponent', () => {
   });
 
   it('should initialize with no filter applied (showing all posts)', () => {
-    // Test that the filter is initialized to null (ALL)
     expect(component['_currentFilter']()).toBe(null);
   });
 
   it('should filter posts by category when onFilterChange is called', () => {
-    // Test the onFilterChange method directly
     component.onFilterChange(PostCategoryType.NEWS);
 
-    // Verify the internal filter state is updated
     expect(component['_currentFilter']()).toBe(PostCategoryType.NEWS);
   });
 
   it('should show all posts when onFilterChange is called with null (ALL filter)', () => {
-    // First filter by a specific category
     component.onFilterChange(PostCategoryType.MINDFUL_CODE);
     expect(component['_currentFilter']()).toBe(PostCategoryType.MINDFUL_CODE);
 
-    // Then filter by ALL (null)
     component.onFilterChange(null);
     expect(component['_currentFilter']()).toBe(null);
   });
@@ -220,21 +217,16 @@ describe('BlogComponent', () => {
   });
 
   it('should have loadPosts method available', () => {
-    // Just test that the method exists and is a function
     expect(typeof mockSanityService.loadPosts).toBe('function');
   });
 
   it('should have refreshPosts method available', () => {
-    // Just test the method exists and can be called
     expect(typeof component.refreshPosts).toBe('function');
     expect(typeof mockSanityService.refreshPosts).toBe('function');
   });
 
   it('should have clearError method available', () => {
-    // Test the method exists and can be called
     expect(typeof component.clearError).toBe('function');
-
-    // Call the method to ensure it doesn't throw
     expect(() => component.clearError()).not.toThrow();
   });
 

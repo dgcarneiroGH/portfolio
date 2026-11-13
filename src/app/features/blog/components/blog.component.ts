@@ -104,7 +104,6 @@ export class BlogComponent implements OnInit, OnDestroy {
     })
   );
 
-  // Public signals for template
   posts = this._sanityService.posts;
   loading = this._sanityService.loading;
   error = this._sanityService.error;
