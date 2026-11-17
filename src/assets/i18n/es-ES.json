@@ -53,7 +53,7 @@
     "DESCRIPTION": "Apasionado del <br>desarrollo Front-end <br>y el diseño web.",
     "NOMACODA_LOGO": "Nomacoda - Logo del portafolio",
     "TITLE": "¿Cansado de perder tiempo en tareas repetitivas?",
-    "TITLE_HIGHLIGHT": "Solucionas Angular y N8N",
+    "TITLE_HIGHLIGHT": "Soluciones Angular y N8N",
     "SUBTITLE": "que te devuelven horas a la semana.",
     "PARAGRAPH": " Desarrollo front-end <strong><span lang=\"en\">Angular</span></strong> moderno + automatizaciones <strong><span lang=\"en\">N8N</span></strong> para músicos y autónomos que quieren enfocarse en lo que realmente importa.",
     "SKILLS_LABEL": "Habilidades",
@@ -71,6 +71,40 @@
     "CODE_HINT_TUTORING": "Tutorías para aprobar el fin de ciclo DAW/DAM",
     "CODE_HINT_STATUS": "Disponible para proyectos y mentoría",
     "CHARACTER_ALT": "Personaje de Nomacoda meditando con un portátil"
+  },
+  "SERVICES": {
+    "TITLE": "en tres frases.",
+    "TITLE_HIGHLIGHT": "Qué hago,",
+    "PARAGRAPH_1": "Migro webs a Angular con Sanity. Automatizo con n8n lo que te roba la mañana. Y acompaño a alumnos de DAW/DAM hasta que su FCT llega viva a la entrega.",
+    "PARAGRAPH_2": "Trabajo solo: hablas siempre conmigo, analizo tu caso y te digo qué haría y cuánto costaría. Si no me necesitas, también te lo digo.",
+    "PARAGRAPH_3": "Entra por el servicio que te toque.",
+    "CARDS": {
+      "ANGULAR_SANITY": {
+        "TITLE": "Migraciones a Angular + Sanity",
+        "DESCRIPTION": "Ahorra costes y mejora tu web migrándola a Angular y Sanity.io.",
+        "BULLET_1": "Migro tu web actual sin perder contenido ni SEO",
+        "BULLET_2": "Contenido editable desde Sanity, sin tocar código",
+        "BULLET_3": "Front-end Angular 21 rápido, con documentación y sin cajas negras",
+        "STAT_LABEL": "Webs entregadas"
+      },
+      "N8N_FLOWS": {
+        "TITLE": "Flujos automáticos con n8n",
+        "DESCRIPTION": "Automatiza tus tareas repetitivas para gastar tu tiempo en lo que tú quieres.",
+        "BULLET_1": "Backups, sincronizaciones y webhooks a medida",
+        "BULLET_2": "Flujos documentados, nada de magia opaca",
+        "BULLET_3": "Menos horas repitiendo, más para dar vida a tus ideas.",
+        "STAT_LABEL": "Horas ahorradas a clientes"
+      },
+      "TUTORING": {
+        "TITLE": "Tutorías para ciclos de programación",
+        "DESCRIPTION": "Entrega la mejor versión de tu PFC y aprende en el camino.",
+        "BULLET_1": "Arquitectura y código, no solo que compile",
+        "BULLET_2": "Sesiones 1 a 1, tu ritmo, tu nivel",
+        "BULLET_3": "Revisión final antes de la entrega",
+        "STAT_LABEL": "Aprobados que siguieron el plan"
+      }
+    },
+    "CTA": "Cuéntame más"
   },
   "ABOUT": {
     "ABOUT_ME": "Sobre mí",

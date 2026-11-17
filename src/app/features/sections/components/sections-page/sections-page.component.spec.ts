@@ -7,12 +7,16 @@ import { SectionsNavService } from '../../../../core/services/sections-nav.servi
 import { SectionsPageComponent } from './sections-page.component';
 
 /**
- * Stubs de los 5 componentes de sección: el spec del sections-page valida
+ * Stubs de los 6 componentes de sección (services es sección propia, aunque
+ * no figure en SECTIONS ni en el navbar): el spec del sections-page valida
  * su propio esqueleto (envoltorios apilados con id), no el contenido de cada
  * sección, que tiene specs propias.
  */
 @Component({ selector: 'app-home', template: '' })
 class HomeStub {}
+
+@Component({ selector: 'app-services', template: '' })
+class ServicesStub {}
 
 @Component({ selector: 'app-about', template: '' })
 class AboutStub {}
@@ -99,7 +103,7 @@ describe('SectionsPageComponent', () => {
     })
       .overrideComponent(SectionsPageComponent, {
         set: {
-          imports: [HomeStub, AboutStub, SuccessCasesStub, ReviewsStub, ContactStub]
+          imports: [HomeStub, ServicesStub, AboutStub, SuccessCasesStub, ReviewsStub, ContactStub]
         }
       })
       .compileComponents();
@@ -128,22 +132,41 @@ describe('SectionsPageComponent', () => {
     expect(fixture.componentInstance).toBeTruthy();
   });
 
-  it('renders the 5 sections stacked in order with their ids', () => {
+  it('renders the 6 sections stacked in order with their ids', () => {
     const el = fixture.nativeElement as HTMLElement;
     const wrappers = el.querySelectorAll('.sections-page__section');
-    expect(wrappers.length).toBe(5);
+    expect(wrappers.length).toBe(6);
     const ids = Array.from(wrappers).map((wrapper) => wrapper.id);
-    expect(ids).toEqual(['home', 'about-me', 'success-cases', 'reviews', 'contact']);
+    expect(ids).toEqual([
+      'home',
+      'services',
+      'about-me',
+      'success-cases',
+      'reviews',
+      'contact'
+    ]);
   });
 
   it('renders each section component inside its own wrapper', () => {
     const el = fixture.nativeElement as HTMLElement;
     const wrappers = el.querySelectorAll('.sections-page__section');
     expect(wrappers[0].querySelector('app-home')).toBeTruthy();
-    expect(wrappers[1].querySelector('app-about')).toBeTruthy();
-    expect(wrappers[2].querySelector('app-success-cases')).toBeTruthy();
-    expect(wrappers[3].querySelector('app-reviews')).toBeTruthy();
-    expect(wrappers[4].querySelector('app-contact')).toBeTruthy();
+    expect(wrappers[1].querySelector('app-services')).toBeTruthy();
+    expect(wrappers[2].querySelector('app-about')).toBeTruthy();
+    expect(wrappers[3].querySelector('app-success-cases')).toBeTruthy();
+    expect(wrappers[4].querySelector('app-reviews')).toBeTruthy();
+    expect(wrappers[5].querySelector('app-contact')).toBeTruthy();
+  });
+
+  it('renders the services section as its own wrapper, right after home (no navbar entry)', () => {
+    const el = fixture.nativeElement as HTMLElement;
+    const servicesWrapper = el.querySelector('#services');
+
+    expect(servicesWrapper?.querySelector('app-services')).toBeTruthy();
+    // Entre home y about-me, pero sin estar en SECTIONS: el scroll-spy y el
+    // routerLinkActive del navbar lo ignoran.
+    expect(servicesWrapper?.previousElementSibling?.id).toBe('home');
+    expect(servicesWrapper?.nextElementSibling?.id).toBe('about-me');
   });
 
   describe('scroll-spy', () => {

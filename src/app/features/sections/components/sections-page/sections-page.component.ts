@@ -6,16 +6,17 @@ import {
   inject,
   signal
 } from '@angular/core';
-import { NavigationEnd, NavigationSkipped, Router } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { NavigationEnd, NavigationSkipped, Router } from '@angular/router';
 import { filter, fromEvent } from 'rxjs';
+import { SectionsNavService } from '../../../../core/services/sections-nav.service';
 import { AboutComponent } from '../../../about/components/about.component';
 import { ContactComponent } from '../../../contact/components/contact.component';
 import { HomeComponent } from '../../../home/components/home.component';
 import { ReviewsComponent } from '../../../reviews/components/reviews.component';
+import { ServicesComponent } from '../../../services/services.component';
 import { SuccessCasesComponent } from '../../../success-cases/components/success-cases/success-cases.component';
-import { SectionId, SECTIONS, isSectionId } from '../../constants/sections.constants';
-import { SectionsNavService } from '../../../../core/services/sections-nav.service';
+import { SECTIONS, SectionId, isSectionId } from '../../constants/sections.constants';
 
 /**
  * Página única (one-pager) del portfolio: apila las 5 secciones en orden
@@ -34,6 +35,7 @@ import { SectionsNavService } from '../../../../core/services/sections-nav.servi
   standalone: true,
   imports: [
     HomeComponent,
+    ServicesComponent,
     AboutComponent,
     SuccessCasesComponent,
     ReviewsComponent,

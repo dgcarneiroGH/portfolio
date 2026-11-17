@@ -75,3 +75,23 @@ host (`:host(.mi-variante)`), nunca clases del padre.
 
 Referencia: unificación de estilos del lang-selector en su propio SCSS,
 eliminando la variante `:host-context(.header-lang)` (2026-10-08).
+
+## Fondo de secciones — fondo por defecto de la app
+
+**Regla (2026-11-17):** Los componentes de sección mantienen SIEMPRE el fondo
+por defecto de la app (el gradiente compartido del `body` definido en
+`src/styles/styles.scss`). NO se aplica el fondo que traiga el diseño de
+referencia (mock), salvo que el usuario especifique explícitamente un fondo
+distinto para ese componente.
+
+Referencia: sección de servicios — se eliminó el `background: $surface-pill`
+del mock para que la sección herede el degradado por defecto (2026-11-17).
+
+## Revisión responsive obligatoria
+
+**Regla (2026-11-17):** Al crear o modificar un componente, revisar SIEMPRE su
+responsive completo antes de darlo por terminado: barrido multi-viewport con
+capturas (escritorio, tablet, móvil y los breakpoints del propio componente),
+verificando como mínimo el reparto en columnas/apilado, fugas de sobreanchura,
+elementos decorativos posicionados (ocultar o escalar en móvil) y espacio
+respetado frente a vecinos (costuras del one-pager, footer fijo).

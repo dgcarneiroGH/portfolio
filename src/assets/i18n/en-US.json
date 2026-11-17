@@ -72,6 +72,40 @@
     "CODE_HINT_STATUS": "Available for projects and mentoring",
     "CHARACTER_ALT": "Nomacoda character meditating with a laptop"
   },
+  "SERVICES": {
+    "TITLE": "in three sentences.",
+    "TITLE_HIGHLIGHT": "What I do,",
+    "PARAGRAPH_1": "I migrate websites to Angular with Sanity. I automate with n8n whatever steals your mornings. And I coach DAW/DAM students until their internship makes it to the finish line.",
+    "PARAGRAPH_2": "I work solo: you always talk to me, I analyze your case and tell you what I'd do and what it would cost. If you don't need me, I'll tell you that too.",
+    "PARAGRAPH_3": "Dive into the service that fits you.",
+    "CARDS": {
+      "ANGULAR_SANITY": {
+        "TITLE": "Migrations to Angular + Sanity",
+        "DESCRIPTION": "Save costs and improve your website by migrating it to Angular and Sanity.io.",
+        "BULLET_1": "I migrate your current site without losing content or SEO",
+        "BULLET_2": "Content editable from Sanity, no code needed",
+        "BULLET_3": "Fast Angular 21 front-end, with documentation and no black boxes",
+        "STAT_LABEL": "Websites delivered"
+      },
+      "N8N_FLOWS": {
+        "TITLE": "Automated flows with n8n",
+        "DESCRIPTION": "Automate your repetitive tasks to spend your time on what you want.",
+        "BULLET_1": "Custom backups, synchronizations and webhooks",
+        "BULLET_2": "Documented flows, no opaque magic",
+        "BULLET_3": "Fewer hours repeating, more to bring your ideas to life.",
+        "STAT_LABEL": "Hours saved for clients"
+      },
+      "TUTORING": {
+        "TITLE": "Tutoring for programming degrees",
+        "DESCRIPTION": "Deliver the best version of your final project and learn along the way.",
+        "BULLET_1": "Architecture and code, not just something that compiles",
+        "BULLET_2": "1-on-1 sessions, your pace, your level",
+        "BULLET_3": "Final review before submission",
+        "STAT_LABEL": "Students who followed the plan"
+      }
+    },
+    "CTA": "Tell me more"
+  },
   "ABOUT": {
     "ABOUT_ME": "About me",
     "TITLE_PURPOSE": "Front-End with purpose",
