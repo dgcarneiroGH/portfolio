@@ -7,28 +7,30 @@
     | translate: { current: index() + 1, total: total(), name: successCase().name }"
   [style.--dynamic-gradient]="gradient()"
 >
-  <div class="case-cover">
-    <img
-      [src]="successCase().coverImgSrc + '.avif'"
-      [alt]="successCase().altKey | translate"
-      loading="lazy"
-    />
+  <div class="case-header">
+    <div class="case-cover">
+      <img
+        [src]="successCase().coverImgSrc + '.avif'"
+        [alt]="successCase().altKey | translate"
+        loading="lazy"
+      />
+    </div>
+
+    <div class="case-info">
+      <h3 class="case-title">{{ successCase().name }}</h3>
+
+      <p class="case-year">
+        <span class="case-year-label">{{ 'SUCCESS_CASES.DETAIL_YEAR' | translate }}:</span>
+        {{ successCase().year }}
+      </p>
+
+      <ul class="case-techs" [attr.aria-label]="'SUCCESS_CASES.DETAIL_TECH' | translate">
+        @for (tech of successCase().technologies; track tech) {
+          <li app-tech-pill [label]="tech"></li>
+        }
+      </ul>
+    </div>
   </div>
-
-  <h3 class="case-title">{{ successCase().name }}</h3>
-
-
-  <p class="case-year">
-      <span class="case-year-label">{{ 'SUCCESS_CASES.DETAIL_YEAR' | translate }}:</span>
-      {{ successCase().year }}
-    </p>
-    
-    <ul class="case-techs" [attr.aria-label]="'SUCCESS_CASES.DETAIL_TECH' | translate">
-      @for (tech of successCase().technologies; track tech) {
-        <li app-tech-pill [label]="tech"></li>
-      }
-    </ul>
-    
 
   <div class="case-blocks">
     <div class="case-block">
