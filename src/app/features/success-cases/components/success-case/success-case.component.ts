@@ -2,8 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
-  input,
-  output
+  input
 } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { TechPillComponent } from '../tech-pill/tech-pill.component';
@@ -21,8 +20,8 @@ import { SuccessCase } from '../../interfaces/success-case.interface';
 export class SuccessCaseComponent {
   successCase = input.required<SuccessCase>();
   index = input.required<number>();
-
-  openRequest = output<number>();
+  total = input.required<number>();
+  active = input<boolean>(false);
 
   gradient = computed(() => {
     const palette = SUCCESS_CASE_PALETTES[this.successCase().coverImgSrc];

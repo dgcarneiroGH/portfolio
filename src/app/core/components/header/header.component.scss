@@ -51,12 +51,10 @@
   width: 40px;
   height: 40px;
   padding: 1.5px;
-  background: linear-gradient(
-    135deg,
-    palette.$green-soft 0%,
-    palette.$accent-sky 50%,
-    palette.$background-gradient-end 100%
-  );
+  background: linear-gradient(135deg,
+      palette.$green-soft 0%,
+      palette.$accent-sky 50%,
+      palette.$background-gradient-end 100%);
   border-radius: 12px;
   box-shadow:
     0 4px 6px -4px rgba(palette.$accent-cyan, 0.2),
@@ -102,6 +100,7 @@
   line-height: 15px;
   letter-spacing: 0.5px;
 }
+
 // #endregion
 
 // #region Nav
@@ -153,6 +152,7 @@
     color: palette.$accent-yellow;
   }
 }
+
 // #endregion
 
 // #region Actions
@@ -211,6 +211,7 @@
   font-weight: 600;
   line-height: 16px;
 }
+
 // #endregion
 
 // #region Lang selector integration
@@ -241,12 +242,13 @@
       0 0 10px 1px rgba(palette.$accent-green, 0.25);
   }
 }
+
 // #endregion
 
 // #region Responsive
 @media screen and (max-width: 1280px) {
   .header {
-    padding: 16px 24px 16px 64px;
+    padding: 8px 24px 8px 64px;
   }
 
   .header-nav ul {

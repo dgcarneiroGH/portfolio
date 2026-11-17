@@ -41,8 +41,7 @@
 
       opacity: 0;
       transform: translateX(24px);
-      animation: article-back-slide-in 400ms cubic-bezier(0.22, 1, 0.36, 1)
-        120ms forwards;
+      animation: article-back-slide-in 400ms cubic-bezier(0.22, 1, 0.36, 1) 120ms forwards;
       transition: background-color 0.18s ease;
 
       &:hover {
@@ -267,20 +266,21 @@
     text-decoration: none; // ancla interactiva: el diseño no muestra subrayado
 
     color: palette.$accent-blue;
-    border-radius: 999px;
 
-    transition:
-      background 0.18s ease,
-      color 0.18s ease;
+    transition: color 0.18s ease;
 
     &:hover {
-      background-color: rgba(palette.$accent-blue, 0.12);
       color: palette.$accent-blue-light;
+
+      svg {
+        filter: drop-shadow(0 0 8px currentColor);
+      }
     }
 
     svg {
       width: 1.25rem;
       height: 1.25rem;
+      transition: filter 0.18s ease;
     }
   }
 
@@ -487,4 +487,5 @@
     flex-direction: column;
   }
 }
+
 //#endregion

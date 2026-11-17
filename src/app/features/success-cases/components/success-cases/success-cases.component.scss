@@ -1,4 +1,5 @@
 @use "src/styles/_palette" as palette;
+@use "src/styles/_fonts" as fonts;
 
 .success-cases {
   position: relative;
@@ -14,43 +15,128 @@
   overflow: hidden;
 }
 
-.section-container {
+.carousel {
   width: min(85rem, 100%);
   padding: 8rem 2rem 6rem;
   z-index: 1;
-
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-  justify-items: center;
-  align-items: start;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
 }
 
-.section-header {
-  position: relative;
-  z-index: 2;
+.carousel-main {
   width: 100%;
-  text-align: center;
-  padding-top: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 }
 
-.case-card {
+// La vista recorta la slide activa; pan-y mantiene el scroll vertical táctil.
+.carousel-viewport {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  touch-action: pan-y;
+}
+
+.carousel-track {
+  display: flex;
+  align-items: stretch;
+  transition: transform 0.45s ease;
+}
+
+.carousel-slide {
+  flex: 0 0 100%;
+  min-width: 0;
   display: flex;
   justify-content: center;
-  width: 100%;
+}
+
+.carousel-arrow {
+  flex: 0 0 auto;
+  width: 2.75rem;
+  height: 2.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(palette.$azure-border, 0.45);
+  color: palette.$text-primary;
+  border: none;
+  border-radius: 9999px;
+  font-family: fonts.$mono;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.2s ease;
+
+  &:hover,
+  &:focus-visible {
+    background: rgba(palette.$azure-border, 0.7);
+  }
+
+  &:focus-visible {
+    outline: 2px solid palette.$focus-blue;
+    outline-offset: 2px;
+  }
+}
+
+.carousel-dots {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.625rem;
+}
+
+.carousel-dot {
+  width: 0.75rem;
+  height: 0.75rem;
+  padding: 0;
+  background: rgba(palette.$azure-border, 0.5);
+  border: none;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+
+  &:hover,
+  &:focus-visible {
+    background: rgba(palette.$azure-border, 0.8);
+  }
+
+  &:focus-visible {
+    outline: 2px solid palette.$focus-blue;
+    outline-offset: 2px;
+  }
+
+  &.is-current {
+    background: palette.$accent-azure;
+    transform: scale(1.25);
+  }
+}
+
+// Target táctil ≥44px en móvil (auditoría responsive M3)
+@media screen and (max-width: 640px) {
+  .carousel-arrow {
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+
+  // Zona de tap ampliada sin agrandar el punto visible (WCAG 2.5.5)
+  .carousel-dot {
+    position: relative;
+  }
+
+  .carousel-dot::before {
+    content: '';
+    position: absolute;
+    inset: -10px;
+  }
 }
 
 //#region Responsive
-@media screen and (max-width: 1300px) {
-  .section-container {
-    grid-template-columns: repeat(2, 1fr);
+@media (prefers-reduced-motion: reduce) {
+  .carousel-track {
+    transition: none;
   }
 }
-
-@media screen and (max-width: 930px) {
-  .section-container {
-    grid-template-columns: repeat(1, 1fr);
-  }
-}
-
 //#endregion

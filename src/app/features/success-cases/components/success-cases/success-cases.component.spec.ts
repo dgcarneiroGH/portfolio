@@ -1,9 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import {
-  Component,
-  provideZonelessChangeDetection
-} from '@angular/core';
-import { Router, provideRouter } from '@angular/router';
+import { provideZonelessChangeDetection } from '@angular/core';
 import {
   TranslateLoader,
   TranslateModule,
@@ -13,37 +9,18 @@ import { firstValueFrom, of } from 'rxjs';
 import { By } from '@angular/platform-browser';
 import { SuccessCasesComponent } from './success-cases.component';
 
-@Component({
-  selector: 'app-dummy-route',
-  standalone: true,
-  template: ''
-})
-class DummyRouteComponent {}
-
 const mockLoader = {
   getTranslation: () =>
     of({
       SUCCESS_CASES: {
         TITLE: 'Casos de éxito',
         DETAIL_TECH: 'Tecnologías',
-        OPEN_DETAIL: 'Más información de {{name}}',
-        CLOSE: 'Cerrar detalle',
-        DETAIL_YEAR: 'Año'
-      },
-      PROJECTS: {
-        DESCRIPTION_BABE: 'd1',
-        DESCRIPTION_DATALAIA: 'd2',
-        DESCRIPTION_DISCAMINO: 'd3',
-        DESCRIPTION_HERMES: 'd4',
-        DESCRIPTION_LALIGA: 'd5',
-        DESCRIPTION_PORTAL_CONVOCATORIAS: 'd6',
-        PROJECT_BABE_ALT: 'a1',
-        PROJECT_DATALAIA_ALT: 'a2',
-        PROJECT_DISCAMINO_ALT: 'a3',
-        PROJECT_ARCELOR_ALT: 'a4',
-        PROJECT_LALIGA_ALT: 'a5',
-        PROJECT_PORTAL_CONVOCATORIAS_ALT: 'a6',
-        VIEW_PROJECT: 'Ver proyecto {{name}}'
+        DETAIL_YEAR: 'Año',
+        PREV_CASE: 'Caso anterior',
+        NEXT_CASE: 'Caso siguiente',
+        GOTO_CASE: 'Ir al caso {{name}}',
+        DOTS_ARIA: 'Ir a un caso concreto',
+        SLIDE_LABEL: 'Diapositiva {{current}} de {{total}}: {{name}}'
       }
     })
 };
@@ -57,10 +34,7 @@ describe('SuccessCasesComponent', () => {
         SuccessCasesComponent,
         TranslateModule.forRoot({ loader: { provide: TranslateLoader, useValue: mockLoader } })
       ],
-      providers: [
-        provideZonelessChangeDetection(),
-        provideRouter([{ path: '**', component: DummyRouteComponent }])
-      ]
+      providers: [provideZonelessChangeDetection()]
     }).compileComponents();
 
     const translate = TestBed.inject(TranslateService);
@@ -75,41 +49,89 @@ describe('SuccessCasesComponent', () => {
     expect(fixture.componentInstance).toBeTruthy();
   });
 
-  it('should render 6 cards', () => {
+  it('should render 6 slides in the track', () => {
     fixture.detectChanges();
-    const cards = fixture.nativeElement.querySelectorAll('app-success-case');
-    expect(cards.length).toBe(6);
+    const slides = fixture.nativeElement.querySelectorAll('app-success-case');
+    expect(slides.length).toBe(6);
   });
 
-  it('should open the detail modal when a card requests it', () => {
+  it('should activate only the current slide and hide the others', () => {
     fixture.detectChanges();
-    const btn = fixture.debugElement.query(By.css('app-success-case .info-btn'));
-    btn.nativeElement.click();
-    fixture.detectChanges();
-    expect(fixture.nativeElement.querySelector('app-success-case-detail')).toBeTruthy();
+    const slides = fixture.nativeElement.querySelectorAll('app-success-case article');
+    expect(slides[0].getAttribute('aria-hidden')).toBe('false');
+    expect(slides[1].getAttribute('aria-hidden')).toBe('true');
   });
 
-  it('should close the modal when the detail emits closed', () => {
+  it('should advance with the next arrow and wrap around after the last case', () => {
     fixture.detectChanges();
-    fixture.debugElement.query(By.css('app-success-case .info-btn')).nativeElement.click();
-    fixture.detectChanges();
-    const closeBtn = fixture.nativeElement.querySelector('.detail-close');
-    expect(closeBtn).toBeTruthy();
-    closeBtn.click();
-    fixture.detectChanges();
-    expect(fixture.nativeElement.querySelector('app-success-case-detail')).toBeFalsy();
+    const nextBtn = fixture.debugElement.queryAll(By.css('.carousel-arrow'))[1];
+    for (let i = 0; i < 6; i++) {
+      nextBtn.nativeElement.click();
+      fixture.detectChanges();
+    }
+    expect(fixture.componentInstance.activeIndex()).toBe(0);
+    // Una vuelta completa: la primera slide vuelve a estar activa.
+    const slides = fixture.nativeElement.querySelectorAll('app-success-case article');
+    expect(slides[0].getAttribute('aria-hidden')).toBe('false');
   });
 
-  it('should close the modal when the route changes', async () => {
+  it('should go back with the prev arrow and wrap around to the last case', () => {
     fixture.detectChanges();
-    fixture.debugElement.query(By.css('app-success-case .info-btn')).nativeElement.click();
+    const prevBtn = fixture.debugElement.queryAll(By.css('.carousel-arrow'))[0];
+    prevBtn.nativeElement.click();
     fixture.detectChanges();
-    expect(fixture.nativeElement.querySelector('app-success-case-detail')).toBeTruthy();
+    expect(fixture.componentInstance.activeIndex()).toBe(5);
+  });
 
-    const router = TestBed.inject(Router);
-    await router.navigateByUrl('/otra-seccion');
+  it('should jump to a case via the dots', () => {
     fixture.detectChanges();
+    const dots = fixture.debugElement.queryAll(By.css('.carousel-dot'));
+    expect(dots.length).toBe(6);
+    dots[3].nativeElement.click();
+    fixture.detectChanges();
+    expect(fixture.componentInstance.activeIndex()).toBe(3);
+    expect(
+      dots[3].nativeElement.getAttribute('aria-current')
+    ).toBe('true');
+  });
 
-    expect(fixture.nativeElement.querySelector('app-success-case-detail')).toBeFalsy();
+  it('should navigate with the keyboard arrows', () => {
+    fixture.detectChanges();
+    const carousel = fixture.debugElement.query(By.css('.carousel'));
+    carousel.triggerEventHandler('keydown.arrowright', {});
+    fixture.detectChanges();
+    expect(fixture.componentInstance.activeIndex()).toBe(1);
+
+    carousel.triggerEventHandler('keydown.arrowleft', {});
+    fixture.detectChanges();
+    expect(fixture.componentInstance.activeIndex()).toBe(0);
+  });
+
+  it('should swipe to the next case when dragging left beyond the threshold', () => {
+    fixture.detectChanges();
+    const viewport = fixture.debugElement.query(By.css('.carousel-viewport'));
+    viewport.triggerEventHandler('pointerdown', { clientX: 300 });
+    viewport.triggerEventHandler('pointerup', { clientX: 200 });
+    fixture.detectChanges();
+    expect(fixture.componentInstance.activeIndex()).toBe(1);
+  });
+
+  it('should swipe to the previous case when dragging right beyond the threshold', () => {
+    fixture.componentInstance.goTo(2);
+    fixture.detectChanges();
+    const viewport = fixture.debugElement.query(By.css('.carousel-viewport'));
+    viewport.triggerEventHandler('pointerdown', { clientX: 200 });
+    viewport.triggerEventHandler('pointerup', { clientX: 320 });
+    fixture.detectChanges();
+    expect(fixture.componentInstance.activeIndex()).toBe(1);
+  });
+
+  it('should ignore small pointer movements below the swipe threshold', () => {
+    fixture.detectChanges();
+    const viewport = fixture.debugElement.query(By.css('.carousel-viewport'));
+    viewport.triggerEventHandler('pointerdown', { clientX: 300 });
+    viewport.triggerEventHandler('pointerup', { clientX: 280 });
+    fixture.detectChanges();
+    expect(fixture.componentInstance.activeIndex()).toBe(0);
   });
 });

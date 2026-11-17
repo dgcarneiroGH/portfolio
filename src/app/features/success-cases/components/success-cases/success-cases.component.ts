@@ -2,55 +2,72 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
-  inject,
   signal
 } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { NavigationEnd, Router } from '@angular/router';
-import { filter } from 'rxjs';
 import { TranslateModule } from '@ngx-translate/core';
 import { SuccessCaseComponent } from '../success-case/success-case.component';
-import { SuccessCaseDetailComponent } from '../success-case-detail/success-case-detail.component';
 import { SUCCESS_CASES } from '../../constants/success-cases.constants';
 import { SuccessCase } from '../../interfaces/success-case.interface';
+
+// Umbral en px a partir del cual un gesto de puntero se considera swipe.
+const SWIPE_THRESHOLD = 50;
 
 @Component({
   selector: 'app-success-cases',
   standalone: true,
-  imports: [SuccessCaseComponent, SuccessCaseDetailComponent, TranslateModule],
+  imports: [SuccessCaseComponent, TranslateModule],
   templateUrl: './success-cases.component.html',
   styleUrl: './success-cases.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SuccessCasesComponent {
   private _cases = signal<SuccessCase[]>(SUCCESS_CASES);
-  private _openIndex = signal<number | null>(null);
+  private _activeIndex = signal(0);
+  private _pointerStartX: number | null = null;
 
   cases = this._cases.asReadonly();
+  activeIndex = this._activeIndex.asReadonly();
 
-  openCase = computed<SuccessCase | null>(() => {
-    const index = this._openIndex();
-    return index === null ? null : this._cases()[index];
-  });
+  trackTransform = computed(
+    () => `translateX(-${this._activeIndex() * 100}%)`
+  );
 
-  // El detalle es un overlay fijo de un one-pager compartido por varias rutas:
-  // al cambiar de ruta se cierra para no tapar la nueva sección (auditoría responsive M4).
-  constructor() {
-    inject(Router)
-      .events.pipe(
-        takeUntilDestroyed(),
-        filter((event): event is NavigationEnd => event instanceof NavigationEnd)
-      )
-      .subscribe(() => {
-        this.onClose();
-      });
+  activeCase = computed<SuccessCase>(
+    () => this._cases()[this._activeIndex()]
+  );
+
+  next(): void {
+    const total = this._cases().length;
+    this._activeIndex.set((this._activeIndex() + 1) % total);
   }
 
-  onOpenRequest(index: number): void {
-    this._openIndex.set(index);
+  prev(): void {
+    const total = this._cases().length;
+    this._activeIndex.set((this._activeIndex() - 1 + total) % total);
   }
 
-  onClose(): void {
-    this._openIndex.set(null);
+  goTo(index: number): void {
+    this._activeIndex.set(index);
+  }
+
+  onPointerDown(event: PointerEvent): void {
+    this._pointerStartX = event.clientX;
+  }
+
+  onPointerUp(event: PointerEvent): void {
+    if (this._pointerStartX === null) return;
+    const delta = event.clientX - this._pointerStartX;
+    this._pointerStartX = null;
+
+    if (Math.abs(delta) < SWIPE_THRESHOLD) return;
+    if (delta < 0) {
+      this.next();
+    } else {
+      this.prev();
+    }
+  }
+
+  onPointerCancel(): void {
+    this._pointerStartX = null;
   }
 }

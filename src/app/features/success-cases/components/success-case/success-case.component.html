@@ -1,4 +1,12 @@
-<article class="success-case" [style.--dynamic-gradient]="gradient()">
+<article
+  class="success-case"
+  [class.is-active]="active()"
+  [attr.aria-hidden]="!active()"
+  [attr.aria-roledescription]="'slide'"
+  [attr.aria-label]="'SUCCESS_CASES.SLIDE_LABEL'
+    | translate: { current: index() + 1, total: total(), name: successCase().name }"
+  [style.--dynamic-gradient]="gradient()"
+>
   <div class="case-cover">
     <img
       [src]="successCase().coverImgSrc + '.avif'"
@@ -7,25 +15,42 @@
     />
   </div>
 
-  <div class="case-body">
-    <h3 class="case-title sr-only">{{ successCase().name }}</h3>
+  <h3 class="case-title">{{ successCase().name }}</h3>
 
+
+  <p class="case-year">
+      <span class="case-year-label">{{ 'SUCCESS_CASES.DETAIL_YEAR' | translate }}:</span>
+      {{ successCase().year }}
+    </p>
+    
     <ul class="case-techs" [attr.aria-label]="'SUCCESS_CASES.DETAIL_TECH' | translate">
       @for (tech of successCase().technologies; track tech) {
         <li app-tech-pill [label]="tech"></li>
       }
     </ul>
+    
+
+  <div class="case-blocks">
+    <div class="case-block">
+      <h4 class="case-block-title">{{ 'SUCCESS_CASES.PROBLEM_LABEL' | translate }}</h4>
+      <div class="case-block-text" [innerHTML]="successCase().problem | translate"></div>
+    </div>
+
+    <div class="case-block">
+      <h4 class="case-block-title">{{ 'SUCCESS_CASES.SOLUTION_LABEL' | translate }}</h4>
+      <div class="case-block-text" [innerHTML]="successCase().solution | translate"></div>
+    </div>
   </div>
 
-  <div class="case-footer">
-    <button
-      class="info-btn"
-      type="button"
-      (click)="openRequest.emit(index())"
-      [attr.aria-haspopup]="'dialog'"
-      [attr.aria-label]="'SUCCESS_CASES.OPEN_DETAIL' | translate: { name: successCase().name }"
+  @if (successCase().url; as caseUrl) {
+    <a
+      class="case-link"
+      [href]="caseUrl"
+      target="_blank"
+      rel="noopener noreferrer"
+      [attr.tabindex]="active() ? null : -1"
     >
-      + info
-    </button>
-  </div>
+      {{ 'SUCCESS_CASES.VIEW_PROJECT' | translate: { name: successCase().name } }}
+    </a>
+  }
 </article>
