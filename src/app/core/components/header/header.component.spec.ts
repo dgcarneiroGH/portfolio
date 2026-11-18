@@ -83,9 +83,22 @@ describe('HeaderComponent', () => {
       expect(nav.getAttribute('aria-label')).toBe('Principal');
     });
 
-    it('should render 4 navigation links', () => {
+    it('should render 5 navigation links', () => {
       const links = fixture.nativeElement.querySelectorAll('.header-nav a');
-      expect(links.length).toBe(4);
+      expect(links.length).toBe(5);
+    });
+
+    it('should link the nav entries in display order to their pages', () => {
+      const links = Array.from(
+        fixture.nativeElement.querySelectorAll('.header-nav a')
+      ) as HTMLAnchorElement[];
+      expect(links.map((link) => link.getAttribute('href'))).toEqual([
+        '/angular',
+        '/n8n',
+        '/tutoring',
+        '/about-me',
+        '/contact'
+      ]);
     });
 
     it('should mark the brand monogram as decorative', () => {

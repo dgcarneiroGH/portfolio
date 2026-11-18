@@ -1,44 +1,13 @@
-<section class="reviews">
-  <h2 class="sr-only">{{ "ROUTE.REVIEWS" | translate }}</h2>
+@if (reviews().length > 0) {
+  <section class="reviews">
+    <h2 class="sr-only">{{ "ROUTE.REVIEWS" | translate }}</h2>
 
-  <div class="reviews-container">
-    @if (view() === "list") {
-      <header class="reviews-header">
-        <button
-          type="button"
-          class="leave-review-btn"
-          (click)="openForm()"
-        >
-          <svg
-            class="btn-icon"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            aria-hidden="true"
-            focusable="false"
-          >
-            <polygon
-              points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
-            />
-          </svg>
-          <span>{{ "REVIEWS.LEAVE_REVIEW" | translate }}</span>
-        </button>
-      </header>
-
-      @if (reviews().length > 0) {
-        <div class="reviews-grid">
-          @for (review of reviews(); track $index) {
-            <div class="review-cell">
-              <app-review-card [review]="review"></app-review-card>
-            </div>
-          }
-        </div>
-      } @else {
-        <div class="reviews-empty">
-          <p class="empty-title">{{ "REVIEWS.EMPTY_TITLE" | translate }}</p>
+    <div class="reviews-container">
+      @if (view() === "list") {
+        <header class="reviews-header">
           <button
             type="button"
-            class="leave-review-btn empty-cta"
+            class="leave-review-btn"
             (click)="openForm()"
           >
             <svg
@@ -53,12 +22,20 @@
                 points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
               />
             </svg>
-            <span>{{ "REVIEWS.ADD_REVIEW" | translate }}</span>
+            <span>{{ "REVIEWS.LEAVE_REVIEW" | translate }}</span>
           </button>
+        </header>
+
+        <div class="reviews-grid">
+          @for (review of reviews(); track $index) {
+            <div class="review-cell">
+              <app-review-card [review]="review"></app-review-card>
+            </div>
+          }
         </div>
+      } @else {
+        <app-reviews-form (finished)="backToList()"></app-reviews-form>
       }
-    } @else {
-      <app-reviews-form (finished)="backToList()"></app-reviews-form>
-    }
-  </div>
-</section>
+    </div>
+  </section>
+}

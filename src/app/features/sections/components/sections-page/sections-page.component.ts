@@ -10,7 +10,6 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NavigationEnd, NavigationSkipped, Router } from '@angular/router';
 import { filter, fromEvent } from 'rxjs';
 import { SectionsNavService } from '../../../../core/services/sections-nav.service';
-import { AboutComponent } from '../../../about/components/about.component';
 import { ContactComponent } from '../../../contact/components/contact.component';
 import { HomeComponent } from '../../../home/components/home.component';
 import { ReviewsComponent } from '../../../reviews/components/reviews.component';
@@ -20,7 +19,7 @@ import { SECTIONS, SectionId, isSectionId } from '../../constants/sections.const
 
 /**
  * Página única (one-pager) del portfolio: apila las 5 secciones en orden
- * (home → about → success-cases → reviews → contact) para poder recorrerlas
+ * (home → services → success-cases → reviews → contact) para poder recorrerlas
  * scrolleando. El scroll-spy (SectionsNavService) sincroniza la URL con la
  * sección visible y el navbar refleja la sección activa vía routerLinkActive.
  *
@@ -36,7 +35,6 @@ import { SECTIONS, SectionId, isSectionId } from '../../constants/sections.const
   imports: [
     HomeComponent,
     ServicesComponent,
-    AboutComponent,
     SuccessCasesComponent,
     ReviewsComponent,
     ContactComponent

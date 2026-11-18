@@ -7,19 +7,16 @@ import { SectionsNavService } from '../../../../core/services/sections-nav.servi
 import { SectionsPageComponent } from './sections-page.component';
 
 /**
- * Stubs de los 6 componentes de sección (services es sección propia, aunque
- * no figure en SECTIONS ni en el navbar): el spec del sections-page valida
- * su propio esqueleto (envoltorios apilados con id), no el contenido de cada
- * sección, que tiene specs propias.
+ * Stubs de los 5 componentes de sección apilados (services es sección propia,
+ * aunque no figure en SECTIONS ni en el navbar): el spec del sections-page
+ * valida su propio esqueleto (envoltorios apilados con id), no el contenido
+ * de cada sección, que tiene specs propias.
  */
 @Component({ selector: 'app-home', template: '' })
 class HomeStub {}
 
 @Component({ selector: 'app-services', template: '' })
 class ServicesStub {}
-
-@Component({ selector: 'app-about', template: '' })
-class AboutStub {}
 
 @Component({ selector: 'app-success-cases', template: '' })
 class SuccessCasesStub {}
@@ -78,7 +75,6 @@ class DummyPage {}
 
 const TEST_ROUTES: Routes = [
   { path: '', component: DummyPage },
-  { path: 'about-me', component: DummyPage },
   { path: 'success-cases', component: DummyPage },
   { path: 'reviews', component: DummyPage },
   { path: 'contact', component: DummyPage }
@@ -103,7 +99,7 @@ describe('SectionsPageComponent', () => {
     })
       .overrideComponent(SectionsPageComponent, {
         set: {
-          imports: [HomeStub, ServicesStub, AboutStub, SuccessCasesStub, ReviewsStub, ContactStub]
+          imports: [HomeStub, ServicesStub, SuccessCasesStub, ReviewsStub, ContactStub]
         }
       })
       .compileComponents();
@@ -132,15 +128,14 @@ describe('SectionsPageComponent', () => {
     expect(fixture.componentInstance).toBeTruthy();
   });
 
-  it('renders the 6 sections stacked in order with their ids', () => {
+  it('renders the 5 sections stacked in order with their ids', () => {
     const el = fixture.nativeElement as HTMLElement;
     const wrappers = el.querySelectorAll('.sections-page__section');
-    expect(wrappers.length).toBe(6);
+    expect(wrappers.length).toBe(5);
     const ids = Array.from(wrappers).map((wrapper) => wrapper.id);
     expect(ids).toEqual([
       'home',
       'services',
-      'about-me',
       'success-cases',
       'reviews',
       'contact'
@@ -152,10 +147,9 @@ describe('SectionsPageComponent', () => {
     const wrappers = el.querySelectorAll('.sections-page__section');
     expect(wrappers[0].querySelector('app-home')).toBeTruthy();
     expect(wrappers[1].querySelector('app-services')).toBeTruthy();
-    expect(wrappers[2].querySelector('app-about')).toBeTruthy();
-    expect(wrappers[3].querySelector('app-success-cases')).toBeTruthy();
-    expect(wrappers[4].querySelector('app-reviews')).toBeTruthy();
-    expect(wrappers[5].querySelector('app-contact')).toBeTruthy();
+    expect(wrappers[2].querySelector('app-success-cases')).toBeTruthy();
+    expect(wrappers[3].querySelector('app-reviews')).toBeTruthy();
+    expect(wrappers[4].querySelector('app-contact')).toBeTruthy();
   });
 
   it('renders the services section as its own wrapper, right after home (no navbar entry)', () => {
@@ -163,18 +157,17 @@ describe('SectionsPageComponent', () => {
     const servicesWrapper = el.querySelector('#services');
 
     expect(servicesWrapper?.querySelector('app-services')).toBeTruthy();
-    // Entre home y about-me, pero sin estar en SECTIONS: el scroll-spy y el
-    // routerLinkActive del navbar lo ignoran.
+    // Entre home y success-cases, pero sin estar en SECTIONS: el scroll-spy y
+    // el routerLinkActive del navbar lo ignoran.
     expect(servicesWrapper?.previousElementSibling?.id).toBe('home');
-    expect(servicesWrapper?.nextElementSibling?.id).toBe('about-me');
+    expect(servicesWrapper?.nextElementSibling?.id).toBe('success-cases');
   });
 
   describe('scroll-spy', () => {
-    it('observa las 5 secciones del one-pager', () => {
+    it('observa las 4 secciones del one-pager con URL propia', () => {
       expect(spy().observed.length).toBe(SECTIONS.length);
       expect(spy().observed.map((el) => el.id)).toEqual([
         'home',
-        'about-me',
         'success-cases',
         'reviews',
         'contact'
@@ -182,13 +175,13 @@ describe('SectionsPageComponent', () => {
     });
 
     it('actualiza la sección activa y sincroniza la URL con replaceUrl al cruzar el umbral', () => {
-      spy().fire(new Set(['about-me']));
+      spy().fire(new Set(['success-cases']));
 
-      expect(router.navigateByUrl).toHaveBeenCalledWith('/about-me', { replaceUrl: true });
+      expect(router.navigateByUrl).toHaveBeenCalledWith('/success-cases', { replaceUrl: true });
     });
 
     it('elige la primera sección en orden DOM cuando dos se solapan en el umbral', () => {
-      spy().fire(new Set(['home', 'about-me']));
+      spy().fire(new Set(['home', 'success-cases']));
 
       expect(router.navigateByUrl).not.toHaveBeenCalled();
     });
@@ -240,7 +233,7 @@ describe('SectionsPageComponent', () => {
     });
 
     it('deep link: scroll instantáneo a la sección de la URL y sin navegación del spy', async () => {
-      await router.navigateByUrl('/about-me');
+      await router.navigateByUrl('/success-cases');
       await fixture.whenStable();
 
       // Higiene: desacoplar el primer fixture del documento para que el
@@ -255,7 +248,7 @@ describe('SectionsPageComponent', () => {
       await deepFixture.whenStable();
       deepFixture.detectChanges();
 
-      expect(scrollToSpy).toHaveBeenCalledWith('about-me', 'auto');
+      expect(scrollToSpy).toHaveBeenCalledWith('success-cases', 'auto');
       expect((router.navigateByUrl as jasmine.Spy).calls.count()).toBe(navCallsBefore);
 
       deepFixture.destroy();

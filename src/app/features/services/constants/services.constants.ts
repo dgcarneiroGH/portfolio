@@ -4,6 +4,7 @@ export const SERVICES: Service[] = [
   {
     icon: 'angular',
     variant: 'red',
+    link: '/angular',
     titleKey: 'SERVICES.CARDS.ANGULAR_SANITY.TITLE',
     descriptionKey: 'SERVICES.CARDS.ANGULAR_SANITY.DESCRIPTION',
     bulletKeys: [
@@ -17,6 +18,7 @@ export const SERVICES: Service[] = [
   {
     icon: 'n8n',
     variant: 'raspberry',
+    link: '/n8n',
     titleKey: 'SERVICES.CARDS.N8N_FLOWS.TITLE',
     descriptionKey: 'SERVICES.CARDS.N8N_FLOWS.DESCRIPTION',
     bulletKeys: [
@@ -30,6 +32,7 @@ export const SERVICES: Service[] = [
   {
     icon: 'tutoring',
     variant: 'amber',
+    link: '/tutoring',
     titleKey: 'SERVICES.CARDS.TUTORING.TITLE',
     descriptionKey: 'SERVICES.CARDS.TUTORING.DESCRIPTION',
     bulletKeys: [

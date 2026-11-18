@@ -8,7 +8,6 @@
  */
 export const SECTIONS = [
   { id: 'home', url: '/' },
-  { id: 'about-me', url: '/about-me' },
   { id: 'success-cases', url: '/success-cases' },
   { id: 'reviews', url: '/reviews' },
   { id: 'contact', url: '/contact' }

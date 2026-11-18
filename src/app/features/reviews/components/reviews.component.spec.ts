@@ -12,11 +12,16 @@ const mockLoader = {
     of({
       'ROUTE.REVIEWS': 'Opiniones',
       'REVIEWS.LEAVE_REVIEW': 'Dejar reseña',
-      'REVIEWS.ADD_REVIEW': 'Añadir reseña',
-      'REVIEWS.EMPTY_TITLE': 'Aún no existen reseñas, sé tú el primero',
       'REVIEWS.RATING_ARIA': '{{count}} de 5 estrellas'
     })
 };
+
+// Reseñas de prueba: la constante REVIEWS está vacía por defecto y, con el
+// listado vacío, el componente no renderiza nada (la sección se oculta).
+const MOCK_REVIEWS = [
+  { fullName: 'Ana G.', message: 'Excelente trabajo', rating: 5 },
+  { fullName: 'Luis P.', message: 'Muy profesional', rating: 4 }
+];
 
 describe('ReviewsComponent', () => {
   let component: ReviewsComponent;
@@ -47,9 +52,21 @@ describe('ReviewsComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('oculta la sección por completo cuando no hay reseñas', () => {
+    // Sin reseñas no se renderiza nada: ni header con CTA ni empty state.
+    fixture.componentRef.setInput('reviews', []);
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.querySelector('section.reviews')).toBeFalsy();
+    expect(fixture.nativeElement.querySelector('.leave-review-btn')).toBeFalsy();
+    expect(fixture.debugElement.queryAll(By.directive(ReviewCardComponent)).length).toBe(0);
+  });
+
   it('la section raíz no lleva id: el ancla lo pone el envoltorio del one-pager', () => {
-    // El sections-page envuelve cada feature en <div id="...">; un id aquí
-    // duplicaría el ancla en el documento (HTML inválido, axe duplicate-id).
+    // Con el listado vacío no hay sección: hay que darle reseñas.
+    fixture.componentRef.setInput('reviews', MOCK_REVIEWS);
+    fixture.detectChanges();
+
     const rootSection = fixture.nativeElement.querySelector('section.reviews');
     expect(rootSection).toBeTruthy();
     expect(rootSection.id).toBe('');
@@ -57,10 +74,7 @@ describe('ReviewsComponent', () => {
 
   it('should render a review card per provided review', () => {
     // La constante REVIEWS está vacía por defecto: el listado llega vía input.
-    fixture.componentRef.setInput('reviews', [
-      { fullName: 'Ana G.', message: 'Excelente trabajo', rating: 5 },
-      { fullName: 'Luis P.', message: 'Muy profesional', rating: 4 }
-    ]);
+    fixture.componentRef.setInput('reviews', MOCK_REVIEWS);
     fixture.detectChanges();
 
     const cards = fixture.debugElement.queryAll(By.directive(ReviewCardComponent));
@@ -68,21 +82,10 @@ describe('ReviewsComponent', () => {
     expect(cards.length).toBeGreaterThan(0);
   });
 
-  it('should show the empty state with the big CTA when there are no reviews', () => {
-    fixture.componentRef.setInput('reviews', []);
+  it('should show the form when the header pill is clicked', () => {
+    fixture.componentRef.setInput('reviews', MOCK_REVIEWS);
     fixture.detectChanges();
 
-    const emptyEl = fixture.nativeElement.querySelector('.reviews-empty');
-    expect(emptyEl).toBeTruthy();
-
-    const cards = fixture.debugElement.queryAll(By.directive(ReviewCardComponent));
-    expect(cards.length).toBe(0);
-
-    const cta = fixture.nativeElement.querySelector('.empty-cta') as HTMLButtonElement;
-    expect(cta).toBeTruthy();
-  });
-
-  it('should show the form when the header pill is clicked', () => {
     const pill = fixture.nativeElement.querySelector('.leave-review-btn') as HTMLButtonElement;
     pill.click();
     fixture.detectChanges();
@@ -92,18 +95,10 @@ describe('ReviewsComponent', () => {
     expect(fixture.nativeElement.querySelector('.reviews-grid')).toBeFalsy();
   });
 
-  it('should show the form from the empty state CTA', () => {
-    fixture.componentRef.setInput('reviews', []);
-    fixture.detectChanges();
-
-    const cta = fixture.nativeElement.querySelector('.empty-cta') as HTMLButtonElement;
-    cta.click();
-    fixture.detectChanges();
-
-    expect(fixture.debugElement.query(By.directive(ReviewsFormComponent))).toBeTruthy();
-  });
-
   it('should return to the list view when the form emits finished', () => {
+    fixture.componentRef.setInput('reviews', MOCK_REVIEWS);
+    fixture.detectChanges();
+
     component.openForm();
     fixture.detectChanges();
 
@@ -120,6 +115,9 @@ describe('ReviewsComponent', () => {
   });
 
   it('should hide the header pill while the form is open', () => {
+    fixture.componentRef.setInput('reviews', MOCK_REVIEWS);
+    fixture.detectChanges();
+
     component.openForm();
     fixture.detectChanges();
 

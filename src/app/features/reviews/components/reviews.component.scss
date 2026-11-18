@@ -76,29 +76,6 @@
   }
 }
 
-.reviews-empty {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2rem;
-  padding: 6rem 1rem;
-  text-align: center;
-
-  .empty-title {
-    margin: 0;
-    font-family: fonts.$heading;
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: palette.$text-primary;
-  }
-
-  .empty-cta {
-    padding: 1rem 2rem;
-    font-size: 1.125rem;
-    line-height: 1.75rem;
-  }
-}
-
 //#region Responsive
 @media screen and (max-width: 1300px) {
   .reviews-grid {

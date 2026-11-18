@@ -1,5 +1,6 @@
 import { provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { ServicesComponent } from './services.component';
@@ -18,7 +19,7 @@ describe('ServicesComponent', () => {
           loader: { provide: TranslateLoader, useValue: mockLoader }
         })
       ],
-      providers: [provideZonelessChangeDetection()]
+      providers: [provideZonelessChangeDetection(), provideRouter([])]
     }).compileComponents();
 
     fixture = TestBed.createComponent(ServicesComponent);
@@ -76,11 +77,26 @@ describe('ServicesComponent', () => {
     expect(el.querySelectorAll('.services-card-stat-label').length).toBe(3);
   });
 
-  it('renders each card CTA as a button (no navigation yet)', () => {
+  it('renders each card CTA as a link to its service page', () => {
     const el = fixture.nativeElement as HTMLElement;
-    const ctas = el.querySelectorAll<HTMLButtonElement>('button.services-card-cta');
+    const ctas = el.querySelectorAll<HTMLAnchorElement>('a.services-card-cta');
 
     expect(ctas.length).toBe(3);
-    expect(el.querySelector('a.services-card-cta')).toBe(null);
+    expect(el.querySelector('button.services-card-cta')).toBe(null);
+    expect(Array.from(ctas).map((cta) => cta.getAttribute('href'))).toEqual([
+      '/angular',
+      '/n8n',
+      '/tutoring'
+    ]);
+  });
+
+  describe('destino de navegación', () => {
+    it('asigna a cada tarjeta el enlace a su página propia', () => {
+      expect(component.services.map((service) => service.link)).toEqual([
+        '/angular',
+        '/n8n',
+        '/tutoring'
+      ]);
+    });
   });
 });

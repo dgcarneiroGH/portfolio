@@ -305,8 +305,8 @@
   letter-spacing: 0.025em;
   color: palette.$green-soft;
   text-align: left;
+  text-decoration: none;
   cursor: pointer;
-  // Brillo en su propio color, como los iconos del dock.
   transition: filter 0.2s ease;
 
   &:hover {

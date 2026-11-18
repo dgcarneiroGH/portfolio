@@ -12,10 +12,8 @@ export const routes: Routes = [
   {
     path: 'about-me',
     loadComponent: () =>
-      import(
-        './features/sections/components/sections-page/sections-page.component'
-      ).then((m) => m.SectionsPageComponent),
-    data: { section: 'about-me', onePager: true, animation: 'About', titleKey: 'ROUTE.ABOUT' }
+      import('./features/about/components/about.component').then((m) => m.AboutComponent),
+    data: { animation: 'About', titleKey: 'ROUTE.ABOUT' }
   },
   {
     path: 'reviews',
@@ -45,6 +43,24 @@ export const routes: Routes = [
       animation: 'SuccessCases',
       titleKey: 'ROUTE.SUCCESS_CASES'
     }
+  },
+  {
+    path: 'angular',
+    loadComponent: () =>
+      import('./features/angular/components/angular.component').then((m) => m.AngularComponent),
+    data: { animation: 'Angular', titleKey: 'ROUTE.ANGULAR' }
+  },
+  {
+    path: 'n8n',
+    loadComponent: () =>
+      import('./features/n8n/components/n8n.component').then((m) => m.N8nComponent),
+    data: { animation: 'N8N', titleKey: 'ROUTE.N8N' }
+  },
+  {
+    path: 'tutoring',
+    loadComponent: () =>
+      import('./features/tutoring/components/tutoring.component').then((m) => m.TutoringComponent),
+    data: { animation: 'Tutoring', titleKey: 'ROUTE.TUTORING' }
   },
   {
     path: 'blog',

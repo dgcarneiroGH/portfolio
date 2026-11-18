@@ -17,7 +17,7 @@ class DummyOnePager {}
 class DummyBlog {}
 
 const SPEC_ROUTES: Routes = [
-  { path: 'about-me', component: DummyOnePager },
+  { path: 'success-cases', component: DummyOnePager },
   { path: 'contact', component: DummyOnePager },
   { path: 'blog', component: DummyBlog }
 ];
@@ -142,7 +142,7 @@ describe('AppComponent', () => {
     it('NO scrollea a top al navegar dentro del one-pager', async () => {
       const scrollSpy = spyOn(window, 'scrollTo') as unknown as jasmine.Spy;
 
-      await navigate('/about-me');
+      await navigate('/success-cases');
 
       expect(scrollSpy).not.toHaveBeenCalled();
     });
@@ -151,10 +151,10 @@ describe('AppComponent', () => {
       const main = fixture.nativeElement.querySelector('main') as HTMLElement;
       const focusSpy = spyOn(main, 'focus');
 
-      await navigate('/about-me'); // primera navegación: página cambia (null → one-pager)
+      await navigate('/contact'); // primera navegación: página cambia (null → one-pager)
       expect(focusSpy).toHaveBeenCalledTimes(1);
 
-      await navigate('/contact'); // misma página one-pager: sin robo de foco
+      await navigate('/success-cases'); // misma página one-pager: sin robo de foco
       expect(focusSpy).toHaveBeenCalledTimes(1);
 
       await navigate('/blog'); // cambia de página: foco

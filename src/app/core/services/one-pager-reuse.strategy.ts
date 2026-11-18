@@ -2,10 +2,10 @@ import { ActivatedRouteSnapshot, BaseRouteReuseStrategy } from '@angular/router'
 
 /**
  * Estrategia de reutilización de rutas del one-pager: al navegar entre las
- * 5 rutas de sección (todas apuntan al mismo sections-page) la instancia del
+ * 4 rutas de sección (todas apuntan al mismo sections-page) la instancia del
  * componente se conserva, sin destruir/recrear el DOM ni reiniciar el
- * scroll-spy. Al salir del one-pager (blog, 404) se aplica el comportamiento
- * base de Angular.
+ * scroll-spy. Al salir del one-pager (páginas propias y blog, 404) se aplica
+ * el comportamiento base de Angular.
  *
  * El router marca cada ruta de sección con `data.onePager = true`
  * (app.routes.ts).

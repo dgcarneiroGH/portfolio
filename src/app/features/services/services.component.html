@@ -86,7 +86,7 @@
             <span class="services-card-stat-label">{{ service.statLabelKey | translate }}</span>
           </p>
 
-          <button type="button" class="services-card-cta">
+          <a class="services-card-cta" [routerLink]="service.link">
             <span>{{ "SERVICES.CTA" | translate }}</span>
             <svg
               class="services-card-cta-icon"
@@ -104,7 +104,7 @@
                 stroke-linejoin="round"
               />
             </svg>
-          </button>
+          </a>
         </div>
       </li>
     }

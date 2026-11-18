@@ -8,6 +8,9 @@ const BASE = process.env.A11Y_BASE_URL ?? 'http://localhost:4200';
 const ROUTES = [
   '/',
   '/about-me',
+  '/angular',
+  '/n8n',
+  '/tutoring',
   '/success-cases',
   '/reviews',
   '/contact',
@@ -23,7 +26,10 @@ mkdirSync('a11y-report', { recursive: true });
 let totalViolations = 0;
 
 for (const route of ROUTES) {
-  const url = `${BASE}${route}`;
+  // La app usa HashLocationStrategy: sin el fragmento # el servidor sirve
+  // index.html con hash vacío y el router resuelve "/" → se auditaría el
+  // one-pager en vez de la ruta pedida.
+  const url = `${BASE}/#${route}`;
   console.log(`\nAuditing ${url}`);
   try {
     const out = execSync(`node "${cliPath}" --url "${url}" --exit`, {

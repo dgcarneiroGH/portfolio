@@ -9,7 +9,7 @@ class DummyNavPage {}
 
 const NAV_ROUTES: Routes = [
   { path: '', component: DummyNavPage },
-  { path: 'about-me', component: DummyNavPage },
+  { path: 'success-cases', component: DummyNavPage },
   {
     path: 'contact',
     component: DummyNavPage,
@@ -71,11 +71,11 @@ describe('SectionsNavService', () => {
     });
 
     it('devuelve true una única vez tras un updateActive, y solo con SU url', () => {
-      service.updateActive('about-me');
+      service.updateActive('success-cases');
 
       expect(service.consumeSpyNavigation('/contact')).toBeFalse();
-      expect(service.consumeSpyNavigation('/about-me')).toBeTrue();
-      expect(service.consumeSpyNavigation('/about-me')).toBeFalse();
+      expect(service.consumeSpyNavigation('/success-cases')).toBeTrue();
+      expect(service.consumeSpyNavigation('/success-cases')).toBeFalse();
     });
   });
 
@@ -83,13 +83,13 @@ describe('SectionsNavService', () => {
     it('resuelve la sección desde la URL del router', () => {
       expect(service.sectionFromUrl('/')).toBe('home');
       expect(service.sectionFromUrl('')).toBe('home');
-      expect(service.sectionFromUrl('/about-me')).toBe('about-me');
       expect(service.sectionFromUrl('/success-cases')).toBe('success-cases');
       expect(service.sectionFromUrl('/contact')).toBe('contact');
     });
 
     it('descarta query params y devuelve null fuera del one-pager', () => {
-      expect(service.sectionFromUrl('/about-me?x=1')).toBe('about-me');
+      expect(service.sectionFromUrl('/reviews?x=1')).toBe('reviews');
+      expect(service.sectionFromUrl('/about-me')).toBeNull();
       expect(service.sectionFromUrl('/blog')).toBeNull();
       expect(service.sectionFromUrl('/algo-que-no-existe')).toBeNull();
     });

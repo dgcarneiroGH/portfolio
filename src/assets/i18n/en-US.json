@@ -42,9 +42,10 @@
     "STATUS_UNAVAILABLE": "Not available",
     "STATUS_LINK_ARIA": "Go to the contact section",
     "NAV_ARIA": "Main navigation",
+    "NAV_ANGULAR": "Angular",
+    "NAV_N8N": "N8N",
+    "NAV_TUTORING": "Tutoring",
     "NAV_ABOUT": "About me",
-    "NAV_CASES": "Success stories",
-    "NAV_REVIEWS": "Reviews",
     "NAV_CONTACT": "Contact",
     "BRAND_SUBTITLE": "FRONT-END | N8N DEVELOPER & TEACHER"
   },
@@ -238,8 +239,6 @@
     "STAR_ARIA": "{{count}} stars",
     "RATING_ARIA": "Rating: {{count}} out of 5 stars",
     "LEAVE_REVIEW": "Leave a review",
-    "ADD_REVIEW": "Add a review",
-    "EMPTY_TITLE": "There are no reviews yet, be the first one",
     "BACK_TO_REVIEWS": "Back to reviews"
   },
   "ERROR_404": {
@@ -255,6 +254,9 @@
     "REVIEWS": "Reviews",
     "CONTACT": "Contact",
     "SUCCESS_CASES": "Success cases",
+    "ANGULAR": "Angular",
+    "N8N": "N8N",
+    "TUTORING": "Tutoring",
     "NOT_FOUND": "Page not found"
   }
 }
