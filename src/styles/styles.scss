@@ -78,28 +78,18 @@
   }
 }
 
-/* Global focus indicators — premium gradient ring (WCAG 2.4.7, required for a11y) */
-*:focus-visible {
-  outline: none;
-  box-shadow:
-    0 0 0 2px palette.$background-gradient-start,
-    0 0 0 4px palette.$accent-blue;
-  border-radius: 0.8rem;
-}
-
 /* Remove focus ring for mouse users (only show for keyboard) */
 *:focus:not(:focus-visible) {
   outline: none;
   box-shadow: none;
 }
 
-/* Enhanced focus for keyboard users — premium gradient ring */
 button:focus-visible,
 a:focus-visible,
 input:focus-visible,
 select:focus-visible,
 textarea:focus-visible,
-[tabindex]:focus-visible,
+[tabindex="0"]:focus-visible,
 [role="button"]:focus-visible,
 [role="option"]:focus-visible {
   outline: none;
@@ -125,11 +115,6 @@ svg,
   -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none;
-}
-
-#main-content:focus {
-  outline: 3px solid palette.$accent-blue;
-  outline-offset: -3px;
 }
 
 /* Reset styles for native buttons used as decorative/wrapped controls */
@@ -672,6 +657,7 @@ p .blast:hover {
 // in dev mode. Re-evaluated on every navigation, so the slide/fade rules
 // above still apply to non-instant transitions (one-pager ↔ blog / 404).
 :root.vt-instant {
+
   &::view-transition-group(*),
   &::view-transition-old(*),
   &::view-transition-new(*) {

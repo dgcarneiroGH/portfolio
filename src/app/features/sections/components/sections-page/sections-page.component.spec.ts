@@ -7,13 +7,17 @@ import { SectionsNavService } from '../../../../core/services/sections-nav.servi
 import { SectionsPageComponent } from './sections-page.component';
 
 /**
- * Stubs de los 5 componentes de sección apilados (services es sección propia,
- * aunque no figure en SECTIONS ni en el navbar): el spec del sections-page
- * valida su propio esqueleto (envoltorios apilados con id), no el contenido
- * de cada sección, que tiene specs propias.
+ * Stubs de los 6 componentes apilados (el radar de diferenciación y services
+ * son secciones propias sin entrada en el navbar; el radar ni siquiera figura
+ * en SECTIONS): el spec del sections-page valida su propio esqueleto
+ * (envoltorios apilados con id), no el contenido de cada sección, que tiene
+ * specs propias.
  */
 @Component({ selector: 'app-home', template: '' })
 class HomeStub {}
+
+@Component({ selector: 'app-differentiation-radar', template: '' })
+class DifferentiationRadarStub {}
 
 @Component({ selector: 'app-services', template: '' })
 class ServicesStub {}
@@ -99,7 +103,14 @@ describe('SectionsPageComponent', () => {
     })
       .overrideComponent(SectionsPageComponent, {
         set: {
-          imports: [HomeStub, ServicesStub, SuccessCasesStub, ReviewsStub, ContactStub]
+          imports: [
+            HomeStub,
+            DifferentiationRadarStub,
+            ServicesStub,
+            SuccessCasesStub,
+            ReviewsStub,
+            ContactStub
+          ]
         }
       })
       .compileComponents();
@@ -128,13 +139,14 @@ describe('SectionsPageComponent', () => {
     expect(fixture.componentInstance).toBeTruthy();
   });
 
-  it('renders the 5 sections stacked in order with their ids', () => {
+  it('renders the 6 sections stacked in order with their ids', () => {
     const el = fixture.nativeElement as HTMLElement;
     const wrappers = el.querySelectorAll('.sections-page__section');
-    expect(wrappers.length).toBe(5);
+    expect(wrappers.length).toBe(6);
     const ids = Array.from(wrappers).map((wrapper) => wrapper.id);
     expect(ids).toEqual([
       'home',
+      '', // radar de diferenciación: sin id (sin navbar, sin scroll-spy)
       'services',
       'success-cases',
       'reviews',
@@ -146,20 +158,29 @@ describe('SectionsPageComponent', () => {
     const el = fixture.nativeElement as HTMLElement;
     const wrappers = el.querySelectorAll('.sections-page__section');
     expect(wrappers[0].querySelector('app-home')).toBeTruthy();
-    expect(wrappers[1].querySelector('app-services')).toBeTruthy();
-    expect(wrappers[2].querySelector('app-success-cases')).toBeTruthy();
-    expect(wrappers[3].querySelector('app-reviews')).toBeTruthy();
-    expect(wrappers[4].querySelector('app-contact')).toBeTruthy();
+    expect(wrappers[1].querySelector('app-differentiation-radar')).toBeTruthy();
+    expect(wrappers[2].querySelector('app-services')).toBeTruthy();
+    expect(wrappers[3].querySelector('app-success-cases')).toBeTruthy();
+    expect(wrappers[4].querySelector('app-reviews')).toBeTruthy();
+    expect(wrappers[5].querySelector('app-contact')).toBeTruthy();
   });
 
-  it('renders the services section as its own wrapper, right after home (no navbar entry)', () => {
+  it('renders the radar as its own wrapper right after home, and services right after the radar (both without navbar entry)', () => {
     const el = fixture.nativeElement as HTMLElement;
     const servicesWrapper = el.querySelector('#services');
 
     expect(servicesWrapper?.querySelector('app-services')).toBeTruthy();
-    // Entre home y success-cases, pero sin estar en SECTIONS: el scroll-spy y
-    // el routerLinkActive del navbar lo ignoran.
-    expect(servicesWrapper?.previousElementSibling?.id).toBe('home');
+    // El radar queda entre home y services: sin id, el scroll-spy y el
+    // routerLinkActive del navbar lo ignoran igual que services.
+    expect(servicesWrapper?.previousElementSibling?.id).toBe('');
+    expect(
+      servicesWrapper?.previousElementSibling?.querySelector(
+        'app-differentiation-radar'
+      )
+    ).toBeTruthy();
+    expect(
+      servicesWrapper?.previousElementSibling?.previousElementSibling?.id
+    ).toBe('home');
     expect(servicesWrapper?.nextElementSibling?.id).toBe('success-cases');
   });
 

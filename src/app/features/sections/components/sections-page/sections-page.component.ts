@@ -11,6 +11,7 @@ import { NavigationEnd, NavigationSkipped, Router } from '@angular/router';
 import { filter, fromEvent } from 'rxjs';
 import { SectionsNavService } from '../../../../core/services/sections-nav.service';
 import { ContactComponent } from '../../../contact/components/contact.component';
+import { DifferentiationRadarComponent } from '../../../differentiation-radar/differentiation-radar.component';
 import { HomeComponent } from '../../../home/components/home.component';
 import { ReviewsComponent } from '../../../reviews/components/reviews.component';
 import { ServicesComponent } from '../../../services/services.component';
@@ -34,6 +35,7 @@ import { SECTIONS, SectionId, isSectionId } from '../../constants/sections.const
   standalone: true,
   imports: [
     HomeComponent,
+    DifferentiationRadarComponent,
     ServicesComponent,
     SuccessCasesComponent,
     ReviewsComponent,

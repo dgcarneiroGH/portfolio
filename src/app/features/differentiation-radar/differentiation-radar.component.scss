@@ -1,0 +1,457 @@
+@use "/src/styles/palette" as palette;
+@use "/src/styles/fonts" as fonts;
+
+/**
+ * Radar de diferenciación (bloque narrativo tras la hero, sin navbar).
+ *
+ * Reglas AGENTS.md aplicadas:
+ * - Fondo de sección: NO se aplica el del mock — la sección hereda el
+ *   degradado por defecto del body (regla 2026-11-17). El fondo oscuro del
+ *   mock solo vive en la tarjeta del gráfico y en los bullets (superficies).
+ * - Colores solo con tokens de _palette.scss y derivadas rgba(); los blancos
+ *   rgba(255,255,255,α) de bordes/malla son la excepción documentada de
+ *   neutros de alto contraste.
+ * - Sin ::ng-deep; todo el estilo del componente vive aquí.
+ *
+ * Layout: dos columnas (bullets ~40% / gráfico ~60%) en desktop; en <=960px
+ * solo se muestra el gráfico (decisión de diseño 2026-11-18). Los bullets
+ * muestran solo la descripción — los títulos de eje viven como etiquetas del
+ * SVG; texto a 1rem/500 para darles presencia (2026-11-18).
+ */
+
+:host {
+  display: block;
+}
+
+// #region Sección
+
+.radar {
+  position: relative;
+  align-items: flex-start;
+  justify-content: flex-start;
+  // Margen para no invadir la franja de costura inferior del wrapper.
+  margin-bottom: var(--seam-fade, 10vh);
+}
+
+.radar-intro {
+  position: relative;
+  z-index: 1;
+  width: min(56rem, 100%);
+  margin-bottom: 3rem;
+}
+
+.radar-title {
+  margin: 0 0 1rem;
+  font-size: 2.25rem;
+  line-height: 1.1;
+  color: palette.$text-primary;
+}
+
+// Mismo azul que "Qué hago" (services) y el highlight del hero de home.
+.radar-title-highlight {
+  color: palette.$accent-cyan;
+}
+
+.radar-subtitle {
+  margin: 0;
+  max-width: 58ch;
+  font-size: 1.125rem;
+  line-height: 1.6;
+  color: palette.$code-comment;
+}
+
+// #endregion
+
+// #region Reparto bullets / gráfico
+
+.radar-body {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  gap: 2rem;
+  width: 85vw;
+  align-items: stretch;
+  margin-bottom: 5rem;
+}
+
+// #endregion
+
+// #region Bullets
+
+.radar-bullets {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.875rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.radar-bullet {
+  display: flex;
+  gap: 0.875rem;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  background: palette.$surface-code;
+  outline: 1px solid rgba(255, 255, 255, 0.1);
+  outline-offset: -1px;
+  transition:
+    box-shadow 0.2s ease,
+    outline-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+// Iluminación del bullet: halo del sidebar en su dot + anillo azul en la
+// tarjeta (el mismo azul que marca los vértices del eje).
+.radar-bullet--active {
+  outline-color: rgba(palette.$accent-blue, 0.45);
+  box-shadow:
+    0 0 16px rgba(palette.$accent-blue, 0.18),
+    inset 0 0 12px rgba(palette.$accent-blue, 0.06);
+  transform: translateY(-2px);
+
+  .radar-bullet-dot {
+    box-shadow: 0 0 8px rgba(palette.$code-teal, 0.8);
+  }
+}
+
+.radar-bullet-dot {
+  flex: 0 0 auto;
+  width: 8px;
+  height: 8px;
+  margin-top: 8px;
+  border-radius: 9999px;
+  background: palette.$code-teal;
+  transition: box-shadow 0.2s ease;
+}
+
+.radar-bullet-text {
+  margin: 0;
+  min-width: 0;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.5;
+  color: palette.$text-primary;
+}
+
+// #endregion
+
+// #region Tarjeta del gráfico
+
+.radar-chart-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1.25rem 1.5rem 1rem;
+  overflow: hidden;
+  border-radius: 1rem;
+  background: palette.$surface-code;
+  outline: 1px solid rgba(255, 255, 255, 0.1);
+  outline-offset: -1px;
+}
+
+.radar-legend {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.radar-legend-item {
+  display: inline-flex;
+  gap: 0.5rem;
+  align-items: center;
+  font-family: fonts.$mono;
+  font-size: 0.75rem;
+
+  &--mine {
+    color: palette.$text-primary;
+    font-weight: 700;
+  }
+
+  &--rival {
+    color: palette.$code-comment;
+  }
+}
+
+.radar-legend-swatch {
+  width: 0.875rem;
+  height: 0.875rem;
+  border-radius: 2px;
+
+  &--mine {
+    background: palette.$amber-dot;
+    border: 1px solid rgba(palette.$amber-dot, 0.8);
+    box-shadow: 0 0 8px rgba(palette.$amber-dot, 0.3);
+  }
+
+  &--rival {
+    background: rgba(palette.$code-comment, 0.7);
+    border: 1px solid rgba(palette.$code-comment, 0.8);
+  }
+}
+
+.radar-chart {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+}
+
+.radar-svg {
+  display: block;
+  width: 100%;
+  max-width: 640px;
+  height: auto;
+}
+
+.radar-footnote {
+  margin: 0;
+  font-family: fonts.$mono;
+  font-size: 0.6875rem;
+  line-height: 1.5;
+  color: rgba(palette.$code-comment, 0.75);
+}
+
+// #endregion
+
+// #region SVG: malla, series y etiquetas
+
+.radar-glow {
+  fill: rgba(palette.$code-teal, 0.06);
+  filter: blur(28px);
+}
+
+.radar-ring {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.06);
+  stroke-width: 1;
+
+  &--outer {
+    stroke: rgba(255, 255, 255, 0.12);
+    stroke-width: 1.5;
+  }
+}
+
+.radar-spoke {
+  stroke: rgba(255, 255, 255, 0.06);
+  stroke-width: 1;
+}
+
+.radar-poly {
+  stroke-dashoffset: 0;
+
+  &--rival {
+    fill: rgba(palette.$code-comment, 0.18);
+    stroke: rgba(palette.$code-comment, 0.65);
+    stroke-width: 1.75;
+    stroke-linejoin: round;
+  }
+
+  &--mine {
+    fill: rgba(palette.$amber-dot, 0.25);
+    stroke: palette.$amber-dot;
+    stroke-width: 2.5;
+    stroke-linejoin: round;
+    filter: drop-shadow(0 0 12px rgba(palette.$amber-dot, 0.35));
+  }
+}
+
+.radar-point {
+  transition:
+    fill 0.2s ease,
+    filter 0.2s ease,
+    transform 0.2s ease;
+  transform-box: fill-box;
+  transform-origin: center;
+
+  &--rival {
+    fill: rgba(palette.$code-comment, 0.7);
+  }
+
+  &--mine {
+    fill: palette.$amber-dot;
+    stroke: palette.$surface-code-deep;
+    stroke-width: 1.5;
+  }
+
+  // Resaltado del eje desde el bullet: azul brillante + halo.
+  &.is-active {
+    fill: palette.$accent-blue;
+    filter: drop-shadow(0 0 6px rgba(palette.$accent-blue, 0.9));
+    transform: scale(1.45);
+  }
+}
+
+.radar-label {
+  font-family: fonts.$body;
+  font-size: 12px;
+  dominant-baseline: central;
+  fill: palette.$text-primary;
+  transition:
+    fill 0.2s ease,
+    filter 0.2s ease;
+
+  &.is-active {
+    fill: palette.$accent-blue;
+    filter: drop-shadow(0 0 5px rgba(palette.$accent-blue, 0.7));
+  }
+}
+
+// #endregion
+
+// #region Creación punto a punto (one-shot al revelar)
+
+@keyframes radar-fade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes radar-pop {
+  from {
+    opacity: 0;
+    transform: scale(0);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+// Dibujo del polígono: la cota (1000) cubre el perímetro del hexágono (960).
+@keyframes radar-draw {
+  from {
+    stroke-dashoffset: 1000;
+  }
+
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes radar-fill {
+  from {
+    fill-opacity: 0;
+  }
+
+  to {
+    fill-opacity: 1;
+  }
+}
+
+// Pre-reveal: todo oculto mientras la secuencia está armada y no dispara.
+.radar-chart--animated:not(.is-revealed) {
+
+  .radar-glow,
+  .radar-ring,
+  .radar-spoke,
+  .radar-poly,
+  .radar-point,
+  .radar-label {
+    opacity: 0;
+  }
+}
+
+// Al revelar: `backwards` mantiene cada elemento oculto durante su delay.
+// 1ª fase: anillos + puntos de la consultora (uno a uno) y su polígono.
+// 2ª fase: mis puntos (uno a uno) y mi polígono con glow.
+.radar-chart--animated.is-revealed {
+
+  .radar-glow,
+  .radar-ring,
+  .radar-spoke {
+    animation: radar-fade 0.6s ease backwards;
+  }
+
+  .radar-point--rival {
+    animation: radar-pop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+  }
+
+  .radar-label {
+    animation: radar-fade 0.4s ease backwards;
+  }
+
+  @for $i from 1 through 6 {
+    .radar-point--rival:nth-of-type(#{$i}) {
+      animation-delay: #{0.2 + ($i - 1) * 0.1}s;
+    }
+
+    .radar-label:nth-of-type(#{$i}) {
+      animation-delay: #{0.25 + ($i - 1) * 0.11}s;
+    }
+  }
+
+  .radar-poly--rival {
+    animation:
+      radar-draw 0.5s ease 0.85s backwards,
+      radar-fade 0.3s ease 0.85s backwards,
+      radar-fill 0.4s ease 1.15s backwards;
+  }
+
+  .radar-point--mine {
+    animation: radar-pop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+  }
+
+  @for $i from 1 through 6 {
+    .radar-point--mine:nth-of-type(#{$i}) {
+      animation-delay: #{1.1 + ($i - 1) * 0.11}s;
+    }
+  }
+
+  .radar-poly--mine {
+    animation:
+      radar-draw 0.55s ease 1.9s backwards,
+      radar-fade 0.3s ease 1.9s backwards,
+      radar-fill 0.45s ease 2.35s backwards;
+  }
+}
+
+// #endregion
+
+// #region Reduced motion
+
+@media (prefers-reduced-motion: reduce) {
+
+  // Cinturón y tirantes: el gating JS ya renderiza estático (--animated
+  // ausente); esto neutraliza cualquier resto de secuencia o delay.
+  .radar-chart--animated {
+
+    .radar-glow,
+    .radar-ring,
+    .radar-spoke,
+    .radar-poly,
+    .radar-point,
+    .radar-label {
+      animation: none !important;
+      opacity: 1 !important;
+      stroke-dashoffset: 0 !important;
+      fill-opacity: 1 !important;
+    }
+  }
+}
+
+// #endregion
+
+// #region Responsive
+
+// Tablet estrecha y móvil: solo el gráfico (los conceptos siguen visibles
+// como etiquetas de los ejes del radar).
+@media screen and (max-width: 960px) {
+
+  .radar-body {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .radar-bullets {
+    display: none;
+  }
+}
+
+// #endregion

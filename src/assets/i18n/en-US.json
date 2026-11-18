@@ -73,6 +73,31 @@
     "CODE_HINT_STATUS": "Available for projects and mentoring",
     "CHARACTER_ALT": "Nomacoda character meditating with a laptop"
   },
+  "RADAR": {
+    "TITLE_HIGHLIGHT": "Where",
+    "TITLE": " you win.",
+    "SUBTITLE": "Differentiation radar against what you would hire if I didn't exist.",
+    "LEGEND_MINE": "Me",
+    "LEGEND_RIVAL": "Big consultancy",
+    "FOOTNOTE": "* Reference values from real migration and automation projects vs. standard corporate consultancy.",
+    "CHART_ARIA": "Differentiation radar: my values versus a big consultancy's across six dimensions.",
+    "AXES": {
+      "SPECIALIZATION": "Specialization",
+      "SPEED": "Agility",
+      "RESULTS": "Results",
+      "ACCESS": "Direct Access",
+      "PRICE": "Investment",
+      "GUIDANCE": "Ongoing Support"
+    },
+    "BULLETS": {
+      "SPECIALIZATION_DESC": "They assign a junior to your project. I lead it myself, bringing over 5 years of experience.",
+      "SPEED_DESC": "They schedule you for the following week. I respond within hours.",
+      "RESULTS_DESC": "They sell you empty promises in a PowerPoint deck. I deliver actual code and tangible results.",
+      "ACCESS_DESC": "With them, you deal with account managers and intermediaries. With me, you speak directly to the person doing the work.",
+      "PRICE_DESC": "With an agency, you’re paying for office space and multiple layers of staff salaries. With me, you pay solely for the hours I spend on your project.",
+      "GUIDANCE_DESC": "They send you an automated PDF when the project ends. I review progress with you every single week."
+    }
+  },
   "SERVICES": {
     "TITLE": "in three sentences.",
     "TITLE_HIGHLIGHT": "What I do,",

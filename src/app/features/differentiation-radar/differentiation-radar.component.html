@@ -1,0 +1,131 @@
+<section class="radar" aria-labelledby="differentiation-radar-title">
+  <div class="radar-intro">
+    <h2 id="differentiation-radar-title" class="radar-title">
+      <span class="radar-title-highlight">{{ "RADAR.TITLE_HIGHLIGHT" | translate }}</span>
+      {{ "RADAR.TITLE" | translate }}
+    </h2>
+    <p class="radar-subtitle">{{ "RADAR.SUBTITLE" | translate }}</p>
+  </div>
+
+  <div class="radar-body">
+    <ul class="radar-bullets">
+      @for (axis of axes; track axis.id) {
+        <li
+          class="radar-bullet"
+          tabindex="0"
+          [class.radar-bullet--active]="hoveredAxis() === axis.id"
+          (mouseenter)="hoverAxis(axis.id)"
+          (mouseleave)="clearHover()"
+          (focus)="hoverAxis(axis.id)"
+          (blur)="clearHover()"
+        >
+          <span class="radar-bullet-dot" aria-hidden="true"></span>
+          <p class="radar-bullet-text">{{ axis.descKey | translate }}</p>
+        </li>
+      }
+    </ul>
+
+    <div class="radar-chart-card" #chartCard>
+      <div class="radar-legend">
+        <span class="radar-legend-item radar-legend-item--mine">
+          <span class="radar-legend-swatch radar-legend-swatch--mine" aria-hidden="true"></span>
+          {{ "RADAR.LEGEND_MINE" | translate }}
+        </span>
+        <span class="radar-legend-item radar-legend-item--rival">
+          <span class="radar-legend-swatch radar-legend-swatch--rival" aria-hidden="true"></span>
+          {{ "RADAR.LEGEND_RIVAL" | translate }}
+        </span>
+      </div>
+
+      <div
+        class="radar-chart"
+        [class.radar-chart--animated]="animated()"
+        [class.is-revealed]="revealed()"
+      >
+        <svg
+          class="radar-svg"
+          viewBox="0 0 640 500"
+          role="img"
+          [attr.aria-label]="'RADAR.CHART_ARIA' | translate"
+          focusable="false"
+        >
+          <!-- Glow radial decorativo tras la malla (círculo difuminado) -->
+          <circle class="radar-glow" [attr.cx]="center.x" [attr.cy]="center.y" r="165" />
+
+          <!-- Malla: anillos + radios (capa más profunda del parallax) -->
+          <g class="radar-layer" data-depth="5" #parallaxLayer>
+            @for (ring of rings; track $index) {
+              <polygon
+                class="radar-ring"
+                [class.radar-ring--outer]="$last"
+                [attr.points]="ring"
+              />
+            }
+            @for (spoke of spokes; track $index) {
+              <line
+                class="radar-spoke"
+                [attr.x1]="center.x"
+                [attr.y1]="center.y"
+                [attr.x2]="spoke.x"
+                [attr.y2]="spoke.y"
+              />
+            }
+          </g>
+
+          <!-- Serie "Consultora grande" -->
+          <g class="radar-layer" data-depth="10" #parallaxLayer>
+            <polygon
+              class="radar-poly radar-poly--rival"
+              [attr.points]="rivalPolygon"
+              [attr.stroke-dasharray]="polygonDash"
+            />
+            @for (point of rivalPoints; track point.id) {
+              <rect
+                class="radar-point radar-point--rival"
+                [class.is-active]="hoveredAxis() === point.id"
+                [attr.x]="point.x - 3"
+                [attr.y]="point.y - 3"
+                width="6"
+                height="6"
+              />
+            }
+          </g>
+
+          <!-- Serie "Yo" -->
+          <g class="radar-layer" data-depth="16" #parallaxLayer>
+            <polygon
+              class="radar-poly radar-poly--mine"
+              [attr.points]="minePolygon"
+              [attr.stroke-dasharray]="polygonDash"
+            />
+            @for (point of minePoints; track point.id) {
+              <rect
+                class="radar-point radar-point--mine"
+                [class.is-active]="hoveredAxis() === point.id"
+                [attr.x]="point.x - 4.5"
+                [attr.y]="point.y - 4.5"
+                width="9"
+                height="9"
+              />
+            }
+          </g>
+
+          <!-- Etiquetas de los ejes -->
+          <g class="radar-layer" data-depth="7" #parallaxLayer>
+            @for (label of labels; track label.id) {
+              <text
+                class="radar-label"
+                [class.is-active]="hoveredAxis() === label.id"
+                [attr.x]="label.x"
+                [attr.y]="label.y"
+                [attr.text-anchor]="label.anchor"
+              >{{ label.titleKey | translate }}</text>
+            }
+          </g>
+        </svg>
+      </div>
+
+      <p class="radar-footnote">{{ "RADAR.FOOTNOTE" | translate }}</p>
+    </div>
+  </div>
+</section>

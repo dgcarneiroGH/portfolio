@@ -73,6 +73,31 @@
     "CODE_HINT_STATUS": "Disponible para proyectos y mentoría",
     "CHARACTER_ALT": "Personaje de Nomacoda meditando con un portátil"
   },
+  "RADAR": {
+    "TITLE_HIGHLIGHT": "Dónde",
+    "TITLE": " ganas tú.",
+    "SUBTITLE": "Radar de diferenciación frente a lo que contratarías si yo no existiera.",
+    "LEGEND_MINE": "Yo",
+    "LEGEND_RIVAL": "Consultora grande",
+    "FOOTNOTE": "* Valores de referencia sobre proyectos reales de migración y automatización vs. consultoría corporativa estándar.",
+    "CHART_ARIA": "Radar de diferenciación: mis valores frente a los de una consultora grande en seis dimensiones.",
+    "AXES": {
+      "SPECIALIZATION": "Especialización",
+      "SPEED": "Agilidad",
+      "RESULTS": "Resultados",
+      "ACCESS": "Trato Directo",
+      "PRICE": "Inversión",
+      "GUIDANCE": "Seguimiento"
+    },
+    "BULLETS": {
+      "SPECIALIZATION_DESC": "Ellos te asignan a un junior. Yo me pongo al frente con +5 años de experiencia.",
+      "SPEED_DESC": "Ellos te agendan para la semana siguiente. Yo te respondo en horas.",
+      "RESULTS_DESC": "Ellos te venden humo en powerpoint. Yo te entrego código y resultados.",
+      "ACCESS_DESC": "Con ellos hablas con gestores de cuentas e intermediarios. Conmigo, hablas directamente con quien hace el trabajo.",
+      "PRICE_DESC": "Con una agencia pagas las oficinas y los sueldos de varias capas. Conmigo pagas única y exclusivamente mis horas de trabajo.",
+      "GUIDANCE_DESC": "Ellos te mandan un PDF automático al terminar. Yo reviso contigo los avances cada semana."
+    }
+  },
   "SERVICES": {
     "TITLE": "en tres frases.",
     "TITLE_HIGHLIGHT": "Qué hago,",

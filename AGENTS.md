@@ -95,3 +95,27 @@ capturas (escritorio, tablet, móvil y los breakpoints del propio componente),
 verificando como mínimo el reparto en columnas/apilado, fugas de sobreanchura,
 elementos decorativos posicionados (ocultar o escalar en móvil) y espacio
 respetado frente a vecinos (costuras del one-pager, footer fijo).
+
+## i18n — claves de traducción siempre en inglés
+
+**Regla (2026-11-18):** Las claves de `es-ES.json` / `en-US.json` se escriben
+SIEMPRE en inglés (entidad y subclaves): p. ej. `RADAR.BULLETS.SPEED_DESC`,
+nunca `RADAR.BULLETS.VELOCIDAD_TITLE`. Los valores sí se traducen en cada
+idioma. Mismo criterio para los `id` de datos en los ficheros de constants
+(`features/<feature>/constants/<feature>.constants.ts`).
+
+Referencia: radar de diferenciación — se renombraron las claves castellanas
+(`VELOCIDAD_TITLE` → `AXES.SPEED`, etc.) y sus ids de eje (2026-11-18).
+
+## Focus rings — sólo en elementos interactivos
+
+**Regla (2026-11-18):** Los anillos/bordes que marcan el foco sólo tienen
+sentido en botones, links, inputs e items clickables (todo lo accionable).
+PROHIBIDO en secciones o contenedores enteros: los focos programáticos
+(`#main-content`, `#contact-section`, con `tabindex="-1"`) no deben mostrar
+anillo visual. En `styles.scss` no usar catch-all (`*:focus-visible`) ni
+`[tabindex]` sin valor (atraparía `tabindex="-1"`); usar `[tabindex="0"]` y
+selectores por tipo interactivo.
+
+Referencia: se eliminó el outline de 3px de `#main-content` y el catch-all
+`*:focus-visible` (2026-11-18).
