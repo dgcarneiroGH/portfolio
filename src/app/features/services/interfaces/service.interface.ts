@@ -1,6 +1,6 @@
 export type ServiceIcon = 'angular' | 'n8n' | 'tutoring';
 
-export type ServiceVariant = 'red' | 'raspberry' | 'amber';
+export type ServiceVariant = 'angular' | 'n8n' | 'tutoring';
 
 export interface Service {
   icon: ServiceIcon;

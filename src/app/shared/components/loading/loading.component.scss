@@ -36,20 +36,6 @@
 .loading-spin {
   width: 70%;
   height: 70%;
-  animation: loading-rotate 2s linear infinite;
-}
-
-@keyframes loading-rotate {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .loading-spin {
-    animation: none;
-  }
+  // Keyframe `spin` global (definido en _animations.scss vía styles.scss).
+  animation: spin 2s linear infinite;
 }

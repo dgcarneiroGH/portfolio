@@ -1,9 +1,14 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { of, Subject, throwError } from 'rxjs';
+import {
+  TranslateLoader,
+  TranslateModule,
+  TranslateService
+} from '@ngx-translate/core';
+import { firstValueFrom, of, Subject, throwError } from 'rxjs';
 import { ContactInquiry } from '../../interfaces/contact-inquiry.interface';
 import { ContactService } from '../../services/contact.service';
+import { WebMigrationWizardService } from '../../../angular-service/web-migration-wizard.service';
 import { ContactFormComponent } from './contact-form.component';
 
 // Mock TranslateLoader
@@ -22,7 +27,16 @@ const mockTranslations = {
   'FORM.NAME_ERROR': 'Name is required',
   'FORM.EMAIL_ERROR': 'Invalid email format.',
   'FORM.MESSAGE_ERROR': 'Message is required',
-  'FORM.SUBMIT_LOADING': 'Sending...'
+  'FORM.SUBMIT_LOADING': 'Sending...',
+  WIZARD: {
+    DISCLAIMER: 'Non-binding offer',
+    MESSAGES: {
+      CREATE: 'CREATE_MSG',
+      MAINTENANCE: 'MAINTENANCE_MSG',
+      MIGRATE_AMOUNT: 'MIGRATE_MSG {{amount}}',
+      MIGRATE_UNKNOWN: 'MIGRATE_UNKNOWN_MSG'
+    }
+  }
 };
 
 const mockLoader = {
@@ -361,6 +375,80 @@ describe('ContactFormComponent', () => {
       const style = window.getComputedStyle(btn);
       expect(style.outlineStyle).not.toBe('solid');
       expect(style.outlineColor).not.toBe('rgb(41, 182, 246)');
+    });
+  });
+
+  describe('Mensaje preconstruido del wizard de migración', () => {
+    // Este spec no configura defaultLanguage: el idioma debe cargarse antes
+    // de que el servicio genere el mensaje con translate.instant().
+    async function prepareWizardLead(): Promise<void> {
+      const translate = TestBed.inject(TranslateService);
+      translate.setDefaultLang('en');
+      await firstValueFrom(translate.use('en'));
+
+      const wizard = TestBed.inject(WebMigrationWizardService);
+      wizard.answerWeb(true);
+      wizard.answerWordPress(true);
+      wizard.setHostingAmount(180);
+      wizard.finishHosting();
+      wizard.prepareLead();
+    }
+
+    function createFormWithLead(): ComponentFixture<ContactFormComponent> {
+      const leadFixture = TestBed.createComponent(ContactFormComponent);
+      leadFixture.detectChanges();
+      return leadFixture;
+    }
+
+    it('prellena el mensaje oculto y oculta el textarea cuando hay lead pendiente', async () => {
+      await prepareWizardLead();
+      const leadFixture = createFormWithLead();
+
+      expect(leadFixture.componentInstance.messagePrefilled()).toBeTrue();
+      expect(leadFixture.componentInstance.form.get('message')?.value).toContain(
+        'MIGRATE_MSG 180'
+      );
+      expect(leadFixture.componentInstance.form.get('message')?.value).toContain(
+        'Non-binding offer'
+      );
+      expect(
+        leadFixture.nativeElement.querySelector('#contact-message')
+      ).toBeNull();
+    });
+
+    it('muestra el textarea normal cuando no hay lead pendiente', () => {
+      expect(fixture.componentInstance.messagePrefilled()).toBeFalse();
+      expect(
+        fixture.nativeElement.querySelector('#contact-message')
+      ).not.toBeNull();
+    });
+
+    it('el lead se consume una sola vez: el siguiente formulario vuelve al estado normal', async () => {
+      await prepareWizardLead();
+      const first = createFormWithLead();
+      expect(first.componentInstance.messagePrefilled()).toBeTrue();
+
+      const second = createFormWithLead();
+      expect(second.componentInstance.messagePrefilled()).toBeFalse();
+      expect(
+        second.nativeElement.querySelector('#contact-message')
+      ).not.toBeNull();
+    });
+
+    it('envía el mensaje preconstruido al servicio aunque el textarea esté oculto', async () => {
+      await prepareWizardLead();
+      const leadFixture = createFormWithLead();
+      const component = leadFixture.componentInstance;
+      component.form.patchValue({
+        fullName: 'John Doe',
+        email: 'john@example.com'
+      });
+      component.submit();
+
+      const actualCall = contactServiceSpy.sendInquiry.calls.mostRecent()
+        .args[0] as ContactInquiry;
+      expect(actualCall.message).toContain('MIGRATE_MSG 180');
+      expect(actualCall.message).toContain('Non-binding offer');
     });
   });
 });

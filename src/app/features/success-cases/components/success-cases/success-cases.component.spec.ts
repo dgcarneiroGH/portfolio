@@ -13,7 +13,8 @@ const mockLoader = {
   getTranslation: () =>
     of({
       SUCCESS_CASES: {
-        TITLE: 'Casos de éxito',
+        TITLE: 'Casos de',
+        TITLE_HIGHLIGHT: 'éxito',
         DETAIL_TECH: 'Tecnologías',
         DETAIL_YEAR: 'Año',
         PREV_CASE: 'Caso anterior',

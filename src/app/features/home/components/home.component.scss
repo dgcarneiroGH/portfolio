@@ -1,4 +1,4 @@
-@use "/src/styles/palette" as palette;
+@use "src/styles/_palette" as palette;
 
 .home {
   min-height: 100dvh;
@@ -115,7 +115,7 @@
 .showcase {
   position: absolute;
   right: 0;
-  top: -46%;
+  top: -11vh;
 
   display: flex;
   flex-direction: column;
@@ -156,6 +156,7 @@
 }
 
 @keyframes float {
+
   0%,
   100% {
     transform: translateY(0);
@@ -169,7 +170,7 @@
 //#region Responsive
 @media screen and (max-height: 880px) {
   .showcase {
-    top: -22%;
+    top: -8vh;
   }
 }
 
@@ -187,6 +188,9 @@
 
   .home-description {
     max-width: 60ch;
+    // Caja centrada: sin esto, el párrafo (más estrecho que la columna)
+    // queda pegado a la izquierda aunque el texto esté centrado.
+    margin-inline: auto;
   }
 
   .home-cta,

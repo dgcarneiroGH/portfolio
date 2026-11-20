@@ -53,6 +53,36 @@ Excepciones documentadas: `rgba(0, 0, 0, α)` / `rgba(255, 255, 255, α)` y
 negros/blancos sólidos en sombras, glows y neutros de alto contraste; colores
 embebidos en data-URIs de patrones (`styles.scss`).
 
+## Partials de estilos compartidos — organización
+
+**Regla (2026-11-19):** Los patrones de CSS repetidos entre componentes viven
+como mixins en partials de `src/styles/`, no copiados en cada SCSS. Antes de
+escribir un bloque en un componente, buscar si ya existe como mixin y úsalo;
+solo crear un mixin nuevo si el patrón se repite en ≥3 componentes:
+
+| Partial | Mixins | Notas |
+|---|---|---|
+| `_glass.scss` | `glass-surface($bg, $blur: 12px)` (6px = barras), `inner-border($color)` | Emite SIEMPRE `-webkit-backdrop-filter`; hairline interior por outline. |
+| `_shadows.scss` | `shadow-lg / shadow-md / shadow-card / shadow-xs` | Escala de sombras del app. |
+| `_focus.scss` | `focus-ring($color)` (anillo doble), `focus-outline()` | Solo elementos interactivos (regla 2026-11-18). |
+| `_forms.scss` | `input-base(...)`, `field-group`, `error-message`, `spinner($color)`, `form-error`, `success-state/icon/title` | Añadir los `@use` que falten en cada componente. |
+| `_elements.scss` | `eyebrow($font-size, $weight, $spacing)` (sin line-height ni fuente), `pill($padding, $gap)`, `button-interactive(...)`, `button-ghost($padding)` | |
+| `_animations.scss` | Keyframes `spin`, `slide-down`, `fade-in-up` | SOLO lo incluye `styles.scss`: desde un componente se referencian por nombre, nunca `@use` (duplicaría el CSS). |
+| `_view-transitions.scss` | Reglas `::view-transition` | SOLO lo incluye `styles.scss`. |
+
+Reglas de uso:
+- Alias de importación: `@use "src/styles/_<partial>" as <alias>;` con alias
+  por nombre corto (`glass`, `shadows`, `forms`, `elements`, `focus`).
+- Los componentes NO redeclaran keyframes globales (`spin`, `slide-down`,
+  `fade-in-up`): referencian `animation: spin 0.7s linear infinite;` etc.
+- El bloque `@media (prefers-reduced-motion)` global de `styles.scss` ya
+  neutraliza las animaciones: no duplicar el bloque en componentes.
+- `@use` normalizado a `src/styles/_<partial>` (con guion bajo, sin `/`).
+
+Referencia: extracción de patrones comunes a 7 partials — glass en 15
+componentes, sombras en ~12, formularios (contact-form/reviews-form), anillos
+de foco (styles.scss/sidebar/wizard), eyebrows y píldoras (2026-11-19).
+
 ## Encapsulación de estilos — sin `::ng-deep`
 
 **Regla (2026-10-08):** Prohibido usar `::ng-deep` (tampoco `/deep/` ni `>>>`)
@@ -86,6 +116,29 @@ distinto para ese componente.
 
 Referencia: sección de servicios — se eliminó el `background: $surface-pill`
 del mock para que la sección herede el degradado por defecto (2026-11-17).
+
+**Ampliación (2026-11-19):** PROHIBIDO añadir un color de fondo a una página,
+sección o componente por iniciativa propia. Tampoco autoriza que el fondo
+aparezca en el mock o en el spec de la tarea: solo cuenta si el usuario lo
+indica específicamente para ese componente en la conversación. En caso de
+duda, heredar el fondo por defecto.
+
+Referencia: wizard de migración (`/angular`) — el spec pedía fondo `#071018`
+y se aplicó; el usuario lo retiró después, se eliminó el fondo y se endureció
+esta regla (2026-11-19).
+
+## Icono de flecha predeterminado
+
+**Regla (2026-11-19):** Al añadir una flecha de avance/CTA, usar SIEMPRE el
+icono predeterminado de la app: el SVG de `services-card-cta-icon`
+(`src/app/features/services/services.component.html`) — viewBox `0 0 16 16`,
+path `M1.5 8h11.3M8.2 3.5 12.7 8l-4.5 4.5`, stroke `1.8`, extremos y uniones
+redondeadas. Copiar el markup inline con una clase local del componente
+(encapsulación), nunca referenciar clases de otro componente. Los diseños
+que pase el usuario priorizan siempre sobre este icono por defecto.
+
+Referencia: wizard de migración (`/angular`) — sus flechas de opciones y CTAs
+se unificaron con esta geometría (2026-11-19).
 
 ## Revisión responsive obligatoria
 

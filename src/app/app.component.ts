@@ -83,6 +83,13 @@ export class AppComponent {
       filter((e): e is NavigationEnd => e instanceof NavigationEnd)
     ).subscribe((e) => {
       const url = e.urlAfterRedirects;
+
+      // Tema de servicio: la ruta pide al shell una línea de color propia
+      // (p. ej. /angular → familia $angular-*). La clase en <html> activa
+      // las custom properties definidas en styles.scss.
+      const theme = this._router.routerState.snapshot.root.firstChild?.data['theme'] as string | undefined;
+      document.documentElement.classList.toggle('theme-angular', theme === 'angular');
+
       const isOnePager = this._sectionsNav.sectionFromUrl(url) !== null;
 
       // Destinos fuera del one-pager (blog, 404): el scroll de la página

@@ -1,5 +1,7 @@
 @use "src/styles/_palette" as palette;
 @use "src/styles/_fonts" as fonts;
+@use "src/styles/_glass" as glass;
+@use "src/styles/_shadows" as shadows;
 
 :host {
   display: block;
@@ -12,15 +14,10 @@
   gap: 1rem;
   height: 100%;
   padding: 1.5rem;
-  background: rgba(palette.$surface-card, 0.8);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  @include glass.glass-surface(rgba(palette.$surface-card, 0.8));
   border-radius: 2rem;
-  outline: 1px solid rgba(palette.$text-primary, 0.12);
-  outline-offset: -1px;
-  box-shadow:
-    0 2px 4px -2px rgba(0, 0, 0, 0.1),
-    0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  @include glass.inner-border;
+  @include shadows.shadow-md;
 }
 
 .card-header {

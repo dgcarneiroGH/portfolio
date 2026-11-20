@@ -1,0 +1,846 @@
+<!--
+  Wizard de migración web (ruta /angular). La raíz <section> hereda los estilos
+  globales de styles.scss y mantiene el fondo por defecto de la app (regla
+  AGENTS 2026-11-19: sin fondos propios).
+
+  A11y: el cambio de paso mueve el foco al <h2> del nuevo paso (tabindex="-1",
+  sin anillo visual: los anillos de foco solo para elementos interactivos,
+  regla AGENTS 2026-11-18). Los iconos son decorativos (aria-hidden). Los
+  anillos de foco de los controles se gestionan vía :focus-visible.
+-->
+<section class="wizard" aria-labelledby="wizard-title">
+  <header class="wizard-intro">
+    <h1 id="wizard-title" class="wizard-title">
+      {{ "WIZARD.TITLE" | translate }}
+      <span class="wizard-title-highlight">{{ "WIZARD.TITLE_HIGHLIGHT" | translate }}</span>
+    </h1>
+    <p class="wizard-intro__subtitle">{{ "WIZARD.SUBTITLE" | translate }}</p>
+  </header>
+
+  <div class="wizard-card">
+
+    <div class="wizard-views">
+      @switch (wizard.step()) {
+        @case (0) {
+          <div class="wizard-view">
+            <p class="wizard-view__eyebrow">
+              {{ "WIZARD.STEP_COUNTER" | translate: counterFor(0) }}
+            </p>
+            <h2 class="wizard-view__title" data-wizard-heading tabindex="-1">
+              {{ "WIZARD.WEB.TITLE" | translate }}
+            </h2>
+            <p class="wizard-view__description">
+              {{ "WIZARD.WEB.DESCRIPTION" | translate }}
+            </p>
+
+            <div
+              class="wizard-options"
+              role="group"
+              [attr.aria-label]="'WIZARD.WEB.TITLE' | translate"
+            >
+              <button
+                type="button"
+                class="wizard-option"
+                [attr.aria-pressed]="
+                  wizard.answers().hasWeb === null
+                    ? null
+                    : wizard.answers().hasWeb
+                "
+                (click)="wizard.answerWeb(true)"
+              >
+                <span class="wizard-option__text">
+                  <span class="wizard-option__title">
+                    {{ "WIZARD.WEB.YES" | translate }}
+                  </span>
+                  <span class="wizard-option__desc">
+                    {{ "WIZARD.WEB.YES_DESC" | translate }}
+                  </span>
+                </span>
+                <!-- Icono de flecha predeterminado de la app (services-card-cta-icon). -->
+                <svg
+                  class="wizard-option__arrow"
+                  viewBox="0 0 16 16"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                  focusable="false"
+                >
+                  <path
+                    d="M1.5 8h11.3M8.2 3.5 12.7 8l-4.5 4.5"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </button>
+
+              <button
+                type="button"
+                class="wizard-option"
+                [attr.aria-pressed]="
+                  wizard.answers().hasWeb === null
+                    ? null
+                    : !wizard.answers().hasWeb
+                "
+                (click)="wizard.answerWeb(false)"
+              >
+                <span class="wizard-option__text">
+                  <span class="wizard-option__title">
+                    {{ "WIZARD.WEB.NO" | translate }}
+                  </span>
+                  <span class="wizard-option__desc">
+                    {{ "WIZARD.WEB.NO_DESC" | translate }}
+                  </span>
+                </span>
+                <!-- Icono de flecha predeterminado de la app (services-card-cta-icon). -->
+                <svg
+                  class="wizard-option__arrow"
+                  viewBox="0 0 16 16"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                  focusable="false"
+                >
+                  <path
+                    d="M1.5 8h11.3M8.2 3.5 12.7 8l-4.5 4.5"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        }
+        @case (1) {
+          <div class="wizard-view">
+            <p class="wizard-view__eyebrow">
+              {{ "WIZARD.STEP_COUNTER" | translate: counterFor(1) }}
+            </p>
+            <h2 class="wizard-view__title" data-wizard-heading tabindex="-1">
+              {{ "WIZARD.WORDPRESS.TITLE" | translate }}
+            </h2>
+
+            <div
+              class="wizard-options"
+              role="group"
+              [attr.aria-label]="'WIZARD.WORDPRESS.TITLE' | translate"
+            >
+              <button
+                type="button"
+                class="wizard-option"
+                [attr.aria-pressed]="
+                  wizard.answers().usesWordPressLike === null
+                    ? null
+                    : wizard.answers().usesWordPressLike
+                "
+                (click)="wizard.answerWordPress(true)"
+              >
+                <span class="wizard-option__text">
+                  <span class="wizard-option__title">
+                    {{ "WIZARD.WORDPRESS.YES" | translate }}
+                  </span>
+                  <span class="wizard-option__desc">
+                    {{ "WIZARD.WORDPRESS.YES_DESC" | translate }}
+                  </span>
+                </span>
+                <!-- Icono de flecha predeterminado de la app (services-card-cta-icon). -->
+                <svg
+                  class="wizard-option__arrow"
+                  viewBox="0 0 16 16"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                  focusable="false"
+                >
+                  <path
+                    d="M1.5 8h11.3M8.2 3.5 12.7 8l-4.5 4.5"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </button>
+
+              <button
+                type="button"
+                class="wizard-option"
+                [attr.aria-pressed]="
+                  wizard.answers().usesWordPressLike === null
+                    ? null
+                    : !wizard.answers().usesWordPressLike
+                "
+                (click)="wizard.answerWordPress(false)"
+              >
+                <span class="wizard-option__text">
+                  <span class="wizard-option__title">
+                    {{ "WIZARD.WORDPRESS.NO" | translate }}
+                  </span>
+                  <span class="wizard-option__desc">
+                    {{ "WIZARD.WORDPRESS.NO_DESC" | translate }}
+                  </span>
+                </span>
+                <!-- Icono de flecha predeterminado de la app (services-card-cta-icon). -->
+                <svg
+                  class="wizard-option__arrow"
+                  viewBox="0 0 16 16"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                  focusable="false"
+                >
+                  <path
+                    d="M1.5 8h11.3M8.2 3.5 12.7 8l-4.5 4.5"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </button>
+            </div>
+
+            <div class="wizard-view__footer">
+              <button type="button" class="wizard-back" (click)="wizard.back()">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                  focusable="false"
+                >
+                  <line x1="19" y1="12" x2="5" y2="12" />
+                  <polyline points="12 19 5 12 12 5" />
+                </svg>
+                <span>{{ "WIZARD.BACK" | translate }}</span>
+              </button>
+            </div>
+          </div>
+        }
+        @case (2) {
+          <div class="wizard-view">
+            <p class="wizard-view__eyebrow">
+              {{ "WIZARD.STEP_COUNTER" | translate: counterFor(2) }}
+            </p>
+            <h2 class="wizard-view__title" data-wizard-heading tabindex="-1">
+              {{ "WIZARD.HOSTING.TITLE" | translate }}
+            </h2>
+            <p class="wizard-view__description">
+              {{ "WIZARD.HOSTING.DESCRIPTION" | translate }}
+            </p>
+
+            <div class="wizard-hosting">
+              <div class="wizard-hosting__field">
+                <label class="sr-only" for="wizard-hosting-amount">
+                  {{ "WIZARD.HOSTING.AMOUNT_LABEL" | translate }}
+                </label>
+                <input
+                  id="wizard-hosting-amount"
+                  class="wizard-hosting__input"
+                  type="text"
+                  inputmode="numeric"
+                  pattern="[0-9]*"
+                  [value]="wizard.answers().hostingAmount ?? ''"
+                  [disabled]="wizard.answers().hostingKnown === false"
+                  [placeholder]="'WIZARD.HOSTING.AMOUNT_PLACEHOLDER' | translate"
+                  (input)="onHostingAmountInput($event)"
+                />
+                <span class="wizard-hosting__suffix" aria-hidden="true">
+                  {{ "WIZARD.HOSTING.AMOUNT_SUFFIX" | translate }}
+                </span>
+              </div>
+
+              <label class="wizard-hosting__unknown" for="wizard-hosting-unknown">
+                <input
+                  id="wizard-hosting-unknown"
+                  class="sr-only"
+                  type="checkbox"
+                  [checked]="wizard.answers().hostingKnown === false"
+                  (change)="onHostingUnknownChange($event)"
+                />
+                <span class="wizard-hosting__box" aria-hidden="true">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="3"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                    focusable="false"
+                  >
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                </span>
+                <span>{{ "WIZARD.HOSTING.UNKNOWN" | translate }}</span>
+              </label>
+            </div>
+
+            <div class="wizard-view__footer wizard-view__footer--split">
+              <button type="button" class="wizard-back" (click)="wizard.back()">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                  focusable="false"
+                >
+                  <line x1="19" y1="12" x2="5" y2="12" />
+                  <polyline points="12 19 5 12 12 5" />
+                </svg>
+                <span>{{ "WIZARD.BACK" | translate }}</span>
+              </button>
+
+              <button
+                type="button"
+                class="wizard-cta-primary"
+                (click)="wizard.finishHosting()"
+              >
+                <span>{{ "WIZARD.HOSTING.CTA" | translate }}</span>
+                <!-- Icono de flecha predeterminado de la app (services-card-cta-icon). -->
+                <svg
+                  viewBox="0 0 16 16"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                  focusable="false"
+                >
+                  <path
+                    d="M1.5 8h11.3M8.2 3.5 12.7 8l-4.5 4.5"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        }
+        @case ('result') {
+          @switch (wizard.result()) {
+            @case ('MIGRATE') {
+              <article class="wizard-view wizard-result wizard-result--migrate">
+                <header class="wizard-result__head">
+                  <p class="wizard-result__pill wizard-result__pill--migrate">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <line x1="18" y1="20" x2="18" y2="10" />
+                      <line x1="12" y1="20" x2="12" y2="4" />
+                      <line x1="6" y1="20" x2="6" y2="14" />
+                    </svg>
+                    <span>{{ "WIZARD.RESULT_MIGRATE.PILL" | translate }}</span>
+                  </p>
+                  <h2 class="wizard-view__title" data-wizard-heading tabindex="-1">
+                    {{ "WIZARD.RESULT_MIGRATE.TITLE" | translate }}
+                  </h2>
+                </header>
+
+                <div
+                  class="wizard-notice"
+                  [attr.aria-label]="'WIZARD.RESULT_MIGRATE.BAD_LABEL' | translate"
+                >
+                  <span class="wizard-notice__icon wizard-notice__icon--warn">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path
+                        d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"
+                      />
+                      <line x1="12" y1="9" x2="12" y2="13" />
+                      <line x1="12" y1="17" x2="12.01" y2="17" />
+                    </svg>
+                  </span>
+                  <div class="wizard-notice__body">
+                    <p class="wizard-notice__label">
+                      {{ "WIZARD.RESULT_MIGRATE.BAD_LABEL" | translate }}
+                    </p>
+                    @if (hasHostingAmount()) {
+                      <p
+                        class="wizard-notice__text wizard-result__bad-text"
+                        [innerHTML]="
+                          'WIZARD.RESULT_MIGRATE.BAD_TEXT_AMOUNT'
+                            | translate: { amount: wizard.answers().hostingAmount }
+                        "
+                      ></p>
+                    } @else {
+                      <p class="wizard-notice__text wizard-result__bad-text">
+                        {{ "WIZARD.RESULT_MIGRATE.BAD_TEXT" | translate }}
+                      </p>
+                    }
+                  </div>
+                </div>
+
+                <div class="wizard-notice wizard-notice--good">
+                  <span class="wizard-notice__icon wizard-notice__icon--good">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                  </span>
+                  <div class="wizard-notice__body">
+                    <p class="wizard-notice__label wizard-notice__label--good">
+                      {{ "WIZARD.RESULT_MIGRATE.GOOD_LABEL" | translate }}
+                    </p>
+                    <p class="wizard-notice__text wizard-notice__text--good">
+                      {{ "WIZARD.RESULT_MIGRATE.GOOD_TEXT" | translate }}
+                    </p>
+                  </div>
+                </div>
+
+                <div class="wizard-bullets">
+                  <p class="wizard-bullets__label">
+                    {{ "WIZARD.RESULT_MIGRATE.WORK_LABEL" | translate }}
+                  </p>
+                  <ul class="wizard-bullets__list">
+                    <li>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                        focusable="false"
+                      >
+                        <path d="M22 11.08V12a10 10 0 11-5.93-9.14" />
+                        <polyline points="22 4 12 14.01 9 11.01" />
+                      </svg>
+                      <span>{{ "WIZARD.RESULT_MIGRATE.BULLET_1" | translate }}</span>
+                    </li>
+                    <li>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                        focusable="false"
+                      >
+                        <path d="M22 11.08V12a10 10 0 11-5.93-9.14" />
+                        <polyline points="22 4 12 14.01 9 11.01" />
+                      </svg>
+                      <span>{{ "WIZARD.RESULT_MIGRATE.BULLET_2" | translate }}</span>
+                    </li>
+                    <li>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                        focusable="false"
+                      >
+                        <path d="M22 11.08V12a10 10 0 11-5.93-9.14" />
+                        <polyline points="22 4 12 14.01 9 11.01" />
+                      </svg>
+                      <span>{{ "WIZARD.RESULT_MIGRATE.BULLET_3" | translate }}</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <div class="wizard-result__ctas">
+                  <button
+                    type="button"
+                    class="wizard-cta-primary"
+                    (click)="goContact()"
+                  >
+                    <span>{{ "WIZARD.RESULT_MIGRATE.CTA" | translate }}</span>
+                    <svg
+                      viewBox="0 0 16 16"
+                      xmlns="http://www.w3.org/2000/svg"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path
+                        d="M1.5 8h11.3M8.2 3.5 12.7 8l-4.5 4.5"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </button>
+                  <button
+                    type="button"
+                    class="wizard-repeat"
+                    (click)="wizard.reset()"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <polyline points="1 4 1 10 7 10" />
+                      <path d="M3.51 15a9 9 0 102.13-9.36L1 10" />
+                    </svg>
+                    <span>{{ "WIZARD.REPEAT" | translate }}</span>
+                  </button>
+                </div>
+
+                <p class="wizard-disclaimer">
+                  {{ "WIZARD.DISCLAIMER" | translate }}
+                </p>
+              </article>
+            }
+            @case ('MAINTENANCE') {
+              <article
+                class="wizard-view wizard-result wizard-result--maintenance"
+              >
+                <header class="wizard-result__head">
+                  <p
+                    class="wizard-result__pill wizard-result__pill--maintenance"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path
+                        d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"
+                      />
+                    </svg>
+                    <span>
+                      {{ "WIZARD.RESULT_MAINTENANCE.PILL" | translate }}
+                    </span>
+                  </p>
+                  <h2 class="wizard-view__title" data-wizard-heading tabindex="-1">
+                    {{ "WIZARD.RESULT_MAINTENANCE.TITLE" | translate }}
+                  </h2>
+                  <p class="wizard-result__subtitle">
+                    {{ "WIZARD.RESULT_MAINTENANCE.SUBTITLE" | translate }}
+                  </p>
+                </header>
+
+                <div class="wizard-notice">
+                  <div class="wizard-notice__body">
+                    <p class="wizard-bullets__label">
+                      {{ "WIZARD.RESULT_MAINTENANCE.PLAN_LABEL" | translate }}
+                    </p>
+                    <ul class="wizard-bullets__list wizard-bullets__list--flush">
+                      <li>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          aria-hidden="true"
+                          focusable="false"
+                        >
+                          <path d="M22 11.08V12a10 10 0 11-5.93-9.14" />
+                          <polyline points="22 4 12 14.01 9 11.01" />
+                        </svg>
+                        <span>
+                          {{ "WIZARD.RESULT_MAINTENANCE.BULLET_1" | translate }}
+                        </span>
+                      </li>
+                      <li>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          aria-hidden="true"
+                          focusable="false"
+                        >
+                          <path d="M22 11.08V12a10 10 0 11-5.93-9.14" />
+                          <polyline points="22 4 12 14.01 9 11.01" />
+                        </svg>
+                        <span>
+                          {{ "WIZARD.RESULT_MAINTENANCE.BULLET_2" | translate }}
+                        </span>
+                      </li>
+                      <li>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          aria-hidden="true"
+                          focusable="false"
+                        >
+                          <path d="M22 11.08V12a10 10 0 11-5.93-9.14" />
+                          <polyline points="22 4 12 14.01 9 11.01" />
+                        </svg>
+                        <span>
+                          {{ "WIZARD.RESULT_MAINTENANCE.BULLET_3" | translate }}
+                        </span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="wizard-result__ctas">
+                  <button
+                    type="button"
+                    class="wizard-cta-primary"
+                    (click)="goContact()"
+                  >
+                    <span>
+                      {{ "WIZARD.RESULT_MAINTENANCE.CTA" | translate }}
+                    </span>
+                    <svg
+                      viewBox="0 0 16 16"
+                      xmlns="http://www.w3.org/2000/svg"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path
+                        d="M1.5 8h11.3M8.2 3.5 12.7 8l-4.5 4.5"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </button>
+                  <button
+                    type="button"
+                    class="wizard-repeat"
+                    (click)="wizard.reset()"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <polyline points="1 4 1 10 7 10" />
+                      <path d="M3.51 15a9 9 0 102.13-9.36L1 10" />
+                    </svg>
+                    <span>{{ "WIZARD.REPEAT" | translate }}</span>
+                  </button>
+                </div>
+
+                <p class="wizard-disclaimer">
+                  {{ "WIZARD.DISCLAIMER" | translate }}
+                </p>
+              </article>
+            }
+            @case ('CREATE_NEW') {
+              <article class="wizard-view wizard-result wizard-result--create">
+                <header class="wizard-result__head">
+                  <p class="wizard-result__pill wizard-result__pill--create">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <circle cx="12" cy="12" r="10" />
+                      <line x1="12" y1="8" x2="12" y2="16" />
+                      <line x1="8" y1="12" x2="16" y2="12" />
+                    </svg>
+                    <span>{{ "WIZARD.RESULT_CREATE.PILL" | translate }}</span>
+                  </p>
+                  <h2 class="wizard-view__title" data-wizard-heading tabindex="-1">
+                    {{ "WIZARD.RESULT_CREATE.TITLE" | translate }}
+                  </h2>
+                  <p class="wizard-result__subtitle">
+                    {{ "WIZARD.RESULT_CREATE.SUBTITLE" | translate }}
+                  </p>
+                </header>
+
+                <div class="wizard-notice">
+                  <div class="wizard-notice__body">
+                    <p class="wizard-bullets__label">
+                      {{ "WIZARD.RESULT_CREATE.FOUNDATIONS_LABEL" | translate }}
+                    </p>
+                    <ul class="wizard-bullets__list wizard-bullets__list--flush">
+                      <li>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          aria-hidden="true"
+                          focusable="false"
+                        >
+                          <path d="M22 11.08V12a10 10 0 11-5.93-9.14" />
+                          <polyline points="22 4 12 14.01 9 11.01" />
+                        </svg>
+                        <span>
+                          {{ "WIZARD.RESULT_CREATE.BULLET_1" | translate }}
+                        </span>
+                      </li>
+                      <li>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          aria-hidden="true"
+                          focusable="false"
+                        >
+                          <path d="M22 11.08V12a10 10 0 11-5.93-9.14" />
+                          <polyline points="22 4 12 14.01 9 11.01" />
+                        </svg>
+                        <span>
+                          {{ "WIZARD.RESULT_CREATE.BULLET_2" | translate }}
+                        </span>
+                      </li>
+                      <li>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          aria-hidden="true"
+                          focusable="false"
+                        >
+                          <path d="M22 11.08V12a10 10 0 11-5.93-9.14" />
+                          <polyline points="22 4 12 14.01 9 11.01" />
+                        </svg>
+                        <span>
+                          {{ "WIZARD.RESULT_CREATE.BULLET_3" | translate }}
+                        </span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="wizard-result__ctas">
+                  <button
+                    type="button"
+                    class="wizard-cta-primary"
+                    (click)="goContact()"
+                  >
+                    <span>{{ "WIZARD.RESULT_CREATE.CTA" | translate }}</span>
+                    <svg
+                      viewBox="0 0 16 16"
+                      xmlns="http://www.w3.org/2000/svg"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <path
+                        d="M1.5 8h11.3M8.2 3.5 12.7 8l-4.5 4.5"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </button>
+                  <button
+                    type="button"
+                    class="wizard-repeat"
+                    (click)="wizard.reset()"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                      focusable="false"
+                    >
+                      <polyline points="1 4 1 10 7 10" />
+                      <path d="M3.51 15a9 9 0 102.13-9.36L1 10" />
+                    </svg>
+                    <span>{{ "WIZARD.REPEAT" | translate }}</span>
+                  </button>
+                </div>
+
+                <p class="wizard-disclaimer">
+                  {{ "WIZARD.DISCLAIMER" | translate }}
+                </p>
+              </article>
+            }
+          }
+        }
+      }
+    </div>
+  </div>
+</section>

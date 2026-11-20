@@ -1,5 +1,7 @@
-@use "/src/styles/palette" as palette;
-@use "/src/styles/fonts" as fonts;
+@use "src/styles/_palette" as palette;
+@use "src/styles/_fonts" as fonts;
+@use "src/styles/_glass" as glass;
+@use "src/styles/_shadows" as shadows;
 
 .header {
   padding: 8px 24px 8px 64px;
@@ -12,10 +14,8 @@
   align-items: center;
   justify-content: space-between;
   padding: 16px 48px;
-  background: rgba(palette.$azure-deep, 0.7);
-  border-bottom: 1px solid rgba(palette.$azure-border, 0.4);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  @include glass.glass-surface(var(--header-glass, rgba(palette.$azure-deep, 0.7)), 6px);
+  border-bottom: 1px solid var(--header-border, rgba(palette.$azure-border, 0.4));
 }
 
 // #region Brand
@@ -36,13 +36,13 @@
 
   &:hover .brand-logo {
     box-shadow:
-      0 4px 6px -4px rgba(palette.$accent-cyan, 0.2),
-      0 10px 15px -3px rgba(palette.$accent-cyan, 0.2),
+      0 4px 6px -4px rgba(var(--header-glow-rgb, 41, 182, 246), 0.2),
+      0 10px 15px -3px rgba(var(--header-glow-rgb, 41, 182, 246), 0.2),
       0 0 12px rgba(palette.$accent-yellow, 0.45);
   }
 
   &:focus-visible {
-    outline: 2px solid palette.$focus-blue;
+    outline: 2px solid var(--header-focus, palette.$focus-blue);
     outline-offset: 2px;
   }
 }
@@ -54,12 +54,12 @@
   padding: 1.5px;
   background: linear-gradient(135deg,
       palette.$green-soft 0%,
-      palette.$accent-sky 50%,
+      var(--header-logo-mid, palette.$accent-sky) 50%,
       palette.$background-gradient-end 100%);
   border-radius: 12px;
   box-shadow:
-    0 4px 6px -4px rgba(palette.$accent-cyan, 0.2),
-    0 10px 15px -3px rgba(palette.$accent-cyan, 0.2);
+    0 4px 6px -4px rgba(var(--header-glow-rgb, 41, 182, 246), 0.2),
+    0 10px 15px -3px rgba(var(--header-glow-rgb, 41, 182, 246), 0.2);
   display: flex;
 }
 
@@ -123,7 +123,7 @@
   }
 
   .nav-index {
-    color: palette.$accent-blue;
+    color: var(--header-index, palette.$accent-blue);
     font-family: fonts.$mono;
     font-size: 11px;
     font-weight: 600;
@@ -174,8 +174,7 @@
   background: rgba(palette.$surface-pill, 0.8);
   box-shadow: 0 2px 4px 1px rgba(0, 0, 0, 0.05) inset;
   border-radius: 9999px;
-  outline: 1px solid rgba(palette.$green-soft, 0.25);
-  outline-offset: -1px;
+  @include glass.inner-border(rgba(palette.$green-soft, 0.25));
   text-decoration: none;
   cursor: pointer;
   transition:
@@ -183,7 +182,7 @@
     outline-color 0.2s ease;
 
   &:hover {
-    background: rgba(palette.$azure-border, 0.45);
+    background: var(--header-pill-hover, rgba(palette.$azure-border, 0.45));
   }
 
   &.status-pill--unavailable {
@@ -225,21 +224,20 @@
   gap: 8px;
   padding: 6px 12px;
   background: palette.$surface-pill;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  @include shadows.shadow-xs;
   border-radius: 9999px;
-  outline: 1px solid rgba(palette.$green-soft, 0.3);
-  outline-offset: -1px;
+  @include glass.inner-border(rgba(palette.$green-soft, 0.3));
   transition:
     background 0.2s ease,
     outline-color 0.2s ease,
     box-shadow 0.2s ease;
 
   &:hover {
-    background: rgba(palette.$azure-border, 0.45);
+    background: var(--header-pill-hover, rgba(palette.$azure-border, 0.45));
   }
 
   &:has(.container-header.active) {
-    background: rgba(palette.$azure-border, 0.6);
+    background: var(--header-pill-active, rgba(palette.$azure-border, 0.6));
     outline-color: rgba(palette.$green-soft, 0.55);
     box-shadow:
       0 1px 2px rgba(0, 0, 0, 0.05),

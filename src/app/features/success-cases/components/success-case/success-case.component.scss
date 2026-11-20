@@ -1,5 +1,7 @@
 @use "src/styles/_palette" as palette;
 @use "src/styles/_fonts" as fonts;
+@use "src/styles/_glass" as glass;
+@use "src/styles/_shadows" as shadows;
 
 .success-case {
   display: flex;
@@ -9,15 +11,10 @@
   width: 100%;
   max-width: 60rem;
   padding: 2rem;
-  background: rgba(palette.$azure-deep, 0.7);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  @include glass.glass-surface(rgba(palette.$azure-deep, 0.7));
   border-radius: 1rem;
-  outline: 1px solid rgba(255, 255, 255, 0.05);
-  outline-offset: -1px;
-  box-shadow:
-    0 8px 10px -6px rgba(0, 0, 0, 0.1),
-    0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  @include glass.inner-border(rgba(255, 255, 255, 0.05));
+  @include shadows.shadow-card;
 }
 
 .case-cover {
@@ -27,11 +24,8 @@
   padding: 0.75rem;
   border-radius: 0.75rem;
   overflow: hidden;
-  outline: 1px solid rgba(255, 255, 255, 0.1);
-  outline-offset: -1px;
-  box-shadow:
-    0 2px 4px -2px rgba(0, 0, 0, 0.1),
-    0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  @include glass.inner-border(rgba(255, 255, 255, 0.1));
+  @include shadows.shadow-md;
   background: var(--dynamic-gradient,
       linear-gradient(135deg,
         palette.$background-gradient-start 0%,

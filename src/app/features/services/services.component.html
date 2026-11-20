@@ -16,9 +16,9 @@
     @for (service of services; track service.titleKey) {
       <li
         class="services-card"
-        [class.services-card--red]="service.variant === 'red'"
-        [class.services-card--raspberry]="service.variant === 'raspberry'"
-        [class.services-card--amber]="service.variant === 'amber'"
+        [class.services-card--angular]="service.variant === 'angular'"
+        [class.services-card--n8n]="service.variant === 'n8n'"
+        [class.services-card--tutoring]="service.variant === 'tutoring'"
       >
         <span class="services-card-icon" aria-hidden="true">
           @switch (service.icon) {

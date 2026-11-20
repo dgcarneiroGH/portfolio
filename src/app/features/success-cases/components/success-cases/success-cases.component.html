@@ -1,13 +1,14 @@
 <section class="success-cases" aria-labelledby="success-cases-title">
-  <h2 class="sr-only" id="success-cases-title">
+  <h2 class="success-cases-title" id="success-cases-title">
     {{ 'SUCCESS_CASES.TITLE' | translate }}
+    <span class="success-cases-title-highlight">{{ 'SUCCESS_CASES.TITLE_HIGHLIGHT' | translate }}</span>
   </h2>
 
   <div
     class="carousel"
     role="group"
     aria-roledescription="carousel"
-    [attr.aria-label]="'SUCCESS_CASES.TITLE' | translate"
+    aria-labelledby="success-cases-title"
     (keydown.arrowleft)="prev()"
     (keydown.arrowright)="next()"
   >

@@ -196,7 +196,8 @@
     "SOLUTION_LABEL": "La solución",
     "SOLUTION_LALIGA": "<span lang=\"en\">CRM</span> y portal web para la gestión de datos comerciales y análisis del estado actual del paquete de fútbol contratado de negocios subscritos. Incluye visualización dinámica de métricas clave y segmentación de clientes.",
     "SOLUTION_PORTAL_CONVOCATORIAS": "Aplicación web que funciona como biblioteca de ayudas y convocatorias españolas generada de forma automática.",
-    "TITLE": "Casos de éxito",
+    "TITLE": "Casos de",
+    "TITLE_HIGHLIGHT": "éxito",
     "VIEW_PROJECT": "Ver proyecto {{name}}"
   },
   "CONTACT": {
@@ -270,6 +271,79 @@
     "TITLE": "¡Vaya! Parece que esa ruta no existe",
     "BODY": "Ha habido un pequeño desvío en el sendero. El artículo que buscas no se encuentra, pero no te preocupes, perder el rumbo es parte de la aventura.",
     "IMAGE_ALT": "Personaje confundido indicando que la página solicitada no fue encontrada"
+  },
+  "WIZARD": {
+    "TITLE": "¿Tu negocio necesita",
+    "TITLE_HIGHLIGHT": "Angular?",
+    "SUBTITLE": "Responde 3 preguntas en menos de 1 minuto para ver qué solución técnica se ajusta de forma óptima a tu infraestructura actual.",
+    "STEP_COUNTER": "Paso {{current}} / 03",
+    "WEB": {
+      "TITLE": "¿Tu negocio tiene página web?",
+      "DESCRIPTION": "Analicemos tu presencia digital actual para definir la mejor estrategia técnica y de rendimiento.",
+      "YES": "Sí",
+      "YES_DESC": "Tengo un sitio web activo",
+      "NO": "No",
+      "NO_DESC": "Aún no tengo página"
+    },
+    "WORDPRESS": {
+      "TITLE": "¿La creaste con WordPress o un CMS similar?",
+      "YES": "Sí",
+      "YES_DESC": "Uso un CMS tradicional",
+      "NO": "No",
+      "NO_DESC": "Desarrollo a medida / otro"
+    },
+    "HOSTING": {
+      "TITLE": "¿Sabes cuánto pagas al año por el hosting?",
+      "DESCRIPTION": "Incluye servidores compartidos, renovaciones automáticas, licencias o mantenimiento de base de datos.",
+      "AMOUNT_LABEL": "Coste anual del hosting en euros",
+      "AMOUNT_PLACEHOLDER": "180",
+      "AMOUNT_SUFFIX": "€/año",
+      "UNKNOWN": "No lo sé exactamente",
+      "CTA": "Ver diagnóstico"
+    },
+    "BACK": "Atrás",
+    "REPEAT": "Repetir test",
+    "DISCLAIMER": "Oferta no vinculante: primero analizo tu caso y te paso presupuesto.",
+    "RESULT_MIGRATE": {
+      "PILL": "Diagnóstico técnico · Migración recomendada",
+      "TITLE": "Tu web pide independencia técnica",
+      "BAD_LABEL": "El coste oculto actual",
+      "BAD_TEXT": "Estás pagando de más por algo que puede costarte casi nada. Y si no mantienes tu entorno al día, tu web es una puerta abierta.",
+      "BAD_TEXT_AMOUNT": "Pagas <strong>{{amount}} € al año</strong> por algo que puede costarte casi nada. Y si no mantienes tu entorno al día, tu web es una puerta abierta.",
+      "GOOD_LABEL": "Solución Angular + Sanity.io",
+      "GOOD_TEXT": "Migrando a Angular + Sanity.io: hosting gratis el primer año, tú solo pagas el dominio (~12 €/año). Sin plugins de terceros, rendimiento y SEO reales, y tu propio panel de administración.",
+      "WORK_LABEL": "Qué hago exactamente:",
+      "BULLET_1": "Migración sin perder contenido ni SEO.",
+      "BULLET_2": "Contenido editable desde Sanity, sin tocar código.",
+      "BULLET_3": "Documentación incluida, sin cajas negras.",
+      "CTA": "Quiero saber cuánto me costaría"
+    },
+    "RESULT_MAINTENANCE": {
+      "PILL": "Estado · Arquitectura no WordPress",
+      "TITLE": "Tu web no está en WordPress.",
+      "SUBTITLE": "No necesita migración: necesita mantenimiento.",
+      "PLAN_LABEL": "Plan de preservación y evolución técnica:",
+      "BULLET_1": "Actualizaciones de seguridad aplicadas y verificadas.",
+      "BULLET_2": "Copias de seguridad comprobadas, no cruzadas de brazos.",
+      "BULLET_3": "Cambios pequeños sin abrir un ticket.",
+      "CTA": "Cuéntame cuántas horas necesitas"
+    },
+    "RESULT_CREATE": {
+      "PILL": "Estado · Nuevo desarrollo",
+      "TITLE": "No tienes web.",
+      "SUBTITLE": "La crearé contigo desde cero: Angular + Sanity.io, rápida, sin plugins y editable por ti.",
+      "FOUNDATIONS_LABEL": "Fundamentos de tu nuevo proyecto:",
+      "BULLET_1": "Arquitectura pensada para tu negocio, no para una plantilla.",
+      "BULLET_2": "Contenido que tú mismo gestionas desde Sanity.",
+      "BULLET_3": "Rendimiento y SEO desde el primer día.",
+      "CTA": "Quiero que la hagamos"
+    },
+    "MESSAGES": {
+      "CREATE": "Hola Nomacoda, actualmente no tengo página web y me gustaría crearla desde cero utilizando Angular y Sanity.io.",
+      "MAINTENANCE": "Hola Nomacoda, tengo un sitio web desarrollado a medida o fuera de WordPress y requiero servicio de mantenimiento continuo y seguridad.",
+      "MIGRATE_AMOUNT": "Hola Nomacoda, he realizado el test de migración.\nActualmente tengo web en WordPress/similar y pago aproximadamente {{amount}} €/año.\nMe gustaría saber el presupuesto exacto para migrar a Angular + Sanity.io.",
+      "MIGRATE_UNKNOWN": "Hola Nomacoda, he realizado el test de migración.\nActualmente tengo web en WordPress/similar y el coste del hosting es desconocido / a auditar.\nMe gustaría saber el presupuesto exacto para migrar a Angular + Sanity.io."
+    }
   },
   "ROUTE": {
     "PORTFOLIO": "Portafolio",

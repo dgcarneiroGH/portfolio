@@ -1,0 +1,31 @@
+// Keyframes compartidos por varios componentes. SOLO styles.scss los
+// incluye (@use desde un componente duplicaría el CSS en cada bundle).
+// Los componentes los referencian por nombre sin declararlos.
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

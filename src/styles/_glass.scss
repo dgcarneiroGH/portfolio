@@ -1,0 +1,22 @@
+// Glass — superficies translúcidas con backdrop-filter.
+// Dos pesos: tarjetas (blur 12px) y barras/píldoras (blur 6px); el dock usa 8px.
+// El mixin SIEMPRE emite -webkit-backdrop-filter: no escribirlo a mano
+// (4 componentes lo omitían y perdían el efecto en Safari).
+
+@use "palette" as palette;
+
+/// Superficie de cristal. $bg recibe el color completo (normalmente
+/// rgba(palette.$token, α) o un gradiente); $blur el radio del desenfoque.
+/// El radio, borde y sombra los aporta cada componente.
+@mixin glass-surface($bg, $blur: 12px) {
+  background: $bg;
+  backdrop-filter: blur($blur);
+  -webkit-backdrop-filter: blur($blur);
+}
+
+/// Hairline interior (borde de 1px pegado al borde de la caja): receta
+/// compartida de tarjetas y botones píldora.
+@mixin inner-border($color: rgba(palette.$text-primary, 0.12)) {
+  outline: 1px solid $color;
+  outline-offset: -1px;
+}

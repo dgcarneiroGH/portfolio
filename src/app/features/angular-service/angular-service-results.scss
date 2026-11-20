@@ -1,0 +1,188 @@
+@use "src/styles/_palette" as palette;
+@use "src/styles/_fonts" as fonts;
+@use "src/styles/_elements" as elements;
+
+/*
+ * Estilos de las vistas de resultado del wizard de migración. Se separan del
+ * SCSS principal para respetar el budget anyComponentStyle por fichero
+ * (angular.json). Mismos tokens y convenciones que el archivo principal.
+ */
+
+// #region Resultados
+.wizard-result__head {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.wizard-result__pill {
+  width: fit-content;
+  @include elements.pill;
+
+  svg {
+    width: 0.875rem;
+    height: 0.875rem;
+  }
+
+  &--migrate {
+    background: rgba(palette.$background-gradient-end, 0.4);
+    color: palette.$angular-soft;
+  }
+
+  &--maintenance {
+    background: rgba(palette.$angular-magenta, 0.2);
+    color: palette.$angular-soft;
+  }
+
+  &--create {
+    background: rgba(palette.$amber-outline, 0.3);
+    color: palette.$amber-glow;
+  }
+}
+
+.wizard-result__subtitle {
+  margin: 0;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  color: palette.$angular-soft;
+}
+
+.wizard-notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: rgba(palette.$angular-dark, 0.6);
+  border-radius: 1rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+
+  &--good {
+    background: rgba(palette.$angular-dark, 0.9);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.25);
+  }
+}
+
+.wizard-notice__body {
+  display: flex;
+  flex-direction: column;
+}
+
+.wizard-notice__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 2.25rem;
+  height: 2.25rem;
+  margin-top: 0.125rem;
+  border-radius: 9999px;
+
+  svg {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  &--warn {
+    background: palette.$angular-dark;
+    color: palette.$accent-yellow;
+  }
+
+  &--good {
+    background: palette.$angular-soft;
+    color: palette.$green-soft-ink;
+  }
+}
+
+.wizard-notice__label {
+  margin: 0;
+  font-family: fonts.$heading;
+  line-height: 1rem;
+  @include elements.eyebrow($font-size: 0.75rem, $weight: 700, $spacing: 0.06em);
+  color: palette.$text-primary;
+
+  &--good {
+    color: palette.$angular-soft;
+  }
+}
+
+.wizard-notice__text {
+  margin: 0.25rem 0 0;
+  font-size: 0.9375rem;
+  line-height: 1.5rem;
+  color: palette.$angular-soft;
+
+  strong {
+    color: palette.$text-primary;
+    font-weight: 700;
+  }
+
+  &--good {
+    color: palette.$text-primary;
+  }
+}
+
+.wizard-bullets {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-top: 0.25rem;
+}
+
+.wizard-bullets__label {
+  margin: 0;
+  line-height: 0.875rem;
+  @include elements.eyebrow;
+  color: palette.$angular-soft;
+}
+
+.wizard-bullets__list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  &--flush {
+    margin-top: 0.25rem;
+  }
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9375rem;
+    line-height: 1.5rem;
+    color: palette.$text-primary;
+  }
+
+  svg {
+    width: 1.125rem;
+    height: 1.125rem;
+    flex-shrink: 0;
+    color: palette.$angular-soft;
+  }
+}
+
+.wizard-result__ctas {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding-top: 0.5rem;
+
+  @media (min-width: 640px) {
+    flex-direction: row;
+  }
+}
+
+.wizard-disclaimer {
+  margin: 0.25rem 0 0;
+  font-size: 0.6875rem;
+  line-height: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: palette.$angular-soft;
+}
+
+// #endregion

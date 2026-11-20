@@ -3,7 +3,7 @@ import { Service } from '../interfaces/service.interface';
 export const SERVICES: Service[] = [
   {
     icon: 'angular',
-    variant: 'red',
+    variant: 'angular',
     link: '/angular',
     titleKey: 'SERVICES.CARDS.ANGULAR_SANITY.TITLE',
     descriptionKey: 'SERVICES.CARDS.ANGULAR_SANITY.DESCRIPTION',
@@ -17,7 +17,7 @@ export const SERVICES: Service[] = [
   },
   {
     icon: 'n8n',
-    variant: 'raspberry',
+    variant: 'n8n',
     link: '/n8n',
     titleKey: 'SERVICES.CARDS.N8N_FLOWS.TITLE',
     descriptionKey: 'SERVICES.CARDS.N8N_FLOWS.DESCRIPTION',
@@ -31,7 +31,7 @@ export const SERVICES: Service[] = [
   },
   {
     icon: 'tutoring',
-    variant: 'amber',
+    variant: 'tutoring',
     link: '/tutoring',
     titleKey: 'SERVICES.CARDS.TUTORING.TITLE',
     descriptionKey: 'SERVICES.CARDS.TUTORING.DESCRIPTION',

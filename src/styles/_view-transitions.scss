@@ -1,0 +1,125 @@
+// View Transition: animación de cambio de ruta (slide/fade). SOLO styles.scss
+// lo incluye: son reglas reales, no mixins.
+
+@keyframes slide-out-to-left {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  to {
+    transform: translateX(-25%);
+    opacity: 0;
+  }
+}
+
+@keyframes slide-in-from-right {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-out-to-right {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+@keyframes slide-in-from-left {
+  from {
+    transform: translateX(-25%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes vt-fade-out {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes vt-fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+// Default route change: sequential fade with overlap (~400ms total).
+// Old snapshot fades out first; the new one starts fading in 100ms later.
+::view-transition-old(root) {
+  animation: 300ms cubic-bezier(0.4, 0, 0.2, 1) both vt-fade-out;
+}
+
+::view-transition-new(root) {
+  animation: 300ms cubic-bezier(0.4, 0, 0.2, 1) 100ms both vt-fade-in;
+}
+
+// Portfolio → Blog: content slides left
+:root[data-slide-dir="forward"] {
+  &::view-transition-old(root) {
+    animation: 350ms cubic-bezier(0.4, 0, 0.2, 1) both slide-out-to-left;
+  }
+
+  &::view-transition-new(root) {
+    animation: 350ms cubic-bezier(0.4, 0, 0.2, 1) both slide-in-from-right;
+  }
+}
+
+// Blog → Portfolio: content slides right
+:root[data-slide-dir="backward"] {
+  &::view-transition-old(root) {
+    animation: 350ms cubic-bezier(0.4, 0, 0.2, 1) both slide-out-to-right;
+  }
+
+  &::view-transition-new(root) {
+    animation: 350ms cubic-bezier(0.4, 0, 0.2, 1) both slide-in-from-left;
+  }
+}
+
+// One-pager routes (identical DOM): instant swap via a CSS class on <html>
+// instead of ViewTransition.skipTransition() — that call rejects
+// transition.ready with a DOMException that Angular logs via console.error
+// in dev mode. Re-evaluated on every navigation, so the slide/fade rules
+// above still apply to non-instant transitions (one-pager ↔ blog / 404).
+:root.vt-instant {
+  &::view-transition-group(*),
+  &::view-transition-old(*),
+  &::view-transition-new(*) {
+    animation: none !important;
+    mix-blend-mode: normal;
+  }
+}
+
+// Respect reduced motion — fall back to a simple fade
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+    mix-blend-mode: normal;
+  }
+}

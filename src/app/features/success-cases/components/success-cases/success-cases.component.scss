@@ -15,9 +15,23 @@
   overflow: hidden;
 }
 
+.success-cases-title {
+  position: relative;
+  z-index: 1;
+  margin: 0 0 2.5rem;
+  font-size: 2.25rem;
+  line-height: 1.1;
+  color: palette.$text-primary;
+}
+
+// Mismo azul que los highlights de home, services y radar.
+.success-cases-title-highlight {
+  color: palette.$accent-cyan;
+}
+
 .carousel {
   width: min(85rem, 100%);
-  padding: 8rem 2rem 6rem;
+  padding: 0 2rem 6rem;
   z-index: 1;
   display: flex;
   flex-direction: column;
@@ -134,9 +148,10 @@
 }
 
 //#region Responsive
-@media (prefers-reduced-motion: reduce) {
-  .carousel-track {
-    transition: none;
+@media screen and (max-width: 580px) {
+  .success-cases-title {
+    font-size: 1.75rem;
   }
 }
+
 //#endregion

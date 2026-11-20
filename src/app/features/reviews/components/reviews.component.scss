@@ -1,5 +1,7 @@
 @use "src/styles/_palette" as palette;
 @use "src/styles/_fonts" as fonts;
+@use "src/styles/_elements" as elements;
+@use "src/styles/_shadows" as shadows;
 
 .reviews {
   position: relative;
@@ -32,32 +34,12 @@
 }
 
 .leave-review-btn {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.625rem 1rem;
-  background: rgba(palette.$surface-action, 0.8);
-  border: none;
-  border-radius: 9999px;
-  outline: 1px solid rgba(palette.$text-primary, 0.12);
-  outline-offset: -1px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  @include elements.button-ghost;
+  @include shadows.shadow-xs;
   color: palette.$text-primary;
   font-family: fonts.$body;
   font-size: 1rem;
   line-height: 1.5rem;
-  cursor: pointer;
-  transition: filter 0.2s ease;
-
-  &:hover,
-  &:focus-visible {
-    filter: brightness(1.2);
-  }
-
-  &:focus-visible {
-    outline: 2px solid palette.$focus-blue;
-    outline-offset: 2px;
-  }
 
   .btn-icon {
     width: 1.125rem;

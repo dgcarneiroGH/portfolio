@@ -1,5 +1,6 @@
-@use "/src/styles/palette" as palette;
+@use "src/styles/_palette" as palette;
 @use "src/styles/_fonts" as fonts;
+@use "src/styles/_glass" as glass;
 
 .filter-container {
   display: flex;
@@ -19,8 +20,7 @@
   color: palette.$text-secondary;
   border: none;
   border-radius: 9999px;
-  outline: 1px solid rgba(palette.$text-primary, 0.12);
-  outline-offset: -1px;
+  @include glass.inner-border;
 
   font-family: fonts.$heading;
   font-size: 1rem;

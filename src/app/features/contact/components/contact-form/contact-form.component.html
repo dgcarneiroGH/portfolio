@@ -113,51 +113,54 @@
       }
     </div>
 
-    <!-- Message -->
-    <div class="field-group">
-      <div class="field-head">
-        <label class="field-label" for="contact-message">
-          {{ "CONTACT.FORM_MESSAGE" | translate }}
-        </label>
-        <span class="required-mark" aria-hidden="true">*</span>
-      </div>
-      <textarea
-        id="contact-message"
-        formControlName="message"
-        rows="5"
-        required
-        aria-required="true"
-        [placeholder]="'CONTACT.MESSAGE_PLACEHOLDER' | translate"
-        [class.input-error]="invalid('message')"
-        [attr.aria-invalid]="invalid('message') ? 'true' : null"
-        [attr.aria-describedby]="
-          invalid('message') ? 'contact-message-error' : null
-        "
-      ></textarea>
-      @if (invalid('message')) {
-        <div id="contact-message-error" class="error-message" role="alert">
-          <svg
-            class="error-icon"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            aria-hidden="true"
-            focusable="false"
-          >
-            <path
-              d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"
-            />
-            <line x1="12" y1="9" x2="12" y2="13" />
-            <line x1="12" y1="17" x2="12.01" y2="17" />
-          </svg>
-          {{ "FORM.MESSAGE_ERROR" | translate }}
+    <!-- Message: oculto cuando llega un mensaje preconstruido del wizard de
+         migración (el control sigue validándose y enviándose). -->
+    @if (!messagePrefilled()) {
+      <div class="field-group">
+        <div class="field-head">
+          <label class="field-label" for="contact-message">
+            {{ "CONTACT.FORM_MESSAGE" | translate }}
+          </label>
+          <span class="required-mark" aria-hidden="true">*</span>
         </div>
-      }
-    </div>
+        <textarea
+          id="contact-message"
+          formControlName="message"
+          rows="5"
+          required
+          aria-required="true"
+          [placeholder]="'CONTACT.MESSAGE_PLACEHOLDER' | translate"
+          [class.input-error]="invalid('message')"
+          [attr.aria-invalid]="invalid('message') ? 'true' : null"
+          [attr.aria-describedby]="
+            invalid('message') ? 'contact-message-error' : null
+          "
+        ></textarea>
+        @if (invalid('message')) {
+          <div id="contact-message-error" class="error-message" role="alert">
+            <svg
+              class="error-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path
+                d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"
+              />
+              <line x1="12" y1="9" x2="12" y2="13" />
+              <line x1="12" y1="17" x2="12.01" y2="17" />
+            </svg>
+            {{ "FORM.MESSAGE_ERROR" | translate }}
+          </div>
+        }
+      </div>
+    }
 
     <div class="form-footer">
       <p class="response-note">

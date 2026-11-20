@@ -47,19 +47,25 @@ export const routes: Routes = [
   {
     path: 'angular',
     loadComponent: () =>
-      import('./features/angular/components/angular.component').then((m) => m.AngularComponent),
-    data: { animation: 'Angular', titleKey: 'ROUTE.ANGULAR' }
+      import(
+        './features/angular-service/angular-service.component'
+      ).then((m) => m.AngularServiceComponent),
+    data: { animation: 'Angular', titleKey: 'ROUTE.ANGULAR', theme: 'angular' }
   },
   {
     path: 'n8n',
     loadComponent: () =>
-      import('./features/n8n/components/n8n.component').then((m) => m.N8nComponent),
+      import('./features/n8n-service/components/n8n-service.component').then(
+        (m) => m.N8nServiceComponent
+      ),
     data: { animation: 'N8N', titleKey: 'ROUTE.N8N' }
   },
   {
     path: 'tutoring',
     loadComponent: () =>
-      import('./features/tutoring/components/tutoring.component').then((m) => m.TutoringComponent),
+      import(
+        './features/tutoring-service/components/tutoring-service.component'
+      ).then((m) => m.TutoringServiceComponent),
     data: { animation: 'Tutoring', titleKey: 'ROUTE.TUTORING' }
   },
   {

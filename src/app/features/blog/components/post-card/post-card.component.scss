@@ -1,5 +1,8 @@
-@use "/src/styles/palette" as palette;
+@use "src/styles/_palette" as palette;
 @use "src/styles/_fonts" as fonts;
+@use "src/styles/_glass" as glass;
+@use "src/styles/_shadows" as shadows;
+@use "src/styles/_elements" as elements;
 
 .post-card {
   --card-accent: #{palette.$accent-blue};
@@ -13,13 +16,9 @@
   overflow: hidden;
 
   border-radius: 2rem;
-  background: rgba(palette.$surface-card, 0.6);
-  outline: 1px solid rgba(palette.$text-primary, 0.12);
-  outline-offset: -1px;
-  backdrop-filter: blur(12px);
-  box-shadow:
-    0 8px 10px -6px rgba(0, 0, 0, 0.1),
-    0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  @include glass.glass-surface(rgba(palette.$surface-card, 0.6));
+  @include glass.inner-border;
+  @include shadows.shadow-card;
 
   &--news {
     --card-accent: #{palette.$accent-blue};
@@ -98,18 +97,14 @@
     padding: 0.125rem 0.5rem;
     background: palette.$surface-action;
     border-radius: 1rem;
-    outline: 1px solid rgba(palette.$accent-blue, 0.25);
-    outline-offset: -1px;
+    @include glass.inner-border(rgba(palette.$accent-blue, 0.25));
   }
 
   &__badge-text {
     color: palette.$accent-blue;
     font-family: fonts.$mono;
-    font-size: 1rem;
-    font-weight: 700;
     line-height: 1.5rem;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
+    @include elements.eyebrow($font-size: 1rem, $weight: 700);
   }
 
   // Punto + label de categoría (resto de tarjetas)
@@ -129,11 +124,8 @@
   &__category-text {
     color: var(--card-accent);
     font-family: fonts.$mono;
-    font-size: 1rem;
-    font-weight: 700;
     line-height: 1.5rem;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
+    @include elements.eyebrow($font-size: 1rem, $weight: 700);
   }
 
   &__date {

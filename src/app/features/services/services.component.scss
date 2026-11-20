@@ -1,5 +1,6 @@
-@use "/src/styles/palette" as palette;
-@use "/src/styles/fonts" as fonts;
+@use "src/styles/_palette" as palette;
+@use "src/styles/_fonts" as fonts;
+@use "src/styles/_elements" as elements;
 
 /**
  * Sección de servicios (bajo la home, dentro del wrapper #home del
@@ -114,10 +115,6 @@
 }
 
 .services-card {
-  --service-accent-rgb: #{red(palette.$accent-red)},
-  #{green(palette.$accent-red)},
-  #{blue(palette.$accent-red)};
-
   position: relative;
   display: flex;
   flex-direction: column;
@@ -140,13 +137,21 @@
   }
 }
 
-.services-card--raspberry {
-  --service-accent-rgb: #{red(palette.$accent-raspberry)},
-  #{green(palette.$accent-raspberry)},
-  #{blue(palette.$accent-raspberry)};
+// Acento por tecnología: la plantilla aplica siempre una variante, y los
+// iconos de cada tarjeta derivan de la misma variable.
+.services-card--angular {
+  --service-accent-rgb: #{red(palette.$angular-magenta)},
+  #{green(palette.$angular-magenta)},
+  #{blue(palette.$angular-magenta)};
 }
 
-.services-card--amber {
+.services-card--n8n {
+  --service-accent-rgb: #{red(palette.$n8n-pink)},
+  #{green(palette.$n8n-pink)},
+  #{blue(palette.$n8n-pink)};
+}
+
+.services-card--tutoring {
   --service-accent-rgb: #{red(palette.$amber-glow)},
   #{green(palette.$amber-glow)},
   #{blue(palette.$amber-glow)};
@@ -281,11 +286,8 @@
 
 .services-card-stat-label {
   font-family: fonts.$body;
-  font-size: 0.6875rem;
-  font-weight: 600;
   line-height: 1.5;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
+  @include elements.eyebrow;
   color: palette.$text-secondary;
 }
 
@@ -315,6 +317,9 @@
 }
 
 .services-card-cta-icon {
+  // Icono de flecha predeterminado de toda la app (ver AGENTS.md): es la
+  // referencia a replicar en cualquier flecha de avance/CTA salvo que el
+  // usuario pase un diseño con otra.
   width: 0.75rem;
   height: 0.75rem;
   color: palette.$green-soft;
@@ -326,16 +331,10 @@
 
 // Movimiento reducido: elevación y brillo quedan estáticos (patrón del dock).
 @media (prefers-reduced-motion: reduce) {
-  .services-card {
-    transition: none;
-
-    &:hover {
-      transform: none;
-    }
-  }
-
-  .services-card-cta {
-    transition: none;
+  // El bloque global de styles.scss neutraliza transiciones; aquí solo se
+  // evita el desplazamiento del hover (transform), que el global no cubre.
+  .services-card:hover {
+    transform: none;
   }
 }
 

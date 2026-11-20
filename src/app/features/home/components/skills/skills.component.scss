@@ -1,4 +1,5 @@
-@use "/src/styles/palette" as palette;
+@use "src/styles/_palette" as palette;
+@use "src/styles/_elements" as elements;
 
 .skills {
   display: flex;
@@ -10,10 +11,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  @include elements.eyebrow($font-size: 0.75rem, $weight: 700, $spacing: 0.12em);
   color: palette.$text-secondary;
 }
 

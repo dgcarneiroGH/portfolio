@@ -1,5 +1,6 @@
-@use "/src/styles/palette" as palette;
-@use "/src/styles/fonts" as fonts;
+@use "src/styles/_palette" as palette;
+@use "src/styles/_fonts" as fonts;
+@use "src/styles/_shadows" as shadows;
 
 :host {
   display: block;
@@ -19,7 +20,7 @@
   padding: 0.375rem;
   border-radius: 9999px;
   background: rgba(palette.$background-gradient-start, 0.6);
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  @include shadows.shadow-lg;
 
   img {
     display: block;

@@ -1,0 +1,455 @@
+@use "src/styles/_palette" as palette;
+@use "src/styles/_fonts" as fonts;
+@use "sass:color";
+@use "src/styles/_shadows" as shadows;
+@use "src/styles/_focus" as focus;
+@use "src/styles/_elements" as elements;
+
+/*
+ * Wizard de migración web (/angular) — página del servicio Angular.
+ * - Fondo: gradiente del logo Angular (magenta → violeta) en versión
+ *   profunda, a petición explícita del usuario (excepción permitida por la
+ *   regla AGENTS 2026-11-19: fondo solo cuando el usuario lo indica).
+ * - Colores: familia $angular-* de _palette.scss. Excepciones documentadas
+ *   (AGENTS.md): sombras/glow con rgba(0,0,0,α) neutras.
+ * - Anillos de foco: solo en controles interactivos (:focus-visible),
+ *   interior $angular-dark, exterior mint (mixin focus-ring).
+ */
+
+:host {
+  display: block;
+  width: 100%;
+}
+
+.wizard {
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0;
+  // Cubre al menos el viewport: el degradado llega hasta el footer y no
+  // asoma el fondo sólido del html (la "línea" del fondo).
+  min-height: 100vh;
+  // Gradiente del logo Angular en versión profunda (mismos tonos,
+  // luminosidad del tema oscuro).
+  background: linear-gradient(120deg,
+      color.change(palette.$angular-magenta, $lightness: 17%),
+      color.change(palette.$angular-violet, $lightness: 19%));
+
+  padding-top: 5.5rem; // Compensa el header fijo (heredado del global)
+  padding-right: 1rem;
+  padding-bottom: 5.5rem; // Holgura frente al footer fijo (regla AGENTS responsive)
+  padding-left: 6rem; // Despeja el dock social fijo (convención del one-pager)
+
+  @media (min-width: 641px) {
+    padding-right: 2rem;
+    padding-left: 2rem;
+  }
+
+  @media (min-width: 1024px) {
+    padding-right: 4rem;
+    padding-bottom: 6rem;
+    padding-left: 4rem;
+  }
+}
+
+// Anillo de foco para todos los controles del wizard: interior y exterior en
+// la línea Angular (el mixin compartido emite 2px interior + 4px exterior).
+.wizard button:focus-visible,
+.wizard input:focus-visible {
+  outline: none;
+  @include focus.focus-ring(palette.$angular-magenta, palette.$angular-dark);
+}
+
+// #region Intro
+.wizard-intro {
+  width: 100%;
+  max-width: 47.5rem;
+  margin: 0 auto 2.5rem;
+  text-align: center;
+}
+
+.wizard-title {
+  max-width: 42.5rem;
+  margin: 0 auto;
+  font-family: fonts.$heading;
+  font-size: clamp(1.75rem, 5vw, 2.5rem);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: palette.$text-primary;
+}
+
+.wizard-title-highlight {
+  // Gradiente del logo Angular aplicado al texto (momento de marca de la
+  // página, a petición del usuario).
+  background: linear-gradient(120deg,
+      palette.$angular-magenta,
+      palette.$angular-violet );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.wizard-intro__subtitle {
+  max-width: 35rem;
+  margin: 0.5rem auto 0;
+  font-size: 0.9375rem;
+  line-height: 1.5rem;
+  color: palette.$angular-soft;
+}
+
+// #endregion
+
+// #region Tarjeta
+.wizard-card {
+  width: 100%;
+  max-width: 45rem;
+  margin: 0 auto;
+  padding: 1rem;
+  overflow: hidden;
+  background: rgba(palette.$angular-deep, 0.95);
+  border-radius: 2rem;
+  @include shadows.shadow-lg;
+
+  @media (min-width: 640px) {
+    padding: 2.5rem;
+  }
+}
+
+// #endregion
+
+// #region Vistas
+.wizard-views {
+  min-height: 18.75rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.wizard-view {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  animation: wizard-view-fade 0.3s ease-out;
+
+  &__eyebrow {
+    margin: 0;
+    line-height: 0.875rem;
+    @include elements.eyebrow;
+    color: palette.$angular-magenta;
+  }
+
+  &__title {
+    margin: 0.25rem 0 0;
+    font-family: fonts.$heading;
+    font-size: 1.75rem;
+    line-height: 2.25rem;
+    font-weight: 700;
+    color: palette.$text-primary;
+
+    &:focus {
+      outline: none; // foco programático del cambio de paso: sin anillo (AGENTS 2026-11-18)
+    }
+  }
+
+  &__description {
+    margin: 0;
+    font-size: 0.9375rem;
+    line-height: 1.5rem;
+    color: palette.$angular-soft;
+  }
+
+  &__footer {
+    display: flex;
+    padding-top: 0.75rem;
+
+    &--split {
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+  }
+}
+
+@keyframes wizard-view-fade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+// Reduced-motion: cubierto por el bloque global de styles.scss (AGENTS 2026-11-19).
+
+// #endregion
+
+// #region Opciones de respuesta
+.wizard-options {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  padding-top: 0.5rem;
+
+  @media (min-width: 640px) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.wizard-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.5rem;
+  border: 1px solid transparent;
+  background: rgba(palette.$angular-dark, 0.6);
+  border-radius: 1rem;
+  text-align: left;
+  color: palette.$text-primary;
+  font-family: fonts.$body;
+  @include shadows.shadow-md;
+  transition:
+    transform 0.2s ease,
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+
+  &:hover {
+    background: palette.$angular-dark;
+    border-color: rgba(palette.$angular-magenta, 0.55);
+    transform: translateY(-4px);
+    box-shadow:
+      0 10px 15px -3px rgba(0, 0, 0, 0.25),
+      0 4px 6px -4px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+
+    .wizard-option__title {
+      color: palette.$angular-magenta;
+    }
+
+    .wizard-option__arrow {
+      color: palette.$angular-magenta;
+      transform: translateX(0.25rem);
+    }
+  }
+
+  &[aria-pressed='true'] {
+    border-color: palette.$angular-magenta;
+    background: rgba(palette.$angular-dark, 0.85);
+  }
+}
+
+.wizard-option__text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.wizard-option__title {
+  font-family: fonts.$heading;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  font-weight: 600;
+  color: palette.$text-primary;
+  transition: color 0.2s ease;
+}
+
+.wizard-option__desc {
+  font-size: 0.8125rem;
+  line-height: 1.25rem;
+  color: palette.$angular-soft;
+}
+
+.wizard-option__arrow {
+  // Geometría del icono de flecha predeterminado de la app
+  // (services-card-cta-icon, ver AGENTS.md). La clase es local de este
+  // componente; lo que se comparte es el trazado del SVG.
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+  color: palette.$angular-soft;
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+// #endregion
+
+// #region Paso 3: importe de hosting
+.wizard-hosting {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-top: 0.5rem;
+}
+
+.wizard-hosting__field {
+  position: relative;
+  max-width: 16rem;
+}
+
+.wizard-hosting__input {
+  width: 100%;
+  padding: 0.75rem 5rem 0.75rem 1.5rem;
+  border: 0;
+  background: rgba(palette.$angular-dark, 0.8);
+  border-radius: 9999px;
+  font-family: fonts.$heading;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  color: palette.$text-primary;
+  transition: background-color 0.2s ease;
+  -moz-appearance: textfield;
+  appearance: textfield;
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  &::placeholder {
+    color: rgba(palette.$angular-soft, 0.55);
+  }
+
+  &:focus-visible {
+    background: palette.$angular-dark;
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+}
+
+.wizard-hosting__suffix {
+  position: absolute;
+  top: 50%;
+  right: 1.5rem;
+  transform: translateY(-50%);
+  font-family: fonts.$heading;
+  font-size: 1.25rem;
+  color: palette.$angular-magenta;
+  pointer-events: none;
+}
+
+.wizard-hosting__unknown {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: fit-content;
+  cursor: pointer;
+  font-size: 0.9375rem;
+  line-height: 1.5rem;
+  color: palette.$angular-soft;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: palette.$text-primary;
+  }
+
+  input:focus-visible+.wizard-hosting__box {
+    @include focus.focus-ring(palette.$angular-magenta, palette.$angular-dark);
+  }
+
+  input:checked+.wizard-hosting__box {
+    background: palette.$angular-soft;
+
+    svg {
+      opacity: 1;
+    }
+  }
+}
+
+.wizard-hosting__box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  background: palette.$angular-dark;
+  border-radius: 1rem;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25);
+  transition: background-color 0.2s ease;
+
+  svg {
+    width: 0.875rem;
+    height: 0.875rem;
+    color: palette.$green-soft-ink;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+  }
+}
+
+// #endregion
+
+// #region Botones (Atrás, CTA primario, Repetir)
+.wizard-back,
+.wizard-repeat {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1.5rem;
+  border: 0;
+  background: rgba(palette.$angular-dark, 0.85);
+  border-radius: 9999px;
+  font-family: fonts.$heading;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: palette.$text-primary;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+
+  svg {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  &:hover {
+    background: palette.$angular-dark;
+    color: palette.$angular-magenta;
+  }
+}
+
+.wizard-cta-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 2.5rem;
+  border: 0;
+  background: palette.$angular-magenta;
+  border-radius: 9999px;
+  font-family: fonts.$heading;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: palette.$angular-deep;
+  cursor: pointer;
+  box-shadow: 0 0 16px rgba(palette.$angular-magenta, 0.35);
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
+
+  svg {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  &:hover {
+    background: color.change(palette.$angular-magenta, $lightness: 65%);
+    transform: translateY(-1px);
+  }
+}
+
+// #endregion
+
+/*
+ * Los estilos de las vistas de resultado viven en wizard-results.scss
+ * (styleUrls): el budget anyComponentStyle (8 kB, angular.json) aplica por
+ * fichero y el wizard superaba el límite en un solo archivo.
+ */

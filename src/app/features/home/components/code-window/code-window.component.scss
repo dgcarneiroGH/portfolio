@@ -1,5 +1,6 @@
-@use "/src/styles/palette" as palette;
-@use "/src/styles/fonts" as fonts;
+@use "src/styles/_palette" as palette;
+@use "src/styles/_fonts" as fonts;
+@use "src/styles/_glass" as glass;
 
 // Ventana de código viva del hero. Estilos 100% encapsulados (sin ::ng-deep);
 // los colores salen de _palette.scss y la tipografía de _fonts.scss.
@@ -376,8 +377,7 @@
   padding: 0.3rem 0.6rem;
   border: 1px solid rgba(palette.$code-teal, 0.3);
   border-radius: 8px;
-  background: rgba(palette.$surface-code-deep, 0.92);
-  backdrop-filter: blur(6px);
+  @include glass.glass-surface(rgba(palette.$surface-code-deep, 0.92), 6px);
   color: palette.$text-primary;
   font-family: fonts.$body;
   font-size: 0.72rem;
@@ -404,20 +404,10 @@
 // ——— reduced-motion: sin animaciones decorativas ———
 
 @media (prefers-reduced-motion: reduce) {
+  // El bloque global de styles.scss neutraliza animaciones/transiciones;
+  // aquí solo lo que el global no cubre: ocultar decorativos y estados.
   :host::after {
     display: none;
-  }
-
-  .hcw__caret,
-  .hcw__status::after {
-    animation: none;
-  }
-
-  .hcw__row,
-  .hcw__log-text,
-  .hcw__fade,
-  .hcw__tooltip {
-    transition: none;
   }
 
   .hcw__tooltip {

@@ -24,7 +24,7 @@ $text-primary: #f0f4f8;
 $text-secondary: #a0bbd8;
 $text-red: #ff8a80;
 
-// Acentos (azules → verde → amarillo → rosa/rojo)
+// Acentos (azules → verde → amarillo → rosa)
 $focus-blue: #005fcc;
 $accent-blue: #29b6f6;
 $accent-blue-light: #90caf9;
@@ -36,12 +36,21 @@ $accent-green: #2ecc71;
 $accent-yellow: #ffa726;
 $accent-rose: #f472b6;
 $accent-red-soft: #fb7185;
-$accent-red: #dd0031;
-$accent-raspberry: #ea4b71;
+
+// Colores de las tarjetas de servicios (el nombre identifica la tecnología)
+// Familia Angular — basada en el gradiente del logo (#ff0080 → #a12dfd),
+// de más oscura a más clara.
+$angular-deep: #200514; // Fondo de la tarjeta del wizard (violeta profundo)
+$angular-dark: #3d0f33; // Superficies: opciones, botones, avisos (magenta-violeta oscuro)
+$angular-magenta: #ff0080; // Magenta del gradiente del logo Angular (acento principal)
+$angular-violet: #a12dfd; // Violeta del gradiente del logo Angular (intercambiable con el magenta)
+$angular-soft: #d9a3d6; // Texto secundario tintado de la página Angular
+$n8n-pink: #ff91ac; // Rosa de la tarjeta n8n — elección del usuario (2026-11-19)
 
 // Verdes suaves
 $green-soft: #8ed4c2;
 $green-mint: #aaf0de;
+$green-soft-ink: #00382e; // Texto sobre $green-soft (badges/CTAs del wizard, mock Figma 2026-11)
 
 // Ámbar y marrón (blog/footer)
 $amber-glow: #ffb961;

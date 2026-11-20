@@ -1,17 +1,17 @@
 import { provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { AngularComponent } from './angular.component';
+import { TutoringServiceComponent } from './tutoring-service.component';
 
-describe('AngularComponent', () => {
-  let fixture: ComponentFixture<AngularComponent>;
+describe('TutoringServiceComponent', () => {
+  let fixture: ComponentFixture<TutoringServiceComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AngularComponent],
+      imports: [TutoringServiceComponent],
       providers: [provideZonelessChangeDetection()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(AngularComponent);
+    fixture = TestBed.createComponent(TutoringServiceComponent);
     fixture.detectChanges();
   });
 
@@ -23,7 +23,7 @@ describe('AngularComponent', () => {
 
   it('renders an empty root section (placeholder pendiente de diseño)', () => {
     const el = fixture.nativeElement as HTMLElement;
-    expect(el.querySelector('section.angular')).toBeTruthy();
+    expect(el.querySelector('section.tutoring')).toBeTruthy();
     expect(el.textContent?.trim()).toBe('');
   });
 });

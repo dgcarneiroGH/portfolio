@@ -1,5 +1,6 @@
-@use "/src/styles/palette" as palette;
-@use "/src/styles/fonts" as fonts;
+@use "src/styles/_palette" as palette;
+@use "src/styles/_fonts" as fonts;
+@use "src/styles/_glass" as glass;
 
 /**
  * Radar de diferenciación (bloque narrativo tras la hero, sin navbar).
@@ -95,8 +96,7 @@
   padding: 1rem;
   border-radius: 0.75rem;
   background: palette.$surface-code;
-  outline: 1px solid rgba(255, 255, 255, 0.1);
-  outline-offset: -1px;
+  @include glass.inner-border(rgba(255, 255, 255, 0.1));
   transition:
     box-shadow 0.2s ease,
     outline-color 0.2s ease,
@@ -148,8 +148,7 @@
   overflow: hidden;
   border-radius: 1rem;
   background: palette.$surface-code;
-  outline: 1px solid rgba(255, 255, 255, 0.1);
-  outline-offset: -1px;
+  @include glass.inner-border(rgba(255, 255, 255, 0.1));
 }
 
 .radar-legend {

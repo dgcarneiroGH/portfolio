@@ -1,17 +1,17 @@
 import { provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { N8nComponent } from './n8n.component';
+import { N8nServiceComponent } from './n8n-service.component';
 
-describe('N8nComponent', () => {
-  let fixture: ComponentFixture<N8nComponent>;
+describe('N8nServiceComponent', () => {
+  let fixture: ComponentFixture<N8nServiceComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [N8nComponent],
+      imports: [N8nServiceComponent],
       providers: [provideZonelessChangeDetection()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(N8nComponent);
+    fixture = TestBed.createComponent(N8nServiceComponent);
     fixture.detectChanges();
   });
 

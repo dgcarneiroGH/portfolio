@@ -64,9 +64,9 @@ describe('ServicesComponent', () => {
   it('renders one card per accent variant', () => {
     const el = fixture.nativeElement as HTMLElement;
 
-    expect(el.querySelector('.services-card--red')).toBeTruthy();
-    expect(el.querySelector('.services-card--raspberry')).toBeTruthy();
-    expect(el.querySelector('.services-card--amber')).toBeTruthy();
+    expect(el.querySelector('.services-card--angular')).toBeTruthy();
+    expect(el.querySelector('.services-card--n8n')).toBeTruthy();
+    expect(el.querySelector('.services-card--tutoring')).toBeTruthy();
   });
 
   it('renders a stat (value + label) per card', () => {

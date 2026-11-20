@@ -1,5 +1,21 @@
+/**
+ * styles.scss — hoja global del app. Índice de partials:
+ * - _palette.scss            → tokens de color (palette.$token)
+ * - _fonts.scss              → tipografía + @font-face (fonts.$body/$heading/$mono)
+ * - _glass.scss              → mixins de superficies cristal + hairline (glass.*)
+ * - _shadows.scss            → escala de sombras (shadows.*)
+ * - _focus.scss              → anillos de foco (focus.*)
+ * - _forms.scss              → recetas de formularios (forms.*)
+ * - _elements.scss           → eyebrow, píldoras y botones (elements.*)
+ * - _animations.scss         → keyframes compartidos (SOLO lo incluye aquí)
+ * - _view-transitions.scss   → reglas ::view-transition (SOLO lo incluye aquí)
+ */
 @use "_palette" as palette;
 @use "_fonts" as fonts;
+@use "sass:color" as color;
+@use "_focus" as focus;
+@use "_animations" as animations;
+@use "_view-transitions" as vt;
 
 // #region Self-hosted fonts (latin subset, previamente inlineadas por Angular desde Google Fonts)
 @include fonts.font-faces;
@@ -60,10 +76,11 @@
   border-radius: 0 0 1.5rem 1.5rem;
   text-decoration: none;
   box-shadow:
-    0 8px 32px rgba(41, 182, 246, 0.35),
-    0 2px 8px rgba(255, 167, 38, 0.25),
+    0 8px 32px rgba(palette.$accent-blue, 0.35),
+    0 2px 8px rgba(palette.$accent-yellow, 0.25),
     inset 0 1px 0 rgba(255, 255, 255, 0.3);
   backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   transition: top 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   white-space: nowrap;
 
@@ -71,8 +88,8 @@
     top: 0;
     outline: none;
     box-shadow:
-      0 8px 32px rgba(41, 182, 246, 0.5),
-      0 2px 8px rgba(255, 167, 38, 0.4),
+      0 8px 32px rgba(palette.$accent-blue, 0.5),
+      0 2px 8px rgba(palette.$accent-yellow, 0.4),
       0 0 0 3px rgba(255, 255, 255, 0.6),
       inset 0 1px 0 rgba(255, 255, 255, 0.3);
   }
@@ -93,19 +110,9 @@ textarea:focus-visible,
 [role="button"]:focus-visible,
 [role="option"]:focus-visible {
   outline: none;
-  box-shadow:
-    0 0 0 2px palette.$background-gradient-start,
-    0 0 0 4px palette.$accent-blue;
+  @include focus.focus-ring(palette.$accent-blue);
   position: relative;
   z-index: 1;
-}
-
-/* Focus ring for custom elements */
-.focusable:focus-visible {
-  outline: none;
-  box-shadow:
-    0 0 0 2px palette.$background-gradient-start,
-    0 0 0 4px palette.$accent-yellow;
 }
 
 /* Skip non-interactive elements from tab order */
@@ -550,130 +557,43 @@ p .blast:hover {
 
 //#endregion
 
-// #region View Transition route slide animation
-@keyframes slide-out-to-left {
-  from {
-    transform: translateX(0);
-    opacity: 1;
-  }
 
-  to {
-    transform: translateX(-25%);
-    opacity: 0;
-  }
+// #region Tema de servicio para el shell (/angular)
+// app.component alterna la clase theme-angular en <html> según el data
+// (theme: 'angular') de la ruta activa. Los defaults de todas las variables
+// viven en cada componente del shell — var(--x, valor-actual) — de modo que
+// sin clase el shell es idéntico en el resto de la web.
+//
+// OJO: los valores de custom properties NO se evalúan como SassScript; toda
+// expresión (tokens, rgba(), color.channel()) va interpolada con #{ }.
+.theme-angular {
+  --header-glass: #{rgba(palette.$angular-deep, 0.7)};
+  --header-border: #{rgba(palette.$angular-dark, 0.45)};
+  --header-glow-rgb: #{color.channel(palette.$angular-magenta, "red", $space: rgb)},
+    #{color.channel(palette.$angular-magenta, "green", $space: rgb)},
+    #{color.channel(palette.$angular-magenta, "blue", $space: rgb)};
+  --header-logo-mid: #{palette.$angular-violet};
+  --header-index: #{palette.$angular-magenta};
+  --header-focus: #{palette.$angular-magenta};
+  --header-pill-hover: #{rgba(palette.$angular-dark, 0.45)};
+  --header-pill-active: #{rgba(palette.$angular-dark, 0.6)};
+  --dock-glass: #{rgba(palette.$angular-deep, 0.75)};
+  --dock-glow-rgb: #{color.channel(palette.$angular-magenta, "red", $space: rgb)},
+    #{color.channel(palette.$angular-magenta, "green", $space: rgb)},
+    #{color.channel(palette.$angular-magenta, "blue", $space: rgb)};
+  --dock-glow: #{palette.$angular-magenta};
+  --dock-inner-border: #{rgba(palette.$angular-magenta, 0.2)};
+  --dock-icon-linkedin: #{palette.$angular-violet};
+  --dock-focus-outer: #{palette.$angular-magenta};
+  --dock-focus-inner: #{palette.$angular-dark};
+  --footer-glass: #{rgba(palette.$angular-deep, 0.8)};
+  --footer-border: #{rgba(palette.$angular-dark, 0.5)};
+  --footer-separator: #{palette.$angular-dark};
+  --footer-soft: #{rgba(palette.$angular-soft, 0.8)};
+  --footer-accent: #{palette.$angular-soft};
+  --lang-label: #{palette.$angular-soft};
+  --lang-panel: #{palette.$angular-dark};
+  --lang-panel-border: #{rgba(palette.$angular-magenta, 0.25)};
+  --lang-item-hover: #{rgba(palette.$angular-dark, 0.55)};
 }
-
-@keyframes slide-in-from-right {
-  from {
-    transform: translateX(100%);
-    opacity: 0;
-  }
-
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-@keyframes slide-out-to-right {
-  from {
-    transform: translateX(0);
-    opacity: 1;
-  }
-
-  to {
-    transform: translateX(100%);
-    opacity: 0;
-  }
-}
-
-@keyframes slide-in-from-left {
-  from {
-    transform: translateX(-25%);
-    opacity: 0;
-  }
-
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-@keyframes vt-fade-out {
-  from {
-    opacity: 1;
-  }
-
-  to {
-    opacity: 0;
-  }
-}
-
-@keyframes vt-fade-in {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
-// Default route change: sequential fade with overlap (~400ms total).
-// Old snapshot fades out first; the new one starts fading in 100ms later.
-::view-transition-old(root) {
-  animation: 300ms cubic-bezier(0.4, 0, 0.2, 1) both vt-fade-out;
-}
-
-::view-transition-new(root) {
-  animation: 300ms cubic-bezier(0.4, 0, 0.2, 1) 100ms both vt-fade-in;
-}
-
-// Portfolio → Blog: content slides left
-:root[data-slide-dir="forward"] {
-  &::view-transition-old(root) {
-    animation: 350ms cubic-bezier(0.4, 0, 0.2, 1) both slide-out-to-left;
-  }
-
-  &::view-transition-new(root) {
-    animation: 350ms cubic-bezier(0.4, 0, 0.2, 1) both slide-in-from-right;
-  }
-}
-
-// Blog → Portfolio: content slides right
-:root[data-slide-dir="backward"] {
-  &::view-transition-old(root) {
-    animation: 350ms cubic-bezier(0.4, 0, 0.2, 1) both slide-out-to-right;
-  }
-
-  &::view-transition-new(root) {
-    animation: 350ms cubic-bezier(0.4, 0, 0.2, 1) both slide-in-from-left;
-  }
-}
-
-// One-pager routes (identical DOM): instant swap via a CSS class on <html>
-// instead of ViewTransition.skipTransition() — that call rejects
-// transition.ready with a DOMException that Angular logs via console.error
-// in dev mode. Re-evaluated on every navigation, so the slide/fade rules
-// above still apply to non-instant transitions (one-pager ↔ blog / 404).
-:root.vt-instant {
-
-  &::view-transition-group(*),
-  &::view-transition-old(*),
-  &::view-transition-new(*) {
-    animation: none !important;
-    mix-blend-mode: normal;
-  }
-}
-
-// Respect reduced motion — fall back to a simple fade
-@media (prefers-reduced-motion: reduce) {
-
-  ::view-transition-old(root),
-  ::view-transition-new(root) {
-    animation: none;
-    mix-blend-mode: normal;
-  }
-}
-
 // #endregion

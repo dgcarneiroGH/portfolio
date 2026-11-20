@@ -1,0 +1,21 @@
+// Anillos de foco — SOLO en elementos interactivos (AGENTS 2026-11-18:
+// prohibido en secciones/contenedores y en focos programáticos).
+
+@use "palette" as palette;
+
+/// Anillo doble por box-shadow (patrón global del app: 2px del fondo +
+/// 2px del color). $color es el anillo exterior (azul por defecto).
+@mixin focus-ring(
+  $color: palette.$accent-blue,
+  $inner: palette.$background-gradient-start
+) {
+  box-shadow:
+    0 0 0 2px $inner,
+    0 0 0 4px $color;
+}
+
+/// Outline de foco estándar de la variante formularios (2px focus-blue).
+@mixin focus-outline {
+  outline: 2px solid palette.$focus-blue;
+  outline-offset: 2px;
+}

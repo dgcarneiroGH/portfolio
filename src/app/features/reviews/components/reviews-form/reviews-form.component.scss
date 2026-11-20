@@ -1,6 +1,9 @@
 @use "src/styles/_palette" as palette;
 @use "src/styles/_fonts" as fonts;
-@use "sass:color";
+@use "src/styles/_glass" as glass;
+@use "src/styles/_shadows" as shadows;
+@use "src/styles/_forms" as forms;
+@use "src/styles/_elements" as elements;
 
 :host {
   display: block;
@@ -8,15 +11,10 @@
   max-width: 40rem;
   margin: 0 auto;
   padding: 1.5rem;
-  background: rgba(palette.$surface-card, 0.8);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  @include glass.glass-surface(rgba(palette.$surface-card, 0.8));
   border-radius: 2rem;
-  outline: 1px solid rgba(palette.$text-primary, 0.12);
-  outline-offset: -1px;
-  box-shadow:
-    0 2px 4px -2px rgba(0, 0, 0, 0.1),
-    0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  @include glass.inner-border;
+  @include shadows.shadow-md;
 }
 
 form {
@@ -48,47 +46,13 @@ label,
 }
 
 .field-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+  @include forms.field-group;
 }
 
 input[type="text"],
 input[type="email"],
 textarea {
-  width: 100%;
-  padding: 0.875rem 1rem;
-  font-family: fonts.$body;
-  font-size: 0.9375rem;
-  color: palette.$text-primary;
-  background: rgba(palette.$azure-deep, 0.5);
-  border: 1px solid rgba(palette.$text-primary, 0.12);
-  border-radius: 0.75rem;
-  outline: none;
-  transition:
-    border-color 0.2s ease,
-    background 0.2s ease;
-  box-sizing: border-box;
-  resize: none;
-
-  &::placeholder {
-    color: rgba(palette.$text-secondary, 0.75);
-  }
-
-  &:focus-visible {
-    outline: 2px solid palette.$focus-blue;
-    outline-offset: 2px;
-    border-color: palette.$green-soft;
-  }
-
-  &.input-error {
-    border-color: palette.$text-red;
-    background: rgba(palette.$text-red, 0.06);
-
-    &:focus-visible {
-      border-color: palette.$text-red;
-    }
-  }
+  @include forms.input-base;
 }
 
 textarea {
@@ -138,31 +102,7 @@ textarea {
 }
 
 .error-message {
-  display: flex;
-  align-items: center;
-  gap: 0.375rem;
-  font-family: fonts.$body;
-  font-size: 0.75rem;
-  color: palette.$text-red;
-  animation: slideDown 0.2s ease;
-
-  .error-icon {
-    flex-shrink: 0;
-    width: 14px;
-    height: 14px;
-  }
-}
-
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-4px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  @include forms.error-message;
 }
 
 .submit-btn {
@@ -177,93 +117,37 @@ textarea {
   font-weight: 600;
   color: palette.$text-primary;
   background: rgba(palette.$surface-action, 0.8);
-  border: none;
   border-radius: 9999px;
-  outline: 1px solid rgba(palette.$text-primary, 0.12);
-  outline-offset: -1px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-  cursor: pointer;
+  @include glass.inner-border;
+  @include shadows.shadow-xs;
+  @include elements.button-interactive;
   transition:
     filter 0.2s ease,
     transform 0.2s ease;
 
   &:hover:not(:disabled) {
     filter: brightness(1.2);
-    transform: scale(1.01);
-  }
-
-  &:active:not(:disabled) {
-    transform: scale(0.99);
-  }
-
-  &:focus-visible {
-    outline: 2px solid palette.$focus-blue;
-    outline-offset: 2px;
-  }
-
-  &:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
   }
 }
 
 .btn-spinner {
-  display: inline-block;
-  width: 16px;
-  height: 16px;
-  border: 2px solid rgba(palette.$text-primary, 0.3);
-  border-top-color: palette.$text-primary;
-  border-radius: 50%;
-  animation: spin 0.7s linear infinite;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
+  @include forms.spinner;
 }
 
 .form-error {
-  font-family: fonts.$body;
-  font-size: 0.8125rem;
-  color: palette.$text-red;
-  text-align: center;
-  padding: 0.5rem 0;
+  @include forms.form-error;
 }
 
 .success-state {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1.25rem;
-  text-align: center;
-  padding: 2rem 0;
-  animation: fadeInUp 0.4s ease;
+  @include forms.success-state;
 }
 
 .success-icon-wrap {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  background: rgba(palette.$green-soft, 0.15);
-
-  .success-icon {
-    width: 40px;
-    height: 40px;
-    stroke: palette.$green-soft;
-  }
+  @include forms.success-icon;
 }
 
 .success-title {
-  font-family: fonts.$body;
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: palette.$text-primary;
-  margin: 0;
+  @include forms.success-title;
 }
 
 .success-subtext {
@@ -282,45 +166,12 @@ textarea {
 }
 
 .back-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.625rem 1.5rem;
+  @include elements.button-ghost($padding: 0.625rem 1.5rem);
   font-family: fonts.$mono;
   font-size: 0.75rem;
   font-weight: 700;
-  text-transform: uppercase;
   letter-spacing: 0.6px;
   color: palette.$green-soft;
-  background: rgba(palette.$surface-action, 0.8);
-  border: none;
-  border-radius: 9999px;
-  outline: 1px solid rgba(palette.$text-primary, 0.12);
-  outline-offset: -1px;
-  cursor: pointer;
-  transition: filter 0.2s ease;
-
-  &:hover,
-  &:focus-visible {
-    filter: brightness(1.2);
-  }
-
-  &:focus-visible {
-    outline: 2px solid palette.$focus-blue;
-    outline-offset: 2px;
-  }
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 // Target táctil ≥44px sin alterar el layout: el padding crece el área de

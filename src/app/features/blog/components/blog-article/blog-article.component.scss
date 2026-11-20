@@ -1,5 +1,7 @@
-@use "/src/styles/palette" as palette;
+@use "src/styles/_palette" as palette;
 @use "src/styles/_fonts" as fonts;
+@use "src/styles/_glass" as glass;
+@use "src/styles/_shadows" as shadows;
 
 // Tarjeta exterior del artículo
 .article {
@@ -9,10 +11,9 @@
   flex-direction: column;
   gap: 2rem;
 
-  background-color: rgba(palette.$surface-card, 0.75);
-  backdrop-filter: blur(12px);
+  @include glass.glass-surface(rgba(palette.$surface-card, 0.75));
   border-radius: 2rem;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  @include shadows.shadow-lg;
 
   &__header {
     display: flex;
@@ -32,9 +33,7 @@
 
       background-color: rgba(palette.$surface-action, 0.8);
       border-radius: 999px;
-      box-shadow:
-        0 2px 4px -2px rgba(0, 0, 0, 0.1),
-        0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      @include shadows.shadow-md;
 
       color: palette.$green-soft;
       text-decoration: none;
@@ -195,8 +194,7 @@
     width: 100%;
     padding: 1rem;
 
-    background-color: rgba(palette.$surface-blog-mid, 0.8);
-    backdrop-filter: blur(6px);
+    @include glass.glass-surface(rgba(palette.$surface-blog-mid, 0.8), 6px);
     border-radius: 999px;
   }
 

@@ -1,0 +1,141 @@
+// Recetas compartidas de formularios (contact-form, reviews-form, wizard).
+// Los keyframes que usan (spin, slide-down, fade-in-up) son globales:
+// los define _animations.scss vía styles.scss (no redeclararlos aquí).
+
+@use "palette" as palette;
+@use "fonts" as fonts;
+@use "shadows" as shadows;
+@use "focus" as focus;
+
+/// Campo base (input/textarea). Parámetros por las diferencias entre
+/// formularios: padding, fondo, radio, tamaño, sombra y alpha del placeholder.
+@mixin input-base(
+  $padding: 0.875rem 1rem,
+  $bg: rgba(palette.$azure-deep, 0.5),
+  $radius: 0.75rem,
+  $font-size: 0.9375rem,
+  $line-height: null,
+  $shadow: false,
+  $placeholder-alpha: 0.75
+) {
+  width: 100%;
+  padding: $padding;
+  font-family: fonts.$body;
+  font-size: $font-size;
+  @if $line-height {
+    line-height: $line-height;
+  }
+  color: palette.$text-primary;
+  background: $bg;
+  border: 1px solid rgba(palette.$text-primary, 0.12);
+  border-radius: $radius;
+  outline: none;
+  @if $shadow {
+    @include shadows.shadow-xs;
+  }
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease;
+  box-sizing: border-box;
+  resize: none;
+
+  &::placeholder {
+    color: rgba(palette.$text-secondary, $placeholder-alpha);
+  }
+
+  &:focus-visible {
+    @include focus.focus-outline;
+    border-color: palette.$green-soft;
+  }
+
+  &.input-error {
+    border-color: palette.$text-red;
+    background: rgba(palette.$text-red, 0.06);
+
+    &:focus-visible {
+      border-color: palette.$text-red;
+    }
+  }
+}
+
+/// Grupo de campo (label + control apilados).
+@mixin field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/// Mensaje de error de campo (icono + texto, con slide-down global).
+@mixin error-message {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-family: fonts.$body;
+  font-size: 0.75rem;
+  color: palette.$text-red;
+  animation: slide-down 0.2s ease;
+
+  .error-icon {
+    flex-shrink: 0;
+    width: 14px;
+    height: 14px;
+  }
+}
+
+/// Error de nivel formulario (bajo el footer, centrado).
+@mixin form-error {
+  font-family: fonts.$body;
+  font-size: 0.8125rem;
+  color: palette.$text-red;
+  text-align: center;
+  padding: 0.5rem 0;
+}
+
+/// Spinner de botón en carga. $color = tinta sobre el fondo del botón.
+@mixin spinner($color: palette.$text-primary) {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba($color, 0.3);
+  border-top-color: $color;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+/// Estado de éxito (icono + título [+ subtítulo]), con fade-in-up global.
+@mixin success-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  text-align: center;
+  padding: 2rem 0;
+  animation: fade-in-up 0.4s ease;
+}
+
+/// Círculo + icono del estado de éxito. $color = color del icono.
+@mixin success-icon($color: palette.$green-soft) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: rgba($color, 0.15);
+
+  .success-icon {
+    width: 40px;
+    height: 40px;
+    stroke: $color;
+  }
+}
+
+/// Título del estado de éxito.
+@mixin success-title {
+  font-family: fonts.$body;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: palette.$text-primary;
+  margin: 0;
+}

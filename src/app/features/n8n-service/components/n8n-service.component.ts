@@ -8,10 +8,10 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
  * defecto de la app (regla AGENTS 2026-11-17).
  */
 @Component({
-  selector: 'app-n8n',
+  selector: 'app-n8n-service',
   standalone: true,
-  templateUrl: './n8n.component.html',
-  styleUrl: './n8n.component.scss',
+  templateUrl: './n8n-service.component.html',
+  styleUrl: './n8n-service.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class N8nComponent {}
+export class N8nServiceComponent {}
