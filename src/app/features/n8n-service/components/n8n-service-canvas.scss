@@ -1,0 +1,188 @@
+@use "src/styles/_palette" as palette;
+@use "src/styles/_fonts" as fonts;
+
+/*
+ * Estilos del "lienzo" del workflow n8n (/n8n): carril de slides, cables entre
+ * nodos y pins de entrada/salida. Se separan del SCSS principal para respetar
+ * el budget anyComponentStyle por fichero (angular.json). Mismos tokens y
+ * convenciones que el archivo principal.
+ */
+
+// #region Carril de tarjetas-nodo
+// Cota vertical de pins y cables (borde superior del slide + 16rem).
+.n8n-track,
+.n8n-slide {
+  --n8n-pin-y: 16rem;
+}
+
+.n8n-viewport {
+  width: 100%;
+  max-width: 62rem;
+  margin: 0 auto;
+  // clip (no hidden): bloquea TAMBIÉN el scroll programático — un foco o
+  // scrollIntoView de un control vecino descentraría la vista respecto al
+  // transform del carril. Fallback hidden para navegadores sin soporte de
+  // clip (Safari/iOS ≤ 15): sin él, el carril de 400% se fuga (overflow
+  // visible) y la página gana scrollbar horizontal.
+  overflow: hidden;
+  overflow: clip;
+}
+
+.n8n-track {
+  display: flex;
+  // Los slides se alinean por arriba: todos comparten la misma cota superior
+  // y los cables (a altura fija) cruzan el límite entre tarjetas de distinta
+  // altura sin escalón.
+  align-items: flex-start;
+  width: 100%;
+  // Transición lenta y cinematográfica (decisión 2026-11-21): 1.4s con curva
+  // suave — la bezier explosiva del diseño llegaba al ~95% en 350ms y el
+  // alargar la duración no se percibía.
+  transition: transform 1.4s cubic-bezier(0.45, 0.05, 0.25, 1);
+  will-change: transform;
+}
+
+.n8n-slide {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  flex-shrink: 0;
+  min-width: 0;
+}
+
+// Cable que separa dos tarjetas: pin (en el borde de la tarjeta) → línea →
+// hacia el nodo vecino. Solo desktop; en móvil los slides apilan limpios.
+// La cota vertical es fija (--n8n-pin-y) desde el borde superior: así el cable
+// y sus pins quedan alineados entre slides de distinta altura.
+.n8n-wire {
+  position: relative;
+  display: none;
+  align-self: flex-start;
+  flex: 1 1 0;
+  height: 2px;
+  min-width: 0;
+  margin-top: var(--n8n-pin-y);
+  background: rgba(palette.$n8n-rose, 0.35);
+
+  @media (min-width: 768px) {
+    display: block;
+  }
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 0.375rem;
+    height: 0.375rem;
+    border-radius: 50%;
+    background: rgba(palette.$n8n-pink-light, 0.6);
+    transform: translateY(-50%);
+  }
+
+  &::before {
+    left: -0.1875rem;
+  }
+
+  &::after {
+    right: -0.1875rem;
+  }
+}
+
+// Transición: los cables transportan "datos" (dash en movimiento + glow).
+@keyframes n8n-wire-flow {
+  from {
+    background-position: 0 0;
+  }
+
+  to {
+    background-position: -0.75rem 0;
+  }
+}
+
+.n8n-track--flowing .n8n-wire {
+  background-image: repeating-linear-gradient(90deg,
+      rgba(palette.$n8n-pink-light, 0.95) 0 0.375rem,
+      rgba(palette.$n8n-rose, 0.35) 0.375rem 0.75rem);
+  background-size: 0.75rem 2px;
+  box-shadow: 0 0 8px rgba(palette.$n8n-rose, 0.35);
+  animation: n8n-wire-flow 0.5s linear infinite;
+}
+
+// #endregion
+
+// #region Pins (entrada/salida de nodo)
+.n8n-pin {
+  position: absolute;
+  // Centro del pin en la cota fija del cable (mitad de su 1.75rem arriba).
+  top: calc(var(--n8n-pin-y) - 0.875rem);
+  z-index: 2;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  padding: 0;
+  border: 2px solid rgba(palette.$n8n-rose, 0.6);
+  border-radius: 50%;
+  background: palette.$n8n-dark;
+  box-shadow: 0 0 8px rgba(palette.$n8n-rose, 0.35);
+
+  @media (min-width: 768px) {
+    display: flex;
+  }
+
+  &--out {
+    right: -0.875rem;
+    cursor: pointer;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+
+    &:hover:not(:disabled) {
+      border-color: palette.$n8n-rose;
+      box-shadow: 0 0 14px rgba(palette.$n8n-rose, 0.55);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+
+  &--in {
+    left: -0.875rem;
+  }
+}
+
+.n8n-pin__dot {
+  width: 0.625rem;
+  height: 0.625rem;
+  border-radius: 50%;
+  background: palette.$n8n-pink-light;
+}
+
+.n8n-pin__wave {
+  position: absolute;
+  inset: -0.125rem;
+  border: 2px solid palette.$n8n-rose;
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+}
+
+@keyframes n8n-shockwave {
+  from {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+
+  to {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
+.n8n-track--flowing .n8n-pin--out .n8n-pin__wave {
+  animation: n8n-shockwave 0.6s ease-out;
+}
+
+// #endregion

@@ -19,6 +19,7 @@ class DummyBlog {}
 const SPEC_ROUTES: Routes = [
   { path: 'success-cases', component: DummyOnePager },
   { path: 'contact', component: DummyOnePager },
+  { path: 'n8n', component: DummyOnePager, data: { theme: 'n8n' } },
   { path: 'blog', component: DummyBlog }
 ];
 
@@ -159,6 +160,14 @@ describe('AppComponent', () => {
 
       await navigate('/blog'); // cambia de página: foco
       expect(focusSpy).toHaveBeenCalledTimes(2);
+    });
+
+    it('aplica el tema de servicio theme-n8n en su ruta y lo retira al salir', async () => {
+      await navigate('/n8n');
+      expect(document.documentElement.classList.contains('theme-n8n')).toBeTrue();
+
+      await navigate('/contact');
+      expect(document.documentElement.classList.contains('theme-n8n')).toBeFalse();
     });
   });
 

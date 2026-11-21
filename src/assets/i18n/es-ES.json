@@ -345,6 +345,54 @@
       "MIGRATE_UNKNOWN": "Hola Nomacoda, he realizado el test de migración.\nActualmente tengo web en WordPress/similar y el coste del hosting es desconocido / a auditar.\nMe gustaría saber el presupuesto exacto para migrar a Angular + Sanity.io."
     }
   },
+  "N8N_WIZARD": {
+    "TITLE": "Configura tu solución con",
+    "TITLE_HIGHLIGHT": "n8n",
+    "SUBTITLE": "Responde a 3 preguntas en nuestro lienzo de nodos y descubre cómo recuperar horas cada semana con flujos automáticos.",
+    "BACK": "Atrás",
+    "RESTART": "Quiero hablarte de otra tarea",
+    "DISCLAIMER": "Oferta no vinculante: evaluamos juntos la viabilidad técnica antes de empezar.",
+    "A11Y_NEXT_NODE": "Avanzar al siguiente nodo",
+    "STEPS": {
+      "TASK": {
+        "TITLE": "¿Qué tarea repetitiva te molesta más?",
+        "DESCRIPTION": "Háblame del proceso manual que más fricción genera en tu día a día o en tu negocio.",
+        "LABEL": "Tarea repetitiva que quieres automatizar",
+        "PLACEHOLDER": "Ej: Todos los lunes tengo que sincronizar manualmente los pedidos de Shopify con la base de datos de Airtable, generar facturas en PDF y enviar alertas de WhatsApp si falta stock...",
+        "CTA": "Siguiente nodo"
+      },
+      "HOURS": {
+        "TITLE": "¿Cuánto tiempo a la semana ocupas en esa tarea?",
+        "DESCRIPTION": "Dame una estimación de las horas semanales que le dedicas a esta tarea para saber cuántas horas te puedo ahorrar haciendo que un flujo de trabajo de N8N la haga por ti.",
+        "LABEL": "Horas a la semana que ocupa la tarea",
+        "PLACEHOLDER": "10",
+        "SUFFIX": "Horas / sem",
+        "CTA": "Siguiente nodo"
+      },
+      "OBJECTIVE": {
+        "TITLE": "¿Qué te gustaría hacer con el tiempo que te voy a devolver?",
+        "DESCRIPTION": "El propósito de automatizar es delegar las tareas mecánicas a una máquina para que tú mantengas el foco en lo que de verdad te mueve.",
+        "LABEL": "Qué harías con el tiempo recuperado",
+        "PLACEHOLDER": "Ej: Dedicarme a cerrar más clientes comerciales, escalar la estrategia de producto, componer o simplemente descansar los viernes sin apagar fuegos manuales...",
+        "CTA": "Generar diagnóstico de automatización"
+      }
+    },
+    "RESULT": {
+      "HEADLINE": "Automatizaré esta tarea con N8N",
+      "SUBTITLE": "Agendaré una reunión de ~30 minutos contigo, prepararé un presupuesto ajustado y, en menos de un mes, tendrás un flujo de trabajo automático con un mes más de mantenimiento gratuíto.",
+      "BREAKDOWN_LABEL": "Arquitectura base del flujo",
+      "ITEM_1_TITLE": "Flujo personalizado en n8n auto-alojado o cloud",
+      "ITEM_1_DESC": "Diseñado con modularidad, alertas por fallo e idempotencia ante errores.",
+      "ITEM_2_TITLE": "Coste de infraestructura optimizado (~20€ / año)",
+      "ITEM_2_DESC": "Despliegue ligero en tu VPS o directamente con N8N.",
+      "ITEM_3_TITLE": "Documentación paso a paso y sin cajas negras",
+      "ITEM_3_DESC": "Una vez terminado el desarrollo, tú tienes pleno acceso al flujo, podrás modificarlo o actualizarlo sin necesidad de contratarme de nuevo.",
+      "CTA": "Quiero que hagamos esto"
+    },
+    "MESSAGES": {
+      "LEAD": "Hola Nomacoda, me gustaría automatizar la tarea de {{task}}, ya que me consume {{hours}} h a la semana. \nMe encantaría {{objective}} con el tiempo recuperado.\nMe gustaría que montáramos este flujo juntos."
+    }
+  },
   "ROUTE": {
     "PORTFOLIO": "Portafolio",
     "BLOG": "Blog",

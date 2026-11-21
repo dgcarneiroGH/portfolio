@@ -1,3 +1,389 @@
-// Página "N8N" (ruta /n8n): placeholder sin estilos propios por ahora.
-// Cuando llegue el diseño, colores → _palette.scss y tipografías → _fonts.scss
-// (reglas AGENTS 2026-10-08).
+@use "src/styles/_palette" as palette;
+@use "src/styles/_fonts" as fonts;
+@use "sass:color";
+@use "src/styles/_shadows" as shadows;
+@use "src/styles/_focus" as focus;
+@use "src/styles/_forms" as forms;
+@use "src/styles/_elements" as elements;
+
+/*
+ * Workflow de n8n (/n8n) — página del servicio n8n.
+ * - Fondo: oscuro tintado de marca n8n (gradiente muy profundo vía
+ *   color.change sobre $n8n-rose), a petición explícita del usuario
+ *   (2026-11-20; excepción permitida por la regla AGENTS 2026-11-19). El
+ *   shell (header/dock/footer/lang) se tiñe vía .theme-n8n en styles.scss.
+ * - Colores: familia $n8n-* de _palette.scss con la marca oficial n8n
+ *   ($n8n-rose primary, $n8n-pink-light secondary, $n8n-orange accent);
+ *   $accent-green reservado al estado de ejecución (verde del lienzo n8n).
+ *   Excepciones documentadas (AGENTS.md): sombras/glow neutras rgba(0,0,0,α).
+ * - Anillos de foco: solo en controles interactivos (:focus-visible),
+ *   interior $n8n-deep, exterior $n8n-rose (mixin focus-ring).
+ * - El lienzo (carril, cables, pins) vive en n8n-service-canvas.scss y el
+ *   nodo de output en n8n-service-results.scss.
+ */
+
+:host {
+  display: block;
+  width: 100%;
+}
+
+.n8n {
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0;
+  // Cubre al menos el viewport: el degradado llega hasta el footer y no asoma
+  // el fondo sólido del html (la "línea" del fondo).
+  min-height: 100vh;
+  // Fondo oscuro tintado de marca n8n (petición explícita 2026-11-20): casi
+  // negro, con el tinte del rosa primario vía color.change sobre $n8n-rose.
+  background: linear-gradient(120deg,
+      color.change(palette.$n8n-rose, $lightness: 7%),
+      color.change(palette.$n8n-rose, $lightness: 4%));
+
+  padding-top: 5.5rem; // Compensa el header fijo (heredado del global)
+  padding-right: 1rem;
+  padding-bottom: 5.5rem; // Holgura frente al footer fijo (regla AGENTS responsive)
+  padding-left: 6rem; // Despeja el dock social fijo (convención del one-pager)
+
+  @media (min-width: 641px) {
+    padding-right: 2rem;
+    // El padding-left se mantiene en 6rem hasta 1024px: el dock social sigue
+    // visible en tablet y con 2rem pisaría la tarjeta (regla AGENTS
+    // responsive: espacio respetado frente a vecinos).
+  }
+
+  @media (min-width: 1024px) {
+    padding-right: 4rem;
+    padding-bottom: 6rem;
+    padding-left: 4rem;
+  }
+}
+
+// WCAG 2.2 (2.4.11 Focus Not Obscured): el footer fijo del shell puede tapar
+// un control enfocado al fondo del viewport — margen de scroll para dejarlo
+// siempre visible al auto-scroll del navegador.
+.n8n :is(button, input, textarea) {
+  scroll-margin-bottom: 5.5rem;
+}
+
+// Anillo de foco para todos los controles del workflow: interior y exterior en
+// la línea n8n (el mixin compartido emite 2px interior + 4px exterior).
+.n8n button:focus-visible,
+.n8n input:focus-visible,
+.n8n textarea:focus-visible {
+  outline: none;
+  @include focus.focus-ring(palette.$n8n-rose, palette.$n8n-deep);
+}
+
+// #region Intro
+.n8n-intro {
+  width: 100%;
+  max-width: 47.5rem;
+  margin: 0 auto 1.75rem;
+  text-align: center;
+}
+
+.n8n-title {
+  margin: 0 auto;
+  font-family: fonts.$heading;
+  font-size: clamp(1.75rem, 5vw, 2.5rem);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  font-weight: 700;
+  color: palette.$text-primary;
+}
+
+.n8n-title__highlight {
+  // Gradiente de marca n8n aplicado al texto: primario → secundario oficial.
+  background: linear-gradient(120deg, palette.$n8n-rose, palette.$n8n-pink-light);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.n8n-intro__subtitle {
+  max-width: 35rem;
+  margin: 0.5rem auto 0;
+  font-size: 0.9375rem;
+  line-height: 1.5rem;
+  color: palette.$n8n-soft;
+}
+
+// #endregion
+
+// El carril, cables y pins viven en n8n-service-canvas.scss.
+
+// #endregion
+
+// #region Carril de tarjetas-nodo — viewport, track, slides, cables y pins
+// viven en n8n-service-canvas.scss (budget por fichero).
+
+.n8n-node {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.25rem;
+  flex: 0 1 47.5rem;
+  min-width: 0;
+  padding: 1.5rem;
+  background: rgba(palette.$n8n-deep, 0.95);
+  border: 1px solid rgba(palette.$n8n-rose, 0.28);
+  border-radius: 1.75rem;
+  @include shadows.shadow-lg;
+
+
+  @media (min-width: 640px) {
+    gap: 1.5rem;
+    min-height: 27.5rem;
+    padding: 2rem;
+  }
+
+  &.first {
+    border-radius: 5.75rem 1.75rem 1.75rem 5.75rem;
+  }
+}
+
+// Cable que separa dos tarjetas: estilos en n8n-service-canvas.scss.
+
+// #endregion
+
+// #region Pins (entrada/salida de nodo) — estilos en n8n-service-canvas.scss
+
+// #endregion
+
+// #region Cabecera de nodo
+.n8n-node__head {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(palette.$text-primary, 0.1);
+}
+
+.n8n-node__id {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  flex-shrink: 0;
+  border: 1px solid rgba(palette.$n8n-rose, 0.35);
+  border-radius: 1rem;
+  background: rgba(palette.$n8n-rose, 0.18);
+  color: palette.$n8n-pink-light;
+  box-shadow: 0 0 15px rgba(palette.$n8n-rose, 0.2);
+
+  svg {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+}
+
+.n8n-node__titles {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.n8n-node__name {
+  font-family: fonts.$heading;
+  font-size: 1.0625rem;
+  line-height: 1.4;
+  font-weight: 700;
+  color: palette.$text-primary;
+}
+
+// #endregion
+
+// #region Cuerpo: pregunta + campo
+.n8n-node__body {
+  display: flex;
+  flex-direction: column;
+}
+
+.n8n-node__question {
+  margin: 0 0 0.375rem;
+  font-family: fonts.$heading;
+  font-size: clamp(1.25rem, 3vw, 1.5rem);
+  line-height: 1.35;
+  font-weight: 700;
+  color: palette.$text-primary;
+
+  &:focus {
+    outline: none; // foco programático del cambio de nodo: sin anillo (AGENTS 2026-11-18)
+  }
+}
+
+.n8n-node__description {
+  margin: 0 0 1rem;
+  font-size: 0.875rem;
+  line-height: 1.4rem;
+  color: palette.$n8n-soft;
+}
+
+.n8n-field {
+  position: relative;
+}
+
+.n8n-input {
+  @include forms.input-base($padding: 1rem,
+    $bg: rgba(palette.$surface-code-deep, 0.9),
+    $radius: 0.875rem,
+    $font-size: 0.9375rem);
+
+  &:focus-visible {
+    border-color: palette.$n8n-rose;
+  }
+}
+
+.n8n-input--area {
+  min-height: 9rem;
+  resize: vertical;
+  line-height: 1.5rem;
+}
+
+.n8n-field--group {
+  display: flex;
+  max-width: 20rem;
+}
+
+.n8n-input--hours {
+  padding-block: 0.875rem;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-right: 0;
+  font-family: fonts.$mono;
+  font-size: 1rem;
+}
+
+.n8n-input__suffix {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 0.875rem;
+  background: rgba(palette.$n8n-dark, 0.9);
+  border: 1px solid rgba(palette.$text-primary, 0.12);
+  border-left: 0;
+  border-radius: 0 0.875rem 0.875rem 0;
+  font-family: fonts.$mono;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: palette.$n8n-pink-light;
+  white-space: nowrap;
+}
+
+// #endregion
+
+// #region Pie de nodo y botones
+.n8n-node__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 0.25rem;
+
+  @media (max-width: 639px) {
+    flex-wrap: wrap;
+  }
+}
+
+.n8n-node__footer--single {
+  // Pie del nodo 1: un solo hijo (CTA) alineado a la derecha.
+  justify-content: flex-end;
+}
+
+.n8n-node__actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.n8n-back,
+.n8n-restart {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1.5rem;
+  border: 0;
+  background: rgba(palette.$n8n-dark, 0.85);
+  border-radius: 9999px;
+  font-family: fonts.$heading;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: palette.$text-primary;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+
+  svg {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  &:hover {
+    background: palette.$n8n-dark;
+    color: palette.$n8n-pink-light;
+  }
+}
+
+.n8n-next,
+.n8n-cta-contact {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.75rem;
+  border: 0;
+  background: palette.$n8n-rose;
+  border-radius: 9999px;
+  font-family: fonts.$heading;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: palette.$n8n-deep;
+  cursor: pointer;
+  box-shadow: 0 0 16px rgba(palette.$n8n-rose, 0.35);
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+
+  svg {
+    width: 1rem;
+    height: 1rem;
+    transition: transform 0.2s ease;
+  }
+
+  &:hover:not(:disabled) {
+    background: palette.$n8n-pink-mid;
+    transform: translateY(-1px);
+    box-shadow: 0 0 24px rgba(palette.$n8n-rose, 0.55);
+
+    svg {
+      transform: translateX(0.25rem);
+    }
+  }
+
+  // Puerta de validación: sin respuesta en el nodo, el avance está cerrado.
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+// #endregion
+
+/*
+ * Los estilos del lienzo (carril, cables, pins) viven en
+ * n8n-service-canvas.scss y los del nodo de output (resultado) en
+ * n8n-service-results.scss (styleUrls): el budget anyComponentStyle (8 kB,
+ * angular.json) aplica por fichero.
+ */

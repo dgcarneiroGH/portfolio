@@ -45,7 +45,18 @@ $angular-dark: #3d0f33; // Superficies: opciones, botones, avisos (magenta-viole
 $angular-magenta: #ff0080; // Magenta del gradiente del logo Angular (acento principal)
 $angular-violet: #a12dfd; // Violeta del gradiente del logo Angular (intercambiable con el magenta)
 $angular-soft: #d9a3d6; // Texto secundario tintado de la página Angular
-$n8n-pink: #ff91ac; // Rosa de la tarjeta n8n — elección del usuario (2026-11-19)
+$n8n-pink: #ff91ac; // Rosa de la tarjeta n8n del one-pager — elección del usuario (2026-11-19)
+
+// Familia n8n de la página /n8n — basada en la marca oficial n8n (2026-11-20):
+// Pink #EA4B71 (primary), Light Pink #FFB3C7 (secondary) y Orange #F5A623
+// (accent), de más oscura a más clara.
+$n8n-rose: #ea4b71; // Rosa primario de marca — CTA, glows, foco y cables de /n8n
+$n8n-pink-light: #ffb3c7; // Rosa claro secundario — highlight del título y acentos
+$n8n-orange: #f5a623; // Naranja de marca — detalles mono (hints payload/target, contador)
+$n8n-deep: #241016; // Fondo de la tarjeta del workflow (rosa profundo)
+$n8n-dark: #461b25; // Superficies internas: inputs, pins, avisos (rosa oscuro)
+$n8n-pink-mid: #ff6b8b; // Rosa medio — hover del CTA (diseño Figma 2026-11)
+$n8n-soft: #e0aebd; // Texto secundario tintado de la página N8N
 
 // Verdes suaves
 $green-soft: #8ed4c2;

@@ -1,7 +1,412 @@
 <!--
-  Página "N8N" (ruta /n8n): placeholder vacío pendiente de diseño.
-  La raíz <section> hereda los estilos globales de section de styles.scss
-  (flex + padding 5.5rem que compensan el header fijo) y mantiene el fondo
-  por defecto de la app (regla AGENTS 2026-11-17).
+  Workflow de n8n (ruta /n8n). La raíz <section> hereda los estilos globales de
+  section de styles.scss y lleva el fondo oscuro tintado de marca n8n a
+  petición explícita del usuario (2026-11-20, excepción registrada de la regla
+  AGENTS 2026-11-19). El shell (header/dock/footer/lang) se tiñe de rosa vía
+  la clase theme-n8n en <html> (data theme de la ruta).
+
+  Metáfora del lienzo: cada pregunta es un nodo; los cables (pin → línea → pin)
+  separan las tarjetas y se animan durante la transición. Sin puntos de
+  carrusel ni cinta de minimapas: el avance entre tarjetas es el único hilo de
+  la interacción.
+
+  A11y: los slides inactivos llevan inert + aria-hidden (sus controles no son
+  tabulables fuera de vista). El cambio de nodo mueve el foco al <h2> del nodo
+  nuevo (tabindex="-1", sin anillo visual: los anillos solo en controles
+  interactivos, regla AGENTS 2026-11-18). Cables, pins decorativos e iconos
+  son aria-hidden; los pins de salida clicables son botones con aria-label.
+  Los títulos técnicos de nodo (Webhook, HTTP Request, Wait...) se mantienen
+  literales en inglés con lang="en": son identificadores del producto, no copy.
 -->
-<section class="n8n"></section>
+<section class="n8n" aria-labelledby="n8n-title">
+  <header class="n8n-intro">
+    <h1 id="n8n-title" class="n8n-title">
+      {{ "N8N_WIZARD.TITLE" | translate }}
+      <span class="n8n-title__highlight">{{
+        "N8N_WIZARD.TITLE_HIGHLIGHT" | translate
+      }}</span>
+    </h1>
+    <p class="n8n-intro__subtitle">{{ "N8N_WIZARD.SUBTITLE" | translate }}</p>
+  </header>
+
+  <!-- Carril de tarjetas-nodo -->
+  <div class="n8n-viewport">
+    <div
+      class="n8n-track"
+      [class.n8n-track--flowing]="flowing()"
+      [style.transform]="trackTransform()"
+    >
+      <!-- Nodo 1: Webhook (trigger) -->
+      <article
+        class="n8n-slide"
+        id="n8n-slide-1"
+        [attr.aria-hidden]="workflow.step() === 1 ? null : true"
+        [attr.inert]="workflow.step() === 1 ? null : ''"
+      >
+        <div class="n8n-node first">
+          <button
+            type="button"
+            class="n8n-pin n8n-pin--out"
+            [disabled]="!canAdvance(1)"
+            [attr.aria-label]="'N8N_WIZARD.A11Y_NEXT_NODE' | translate"
+            (click)="next()"
+          >
+            <span class="n8n-pin__dot" aria-hidden="true"></span>
+            <span class="n8n-pin__wave" aria-hidden="true"></span>
+          </button>
+
+          <header class="n8n-node__head">
+            <span class="n8n-node__id" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <circle cx="12" cy="7" r="2.5" />
+                <circle cx="7" cy="16" r="2.5" />
+                <circle cx="17" cy="16" r="2.5" />
+                <path d="M12 9.5v3m-3 2 2-1.5m5 1.5-2-1.5" />
+              </svg>
+            </span>
+            <span class="n8n-node__titles" lang="en">
+              <span class="n8n-node__name">Webhook</span>
+            </span>
+          </header>
+
+          <div class="n8n-node__body">
+            <h2 class="n8n-node__question" data-n8n-heading tabindex="-1">
+              {{ "N8N_WIZARD.STEPS.TASK.TITLE" | translate }}
+            </h2>
+            <p class="n8n-node__description">
+              {{ "N8N_WIZARD.STEPS.TASK.DESCRIPTION" | translate }}
+            </p>
+            <div class="n8n-field">
+              <label class="sr-only" for="n8n-input-task">
+                {{ "N8N_WIZARD.STEPS.TASK.LABEL" | translate }}
+              </label>
+              <textarea
+                id="n8n-input-task"
+                aria-required="true"
+                class="n8n-input n8n-input--area"
+                rows="5"
+                [value]="workflow.answers().task"
+                [placeholder]="'N8N_WIZARD.STEPS.TASK.PLACEHOLDER' | translate"
+                (input)="onTaskInput($event)"
+              ></textarea>
+            </div>
+          </div>
+
+          <footer class="n8n-node__footer n8n-node__footer--single">
+            <button
+              type="button"
+              class="n8n-next"
+              [disabled]="!canAdvance(1)"
+              (click)="next()"
+            >
+              <span>{{ "N8N_WIZARD.STEPS.TASK.CTA" | translate }}</span>
+              <!-- Icono de flecha predeterminado de la app (services-card-cta-icon). -->
+              <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+                <path d="M1.5 8h11.3M8.2 3.5 12.7 8l-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
+          </footer>
+        </div>
+
+        <span class="n8n-wire n8n-wire--out" aria-hidden="true">
+        </span>
+      </article>
+
+      <!-- Nodo 2: Compute Time Delta -->
+      <article
+        class="n8n-slide"
+        id="n8n-slide-2"
+        [attr.aria-hidden]="workflow.step() === 2 ? null : true"
+        [attr.inert]="workflow.step() === 2 ? null : ''"
+      >
+        <span class="n8n-wire n8n-wire--in" aria-hidden="true"></span>
+
+        <div class="n8n-node">
+          <span class="n8n-pin n8n-pin--in" aria-hidden="true">
+            <span class="n8n-pin__dot"></span>
+          </span>
+          <button
+            type="button"
+            class="n8n-pin n8n-pin--out"
+            [disabled]="!canAdvance(2)"
+            [attr.aria-label]="'N8N_WIZARD.A11Y_NEXT_NODE' | translate"
+            (click)="next()"
+          >
+            <span class="n8n-pin__dot" aria-hidden="true"></span>
+            <span class="n8n-pin__wave" aria-hidden="true"></span>
+          </button>
+
+          <header class="n8n-node__head">
+            <span class="n8n-node__id" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <circle cx="12" cy="12" r="9" />
+                <path d="M3 12h18" />
+                <ellipse cx="12" cy="12" rx="4" ry="9" />
+              </svg>
+            </span>
+            <span class="n8n-node__titles" lang="en">
+              <span class="n8n-node__name">HTTP Request</span>
+            </span>
+          </header>
+
+          <div class="n8n-node__body">
+            <h2 class="n8n-node__question" data-n8n-heading tabindex="-1">
+              {{ "N8N_WIZARD.STEPS.HOURS.TITLE" | translate }}
+            </h2>
+            <p class="n8n-node__description">
+              {{ "N8N_WIZARD.STEPS.HOURS.DESCRIPTION" | translate }}
+            </p>
+            <div class="n8n-field n8n-field--group">
+              <label class="sr-only" for="n8n-input-hours">
+                {{ "N8N_WIZARD.STEPS.HOURS.LABEL" | translate }}
+              </label>
+              <input
+                id="n8n-input-hours"
+                aria-required="true"
+                class="n8n-input n8n-input--hours"
+                type="text"
+                inputmode="numeric"
+                pattern="[0-9]*"
+                maxlength="3"
+                [value]="workflow.answers().hours ?? ''"
+                [placeholder]="'N8N_WIZARD.STEPS.HOURS.PLACEHOLDER' | translate"
+                (input)="onHoursInput($event)"
+              />
+              <span class="n8n-input__suffix" aria-hidden="true">
+                {{ "N8N_WIZARD.STEPS.HOURS.SUFFIX" | translate }}
+              </span>
+            </div>
+          </div>
+
+          <footer class="n8n-node__footer">
+            <span class="n8n-node__actions">
+              <button type="button" class="n8n-back" (click)="back()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                  <line x1="19" y1="12" x2="5" y2="12" />
+                  <polyline points="12 19 5 12 12 5" />
+                </svg>
+                <span>{{ "N8N_WIZARD.BACK" | translate }}</span>
+              </button>
+              <button
+                type="button"
+                class="n8n-next"
+                [disabled]="!canAdvance(2)"
+                (click)="next()"
+              >
+                <span>{{ "N8N_WIZARD.STEPS.HOURS.CTA" | translate }}</span>
+                <!-- Icono de flecha predeterminado de la app (services-card-cta-icon). -->
+                <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+                  <path d="M1.5 8h11.3M8.2 3.5 12.7 8l-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </button>
+            </span>
+          </footer>
+        </div>
+
+        <span class="n8n-wire n8n-wire--out" aria-hidden="true">
+        </span>
+      </article>
+
+      <!-- Nodo 3: Target Impact -->
+      <article
+        class="n8n-slide"
+        id="n8n-slide-3"
+        [attr.aria-hidden]="workflow.step() === 3 ? null : true"
+        [attr.inert]="workflow.step() === 3 ? null : ''"
+      >
+        <span class="n8n-wire n8n-wire--in" aria-hidden="true"></span>
+
+        <div class="n8n-node">
+          <span class="n8n-pin n8n-pin--in" aria-hidden="true">
+            <span class="n8n-pin__dot"></span>
+          </span>
+          <button
+            type="button"
+            class="n8n-pin n8n-pin--out"
+            [disabled]="!canAdvance(3)"
+            [attr.aria-label]="'N8N_WIZARD.A11Y_NEXT_NODE' | translate"
+            (click)="next()"
+          >
+            <span class="n8n-pin__dot" aria-hidden="true"></span>
+            <span class="n8n-pin__wave" aria-hidden="true"></span>
+          </button>
+
+          <header class="n8n-node__head">
+            <span class="n8n-node__id" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 22h14" />
+                <path d="M5 2h14" />
+                <path d="M17 22v-4.172a2 2 0 0 0-.586-1.414L12 12l-4.414 4.414A2 2 0 0 0 7 17.828V22" />
+                <path d="M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.172V2" />
+              </svg>
+            </span>
+            <span class="n8n-node__titles" lang="en">
+              <span class="n8n-node__name">Wait</span>
+            </span>
+          </header>
+
+          <div class="n8n-node__body">
+            <h2 class="n8n-node__question" data-n8n-heading tabindex="-1">
+              {{ "N8N_WIZARD.STEPS.OBJECTIVE.TITLE" | translate }}
+            </h2>
+            <p class="n8n-node__description">
+              {{ "N8N_WIZARD.STEPS.OBJECTIVE.DESCRIPTION" | translate }}
+            </p>
+            <div class="n8n-field">
+              <label class="sr-only" for="n8n-input-objective">
+                {{ "N8N_WIZARD.STEPS.OBJECTIVE.LABEL" | translate }}
+              </label>
+              <textarea
+                id="n8n-input-objective"
+                aria-required="true"
+                class="n8n-input n8n-input--area"
+                rows="5"
+                [value]="workflow.answers().objective"
+                [placeholder]="'N8N_WIZARD.STEPS.OBJECTIVE.PLACEHOLDER' | translate"
+                (input)="onObjectiveInput($event)"
+              ></textarea>
+            </div>
+          </div>
+
+          <footer class="n8n-node__footer">
+            <span class="n8n-node__actions">
+              <button type="button" class="n8n-back" (click)="back()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                  <line x1="19" y1="12" x2="5" y2="12" />
+                  <polyline points="12 19 5 12 12 5" />
+                </svg>
+                <span>{{ "N8N_WIZARD.BACK" | translate }}</span>
+              </button>
+              <button
+                type="button"
+                class="n8n-next"
+                [disabled]="!canAdvance(3)"
+                (click)="next()"
+              >
+                <span>{{ "N8N_WIZARD.STEPS.OBJECTIVE.CTA" | translate }}</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                  <path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9L12 3z" />
+                </svg>
+              </button>
+            </span>
+          </footer>
+        </div>
+
+        <span class="n8n-wire n8n-wire--out" aria-hidden="true">
+        </span>
+      </article>
+
+      <!-- Nodo 4: Execution Output (resultado) -->
+      <article
+        class="n8n-slide"
+        id="n8n-slide-4"
+        [attr.aria-hidden]="workflow.step() === 4 ? null : true"
+        [attr.inert]="workflow.step() === 4 ? null : ''"
+      >
+        <span class="n8n-wire n8n-wire--in" aria-hidden="true"></span>
+
+        <div class="n8n-node">
+          <span class="n8n-pin n8n-pin--in" aria-hidden="true">
+            <span class="n8n-pin__dot"></span>
+          </span>
+
+          <header class="n8n-node__head">
+            <span class="n8n-node__id" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <circle cx="12" cy="7" r="2.5" />
+                <circle cx="7" cy="16" r="2.5" />
+                <circle cx="17" cy="16" r="2.5" />
+                <path d="M12 9.5v3m-3 2 2-1.5m5 1.5-2-1.5" />
+              </svg>
+            </span>
+            <span class="n8n-node__titles" lang="en">
+              <span class="n8n-node__name">Respond to Webhook</span>
+            </span>
+          </header>
+
+          <div class="n8n-node__body">
+            <h2 class="n8n-result__headline" data-n8n-heading tabindex="-1">
+              {{ "N8N_WIZARD.RESULT.HEADLINE" | translate }}
+            </h2>
+            <p class="n8n-result__subtitle">
+              {{ "N8N_WIZARD.RESULT.SUBTITLE" | translate }}
+            </p>
+
+            <p class="sr-only">{{ "N8N_WIZARD.RESULT.BREAKDOWN_LABEL" | translate }}</p>
+            <ul class="n8n-result__breakdown">
+              <li class="n8n-result__item">
+                <span class="n8n-result__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 3l7 3v5c0 4.5-3 7.6-7 9-4-1.4-7-4.5-7-9V6l7-3z" />
+                    <polyline points="9 12 11 14 15 10" />
+                  </svg>
+                </span>
+                <span class="n8n-result__text">
+                  <span class="n8n-result__item-title">
+                    {{ "N8N_WIZARD.RESULT.ITEM_1_TITLE" | translate }}
+                  </span>
+                  <span class="n8n-result__item-desc">
+                    {{ "N8N_WIZARD.RESULT.ITEM_1_DESC" | translate }}
+                  </span>
+                </span>
+              </li>
+              <li class="n8n-result__item">
+                <span class="n8n-result__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="8" />
+                    <path d="M14.5 9.5a3 3 0 100 5M9 11h5M9 13h5" />
+                  </svg>
+                </span>
+                <span class="n8n-result__text">
+                  <span class="n8n-result__item-title">
+                    {{ "N8N_WIZARD.RESULT.ITEM_2_TITLE" | translate }}
+                  </span>
+                  <span class="n8n-result__item-desc">
+                    {{ "N8N_WIZARD.RESULT.ITEM_2_DESC" | translate }}
+                  </span>
+                </span>
+              </li>
+              <li class="n8n-result__item">
+                <span class="n8n-result__icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 5.5A2.5 2.5 0 016.5 3H20v15H6.5A2.5 2.5 0 004 20.5V5.5z" />
+                    <path d="M20 18v3H6.5" />
+                  </svg>
+                </span>
+                <span class="n8n-result__text">
+                  <span class="n8n-result__item-title">
+                    {{ "N8N_WIZARD.RESULT.ITEM_3_TITLE" | translate }}
+                  </span>
+                  <span class="n8n-result__item-desc">
+                    {{ "N8N_WIZARD.RESULT.ITEM_3_DESC" | translate }}
+                  </span>
+                </span>
+              </li>
+            </ul>
+          </div>
+
+          <footer class="n8n-node__footer n8n-node__footer--result">
+            <button type="button" class="n8n-cta-contact" (click)="goContact()">
+              <span>{{ "N8N_WIZARD.RESULT.CTA" | translate }}</span>
+              <!-- Icono de flecha predeterminado de la app (services-card-cta-icon). -->
+              <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+                <path d="M1.5 8h11.3M8.2 3.5 12.7 8l-4.5 4.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
+            <button type="button" class="n8n-restart" (click)="workflow.reset()">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                <polyline points="1 4 1 10 7 10" />
+                <path d="M3.51 15a9 9 0 102.13-9.36L1 10" />
+              </svg>
+              <span>{{ "N8N_WIZARD.RESTART" | translate }}</span>
+            </button>
+            <p class="n8n-result__disclaimer">
+              <span aria-hidden="true">•</span>
+              {{ "N8N_WIZARD.DISCLAIMER" | translate }}
+            </p>
+          </footer>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>

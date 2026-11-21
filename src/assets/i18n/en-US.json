@@ -345,6 +345,54 @@
       "MIGRATE_UNKNOWN": "Hi Nomacoda, I took the migration test.\nI currently have a WordPress/similar website and the hosting cost is unknown / to be audited.\nI would like to know the exact quote for migrating to Angular + Sanity.io."
     }
   },
+  "N8N_WIZARD": {
+    "TITLE": "Set up your solution with",
+    "TITLE_HIGHLIGHT": "n8n",
+    "SUBTITLE": "Answer 3 questions on our node canvas and find out how to win hours back every week with automated workflows.",
+    "BACK": "Back",
+    "RESTART": "I want to talk to you about another task",
+    "DISCLAIMER": "Non-binding offer: we assess technical feasibility together before starting.",
+    "A11Y_NEXT_NODE": "Advance to the next node",
+    "STEPS": {
+      "TASK": {
+        "TITLE": "Which repetitive task annoys you the most?",
+        "DESCRIPTION": "Tell me about the manual process that creates the most friction in your day-to-day life or in your business.",
+        "LABEL": "Repetitive task you want to automate",
+        "PLACEHOLDER": "E.g.: Every Monday I have to manually sync Shopify orders with the Airtable database, generate PDF invoices and send WhatsApp alerts when stock runs low...",
+        "CTA": "Next node"
+      },
+      "HOURS": {
+        "TITLE": "How much time per week does that task take?",
+        "DESCRIPTION": "Give me an estimate of the weekly hours you spend on this task, so I can determine how many hours I can save you by having an n8n workflow handle it for you.",
+        "LABEL": "Weekly hours the task takes",
+        "PLACEHOLDER": "10",
+        "SUFFIX": "Hours / week",
+        "CTA": "Next node"
+      },
+      "OBJECTIVE": {
+        "TITLE": "What would you like to do with the time I’m going to give back to you?",
+        "DESCRIPTION": "The purpose of automation is to delegate mechanical tasks to a machine, so that you can remain focused on what truly drives you.",
+        "LABEL": "What you would do with the time you get back",
+        "PLACEHOLDER": "E.g.: Closing more sales deals, scaling product strategy, making music, or simply resting on Fridays without putting out manual fires...",
+        "CTA": "Generate automation diagnosis"
+      }
+    },
+    "RESULT": {
+      "HEADLINE": "I will automate this task using n8n",
+      "SUBTITLE": "I'll schedule a ~30-minute meeting with you, prepare a tailored quote, and within a month, you'll have an automated workflow—plus one month of free maintenance.",
+      "BREAKDOWN_LABEL": "Core workflow architecture",
+      "ITEM_1_TITLE": "Custom workflow on self-hosted or cloud-based n8n",
+      "ITEM_1_DESC": "Designed for modularity, with failure alerts and error-resilient (idempotent) processes.",
+      "ITEM_2_TITLE": "Optimized infrastructure costs (~€20/year)",
+      "ITEM_2_DESC": "Lightweight deployment on your own VPS or directly via n8n.",
+      "ITEM_3_TITLE": "Step-by-step documentation—no 'black boxes'",
+      "ITEM_3_DESC": "Once development is complete, you have full access to the workflow, allowing you to modify or update it without needing to hire me again.",
+      "CTA": "Let's get this done"
+    },
+    "MESSAGES": {
+      "LEAD": "Hi Nomacoda, I've sketched my n8n workflow:\n• Repetitive task to automate: {{task}}\n• Time it takes today: {{hours}} h/week\n• What I'd do with that time back: {{objective}}\nI'd like us to build this workflow together and know the monthly hosting cost."
+    }
+  },
   "ROUTE": {
     "PORTFOLIO": "Portfolio",
     "BLOG": "Blog",

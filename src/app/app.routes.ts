@@ -58,7 +58,7 @@ export const routes: Routes = [
       import('./features/n8n-service/components/n8n-service.component').then(
         (m) => m.N8nServiceComponent
       ),
-    data: { animation: 'N8N', titleKey: 'ROUTE.N8N' }
+    data: { animation: 'N8N', titleKey: 'ROUTE.N8N', theme: 'n8n' }
   },
   {
     path: 'tutoring',

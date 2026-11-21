@@ -596,4 +596,36 @@ p .blast:hover {
   --lang-panel-border: #{rgba(palette.$angular-magenta, 0.25)};
   --lang-item-hover: #{rgba(palette.$angular-dark, 0.55)};
 }
+
+// Tema de servicio para el shell (/n8n) — familia $n8n-* (marca oficial n8n).
+.theme-n8n {
+  --header-glass: #{rgba(palette.$n8n-deep, 0.7)};
+  --header-border: #{rgba(palette.$n8n-dark, 0.45)};
+  --header-glow-rgb: #{color.channel(palette.$n8n-rose, "red", $space: rgb)},
+    #{color.channel(palette.$n8n-rose, "green", $space: rgb)},
+    #{color.channel(palette.$n8n-rose, "blue", $space: rgb)};
+  --header-logo-mid: #{palette.$n8n-pink-light};
+  --header-index: #{palette.$n8n-rose};
+  --header-focus: #{palette.$n8n-rose};
+  --header-pill-hover: #{rgba(palette.$n8n-dark, 0.45)};
+  --header-pill-active: #{rgba(palette.$n8n-dark, 0.6)};
+  --dock-glass: #{rgba(palette.$n8n-deep, 0.75)};
+  --dock-glow-rgb: #{color.channel(palette.$n8n-rose, "red", $space: rgb)},
+    #{color.channel(palette.$n8n-rose, "green", $space: rgb)},
+    #{color.channel(palette.$n8n-rose, "blue", $space: rgb)};
+  --dock-glow: #{palette.$n8n-rose};
+  --dock-inner-border: #{rgba(palette.$n8n-rose, 0.2)};
+  --dock-icon-linkedin: #{palette.$n8n-pink-light};
+  --dock-focus-outer: #{palette.$n8n-rose};
+  --dock-focus-inner: #{palette.$n8n-dark};
+  --footer-glass: #{rgba(palette.$n8n-deep, 0.8)};
+  --footer-border: #{rgba(palette.$n8n-dark, 0.5)};
+  --footer-separator: #{palette.$n8n-dark};
+  --footer-soft: #{rgba(palette.$n8n-pink-light, 0.8)};
+  --footer-accent: #{palette.$n8n-pink-light};
+  --lang-label: #{palette.$n8n-pink-light};
+  --lang-panel: #{palette.$n8n-dark};
+  --lang-panel-border: #{rgba(palette.$n8n-rose, 0.25)};
+  --lang-item-hover: #{rgba(palette.$n8n-dark, 0.55)};
+}
 // #endregion

@@ -29,6 +29,8 @@ export interface WizardMessageTemplates {
   /** Debe contener el token {{amount}}, ya interpolado por el traductor. */
   migrateWithAmount: string;
   migrateWithoutAmount: string;
+  /** Descargo de no vinculación, añadido siempre al final del mensaje. */
+  disclaimer: string;
 }
 
 /**
@@ -74,7 +76,7 @@ export function buildPrebuiltMessage(
   } else {
     base = templates.migrateWithoutAmount;
   }
-  return base;
+  return `${base}\n\n${templates.disclaimer}`;
 }
 
 /**
@@ -199,7 +201,8 @@ export class WebMigrationWizardService {
       migrateWithAmount: this.translate.instant('WIZARD.MESSAGES.MIGRATE_AMOUNT', {
         amount: hostingAmount ?? 0
       }),
-      migrateWithoutAmount: this.translate.instant('WIZARD.MESSAGES.MIGRATE_UNKNOWN')
+      migrateWithoutAmount: this.translate.instant('WIZARD.MESSAGES.MIGRATE_UNKNOWN'),
+      disclaimer: this.translate.instant('WIZARD.DISCLAIMER')
     };
     const lead: WizardLead = {
       result,

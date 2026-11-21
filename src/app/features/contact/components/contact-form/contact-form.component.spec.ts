@@ -6,9 +6,10 @@ import {
   TranslateService
 } from '@ngx-translate/core';
 import { firstValueFrom, of, Subject, throwError } from 'rxjs';
+import { WebMigrationWizardService } from '../../../angular-service/web-migration-wizard.service';
+import { N8nWorkflowService } from '../../../n8n-service/components/n8n-workflow.service';
 import { ContactInquiry } from '../../interfaces/contact-inquiry.interface';
 import { ContactService } from '../../services/contact.service';
-import { WebMigrationWizardService } from '../../../angular-service/web-migration-wizard.service';
 import { ContactFormComponent } from './contact-form.component';
 
 // Mock TranslateLoader
@@ -35,6 +36,12 @@ const mockTranslations = {
       MAINTENANCE: 'MAINTENANCE_MSG',
       MIGRATE_AMOUNT: 'MIGRATE_MSG {{amount}}',
       MIGRATE_UNKNOWN: 'MIGRATE_UNKNOWN_MSG'
+    }
+  },
+  N8N_WIZARD: {
+    DISCLAIMER: 'N8N_DISCLAIMER',
+    MESSAGES: {
+      LEAD: 'N8N_LEAD {{task}} {{hours}} {{objective}}'
     }
   }
 };
@@ -449,6 +456,54 @@ describe('ContactFormComponent', () => {
         .args[0] as ContactInquiry;
       expect(actualCall.message).toContain('MIGRATE_MSG 180');
       expect(actualCall.message).toContain('Non-binding offer');
+    });
+  });
+
+  describe('Mensaje preconstruido del workflow n8n', () => {
+    async function prepareN8nLead(): Promise<void> {
+      const translate = TestBed.inject(TranslateService);
+      translate.setDefaultLang('en');
+      await firstValueFrom(translate.use('en'));
+
+      const workflow = TestBed.inject(N8nWorkflowService);
+      workflow.setTask('Sincronizar pedidos');
+      workflow.setHours(6);
+      workflow.setObjective('Descansar los viernes');
+      workflow.prepareLead();
+    }
+
+    function createFormWithLead(): ComponentFixture<ContactFormComponent> {
+      const leadFixture = TestBed.createComponent(ContactFormComponent);
+      leadFixture.detectChanges();
+      return leadFixture;
+    }
+
+    it('prellena el mensaje oculto del workflow n8n y oculta el textarea', async () => {
+      await prepareN8nLead();
+      const leadFixture = createFormWithLead();
+
+      expect(leadFixture.componentInstance.messagePrefilled()).toBeTrue();
+      expect(leadFixture.componentInstance.form.get('message')?.value).toContain(
+        'N8N_LEAD Sincronizar pedidos 6 Descansar los viernes'
+      );
+      expect(leadFixture.componentInstance.form.get('message')?.value).toContain(
+        'N8N_DISCLAIMER'
+      );
+      expect(
+        leadFixture.nativeElement.querySelector('#contact-message')
+      ).toBeNull();
+    });
+
+    it('el lead n8n se consume una sola vez', async () => {
+      await prepareN8nLead();
+      const first = createFormWithLead();
+      expect(first.componentInstance.messagePrefilled()).toBeTrue();
+
+      const second = createFormWithLead();
+      expect(second.componentInstance.messagePrefilled()).toBeFalse();
+      expect(
+        second.nativeElement.querySelector('#contact-message')
+      ).not.toBeNull();
     });
   });
 });

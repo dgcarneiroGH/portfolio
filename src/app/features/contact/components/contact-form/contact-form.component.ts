@@ -5,6 +5,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ContactInquiry } from '../../interfaces/contact-inquiry.interface';
 import { ContactService } from '../../services/contact.service';
 import { WebMigrationWizardService } from '../../../angular-service/web-migration-wizard.service';
+import { N8nWorkflowService } from '../../../n8n-service/components/n8n-workflow.service';
 
 interface FormStatus {
   loading: boolean;
@@ -25,9 +26,11 @@ export class ContactFormComponent {
   private contactService = inject(ContactService);
 
   /**
-   * Lead del wizard de migración (/angular): se consume una sola vez en el
-   * arranque; si existe, el campo MENSAJE se prellena (oculto al usuario)
-   * y se envía igualmente con el formulario.
+   * Lead pendiente de los asistentes de servicio (/angular y /n8n): se consume
+   * una sola vez en el arranque; si existe, el campo MENSAJE se prellena
+   * (oculto al usuario) y se envía igualmente con el formulario. Si hubiera
+   * dos leads pendientes (caso improbable: solo se puede llegar aquí desde un
+   * asistente), se unen con una línea en blanco.
    */
   readonly messagePrefilled = signal(false);
 
@@ -42,9 +45,13 @@ export class ContactFormComponent {
   });
 
   constructor() {
-    const lead = inject(WebMigrationWizardService).consumePendingLead();
-    if (lead) {
-      this.form.patchValue({ message: lead.message });
+    const wizardLead = inject(WebMigrationWizardService).consumePendingLead();
+    const n8nLead = inject(N8nWorkflowService).consumePendingLead();
+    const message = [wizardLead?.message, n8nLead?.message]
+      .filter((part): part is string => !!part)
+      .join('\n\n');
+    if (message) {
+      this.form.patchValue({ message });
       this.messagePrefilled.set(true);
     }
   }
