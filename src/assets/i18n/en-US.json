@@ -393,6 +393,108 @@
       "LEAD": "Hi Nomacoda, I've sketched my n8n workflow:\n• Repetitive task to automate: {{task}}\n• Time it takes today: {{hours}} h/week\n• What I'd do with that time back: {{objective}}\nI'd like us to build this workflow together and know the monthly hosting cost."
     }
   },
+  "TUTORING": {
+    "TERMINAL": {
+      "BREADCRUMB": {
+        "WS": "workspace",
+        "DIR": "mentorship",
+        "FILE": "tutorias.sh"
+      },
+      "SIDEBAR": {
+        "EXPLORER": "Explorer",
+        "GROUP": "NOMACODA-HUB",
+        "FILE_TUTORING": "tutoring.md",
+        "FILE_CONTACT": "contact.md",
+        "BADGE_ACTIVE": "active",
+        "STATS_TITLE": "TUTORING STATS",
+        "STATS_FCT_LABEL": "FCT pass rate:",
+        "STATS_FCT_VALUE": "100%",
+        "STATS_FORMAT_LABEL": "Format:",
+        "STATS_FORMAT_VALUE": "1 to 1 Discord",
+        "STATS_LIVE_LABEL": "Extension:",
+        "STATS_LIVE_VALUE": "Live Share",
+        "CHANNEL_TITLE": "Private Discord Channel",
+        "CHANNEL_SUBTITLE": "● Daily Q&A resolution"
+      },
+      "TABS": {
+        "TERMINAL": "terminal: solicitar_tutoria.sh",
+        "BADGE_RUNNING": "running",
+        "README": "README.md",
+        "CONF": "discord-channel.conf"
+      },
+      "TOPBAR": {
+        "ENGINE": "nomacoda@cli-engine v2.6.4 (interactive-pty)"
+      },
+      "STATUSBAR": {
+        "BRANCH": "master*",
+        "ERRORS": "0 errors, 0 warnings",
+        "LANG": "TypeScript / Shell"
+      },
+      "BANNER": {
+        "TITLE": "Nomacoda DAW / DAM Interactive Mentorship Engine [v2.6.4]",
+        "DESCRIPTION": "Interactive system for diagnostics, curriculum reinforcement and Final Project support.",
+        "HINT": "Type your answers in the terminal and press Enter. Subjects are picked by number (e.g.: 1,3,4)."
+      },
+      "BOOT": {
+        "CHECK_MODULES": "Checking vocational IT modules...",
+        "CHECK_CHANNEL": "Communication channel: Discord + VS Code LiveShare...",
+        "START": "Starting personalized setup wizard:"
+      },
+      "QUESTIONS": {
+        "CYCLE": "Which cycle are you studying?",
+        "CYCLE_HINT": "(DAW / DAM)",
+        "YEAR": "Which year are you in?",
+        "YEAR_HINT": "(1 / 2)",
+        "SUBJECTS": "Which subjects do you need help with?",
+        "SUBJECTS_HINT": "(comma-separated numbers, e.g.: 1,3,4)",
+        "HOURS": "How many hours per week can you commit?",
+        "HOURS_HINT": "(e.g. 4)",
+        "CONFIRM": "Message saved! Would you like to contact me to schedule a free ~30-minute first class?",
+        "CONFIRM_HINT": "(Y/N)",
+        "CLEAR_HINT_END": "- Start over"
+      },
+      "ERRORS": {
+        "CYCLE": "Unrecognized value. Type daw or dam.",
+        "YEAR": "Unrecognized value. Type 1 or 2.",
+        "SUBJECTS": "Invalid selection: type numbers from 1 to {{max}} separated by commas.",
+        "HOURS": "Unrecognized value. Enter a number of hours only (e.g. 4).",
+        "CONFIRM": "Unrecognized value. Type Y or N."
+      },
+      "ECHO": {
+        "CYCLE": "Cycle:",
+        "YEAR": "Year:",
+        "SUBJECTS": "Subjects:",
+        "HOURS": "Weekly hours:"
+      },
+      "SUMMARY": {
+        "BUILDING": "Generating payload for the contact form...",
+        "BUILD_OK": "[build] Serializing student parameters... OK",
+        "SOCKET_OK": "[socket] Checking availability on Discord server... CHANNEL READY",
+        "DISPATCH": "[200 OK] Request prepared. Opening /contact with the preloaded message...",
+        "SENT_LABEL": "Request sent. Type clear to start over."
+      },
+      "MESSAGE": {
+        "WITH_PROJECT": "Hi Nomacoda, I'm a {{year}} {{cycle}} student and I need help with {{subjects}}. I can dedicate {{hours}} per week. \nLooking forward to your reply.",
+        "DISCLAIMER": "Message generated from the tutoring terminal (/tutoring); subject to schedule availability."
+      },
+      "SUBJECTS": {
+        "FCT": "FCT — Final project",
+        "PROGRAMMING": "Programming",
+        "DATABASES": "Databases",
+        "SYSTEMS": "Computing systems",
+        "MARKUP_LANGUAGES": "Markup languages",
+        "DEV_ENVIRONMENTS": "Development environments",
+        "DATA_ACCESS": "Data access",
+        "INTERFACES": "Interface development",
+        "MOBILE": "Mobile programming",
+        "PROCESSES": "Services and processes programming",
+        "ERP_SGE": "Business management systems",
+        "WEB_CLIENT": "Client-side web development",
+        "WEB_SERVER": "Server-side web development",
+        "DEPLOYMENT": "Web application deployment"
+      }
+    }
+  },
   "ROUTE": {
     "PORTFOLIO": "Portfolio",
     "BLOG": "Blog",

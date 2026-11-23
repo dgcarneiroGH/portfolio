@@ -172,3 +172,22 @@ selectores por tipo interactivo.
 
 Referencia: se eliminó el outline de 3px de `#main-content` y el catch-all
 `*:focus-visible` (2026-11-18).
+
+## Servidor de preview — nunca ocupar el puerto de desarrollo
+
+**Regla (2026-11-21):** PROHIBIDO arrancar `npm run serve:dist` (o cualquier
+servidor estático de `dist`) en el puerto 4200: es el puerto del `ng serve`
+del usuario y una foto estática del último build sombrea sus ediciones — el
+navegador mostrará siempre la versión vieja por mucho que edite fuentes. Si
+el agente necesita servir un build para su propia verificación visual, debe:
+- Usar un puerto distinto: `PORT=4300 npm run serve:dist` (el script soporta
+  la variable `PORT`).
+- Matar el proceso al terminar la verificación.
+
+Si el usuario reporta que "no ve sus cambios" en el navegador, comprobar
+PRIMERO si hay un servidor estático del agente ocupando el 4200 y matarlo
+(`netstat -ano | findstr :4200` → `taskkill //PID <pid> //F`).
+
+Referencia: /n8n — el `serve:dist` del agente ocupó el 4200 y el usuario no
+veía sus ediciones; se mataron los procesos y se liberó el puerto
+(2026-11-21).

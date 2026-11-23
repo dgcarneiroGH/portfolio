@@ -152,9 +152,11 @@
 }
 
 .services-card--tutoring {
-  --service-accent-rgb: #{red(palette.$amber-glow)},
-  #{green(palette.$amber-glow)},
-  #{blue(palette.$amber-glow)};
+  // Acento Discord de /tutoring — elección del usuario (2026-11-21), mismo
+  // patrón que --n8n: fondo, borde e icono derivan del acento.
+  --service-accent-rgb: #{red(palette.$discord-blurple)},
+  #{green(palette.$discord-blurple)},
+  #{blue(palette.$discord-blurple)};
 }
 
 .services-card-icon {

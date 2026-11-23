@@ -8,6 +8,7 @@ import {
 import { firstValueFrom, of, Subject, throwError } from 'rxjs';
 import { WebMigrationWizardService } from '../../../angular-service/web-migration-wizard.service';
 import { N8nWorkflowService } from '../../../n8n-service/components/n8n-workflow.service';
+import { TutoringTerminalService } from '../../../tutoring-service/tutoring-terminal.service';
 import { ContactInquiry } from '../../interfaces/contact-inquiry.interface';
 import { ContactService } from '../../services/contact.service';
 import { ContactFormComponent } from './contact-form.component';
@@ -42,6 +43,19 @@ const mockTranslations = {
     DISCLAIMER: 'N8N_DISCLAIMER',
     MESSAGES: {
       LEAD: 'N8N_LEAD {{task}} {{hours}} {{objective}}'
+    }
+  },
+  TUTORING: {
+    TERMINAL: {
+      MESSAGE: {
+        WITH_PROJECT: 'TUTORING_PFC {{cycle}} {{year}} {{subjects}} {{hours}}',
+        DISCLAIMER: 'TUTORING_DISCLAIMER'
+      },
+      SUBJECTS: {
+        FCT: 'TUTORING_SUBJ1',
+        DATABASES: 'TUTORING_SUBJ3',
+        WEB_SERVER: 'TUTORING_SUBJ13'
+      }
     }
   }
 };
@@ -496,6 +510,55 @@ describe('ContactFormComponent', () => {
 
     it('el lead n8n se consume una sola vez', async () => {
       await prepareN8nLead();
+      const first = createFormWithLead();
+      expect(first.componentInstance.messagePrefilled()).toBeTrue();
+
+      const second = createFormWithLead();
+      expect(second.componentInstance.messagePrefilled()).toBeFalse();
+      expect(
+        second.nativeElement.querySelector('#contact-message')
+      ).not.toBeNull();
+    });
+  });
+
+  describe('Mensaje preconstruido de la terminal de tutorías', () => {
+    async function prepareTutoringLead(): Promise<void> {
+      const translate = TestBed.inject(TranslateService);
+      translate.setDefaultLang('es-ES');
+      await firstValueFrom(translate.use('es-ES'));
+
+      const terminal = TestBed.inject(TutoringTerminalService);
+      terminal.submit('daw');
+      terminal.submit('2');
+      terminal.submit('1,3');
+      terminal.submit('4');
+      terminal.prepareLead();
+    }
+
+    function createFormWithLead(): ComponentFixture<ContactFormComponent> {
+      const leadFixture = TestBed.createComponent(ContactFormComponent);
+      leadFixture.detectChanges();
+      return leadFixture;
+    }
+
+    it('prellena el mensaje oculto del terminal y oculta el textarea', async () => {
+      await prepareTutoringLead();
+      const leadFixture = createFormWithLead();
+
+      expect(leadFixture.componentInstance.messagePrefilled()).toBeTrue();
+      expect(leadFixture.componentInstance.form.get('message')?.value).toContain(
+        'TUTORING_PFC DAW 2º TUTORING_SUBJ1 y TUTORING_SUBJ13 4h'
+      );
+      expect(leadFixture.componentInstance.form.get('message')?.value).toContain(
+        'TUTORING_DISCLAIMER'
+      );
+      expect(
+        leadFixture.nativeElement.querySelector('#contact-message')
+      ).toBeNull();
+    });
+
+    it('el lead de tutorías se consume una sola vez', async () => {
+      await prepareTutoringLead();
       const first = createFormWithLead();
       expect(first.componentInstance.messagePrefilled()).toBeTrue();
 

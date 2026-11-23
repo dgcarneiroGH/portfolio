@@ -390,7 +390,109 @@
       "CTA": "Quiero que hagamos esto"
     },
     "MESSAGES": {
-      "LEAD": "Hola Nomacoda, me gustaría automatizar la tarea de {{task}}, ya que me consume {{hours}} h a la semana. \nMe encantaría {{objective}} con el tiempo recuperado.\nMe gustaría que montáramos este flujo juntos."
+      "LEAD": "Hola Nomacoda, me gustaría automatizar la tarea de {{task}}, ya que me consume {{hours}} horas a la semana. \nMe encantaría {{objective}} con el tiempo recuperado.\nMe gustaría que montáramos este flujo juntos."
+    }
+  },
+  "TUTORING": {
+    "TERMINAL": {
+      "BREADCRUMB": {
+        "WS": "workspace",
+        "DIR": "mentorship",
+        "FILE": "tutorias.sh"
+      },
+      "SIDEBAR": {
+        "EXPLORER": "Explorador",
+        "GROUP": "NOMACODA-HUB",
+        "FILE_TUTORING": "tutorías.md",
+        "FILE_CONTACT": "contacto.md",
+        "BADGE_ACTIVE": "active",
+        "STATS_TITLE": "TUTORÍA STATS",
+        "STATS_FCT_LABEL": "Aprobados FCT:",
+        "STATS_FCT_VALUE": "100%",
+        "STATS_FORMAT_LABEL": "Formato:",
+        "STATS_FORMAT_VALUE": "1 a 1 Discord",
+        "STATS_LIVE_LABEL": "Extensión:",
+        "STATS_LIVE_VALUE": "Live Share",
+        "CHANNEL_TITLE": "Canal Discord Privado",
+        "CHANNEL_SUBTITLE": "● Resolución diaria de dudas"
+      },
+      "TABS": {
+        "TERMINAL": "terminal: solicitar_tutoria.sh",
+        "BADGE_RUNNING": "running",
+        "README": "README.md",
+        "CONF": "discord-channel.conf"
+      },
+      "TOPBAR": {
+        "ENGINE": "nomacoda@cli-engine v2.6.4"
+      },
+      "STATUSBAR": {
+        "BRANCH": "master*",
+        "ERRORS": "0 errors, 0 warnings",
+        "LANG": "TypeScript / Shell"
+      },
+      "BANNER": {
+        "TITLE": "Nomacoda DAW / DAM Interactive Mentorship Engine [v2.6.4]",
+        "DESCRIPTION": "Sistema interactivo de diagnóstico, refuerzo curricular y soporte a Proyectos de Ciclo.",
+        "HINT": "Escribe tus respuestas en la terminal y pulsa Enter. Las asignaturas se eligen por número (ej: 1,3,4)."
+      },
+      "BOOT": {
+        "CHECK_MODULES": "Verificando módulos de FP informática...",
+        "CHECK_CHANNEL": "Canal de comunicación: Discord + VS Code LiveShare...",
+        "START": "Iniciando asistente de configuración personalizado:"
+      },
+      "QUESTIONS": {
+        "CYCLE": "¿Qué ciclo estás estudiando?",
+        "CYCLE_HINT": "(DAW / DAM)",
+        "YEAR": "¿En qué año estás?",
+        "YEAR_HINT": "(1º / 2º)",
+        "SUBJECTS": "¿Con qué asignaturas necesitas ayuda?",
+        "SUBJECTS_HINT": "(números separados por comas, ej: 1,3,4)",
+        "HOURS": "¿Cuántas horas a la semana quieres dedicarle?",
+        "HOURS_HINT": "(ej: 4)",
+        "CONFIRM": "¡Mensaje guardado! ¿Deseas contactar conmigo para agendar una primera clase gratuita de ~30 minutos?",
+        "CONFIRM_HINT": "(Y/N)",
+        "CLEAR_HINT_END": "- Limpia la consola "
+      },
+      "ERRORS": {
+        "CYCLE": "Valor no reconocido. Escribe daw o dam.",
+        "YEAR": "Valor no reconocido. Escribe 1 o 2.",
+        "SUBJECTS": "Selección no válida: escribe números del 1 al {{max}} separados por comas.",
+        "HOURS": "Valor no reconocido. Escribe solo un número de horas (ej: 4).",
+        "CONFIRM": "Valor no reconocido. Escribe Y o N."
+      },
+      "ECHO": {
+        "CYCLE": "Ciclo:",
+        "YEAR": "Curso:",
+        "SUBJECTS": "Asignaturas:",
+        "HOURS": "Horas semanales:"
+      },
+      "SUMMARY": {
+        "BUILDING": "Generando payload para el formulario de contacto...",
+        "BUILD_OK": "[build] Serializando parámetros del alumno... OK",
+        "SOCKET_OK": "[socket] Comprobando disponibilidad en servidor Discord... CANAL LISTO",
+        "DISPATCH": "[200 OK] Solicitud preparada. Abriendo /contacto con el mensaje precargado...",
+        "SENT_LABEL": "Solicitud enviada. Escribe clear para volver a empezar."
+      },
+      "MESSAGE": {
+        "WITH_PROJECT": "Hola Nomacoda, soy un alumno de {{year}} de {{cycle}} y necesito ayuda con {{subjects}}. Quiero dedicar {{hours}} a la semana. \nEspero tu respuesta.",
+        "DISCLAIMER": "Mensaje generado desde la terminal de tutorías (/tutoring); sujeto a disponibilidad horaria."
+      },
+      "SUBJECTS": {
+        "FCT": "FCT — Proyecto final",
+        "PROGRAMMING": "Programación",
+        "DATABASES": "Bases de datos",
+        "SYSTEMS": "Sistemas informáticos",
+        "MARKUP_LANGUAGES": "Lenguajes de marcas",
+        "DEV_ENVIRONMENTS": "Entornos de desarrollo",
+        "DATA_ACCESS": "Acceso a datos",
+        "INTERFACES": "Desarrollo de interfaces",
+        "MOBILE": "Programación móvil",
+        "PROCESSES": "Programación de servicios y procesos",
+        "ERP_SGE": "Sistemas de gestión empresarial",
+        "WEB_CLIENT": "Desarrollo web en entorno cliente",
+        "WEB_SERVER": "Desarrollo web en entorno servidor",
+        "DEPLOYMENT": "Despliegue de aplicaciones web"
+      }
     }
   },
   "ROUTE": {

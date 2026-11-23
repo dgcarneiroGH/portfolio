@@ -254,15 +254,18 @@ h6 {
 }
 
 html {
-  background-color: palette.$background-gradient-start;
+  background-color: var(--page-bg-end, #{palette.$background-gradient-end});
 }
 
 body {
   margin: 0;
   overflow-x: hidden;
+  // Gradiente de página variable por tema de servicio (petición explícita
+  // del usuario 2026-11-21 para /tutoring, regla AGENTS 2026-11-17: el fondo
+  // solo cambia donde el usuario lo pide). Los defaults son los de la app.
   background: linear-gradient(90deg,
-      palette.$background-gradient-start 0%,
-      palette.$background-gradient-end 100%);
+      var(--page-bg-start, #{palette.$background-gradient-start}) 0%,
+      var(--page-bg-end, #{palette.$background-gradient-end}) 100%);
 }
 
 section {
@@ -627,5 +630,41 @@ p .blast:hover {
   --lang-panel: #{palette.$n8n-dark};
   --lang-panel-border: #{rgba(palette.$n8n-rose, 0.25)};
   --lang-item-hover: #{rgba(palette.$n8n-dark, 0.55)};
+}
+
+// Tema de servicio para el shell (/tutoring) — familia $discord-* (marca Discord).
+.theme-tutoring {
+  // Fondo de página Discord — petición explícita del usuario (2026-11-21;
+  // regla AGENTS 2026-11-17: el fondo solo cambia donde el usuario lo pide).
+  --page-bg-start: #{palette.$discord-terminal};
+  --page-bg-end: #{palette.$discord-bg};
+  --header-glass: #{rgba(palette.$discord-bg, 0.7)};
+  --header-border: #{rgba(palette.$discord-panel, 0.45)};
+  --header-glow-rgb: #{color.channel(palette.$discord-blurple, "red", $space: rgb)},
+    #{color.channel(palette.$discord-blurple, "green", $space: rgb)},
+    #{color.channel(palette.$discord-blurple, "blue", $space: rgb)};
+  --header-logo-mid: #{palette.$discord-link};
+  --header-index: #{palette.$discord-blurple};
+  --header-focus: #{palette.$discord-blurple};
+  --header-pill-hover: #{rgba(palette.$discord-panel, 0.45)};
+  --header-pill-active: #{rgba(palette.$discord-panel, 0.6)};
+  --dock-glass: #{rgba(palette.$discord-bg, 0.75)};
+  --dock-glow-rgb: #{color.channel(palette.$discord-blurple, "red", $space: rgb)},
+    #{color.channel(palette.$discord-blurple, "green", $space: rgb)},
+    #{color.channel(palette.$discord-blurple, "blue", $space: rgb)};
+  --dock-glow: #{palette.$discord-blurple};
+  --dock-inner-border: #{rgba(palette.$discord-blurple, 0.2)};
+  --dock-icon-linkedin: #{palette.$discord-link};
+  --dock-focus-outer: #{palette.$discord-blurple};
+  --dock-focus-inner: #{palette.$discord-panel};
+  --footer-glass: #{rgba(palette.$discord-bg, 0.8)};
+  --footer-border: #{rgba(palette.$discord-panel, 0.5)};
+  --footer-separator: #{palette.$discord-panel};
+  --footer-soft: #{rgba(palette.$discord-link, 0.8)};
+  --footer-accent: #{palette.$discord-link};
+  --lang-label: #{palette.$discord-link};
+  --lang-panel: #{palette.$discord-panel};
+  --lang-panel-border: #{rgba(palette.$discord-blurple, 0.25)};
+  --lang-item-hover: #{rgba(palette.$discord-panel, 0.55)};
 }
 // #endregion

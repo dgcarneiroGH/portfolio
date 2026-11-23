@@ -6,6 +6,7 @@ import { ContactInquiry } from '../../interfaces/contact-inquiry.interface';
 import { ContactService } from '../../services/contact.service';
 import { WebMigrationWizardService } from '../../../angular-service/web-migration-wizard.service';
 import { N8nWorkflowService } from '../../../n8n-service/components/n8n-workflow.service';
+import { TutoringTerminalService } from '../../../tutoring-service/tutoring-terminal.service';
 
 interface FormStatus {
   loading: boolean;
@@ -47,7 +48,8 @@ export class ContactFormComponent {
   constructor() {
     const wizardLead = inject(WebMigrationWizardService).consumePendingLead();
     const n8nLead = inject(N8nWorkflowService).consumePendingLead();
-    const message = [wizardLead?.message, n8nLead?.message]
+    const tutoringLead = inject(TutoringTerminalService).consumePendingLead();
+    const message = [wizardLead?.message, n8nLead?.message, tutoringLead?.message]
       .filter((part): part is string => !!part)
       .join('\n\n');
     if (message) {

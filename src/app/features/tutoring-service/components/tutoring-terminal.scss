@@ -1,0 +1,185 @@
+// Interior del terminal de la página /tutoring: log, tonos de color de los
+// segmentos y línea de comandos (el paso final es la pregunta de envío
+// Y/N, como el resto de preguntas). El chrome de la página vive en
+// tutoring-service.component.scss. Todo el color Discord vive dentro de la
+// ventana (regla AGENTS 2026-11-17).
+@use "src/styles/_palette" as palette;
+@use "src/styles/_fonts" as fonts;
+@use "src/styles/_focus" as focus;
+
+// Cuerpo del terminal: fondo más profundo que la ventana y ÚNICO scroll de
+// la página (la ventana es de alto fijo). Sin scroll-behavior: smooth: el
+// autoscroll del componente asigna scrollTop en cada tick del tecleo y una
+// animación suave reiniciada 60 veces/s nunca alcanza al contenido nuevo
+// (comportamiento de terminal real: snap instantáneo).
+.tutoring-terminal {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  padding: 1.25rem;
+  overflow-y: auto;
+  background: palette.$discord-terminal;
+  font-family: fonts.$mono;
+  font-size: 0.75rem;
+  line-height: 1.7;
+  color: palette.$text-primary;
+
+  &::-webkit-scrollbar {
+    width: 7px;
+    height: 7px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: palette.$discord-terminal;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background: palette.$discord-border;
+
+    &:hover {
+      background: palette.$discord-blurple;
+    }
+  }
+}
+
+// ---------- Log ----------
+.tutoring-terminal__log {
+  display: grid;
+  gap: 0.35rem;
+  align-content: start;
+}
+
+.tutoring-terminal__line {
+  min-height: 1.2em;
+}
+
+// Caret de tecleo: bloque verde al final de la línea en curso (typewriter).
+// El bloque global prefers-reduced-motion de styles.scss lo neutraliza.
+.tutoring-terminal__line.is-typing::after {
+  display: inline-block;
+  width: 0.5em;
+  height: 1.1em;
+  margin-left: 2px;
+  vertical-align: -2px;
+  content: '';
+  background: palette.$discord-cursor;
+  box-shadow: 0 0 8px rgba(palette.$discord-cursor, 0.6);
+  animation: tutoring-caret-blink 0.8s steps(1) infinite;
+}
+
+@keyframes tutoring-caret-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+}
+
+// Banner ASCII: preservar espacios y saltos.
+.tutoring-terminal__pre {
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: 1.25;
+  color: palette.$discord-blurple;
+  white-space: pre;
+  overflow-x: auto;
+}
+
+.tutoring-terminal__part {
+  white-space: pre-wrap;
+
+  &--accent {
+    color: palette.$discord-blurple;
+  }
+
+  &--success {
+    color: palette.$discord-success;
+  }
+
+  &--muted {
+    color: palette.$discord-muted;
+  }
+
+  &--info {
+    color: palette.$discord-info;
+  }
+
+  &--warning {
+    color: palette.$discord-warning;
+  }
+
+  &--link {
+    color: palette.$discord-link;
+  }
+
+  &--plain {
+    color: palette.$text-primary;
+  }
+
+  &--error {
+    color: palette.$discord-red;
+  }
+}
+
+// ---------- Línea de comandos ----------
+.tutoring-terminal__cli {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 1rem;
+}
+
+// Aviso fijo bajo el CLI: chrome del terminal (no scrollea ni es mensaje).
+.tutoring-terminal__hint {
+  display: flex;
+  align-items: baseline;
+  gap: 0.375rem;
+  margin: 0.5rem 0 0;
+  padding-left: 0.4rem;
+  font-size: 0.6875rem;
+  line-height: 1.4;
+}
+
+.tutoring-terminal__input {
+  flex: 1;
+  min-width: 0;
+  max-width: 30rem;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+  background: transparent;
+  caret-color: palette.$discord-cursor;
+  font-family: inherit;
+  font-size: inherit;
+  color: palette.$text-primary;
+
+  &::placeholder {
+    color: transparent; // Sin ayuda adicional (spec): sin texto de ejemplo.
+  }
+
+  &:focus {
+    border-color: transparent;
+    outline: none;
+  }
+
+  &:focus-visible {
+    @include focus.focus-ring(transparent, palette.$discord-terminal);
+  }
+}
+
+// El cursor del terminal es el caret nativo del input (caret-color
+// $discord-cursor): el bloque decorativo del mock se sustituye por el cursor
+// real de la línea de comandos.
+
+// ---------- Responsive (regla AGENTS 2026-11-17) ----------
+@media (min-width: 768px) {
+  .tutoring-terminal {
+    padding: 1.75rem;
+    font-size: 0.875rem;
+  }
+}

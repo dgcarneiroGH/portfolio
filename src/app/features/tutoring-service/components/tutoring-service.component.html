@@ -1,7 +1,264 @@
 <!--
-  Página "Tutorías" (ruta /tutoring): placeholder vacío pendiente de diseño.
-  La raíz <section> hereda los estilos globales de section de styles.scss
-  (flex + padding 5.5rem que compensan el header fijo) y mantiene el fondo
-  por defecto de la app (regla AGENTS 2026-11-17).
+  Página "Tutorías" (ruta /tutoring): ventana IDE con estética Discord cuyo
+  interior es un terminal interactivo real. La raíz <section> hereda los
+  estilos globales de styles.scss y mantiene el fondo por defecto de la app
+  (regla AGENTS 2026-11-17): TODO el color Discord vive dentro de la ventana.
+
+  A11y: los anillos de foco solo en interactivos (enlaces del sidebar; el
+  input del CLI en la hoja tutoring-terminal.scss). El h1 es accesible para el
+  lector de pantallas (la página no lleva título visual: el mock lo reserva
+  para el terminal). Los iconos son decorativos (aria-hidden). Tabs del editor
+  decorativas (sin tablist: no son interactivas).
 -->
-<section class="tutoring"></section>
+<section class="tutoring" aria-labelledby="tutoring-title">
+  <h1 id="tutoring-title" class="sr-only">
+    {{ "ROUTE.TUTORING" | translate }}
+  </h1>
+
+  <!-- Subheader breadcrumb -->
+  <div class="tutoring-breadcrumb">
+    <div class="tutoring-breadcrumb__inner">
+      <p class="tutoring-breadcrumb__path">
+        <span class="tutoring-breadcrumb__accent">
+          {{ "TUTORING.TERMINAL.BREADCRUMB.WS" | translate }}
+        </span>
+        <span class="tutoring-breadcrumb__sep" aria-hidden="true">/</span>
+        <span>{{ "TUTORING.TERMINAL.BREADCRUMB.DIR" | translate }}</span>
+        <span class="tutoring-breadcrumb__sep" aria-hidden="true">/</span>
+        <span class="tutoring-breadcrumb__file">
+          {{ "TUTORING.TERMINAL.BREADCRUMB.FILE" | translate }}
+        </span>
+      </p>
+    </div>
+  </div>
+
+  <!-- Ventana IDE -->
+  <div class="tutoring-window">
+    <!-- ===== Sidebar: explorador de archivos ===== -->
+    <aside
+      class="tutoring-sidebar"
+      aria-label="{{ 'TUTORING.TERMINAL.SIDEBAR.EXPLORER' | translate }}"
+    >
+      <div>
+        <div class="tutoring-sidebar__head">
+          <span>{{ "TUTORING.TERMINAL.SIDEBAR.EXPLORER" | translate }}</span>
+        </div>
+
+        <div class="tutoring-sidebar__body">
+          <p class="tutoring-sidebar__group">
+            <svg
+              class="tutoring-sidebar__chevron"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+              />
+            </svg>
+            {{ "TUTORING.TERMINAL.SIDEBAR.GROUP" | translate }}
+          </p>
+
+          <ul class="tutoring-files">
+            <li>
+              <a
+                routerLink="/tutoring"
+                routerLinkActive="is-active"
+                class="tutoring-files__link is-active"
+              >
+                <span class="tutoring-files__hash" aria-hidden="true">#</span>
+                <span class="tutoring-files__name">
+                  {{ "TUTORING.TERMINAL.SIDEBAR.FILE_TUTORING" | translate }}
+                </span>
+                <span class="tutoring-files__badge">
+                  {{ "TUTORING.TERMINAL.SIDEBAR.BADGE_ACTIVE" | translate }}
+                </span>
+              </a>
+            </li>
+            <li>
+              <a routerLink="/contact" routerLinkActive="is-active" class="tutoring-files__link">
+                <span class="tutoring-files__hash tutoring-files__hash--contact" aria-hidden="true">#</span>
+                <span class="tutoring-files__name">
+                  {{ "TUTORING.TERMINAL.SIDEBAR.FILE_CONTACT" | translate }}
+                </span>
+              </a>
+            </li>
+          </ul>
+
+          <!-- Caja de stats (contenido del mock aprobado) -->
+          <div class="tutoring-stats">
+            <p class="tutoring-stats__title">
+              {{ "TUTORING.TERMINAL.SIDEBAR.STATS_TITLE" | translate }}
+            </p>
+            <dl class="tutoring-stats__list">
+              <div class="tutoring-stats__row">
+                <dt>{{ "TUTORING.TERMINAL.SIDEBAR.STATS_FCT_LABEL" | translate }}</dt>
+                <dd class="tutoring-stats__value-ok">
+                  {{ "TUTORING.TERMINAL.SIDEBAR.STATS_FCT_VALUE" | translate }}
+                </dd>
+              </div>
+              <div class="tutoring-stats__row">
+                <dt>{{ "TUTORING.TERMINAL.SIDEBAR.STATS_FORMAT_LABEL" | translate }}</dt>
+                <dd>{{ "TUTORING.TERMINAL.SIDEBAR.STATS_FORMAT_VALUE" | translate }}</dd>
+              </div>
+              <div class="tutoring-stats__row">
+                <dt>{{ "TUTORING.TERMINAL.SIDEBAR.STATS_LIVE_LABEL" | translate }}</dt>
+                <dd class="tutoring-stats__value-accent">
+                  {{ "TUTORING.TERMINAL.SIDEBAR.STATS_LIVE_VALUE" | translate }}
+                </dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer del sidebar: canal Discord -->
+      <div class="tutoring-channel">
+        <img
+          class="tutoring-channel__icon"
+          src="assets/images/icons/discord.svg"
+          alt=""
+          aria-hidden="true"
+        />
+        <span class="tutoring-channel__text">
+          <span class="tutoring-channel__title">
+            {{ "TUTORING.TERMINAL.SIDEBAR.CHANNEL_TITLE" | translate }}
+          </span>
+          <span class="tutoring-channel__subtitle">
+            {{ "TUTORING.TERMINAL.SIDEBAR.CHANNEL_SUBTITLE" | translate }}
+          </span>
+        </span>
+      </div>
+    </aside>
+
+    <!-- ===== Área principal: terminal ===== -->
+    <div class="tutoring-main">
+      <!-- Tabs del editor (decorativas) -->
+      <div class="tutoring-tabs">
+        <div class="tutoring-tab is-active">
+          <span class="tutoring-tab__prompt" aria-hidden="true">&gt;_</span>
+          <span class="tutoring-tab__name">
+            {{ "TUTORING.TERMINAL.TABS.TERMINAL" | translate }}
+          </span>
+          <span class="tutoring-tab__badge">
+            {{ "TUTORING.TERMINAL.TABS.BADGE_RUNNING" | translate }}
+          </span>
+        </div>
+        <div class="tutoring-tab">
+          {{ "TUTORING.TERMINAL.TABS.README" | translate }}
+        </div>
+        <div class="tutoring-tab">
+          {{ "TUTORING.TERMINAL.TABS.CONF" | translate }}
+        </div>
+      </div>
+
+      <!-- Top bar del terminal -->
+      <div class="tutoring-topbar">
+        <div class="tutoring-topbar__left">
+          <span class="tutoring-topbar__dots" aria-hidden="true">
+            <span class="tutoring-topbar__dot tutoring-topbar__dot--red"></span>
+            <span class="tutoring-topbar__dot tutoring-topbar__dot--yellow"></span>
+            <span class="tutoring-topbar__dot tutoring-topbar__dot--green"></span>
+          </span>
+          <span class="tutoring-topbar__engine">
+            {{ "TUTORING.TERMINAL.TOPBAR.ENGINE" | translate }}
+          </span>
+        </div>        
+      </div>
+
+      <!-- Cuerpo del terminal: log + línea de comandos.
+           El motor de tecleo revela el log progresivamente (typewriter):
+           displayLines entrega texto ya resuelto y marca la línea en curso
+           (caret via .is-typing). aria-busy evita el spam del lector
+           de pantallas mientras el motor escribe. -->
+      <div class="tutoring-terminal" #terminalBody>
+        <div
+          class="tutoring-terminal__log"
+          aria-live="polite"
+          [attr.aria-busy]="terminal.isTyping()"
+        >
+          @for (line of terminal.displayLines(); track line.id) {
+            <div
+              class="tutoring-terminal__line"
+              [class.is-highlighted]="
+                line.kind === 'options' && line.parts[1]?.tone === 'accent'
+              "
+              [class.is-typing]="line.typing"
+              data-terminal-line
+              [attr.data-line-kind]="line.kind"
+            >
+              @if (line.pre) {
+                <pre class="tutoring-terminal__pre">{{ line.parts[0]?.text }}</pre>
+              } @else {
+                @for (part of line.parts; track $index) {
+                  <span
+                    class="tutoring-terminal__part tutoring-terminal__part--{{ part.tone }}"
+                  >{{ part.text }}</span>
+                }
+              }
+            </div>
+          }
+        </div>
+
+        <!-- Línea de comandos: una sola, siempre visible (también en la
+             confirmación de envío y tras enviar, donde queda a la espera). -->
+        <div class="tutoring-terminal__cli">
+          <span
+            class="tutoring-terminal__part tutoring-terminal__part--success"
+            aria-hidden="true"
+          >nomacoda@student</span>
+          <span class="tutoring-terminal__part tutoring-terminal__part--muted" aria-hidden="true">:</span>
+          <span class="tutoring-terminal__part tutoring-terminal__part--accent" aria-hidden="true">~</span>
+          <span class="tutoring-terminal__part tutoring-terminal__part--plain" aria-hidden="true">$</span>
+          <input
+            #cliInput
+            id="tutoring-cli-input"
+            class="tutoring-terminal__input"
+            type="text"
+            inputmode="numeric"
+            autocomplete="off"
+            autocapitalize="off"
+            spellcheck="false"
+            [attr.aria-label]="activeQuestion()"
+            (keydown.enter)="submitAnswer(cliInput.value); cliInput.value = ''"
+          />
+        </div>
+
+        <!-- Aviso fijo de reinicio: chrome del terminal, nunca es un mensaje
+             del log (elección del usuario 2026-11-21). El comando es literal,
+             sin traducir, resaltado en blurple. -->
+        <p class="tutoring-terminal__hint">
+          <span class="tutoring-terminal__part tutoring-terminal__part--accent">clear</span>
+          <span class="tutoring-terminal__part tutoring-terminal__part--muted">
+            {{ "TUTORING.TERMINAL.QUESTIONS.CLEAR_HINT_END" | translate }}
+          </span>
+        </p>
+      </div>
+
+      <!-- Barra de estado -->
+      <div class="tutoring-status">
+        <div class="tutoring-status__group">
+          <span class="tutoring-status__branch">
+            <svg
+              class="tutoring-status__icon"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path d="M10 2a8 8 0 100 16 8 8 0 000-16zm1 11H9v-2h2v2zm0-4H9V5h2v4z" />
+            </svg>
+            {{ "TUTORING.TERMINAL.STATUSBAR.BRANCH" | translate }}
+          </span>
+          <span>{{ "TUTORING.TERMINAL.STATUSBAR.ERRORS" | translate }}</span>
+          <span class="tutoring-status__lang">
+            {{ "TUTORING.TERMINAL.STATUSBAR.LANG" | translate }}
+          </span>
+        </div>        
+      </div>
+    </div>
+  </div>
+</section>

@@ -90,6 +90,7 @@ export class AppComponent {
       const theme = this._router.routerState.snapshot.root.firstChild?.data['theme'] as string | undefined;
       document.documentElement.classList.toggle('theme-angular', theme === 'angular');
       document.documentElement.classList.toggle('theme-n8n', theme === 'n8n');
+      document.documentElement.classList.toggle('theme-tutoring', theme === 'tutoring');
 
       const isOnePager = this._sectionsNav.sectionFromUrl(url) !== null;
 

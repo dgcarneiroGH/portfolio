@@ -1,3 +1,442 @@
-// Página "Tutorías" (ruta /tutoring): placeholder sin estilos propios por ahora.
-// Cuando llegue el diseño, colores → _palette.scss y tipografías → _fonts.scss
-// (reglas AGENTS 2026-10-08).
+// Página "Tutorías" (/tutoring): chrome del IDE — breadcrumb, ventana,
+// sidebar explorador, tabs, top bar y status bar. El interior del terminal
+// vive en tutoring-terminal.scss. La raíz <section> mantiene el fondo por
+// defecto de la app (regla AGENTS 2026-11-17); el color Discord se encierra
+// en la ventana.
+@use "src/styles/_palette" as palette;
+@use "src/styles/_fonts" as fonts;
+@use "src/styles/_shadows" as shadows;
+@use "src/styles/_focus" as focus;
+
+// Título accesible: sin render visual (h1 para el lector de pantallas).
+// .sr-only es utilidad global (styles.scss).
+
+// Raíz de la sección: app-window de alto FIJO (elección del usuario,
+// 2026-11-21): la ventana ocupa casi todo el viewport con margen en los
+// cuatro lados y el ÚNICO scroll es el interno del terminal. dvh evita el
+// salto de la barra de direcciones en móvil.
+.tutoring {
+  height: 100vh;
+  height: 100dvh;
+}
+
+// ---------- Breadcrumb ----------
+.tutoring-breadcrumb {
+  flex-shrink: 0;
+  width: min(1440px, calc(100% - 2rem));
+  margin: 0.75rem auto 0;
+  background: palette.$discord-panel;
+  border: 1px solid palette.$discord-border;
+  border-bottom: 0;
+}
+
+.tutoring-breadcrumb__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.5rem 1.5rem;
+  font-family: fonts.$mono;
+  font-size: 0.6875rem;
+  color: palette.$discord-muted;
+}
+
+.tutoring-breadcrumb__path {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+}
+
+.tutoring-breadcrumb__accent {
+  color: palette.$discord-blurple;
+}
+
+.tutoring-breadcrumb__sep {
+  color: palette.$discord-muted;
+}
+
+.tutoring-breadcrumb__file {
+  color: palette.$text-primary;
+  font-weight: 500;
+}
+
+// ---------- Ventana IDE ----------
+.tutoring-window {
+  // Alto FIJO: el restante del viewport después de breadcrumb y márgenes.
+  // El único scroll de la página es el interno del terminal.
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  width: min(1440px, calc(100% - 2rem));
+  margin: 0 auto 5rem;
+  overflow: hidden;
+  border: 1px solid palette.$discord-border;
+  background: palette.$discord-bg;
+  @include shadows.shadow-lg;
+}
+
+// ---------- Sidebar ----------
+.tutoring-sidebar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow-y: auto;
+  background: palette.$discord-panel;
+  border-right: 1px solid palette.$discord-border;
+  user-select: none;
+}
+
+.tutoring-sidebar__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid palette.$discord-border;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: palette.$discord-muted;
+}
+
+.tutoring-sidebar__body {
+  padding: 0.75rem;
+}
+
+.tutoring-sidebar__group {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  margin: 0 0 0.5rem;
+  padding-left: 0.5rem;
+  font-family: fonts.$mono;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: palette.$discord-muted;
+}
+
+.tutoring-sidebar__chevron {
+  width: 0.875rem;
+  height: 0.875rem;
+  color: palette.$discord-blurple;
+}
+
+.tutoring-files {
+  display: grid;
+  gap: 0.25rem;
+  padding: 0 0 0 0.5rem;
+  margin: 0;
+  list-style: none;
+}
+
+.tutoring-files__link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.375rem 0.625rem;
+  border-left: 2px solid transparent;
+  border-radius: 0.25rem;
+  font-family: fonts.$mono;
+  font-size: 0.75rem;
+  color: palette.$discord-muted;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+
+  &:hover {
+    background: palette.$discord-surface;
+    color: palette.$text-primary;
+  }
+
+  // Anillo de foco: solo interactivos (AGENTS 2026-11-18).
+  &:focus-visible {
+    @include focus.focus-ring(palette.$discord-blurple, palette.$discord-panel);
+  }
+}
+
+.tutoring-files__link.is-active {
+  background: palette.$discord-border;
+  border-left-color: palette.$discord-blurple;
+  color: palette.$text-primary;
+  font-weight: 500;
+}
+
+.tutoring-files__hash {
+  color: palette.$discord-blurple;
+}
+
+.tutoring-files__hash--contact {
+  color: palette.$discord-warning;
+}
+
+.tutoring-files__badge {
+  margin-left: auto;
+  padding: 0.125rem 0.375rem;
+  border-radius: 0.25rem;
+  background: palette.$discord-blurple;
+  font-size: 0.5625rem;
+  color: palette.$discord-bg;
+}
+
+.tutoring-stats {
+  margin-top: 1.5rem;
+  padding: 0.625rem;
+  border: 1px solid palette.$discord-border;
+  border-radius: 0.25rem;
+  background: palette.$discord-surface;
+  font-family: fonts.$mono;
+}
+
+.tutoring-stats__title {
+  margin: 0 0 0.5rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: palette.$discord-muted;
+}
+
+.tutoring-stats__list {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0;
+  font-size: 0.6875rem;
+}
+
+.tutoring-stats__row {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+
+  dt {
+    color: palette.$discord-muted;
+  }
+
+  dd {
+    margin: 0;
+    color: palette.$text-primary;
+  }
+}
+
+.tutoring-stats__value-ok {
+  color: palette.$discord-success;
+  font-weight: 700;
+}
+
+.tutoring-stats__value-accent {
+  color: palette.$discord-blurple;
+}
+
+.tutoring-channel {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.75rem;
+  background: palette.$discord-bg;
+  border-top: 1px solid palette.$discord-border;
+}
+
+.tutoring-channel__icon {
+  display: block;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 9999px; // el SVG trae su propio fondo circular: el radio solo
+  // garantiza la forma de badge ante futuros assets cuadrados.
+}
+
+.tutoring-channel__text {
+  display: grid;
+  line-height: 1.35;
+}
+
+.tutoring-channel__title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: palette.$text-primary;
+}
+
+.tutoring-channel__subtitle {
+  font-size: 0.625rem;
+  color: palette.$discord-success;
+}
+
+// ---------- Área principal ----------
+.tutoring-main {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0; // Cadena de flex: permite que el terminal (flex:1) encoja.
+  background: palette.$discord-terminal;
+}
+
+// Tabs del editor (decorativas, sin interacción)
+.tutoring-tabs {
+  display: flex;
+  align-items: center;
+  overflow-x: auto;
+  scrollbar-width: none;
+  background: palette.$discord-panel;
+  border-bottom: 1px solid palette.$discord-border;
+  font-family: fonts.$mono;
+  font-size: 0.75rem;
+  user-select: none;
+}
+
+.tutoring-tab {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border-right: 1px solid rgba(palette.$discord-border, 0.5);
+  color: palette.$discord-muted;
+}
+
+.tutoring-tab.is-active {
+  background: palette.$discord-terminal;
+  border-top: 2px solid palette.$discord-blurple;
+  color: palette.$text-primary;
+}
+
+.tutoring-tab__prompt {
+  color: palette.$discord-blurple;
+  font-weight: 700;
+}
+
+.tutoring-tab__badge {
+  padding: 0.125rem 0.25rem;
+  border-radius: 0.25rem;
+  background: palette.$discord-success;
+  font-size: 0.625rem;
+  color: palette.$discord-terminal;
+}
+
+// Top bar del terminal
+.tutoring-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+  background: palette.$discord-panel;
+  border-bottom: 1px solid palette.$discord-border;
+  font-family: fonts.$mono;
+  font-size: 0.6875rem;
+  color: palette.$discord-muted;
+}
+
+.tutoring-topbar__left {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.tutoring-topbar__dots {
+  display: flex;
+  gap: 0.375rem;
+}
+
+.tutoring-topbar__dot {
+  display: inline-block;
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 9999px;
+}
+
+.tutoring-topbar__dot--red {
+  background: rgba(palette.$discord-red, 0.8);
+}
+
+.tutoring-topbar__dot--yellow {
+  background: rgba(palette.$discord-warning, 0.8);
+}
+
+.tutoring-topbar__dot--green {
+  background: rgba(palette.$discord-success, 0.8);
+}
+
+// ---------- Status bar ----------
+.tutoring-status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.375rem 1rem;
+  background: palette.$discord-panel;
+  border-top: 1px solid palette.$discord-border;
+  font-family: fonts.$mono;
+  font-size: 0.6875rem;
+  color: palette.$discord-muted;
+  user-select: none;
+}
+
+.tutoring-status__group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.tutoring-status__branch {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  color: palette.$discord-blurple;
+}
+
+.tutoring-status__icon {
+  width: 0.75rem;
+  height: 0.75rem;
+}
+
+// ---------- Responsive (regla AGENTS 2026-11-17) ----------
+@media (max-width: 1023px) {
+  .tutoring-sidebar {
+    display: none;
+  }
+
+  .tutoring-window {
+    grid-template-columns: 1fr;
+  }
+
+  .tutoring-status {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .tutoring-status__lang {
+    display: none;
+  }
+}
+
+@media (max-width: 639px) {
+
+  // Márgenes laterales/inferiores reducidos (siguen en los cuatro lados).
+  .tutoring-breadcrumb {
+    width: calc(100% - 1rem);
+    margin-top: 0.5rem;
+  }
+
+  .tutoring-window {
+    width: calc(100% - 1rem);
+  }
+
+  .tutoring-breadcrumb__inner {
+    padding-inline: 1rem;
+  }
+
+  .tutoring-status__group {
+    gap: 0.5rem;
+  }
+
+  // Con el espacio mínimo: rama + errores a la izquierda, badge a la derecha.
+  .tutoring-status span:nth-child(2) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .tutoring-topbar__engine {
+    max-width: 40vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}

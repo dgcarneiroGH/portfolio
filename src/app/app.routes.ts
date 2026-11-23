@@ -66,7 +66,7 @@ export const routes: Routes = [
       import(
         './features/tutoring-service/components/tutoring-service.component'
       ).then((m) => m.TutoringServiceComponent),
-    data: { animation: 'Tutoring', titleKey: 'ROUTE.TUTORING' }
+    data: { animation: 'Tutoring', titleKey: 'ROUTE.TUTORING', theme: 'tutoring' }
   },
   {
     path: 'blog',

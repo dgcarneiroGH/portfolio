@@ -58,6 +58,23 @@ $n8n-dark: #461b25; // Superficies internas: inputs, pins, avisos (rosa oscuro)
 $n8n-pink-mid: #ff6b8b; // Rosa medio — hover del CTA (diseño Figma 2026-11)
 $n8n-soft: #e0aebd; // Texto secundario tintado de la página N8N
 
+// Familia Discord de la página /tutoring (mock 2026-11-21), de más profunda
+// a más clara. Blurple = acento principal (bordes/prompt/CTA).
+$discord-bg: #1e2124; // Fondo de la ventana IDE / deep del tema
+$discord-panel: #202225; // Sidebar, tabs, status bar / dark del tema
+$discord-terminal: #181a1b; // Fondo del cuerpo del terminal
+$discord-surface: #282b30; // Superficie 2: cajas, hovers, botón restart
+$discord-border: #36393e; // Bordes, tab activa, divisores
+$discord-input: #424549; // Fondo del input del CLI / elementos destacados
+$discord-blurple: #7289da; // Acento principal
+$discord-success: #43b581; // [OK], ✔, confirmaciones
+$discord-warning: #faa61a; // ★, comando ejecutado
+$discord-info: #00d2ff; // Marcadores ? / i
+$discord-muted: #94a3b8; // Texto secundario
+$discord-cursor: #57f287; // Cursor parpadeante
+$discord-link: #81cfff; // Valores destacados / texto pequeño sobre oscuro
+$discord-red: #ed4245; // Semáforo rojo decorativo
+
 // Verdes suaves
 $green-soft: #8ed4c2;
 $green-mint: #aaf0de;

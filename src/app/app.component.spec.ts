@@ -20,6 +20,7 @@ const SPEC_ROUTES: Routes = [
   { path: 'success-cases', component: DummyOnePager },
   { path: 'contact', component: DummyOnePager },
   { path: 'n8n', component: DummyOnePager, data: { theme: 'n8n' } },
+  { path: 'tutoring', component: DummyOnePager, data: { theme: 'tutoring' } },
   { path: 'blog', component: DummyBlog }
 ];
 
@@ -168,6 +169,18 @@ describe('AppComponent', () => {
 
       await navigate('/contact');
       expect(document.documentElement.classList.contains('theme-n8n')).toBeFalse();
+    });
+
+    it('aplica el tema de servicio theme-tutoring en su ruta y lo retira al salir', async () => {
+      await navigate('/tutoring');
+      expect(
+        document.documentElement.classList.contains('theme-tutoring')
+      ).toBeTrue();
+
+      await navigate('/contact');
+      expect(
+        document.documentElement.classList.contains('theme-tutoring')
+      ).toBeFalse();
     });
   });
 
